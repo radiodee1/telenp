@@ -14,7 +14,8 @@
 * the License.
 */
 var serverPath = '//awesometelenp.appspot.com/';
-
+var tx_number = 0;
+var tx_operation = "";
 // The functions triggered by the buttons on the Hangout App
 function countButtonClick() {
   // Note that if you click the button several times in succession,
@@ -62,8 +63,22 @@ function tryDownClick() {
 	formJSONClick("down");
 }
 
+function tryStopClick() {
+	formJSONClick("stop");
+}
+
 function formJSONClick(operation) {
+	tx_operation = operation; 
 	console.log(operation);
+	console.log( JSON.stringify(makeJSON(operation, 1) ) );
+}
+
+function makeJSON(operation, num ) {
+	var myJSON = { "ross_message" : [
+		{ "direction" : operation , "number" : num } 
+	] };
+	
+	return myJSON;
 }
 
 function getMessageClick() {
