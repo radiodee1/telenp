@@ -30,11 +30,16 @@
      
 <script src="//awesometelenp.appspot.com/static/app.js"></script>
 <!-- script src="app.js"></script -->
-<h1><img src="//awesometelenp.appspot.com/static/hangouts-logo.png" 
-    alt="-- " height="50" width="50">Tele NP App</h1>
 
-<!--    
-<div style="float: left; padding: 0px 20px; border-right: 1px solid #EEE">
+<body style="background-color: #999">
+<div style="float: left; padding: 0px 20px; background-color: #999">
+
+<h1><img src="//awesometelenp.appspot.com/static/hangouts-logo.png" 
+    alt="-- " height="50" width="50">Controls</h1>
+
+
+<!--
+
   <p>Collaborate with your friends to count to a big number!</p>
   <dl>
     <dt>Current count:</dt>
@@ -71,6 +76,7 @@
   <input type=button value="Stop/Reset" id="tryStopButton"
       onClick="tryStopClick()"/><br><br>      
 </div>
-<div style="clear: both;"></div>
+<!--div style="clear: both;"></div -->
+</body>
 ]]></Content>
 </Module>
