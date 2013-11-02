@@ -69,8 +69,10 @@ function tryStopClick() {
 
 function formJSONClick(operation) {
 	tx_operation = operation; 
+	tx_number ++;
+	tx_number = tx_number % 16;
 	console.log(operation);
-	console.log( JSON.stringify(makeJSON(operation, 1) ) );
+	console.log( JSON.stringify(makeJSON(operation,  tx_number) ) );
 }
 
 function makeJSON(operation, num ) {
