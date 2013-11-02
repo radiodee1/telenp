@@ -1,7 +1,7 @@
 # a test version of the app.yaml used for development. This is not intended to be checked in
 application: awesometelenp
 
-version: 4
+version: 5
 runtime: python27
 api_version: 1
 threadsafe: false
