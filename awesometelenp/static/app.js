@@ -16,6 +16,10 @@
 var serverPath = '//awesometelenp.appspot.com/';
 var tx_number = 0;
 var tx_operation = "";
+var tx_gapi_key = "telenp";
+var rx_data = "";
+var rx_object = null;
+var rx_data_old = "";
 // The functions triggered by the buttons on the Hangout App
 function countButtonClick() {
   // Note that if you click the button several times in succession,
@@ -40,13 +44,14 @@ function resetButtonClick() {
   gapi.hangout.data.submitDelta({'count': '0'});
 }
 
+/*
 var forbiddenCharacters = /[^a-zA-Z!0-9_\- ]/;
 function setText(element, text) {
   element.innerHTML = typeof text === 'string' ?
       text.replace(forbiddenCharacters, '') :
       '';
 }
-
+*/
 function tryLeftClick() {
 	formJSONClick("left");
 }
@@ -72,15 +77,28 @@ function formJSONClick(operation) {
 	tx_number ++;
 	tx_number = tx_number % 16;
 	console.log(operation);
-	console.log( JSON.stringify(makeJSON(operation,  tx_number) ) );
+	makeText = JSON.stringify(makeJSON(operation,  tx_number) ) ;
+	console.log( makeText );	
+	gapi.hangout.data.setValue( tx_gapi_key, makeText);
 }
 
 function makeJSON(operation, num ) {
-	var myJSON = { "ross_message" : [
-		{ "direction" : operation , "number" : num } 
-	] };
+	var myJSON = //{ "list" : [
+		{ "direction" : operation , "number" : num }; //]}; 
+	
 	
 	return myJSON;
+}
+
+function recieveEvent () {
+	
+	rx_data = gapi.hangout.data.getState()[tx_gapi_key];
+	if (rx_data == rx_data_old) return;
+
+	rx_object = JSON.parse(rx_data) ;	
+	console.log(rx_object + " -- " + rx_object.direction + " -- " + rx_object.number);
+	rx_data_old = rx_data;
+	
 }
 
 function getMessageClick() {
@@ -124,14 +142,14 @@ function init() {
       console.log('API is ready');
 
       gapi.hangout.data.onStateChanged.add(function(eventObj) {
-        updateStateUi(eventObj.state);
+        recieveEvent();
       });
-      gapi.hangout.onParticipantsChanged.add(function(eventObj) {
-        updateParticipantsUi(eventObj.participants);
-      });
+      //gapi.hangout.onParticipantsChanged.add(function(eventObj) {
+      //  updateParticipantsUi(eventObj.participants);
+      //});
 
-      updateStateUi(gapi.hangout.data.getState());
-      updateParticipantsUi(gapi.hangout.getParticipants());
+      //updateStateUi(gapi.hangout.data.getState());
+      //updateParticipantsUi(gapi.hangout.getParticipants());
 
       gapi.hangout.onApiReady.remove(apiReady);
     }
