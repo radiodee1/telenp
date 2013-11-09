@@ -20,7 +20,7 @@ var tx_gapi_key = "telenp";
 var rx_data = "";
 var rx_object = null;
 var rx_data_old = "";
-
+var retransmit = false;
 
 function tryLeftClick() {
 	formJSONClick("left");
@@ -42,14 +42,25 @@ function tryStopClick() {
 	formJSONClick("stop");
 }
 
+function tryTurtlebotClick() {
+	if (document.getElementById("setTurtlebot").checked) retransmit = true;
+	else retransmit = false;
+	console.log(retransmit + "  retransmit");
+}
+
 function formJSONClick(operation) {
 	tx_operation = operation; 
 	tx_number ++;
 	tx_number = tx_number % 16;
 	console.log(operation);
 	makeText = JSON.stringify(makeJSON(operation,  tx_number) ) ;
-	console.log( makeText );	
-	gapi.hangout.data.setValue( tx_gapi_key, makeText);
+	console.log( makeText );
+	try {	
+		gapi.hangout.data.setValue( tx_gapi_key, makeText);
+	}
+	catch (e) {
+		console.log("hangout setValue error.");
+	}
 }
 
 function makeJSON(operation, num ) {
@@ -63,11 +74,34 @@ function recieveEvent () {
 	if (rx_data == rx_data_old) return;
 
 	rx_object = JSON.parse(rx_data) ;	
-	console.log(rx_object + " -- " + rx_object.direction + " -- " + rx_object.number);
+	console.log( rx_object.direction + " -- " + rx_object.number);
 	rx_data_old = rx_data;
-	
+	if(retransmit == true) retransmitEvent(rx_object);
 }
 
+function retransmitEvent(data) {
+	console.log(data.direction + " --");
+	
+	var twist = new ROSLIB.Message({
+    	linear : 1, //float32
+    	angular : 1 //float32
+  	});
+	/*
+	var twist = new ROSLIB.Message({
+    	linear : {
+      	x : 0.1,
+      	y : 0.2,
+      	z : 0.3
+    	},
+    	angular : {
+      	x : -0.1,
+      	y : -0.2,
+      	z : -0.3
+    	}
+  	});
+  	*/
+	cmdVel.publish(twist);
+}
 
 // A function to be run at app initialization time which registers our callbacks
 function init() {
@@ -77,10 +111,19 @@ function init() {
     if (eventObj.isApiReady) {
       console.log('API is ready');
 
-      gapi.hangout.data.onStateChanged.add(function(eventObj) {
-        recieveEvent();
-      });
+	
 
+    gapi.hangout.data.onStateChanged.add(function(eventObj) {
+        recieveEvent();
+    });
+	
+	var ros = new ROSLIB.Ros({url : 'ws://localhost:9090'});
+	var cmdVel = new ROSLIB.Topic({
+		ros : ros,
+		name : '/turtle1/command_velocity', //'/cmd_vel',
+		messageType : 'turtlesim/Velocity' //'geometry_msgs/Twist'
+	});
+	
       gapi.hangout.onApiReady.remove(apiReady);
     }
   };
