@@ -31,8 +31,8 @@
 <script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
      
-<!--script src="//awesometelenp.appspot.com/static/app.js"></script -->
-<script src="app.js"></script>
+<script src="//awesometelenp.appspot.com/static/app.js"></script>
+<!-- script src="app.js"></script -->
 
 <body style="background-color: #999">
 <div style="float: left; padding: 0px 20px; background-color: #999">
