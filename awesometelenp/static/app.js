@@ -21,8 +21,8 @@ var rx_data = "";
 var rx_object = null;
 var rx_data_old = "";
 var retransmit = false;
-var ros;
-var cmdVel;
+var ros = new Object();
+var cmdVel = new Object();
 
 function tryLeftClick() {
 	formJSONClick("left");
