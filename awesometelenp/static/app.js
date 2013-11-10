@@ -81,10 +81,35 @@ function recieveEvent () {
 
 function retransmitEvent(data) {
 	console.log(data.direction + " --");
+	var numLinear = 0;
+	var numAngular = 0;
+	
+	switch(data.direction) {
+		case "left":
+			numAngular = 1;
+		break;
+		
+		case "right":
+			numAngular = -1;
+		break;
+		
+		case "up":
+			numLinear = 1;
+		break;
+		
+		case "down":
+			numLinear = -1;
+		break;
+		
+		case "stop":
+			numAngular = 0;
+			numLinear = 0;
+		break;
+	}
 	
 	var twist = new ROSLIB.Message({
-    	linear : 1, //float32
-    	angular : 1 //float32
+    	linear : numLinear, //float32
+    	angular : numAngular //float32
   	});
 	/*
 	var twist = new ROSLIB.Message({
