@@ -21,6 +21,8 @@ var rx_data = "";
 var rx_object = null;
 var rx_data_old = "";
 var retransmit = false;
+var ros;
+var cmdVel;
 
 function tryLeftClick() {
 	formJSONClick("left");
@@ -108,8 +110,8 @@ function retransmitEvent(data) {
 	}
 	
 	var twist = new ROSLIB.Message({
-    	linear : numLinear, //float32
-    	angular : numAngular //float32
+    	'linear' : numLinear, //float32
+    	'angular' : numAngular //float32
   	});
 	/*
 	var twist = new ROSLIB.Message({
@@ -142,11 +144,11 @@ function init() {
         recieveEvent();
     });
 	
-	var ros = new ROSLIB.Ros({url : 'ws://localhost:9090'});
-	var cmdVel = new ROSLIB.Topic({
-		ros : ros,
-		name : '/turtle1/command_velocity', //'/cmd_vel',
-		messageType : 'turtlesim/Velocity' //'geometry_msgs/Twist'
+	ros = new ROSLIB.Ros({url : 'ws://localhost:9090'});
+	cmdVel = new ROSLIB.Topic({
+		'ros' : ros,
+		'name' : '/turtle1/command_velocity', //'/cmd_vel',
+		'messageType' : 'turtlesim/Velocity' //'geometry_msgs/Twist'
 	});
 	
       gapi.hangout.onApiReady.remove(apiReady);
