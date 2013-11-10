@@ -27,9 +27,9 @@
      relative path.
      Tip: You can load it from a local web server such as
      http://localhost/app.js for faster single user development -->
-<script type="text/javascript" src="http://awesometelenp.appspot.com/static/roslib.min.js"></script>     
-<script type="text/javascript" src="http://awesometelenp.appspot.com/static/eventemitter2.min.js"></script>
 
+<script type="text/javascript" src="http://awesometelenp.appspot.com/static/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://awesometelenp.appspot.com/static/roslib.min.js"></script>     
      
 <script src="//awesometelenp.appspot.com/static/app.js"></script>
 <!-- script src="app.js"></script -->

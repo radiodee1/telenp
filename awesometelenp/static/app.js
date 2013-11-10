@@ -21,7 +21,7 @@ var rx_data = "";
 var rx_object = null;
 var rx_data_old = "";
 var retransmit = false;
-var ros = new Object();
+var connection = new Object();
 var cmdVel = new Object();
 
 function tryLeftClick() {
@@ -109,11 +109,27 @@ function retransmitEvent(data) {
 		break;
 	}
 	
+
+	//var connection = new WebSocket('ws://localhost:9090');
+	
+	var advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
+	connection.send(JSON.stringify(advertise_message));
+	
+	var outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
+		'msg': {'linear' : numLinear, 'angular' : numAngular }};
+	connection.send(JSON.stringify(outgoing_message));	
+	/*
+	cmdVel = new ROSLIB.Topic({
+		'ros' : ros,
+		'name' : '/turtle1/command_velocity', //'/cmd_vel',
+		'messageType' : 'turtlesim/Velocity' //'geometry_msgs/Twist'
+	});
+	
 	var twist = new ROSLIB.Message({
     	'linear' : numLinear, //float32
     	'angular' : numAngular //float32
   	});
-	/*
+	
 	var twist = new ROSLIB.Message({
     	linear : {
       	x : 0.1,
@@ -127,7 +143,7 @@ function retransmitEvent(data) {
     	}
   	});
   	*/
-	cmdVel.publish(twist);
+	//cmdVel.publish(twist);
 }
 
 // A function to be run at app initialization time which registers our callbacks
@@ -138,18 +154,13 @@ function init() {
     if (eventObj.isApiReady) {
       console.log('API is ready');
 
-	
+	connection = new WebSocket('wss://localhost:9090');
 
     gapi.hangout.data.onStateChanged.add(function(eventObj) {
         recieveEvent();
     });
 	
-	ros = new ROSLIB.Ros({url : 'ws://localhost:9090'});
-	cmdVel = new ROSLIB.Topic({
-		'ros' : ros,
-		'name' : '/turtle1/command_velocity', //'/cmd_vel',
-		'messageType' : 'turtlesim/Velocity' //'geometry_msgs/Twist'
-	});
+	
 	
       gapi.hangout.onApiReady.remove(apiReady);
     }
