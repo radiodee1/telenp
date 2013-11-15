@@ -1,3 +1,7 @@
+This document was modified for the telenp project. The AppEngine name for this
+project is 'awesometelenp'. The rest of the contents of this file are retained
+as a reference for the programmer.
+
 = Google+ Platform Hangout Sample App =
 
 If you're reading this, you've probably taken a look at the Hangouts API
