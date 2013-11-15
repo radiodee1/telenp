@@ -7,8 +7,8 @@
      Tip: You can load it from a local web server such as
      http://localhost/app.js for faster single user development -->
 
-<script type="text/javascript" src="http://awesometelenp.appspot.com/static/eventemitter2.min.js"></script>
-<script type="text/javascript" src="http://awesometelenp.appspot.com/static/roslib.min.js"></script>     
+<!-- script type="text/javascript" src="http://awesometelenp.appspot.com/static/eventemitter2.min.js"></script -->
+<!-- script type="text/javascript" src="http://awesometelenp.appspot.com/static/roslib.min.js"></script -->     
      
 <script src="//awesometelenp.appspot.com/static/app.js"></script>
 <!-- script src="app.js"></script -->
@@ -18,7 +18,7 @@
 
 <h1><img src="//awesometelenp.appspot.com/static/hangouts-logo.png" 
     alt="-- " height="50" width="50">Controls</h1>
- 
+  <!-- 
   <input type=button value="Try Left" id="tryLeftButton"
       onClick="tryLeftClick()"/><br><br>
   <input type=button value="Try Right" id="tryRightButton"
@@ -30,9 +30,36 @@
   <input type=button value="Stop/Reset" id="tryStopButton"
       onClick="tryStopClick()"/><br><br>   
   <br><br>
+  -->
+	<table border="0">
+	<tr>
+	<td></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_up.png" 
+		onClick="tryUpClick()" ></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_left.png" 
+		onClick="tryLeftClick()" ></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_center.png"  
+		onClick="tryStopClick()"></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_right.png" 
+		onClick="tryRightClick()" ></td>
+	</tr>
+	<tr>
+	<td></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_down.png"  
+		onClick="tryDownClick()"></td>
+	<td></td>
+	</tr>
+	</table>
+
+  <br><br>
   <input type=checkbox value="Turtlebot" id="setTurtlebot"
-        onClick="tryTurtlebotClick()">Turtlebot Node?</input>
-         
+        onClick="tryTurtlebotClick()">Turtlebot Node?</input><br>
+  <input type=checkbox value="Stream" id="setStream"
+        onClick="tryStreamClick()">Stream Mode?</input>         
+
 </div>
 <!--div style="clear: both;"></div -->
 </body>

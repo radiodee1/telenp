@@ -50,6 +50,10 @@ function tryTurtlebotClick() {
 	console.log(retransmit + "  retransmit");
 }
 
+function tryStreamClick() {
+	console.log("stream");
+}
+
 function formJSONClick(operation) {
 	tx_operation = operation; 
 	tx_number ++;
