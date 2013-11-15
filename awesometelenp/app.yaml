@@ -1,4 +1,4 @@
-# a test version of the app.yaml used for development. This is not intended to be checked in
+# a test version of the app.yaml used for the telenp project.
 application: awesometelenp
 
 version: 8
