@@ -52,16 +52,32 @@ function tryStopClick() {
 
 function tryTurtlebotClick() {
 	if (document.getElementById("setTurtlebot").checked) control_retransmit = true;
-	else control_retransmit = false;
+	else {
+		control_retransmit = false;
+		document.getElementById("setStream").checked = false;
+	}
 	console.log(control_retransmit + "  retransmit");
 }
 
 function tryStreamClick() {
+	if (control_retransmit) {
+	
+	}
+	else {
+		document.getElementById("setStream").checked = false;
+	}
 	console.log("stream");
 }
 
 function tryRadioClick() {
-	control_msgtype = MSG_STRING;
+	//var msgString = document.getElementById("messageString").checked;
+	if (document.getElementById("messageString").checked) control_msgtype = MSG_STRING;
+	//var msgCmdvel = document.getElementById("messageCmdvel").checked;
+	if (document.getElementById("messageCmdvel").checked) control_msgtype = MSG_CMD_VEL;	
+	//var msgVel = document.getElementById("messageVel").checked;
+	if (document.getElementById("messageVel").checked) control_msgtype = MSG_VELOCITY;	
+	//control_msgtype = MSG_STRING;
+	console.log(control_msgtype);
 }
 
 function formJSONClick(operation) {
