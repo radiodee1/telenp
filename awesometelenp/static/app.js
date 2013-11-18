@@ -20,9 +20,15 @@ var tx_gapi_key = "telenp";
 var rx_data = "";
 var rx_object = null;
 var rx_data_old = "";
-var retransmit = false;
+var control_retransmit = false;
+var control_msgtype = 0;
+var control_stream = false;
 var connection = new Object();
 var cmdVel = new Object();
+
+var MSG_STRING = 1;
+var MSG_CMD_VEL = 2;
+var MSG_VELOCITY = 3;
 
 function tryLeftClick() {
 	formJSONClick("left");
@@ -45,13 +51,17 @@ function tryStopClick() {
 }
 
 function tryTurtlebotClick() {
-	if (document.getElementById("setTurtlebot").checked) retransmit = true;
-	else retransmit = false;
-	console.log(retransmit + "  retransmit");
+	if (document.getElementById("setTurtlebot").checked) control_retransmit = true;
+	else control_retransmit = false;
+	console.log(control_retransmit + "  retransmit");
 }
 
 function tryStreamClick() {
 	console.log("stream");
+}
+
+function tryRadioClick() {
+	control_msgtype = MSG_STRING;
 }
 
 function formJSONClick(operation) {
@@ -82,7 +92,7 @@ function recieveEvent () {
 	rx_object = JSON.parse(rx_data) ;	
 	console.log( rx_object.direction + " -- " + rx_object.number);
 	rx_data_old = rx_data;
-	if(retransmit == true) retransmitEvent(rx_object);
+	if(control_retransmit == true) retransmitEvent(rx_object);
 }
 
 function retransmitEvent(data) {
@@ -113,14 +123,47 @@ function retransmitEvent(data) {
 		break;
 	}
 	
-
+	var advertise_message;
+	var outgoing_message;
+	
+	switch (control_msgtype) {
+		case MSG_STRING:
+			advertise_message =  {'op': 'advertise', 'topic':'/mymessage', 'type': 'std_msgs/String'};
+			outgoing_message =  {'op': 'publish', 'topic': '/mymessage', 
+				'msg': "hello" };
+		break;
+		
+		case MSG_CMD_VEL:
+			advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
+		
+			outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
+				'msg': {
+    			linear : {
+      			x : numLinear,
+      			y : 0.0,
+      			z : 0.0
+    			},
+    			angular : {
+      			x : 0.0,
+      			y : 0.0,
+      			z : numAngular
+    			}
+  			}};
+		break;
+		
+		case MSG_VELOCITY:
+			advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
+			outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
+				'msg': {'linear' : numLinear, 'angular' : numAngular }};
+		break;
+	}
 	//var connection = new WebSocket('ws://localhost:9090');
 	
-	var advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
+	//var advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
 	connection.send(JSON.stringify(advertise_message));
 	
-	var outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
-		'msg': {'linear' : numLinear, 'angular' : numAngular }};
+	//var outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
+	//	'msg': {'linear' : numLinear, 'angular' : numAngular }};
 	connection.send(JSON.stringify(outgoing_message));	
 	/*
 	cmdVel = new ROSLIB.Topic({

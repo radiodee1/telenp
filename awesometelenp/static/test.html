@@ -11,54 +11,55 @@
 <!-- script type="text/javascript" src="http://awesometelenp.appspot.com/static/roslib.min.js"></script -->     
      
 <script src="//awesometelenp.appspot.com/static/app.js"></script>
-<!-- script src="app.js"></script -->
+<script src="app.js"></script>
 
 <body style="background-color: #999">
 <div style="float: left; padding: 0px 20px; background-color: #999">
 
 <h1><img src="//awesometelenp.appspot.com/static/hangouts-logo.png" 
     alt="-- " height="50" width="50">Controls</h1>
-  <!-- 
-  <input type=button value="Try Left" id="tryLeftButton"
-      onClick="tryLeftClick()"/><br><br>
-  <input type=button value="Try Right" id="tryRightButton"
-      onClick="tryRightClick()"/><br><br>
-  <input type=button value="Try Up" id="tryUpButton"
-      onClick="tryUpClick()"/><br><br>
-  <input type=button value="Try Down" id="tryDownButton"
-      onClick="tryDownClick()"/><br><br> 
-  <input type=button value="Stop/Reset" id="tryStopButton"
-      onClick="tryStopClick()"/><br><br>   
-  <br><br>
-  -->
+  
 	<table border="0">
 	<tr>
 	<td></td>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_up.png" 
-		onClick="tryUpClick()" ></td>
+		onClick="tryUpClick()" alt="CLICK"></td>
 	<td></td>
 	</tr>
 	<tr>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_left.png" 
-		onClick="tryLeftClick()" ></td>
+		onClick="tryLeftClick()"  alt="CLICK"></td>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_center.png"  
-		onClick="tryStopClick()"></td>
+		onClick="tryStopClick()" alt="CLICK"></td>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_right.png" 
-		onClick="tryRightClick()" ></td>
+		onClick="tryRightClick()"  alt="CLICK"></td>
 	</tr>
 	<tr>
 	<td></td>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_down.png"  
-		onClick="tryDownClick()"></td>
+		onClick="tryDownClick()" alt="CLICK"></td>
 	<td></td>
 	</tr>
 	</table>
 
   <br><br>
+  
+  <table border="0">
+  <tr><td>
+	<b>Various:</b><br>
   <input type=checkbox value="Turtlebot" id="setTurtlebot"
         onClick="tryTurtlebotClick()">Turtlebot Node?</input><br>
   <input type=checkbox value="Stream" id="setStream"
         onClick="tryStreamClick()">Stream Mode?</input>         
+	</td><td>
+	<b>Message Type:</b><br>
+	<form action="">
+	<input type="radio" name="message" value="string" onclick="tryRadioClick()" >String<br>
+	<input type="radio" name="message" value="cmdvel" onclick="tryRadioClick()">cmd_vel<br>
+	<input type="radio" name="message" value="velocity" onclick="tryRadioClick()">command_velocity
+	</form>
+	</td></tr>
+	</table>
 
 </div>
 <!--div style="clear: both;"></div -->
