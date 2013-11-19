@@ -23,12 +23,15 @@ var rx_data_old = "";
 var control_retransmit = false;
 var control_msgtype = 0;
 var control_stream = false;
+var control_open = false;
 var connection = new Object();
 var cmdVel = new Object();
 
 var MSG_STRING = 1;
 var MSG_CMD_VEL = 2;
 var MSG_VELOCITY = 3;
+
+
 
 function tryLeftClick() {
 	formJSONClick("left");
@@ -139,14 +142,44 @@ function retransmitEvent(data) {
 		break;
 	}
 	
-	var advertise_message;
-	var outgoing_message;
+	var advertise_message = "";
+	var outgoing_message = "";
 	
 	switch (control_msgtype) {
 		case MSG_STRING:
-			advertise_message =  {'op': 'advertise', 'topic':'/mymessage', 'type': 'std_msgs/String'};
-			outgoing_message =  {'op': 'publish', 'topic': '/mymessage', 
-				'msg': "hello" };
+			advertise_message =  {op: 'advertise', topic:'/talker', type: 'std_msgs/String'};
+			outgoing_message =  {op: 'publish', topic: '/talker', 
+				msg: { data: "hello " + data.direction }};
+			
+			/*
+			var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
+
+			
+			var cmdVel = new ROSLIB.Topic({
+    			ros : ros,
+    			name : '/talker',
+   				 messageType : 'std_msgs/String'
+  			});
+  			
+  			var string = new ROSLIB.Message({ msg:"hello " + data.direction });
+			*/
+			
+			/*
+  			var twist = new ROSLIB.Message({
+    			linear : {
+      			x : 0.1,
+      			y : 0.2,
+      			z : 0.3
+    			},
+    			angular : {
+     			 x : -0.1,
+      			y : -0.2,
+      			z : -0.3
+    			}
+  			});
+  			*/	
 		break;
 		
 		case MSG_CMD_VEL:
@@ -174,15 +207,33 @@ function retransmitEvent(data) {
 		break;
 	}
 
-	connection = new WebSocket('ws://localhost:9090');
+	//cmdVel.publish(string);
 
-	connection.send(JSON.stringify(advertise_message));
+	//var node = new ros.Connection("ws://localhost:9090");
+	//connection = new WebSocket('wss://localhost:9090');
+	/*
+	node.setOnOpen ( function(e) {
+		console.log ("ros out");
+		node.publish('/talker', 'std_msgs/String', '"' + "hello " + data.direction + '"' );
+
+		console.log ("ros out done: " + JSON.stringify(outgoing_message));
+
+	});
+	*/
+
+	if (control_open) {
+	console.log("do this...");
 	
-	connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
+		connection.send(JSON.stringify(advertise_message));
 	
-	connection.send(JSON.stringify(outgoing_message));	
+		connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
 	
-	connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
+		console.log(JSON.stringify(outgoing_message) + "--");
+	
+		connection.send(JSON.stringify(outgoing_message));	
+	
+		connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
+	}
 }
 
 // A function to be run at app initialization time which registers our callbacks
@@ -193,12 +244,24 @@ function init() {
     if (eventObj.isApiReady) {
       console.log('API is ready');
 
-	connection = new WebSocket('ws://localhost:9090');
-
+	
+	
     gapi.hangout.data.onStateChanged.add(function(eventObj) {
         recieveEvent();
     });
+	console.log("websocket test");
+	if ('WebSocket' in window){
+    	/* WebSocket is supported. You can proceed with your code*/
+		connection = new WebSocket('wss://localhost:9090');
+		connection.onopen = function () { 
+			control_open = true ;
+			console.log("websocket"); 
+		};	
+	} else {
+    	/*WebSockets are not supported. Try a fallback method like long-polling etc*/
 	
+		alert("no web sockets.");
+	}
 	
 	
       gapi.hangout.onApiReady.remove(apiReady);
@@ -209,5 +272,8 @@ function init() {
   // event if you would like to any more complex app setup.
   gapi.hangout.onApiReady.add(apiReady);
 }
+
+
+
 
 gadgets.util.registerOnLoadHandler(init);

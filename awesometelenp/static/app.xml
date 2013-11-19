@@ -28,8 +28,9 @@
      Tip: You can load it from a local web server such as
      http://localhost/app.js for faster single user development -->
 
-<!-- script type="text/javascript" src="http://awesometelenp.appspot.com/static/eventemitter2.min.js"></script -->
-<!-- script type="text/javascript" src="http://awesometelenp.appspot.com/static/roslib.min.js"></script -->     
+<!-- script type="text/javascript" src="https://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script -->
+<!-- script type="text/javascript" src="https://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script -->     
+<!-- script type="text/javascript" src="https://brown-ros-pkg.googlecode.com/svn/tags/brown-ros-pkg/rosbridge/ros.js"></script -->     
      
 <script src="//awesometelenp.appspot.com/static/app.js"></script>
 <!-- script src="app.js"></script -->
@@ -63,7 +64,7 @@
 	</tr>
 	</table>
 
-  <br><br>
+  <br>
   
   <table border="0">
   <tr><td>
