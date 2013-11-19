@@ -70,13 +70,13 @@ function tryStreamClick() {
 }
 
 function tryRadioClick() {
-	//var msgString = document.getElementById("messageString").checked;
+
 	if (document.getElementById("messageString").checked) control_msgtype = MSG_STRING;
-	//var msgCmdvel = document.getElementById("messageCmdvel").checked;
+
 	if (document.getElementById("messageCmdvel").checked) control_msgtype = MSG_CMD_VEL;	
-	//var msgVel = document.getElementById("messageVel").checked;
+
 	if (document.getElementById("messageVel").checked) control_msgtype = MSG_VELOCITY;	
-	//control_msgtype = MSG_STRING;
+
 	console.log(control_msgtype);
 }
 
@@ -173,40 +173,16 @@ function retransmitEvent(data) {
 				'msg': {'linear' : numLinear, 'angular' : numAngular }};
 		break;
 	}
-	//var connection = new WebSocket('ws://localhost:9090');
-	
-	//var advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
+
+	connection = new WebSocket('ws://localhost:9090');
+
 	connection.send(JSON.stringify(advertise_message));
 	
-	//var outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
-	//	'msg': {'linear' : numLinear, 'angular' : numAngular }};
+	connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
+	
 	connection.send(JSON.stringify(outgoing_message));	
-	/*
-	cmdVel = new ROSLIB.Topic({
-		'ros' : ros,
-		'name' : '/turtle1/command_velocity', //'/cmd_vel',
-		'messageType' : 'turtlesim/Velocity' //'geometry_msgs/Twist'
-	});
 	
-	var twist = new ROSLIB.Message({
-    	'linear' : numLinear, //float32
-    	'angular' : numAngular //float32
-  	});
-	
-	var twist = new ROSLIB.Message({
-    	linear : {
-      	x : 0.1,
-      	y : 0.2,
-      	z : 0.3
-    	},
-    	angular : {
-      	x : -0.1,
-      	y : -0.2,
-      	z : -0.3
-    	}
-  	});
-  	*/
-	//cmdVel.publish(twist);
+	connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
 }
 
 // A function to be run at app initialization time which registers our callbacks
@@ -217,7 +193,7 @@ function init() {
     if (eventObj.isApiReady) {
       console.log('API is ready');
 
-	connection = new WebSocket('wss://localhost:9090');
+	connection = new WebSocket('ws://localhost:9090');
 
     gapi.hangout.data.onStateChanged.add(function(eventObj) {
         recieveEvent();
