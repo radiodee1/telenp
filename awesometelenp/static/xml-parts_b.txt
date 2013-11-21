@@ -1,2 +1,15 @@
-]]></Content>
-</Module>
+<!DOCTYPE html>
+<!-- The hangout API JavaScript. Always include this first -->
+<script src="//hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0"></script>
+
+<!-- The JavaScript for this app. This must always be a full URL not a
+     relative path.
+     Tip: You can load it from a local web server such as
+     http://localhost/app.js for faster single user development -->
+
+<script type="text/javascript" src="//awesometelenp.appspot.com/static/eventemitter2.min.js"></script>
+<script type="text/javascript" src="//awesometelenp.appspot.com/static/roslib.min.js"></script>     
+<!--script type="text/javascript" src="https://brown-ros-pkg.googlecode.com/svn/tags/brown-ros-pkg/rosbridge/ros.js"></script -->     
+     
+<script type="text/javascript"><!-- /script -->
+

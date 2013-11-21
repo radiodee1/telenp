@@ -153,11 +153,11 @@ function retransmitEvent(data) {
 			
 			//var con = new ros.Bridge('ws://localhost:9090');
 
-			/*
+			
 			var ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
   			});
-
+			
 			
 			var cmdVel = new ROSLIB.Topic({
     			ros : ros,
@@ -166,8 +166,12 @@ function retransmitEvent(data) {
   			});
   			
   			var string = new ROSLIB.Message({ msg:"hello " + data.direction });
-			*/
 			
+
+			cmdVel.publish(string);
+
+			console.log("no error?");
+
 			/*
   			var twist = new ROSLIB.Message({
     			linear : {
