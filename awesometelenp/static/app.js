@@ -165,7 +165,7 @@ function retransmitEvent(data) {
    				 messageType : 'std_msgs/String'
   			});
   			
-  			var string = new ROSLIB.Message({ msg:"hello " + data.direction });
+  			var string = new ROSLIB.Message({ data: "hello " + data.direction });
 			
 
 			cmdVel.publish(string);
