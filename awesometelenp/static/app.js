@@ -147,12 +147,6 @@ function retransmitEvent(data) {
 	
 	switch (control_msgtype) {
 		case MSG_STRING:
-			advertise_message =  {op: 'advertise', topic:'/talker', type: 'std_msgs/String'};
-			outgoing_message =  {op: 'publish', topic: '/talker', 
-				msg: { data: "hello " + data.direction }};
-			
-			//var con = new ros.Bridge('ws://localhost:9090');
-
 			
 			var ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
@@ -160,8 +154,8 @@ function retransmitEvent(data) {
 			
 			
 			var cmdVel = new ROSLIB.Topic({
-    			ros : ros,
-    			name : '/talker',
+    			'ros' : ros,
+    			'name' : '/talker',
    				 messageType : 'std_msgs/String'
   			});
   			
@@ -170,76 +164,89 @@ function retransmitEvent(data) {
 
 			cmdVel.publish(string);
 
-			console.log("no error?");
+			console.log("no error? -- string");
 
-			/*
-  			var twist = new ROSLIB.Message({
-    			linear : {
-      			x : 0.1,
-      			y : 0.2,
-      			z : 0.3
-    			},
-    			angular : {
-     			 x : -0.1,
-      			y : -0.2,
-      			z : -0.3
-    			}
-  			});
-  			*/	
+			
 		break;
 		
 		case MSG_CMD_VEL:
-			advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
-		
-			outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
-				'msg': {
+
+			
+
+			var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
+			
+			
+			var cmdVel = new ROSLIB.Topic({
+    			'ros' : ros,
+    			'name' : '/cmd_vel',
+   				 messageType : 'geometry_msgs/Twist'
+  			});
+  			
+  			//var string = new ROSLIB.Message({ data: "hello " + data.direction });
+			
+  			var twist = new ROSLIB.Message({
     			linear : {
       			x : numLinear,
       			y : 0.0,
       			z : 0.0
     			},
     			angular : {
-      			x : 0.0,
+     			x : 0.0,
       			y : 0.0,
       			z : numAngular
     			}
-  			}};
+  			});
+  				
+
+			cmdVel.publish(twist);
+
+			console.log("no error? -- twist");
+
 		break;
 		
 		case MSG_VELOCITY:
 			advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
 			outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
 				'msg': {'linear' : numLinear, 'angular' : numAngular }};
+
+			var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
+			
+			
+			var cmdVel = new ROSLIB.Topic({
+    			'ros' : ros,
+    			'name' : '/turtle1/command_velocity',
+   				 messageType : 'turtlesim/Velocity'
+  			});
+  			
+  			//var string = new ROSLIB.Message({ data: "hello " + data.direction });
+			
+  			var velocity = new ROSLIB.Message({
+    			linear : {
+      			x : numLinear,
+      			y : 0.0,
+      			z : 0.0
+    			},
+    			angular : {
+     			x : 0.0,
+      			y : 0.0,
+      			z : numAngular
+    			}
+  			});
+  				
+
+			cmdVel.publish(velocity);
+
+			console.log("no error? -- velocity");
 		break;
 	}
 
-	//cmdVel.publish(string);
+	
 
-	//var node = new ros.Connection("ws://localhost:9090");
-	//connection = new WebSocket('wss://localhost:9090');
-	/*
-	node.setOnOpen ( function(e) {
-		console.log ("ros out");
-		node.publish('/talker', 'std_msgs/String', '"' + "hello " + data.direction + '"' );
-
-		console.log ("ros out done: " + JSON.stringify(outgoing_message));
-
-	});
-	*/
-
-	if (control_open) {
-	console.log("do this...");
 	
-		connection.send(JSON.stringify(advertise_message));
-	
-		connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
-	
-		console.log(JSON.stringify(outgoing_message) + "--");
-	
-		connection.send(JSON.stringify(outgoing_message));	
-	
-		connection.onmessage = function(incoming_message) { console.log("Received:", incoming_message.data); }
-	}
 }
 
 // A function to be run at app initialization time which registers our callbacks
@@ -258,11 +265,7 @@ function init() {
 	console.log("websocket test");
 	if ('WebSocket' in window){
     	/* WebSocket is supported. You can proceed with your code*/
-		connection = new WebSocket('wss://localhost:9090');
-		connection.onopen = function () { 
-			control_open = true ;
-			console.log("websocket"); 
-		};	
+			
 	} else {
     	/*WebSockets are not supported. Try a fallback method like long-polling etc*/
 	
