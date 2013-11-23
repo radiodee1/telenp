@@ -50,7 +50,7 @@
 * the License.
 */
 var serverPath = '//awesometelenp.appspot.com/';
-var tx_number = 0;
+var tx_number = -1;
 var tx_operation = "";
 var tx_gapi_key = "telenp";
 var rx_data = "";
@@ -62,6 +62,7 @@ var control_stream = false;
 var control_open = false;
 var connection = new Object();
 var cmdVel = new Object();
+var stream_num = 0;
 
 var MSG_STRING = 1;
 var MSG_CMD_VEL = 2;
@@ -86,11 +87,16 @@ function tryDownClick() {
 }
 
 function tryStopClick() {
+	tx_number = - 1;
 	formJSONClick("stop");
 }
 
 function tryTurtlebotClick() {
-	if (document.getElementById("setTurtlebot").checked) control_retransmit = true;
+	if (document.getElementById("setTurtlebot").checked) { 
+		control_retransmit = true;
+		control_msgtype = 2;
+		document.getElementById("messageCmdvel").checked = true;
+	}
 	else {
 		control_retransmit = false;
 		document.getElementById("setStream").checked = false;
@@ -100,12 +106,18 @@ function tryTurtlebotClick() {
 
 function tryStreamClick() {
 	if (control_retransmit) {
-	
+		if (! document.getElementById("setStream").checked) {
+			control_stream = false;
+			//tx_number = -1;
+		}
+		else { 
+			control_stream = true;
+		}
 	}
 	else {
 		document.getElementById("setStream").checked = false;
 	}
-	console.log("stream");
+	console.log("stream " + control_stream);
 }
 
 function tryRadioClick() {
@@ -143,15 +155,23 @@ function recieveEvent () {
 	
 	rx_data = gapi.hangout.data.getState()[tx_gapi_key];
 	if (rx_data == rx_data_old) return;
-
 	rx_object = JSON.parse(rx_data) ;	
+	
+	stream_num = (stream_num + 1 ) % 16;	
+	if (rx_object.direction == "stop") stream_num = 0;
+
 	console.log( rx_object.direction + " -- " + rx_object.number);
+	//handle stream setting here...
+	if (!control_stream && rx_object.number != stream_num) {
+		console.log("exit due to bad seq num");
+		return;
+	}
 	rx_data_old = rx_data;
 	if(control_retransmit == true) retransmitEvent(rx_object);
 }
 
 function retransmitEvent(data) {
-	console.log(data.direction + " --");
+	console.log(data.direction + " -- retransmit");
 	var numLinear = 0;
 	var numAngular = 0;
 	
@@ -178,8 +198,7 @@ function retransmitEvent(data) {
 		break;
 	}
 	
-	var advertise_message = "";
-	var outgoing_message = "";
+	///////////////////////
 	
 	switch (control_msgtype) {
 		case MSG_STRING:
