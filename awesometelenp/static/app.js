@@ -171,8 +171,6 @@ function retransmitEvent(data) {
 		
 		case MSG_CMD_VEL:
 
-			
-
 			var ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
   			});
@@ -184,8 +182,7 @@ function retransmitEvent(data) {
    				 messageType : 'geometry_msgs/Twist'
   			});
   			
-  			//var string = new ROSLIB.Message({ data: "hello " + data.direction });
-			
+  			
   			var twist = new ROSLIB.Message({
     			linear : {
       			x : numLinear,
@@ -207,10 +204,7 @@ function retransmitEvent(data) {
 		break;
 		
 		case MSG_VELOCITY:
-			advertise_message =  {'op': 'advertise', 'topic':'/turtle1/command_velocity', 'type': 'turtlesim/Velocity'};
-			outgoing_message =  {'op': 'publish', 'topic': '/turtle1/command_velocity', 
-				'msg': {'linear' : numLinear, 'angular' : numAngular }};
-
+			
 			var ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
   			});
@@ -225,16 +219,8 @@ function retransmitEvent(data) {
   			//var string = new ROSLIB.Message({ data: "hello " + data.direction });
 			
   			var velocity = new ROSLIB.Message({
-    			linear : {
-      			x : numLinear,
-      			y : 0.0,
-      			z : 0.0
-    			},
-    			angular : {
-     			x : 0.0,
-      			y : 0.0,
-      			z : numAngular
-    			}
+    			linear : numLinear,
+    			angular : numAngular
   			});
   				
 
@@ -264,10 +250,10 @@ function init() {
     });
 	console.log("websocket test");
 	if ('WebSocket' in window){
-    	/* WebSocket is supported. You can proceed with your code*/
+    	/* WebSocket is supported.*/
 			
 	} else {
-    	/*WebSockets are not supported. Try a fallback method like long-polling etc*/
+    	/*WebSockets are not supported.*/
 	
 		alert("no web sockets.");
 	}
@@ -282,7 +268,5 @@ function init() {
   gapi.hangout.onApiReady.add(apiReady);
 }
 
-
-
-
 gadgets.util.registerOnLoadHandler(init);
+
