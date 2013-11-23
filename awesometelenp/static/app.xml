@@ -207,6 +207,11 @@ function retransmitEvent(data) {
 		
 		case MSG_CMD_VEL:
 
+			/* 
+			turtlebot_move_action_server 
+			roslaunch turtlebot_actions server_turtlebot_move.launch
+			*/
+
 			var ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
   			});
@@ -214,7 +219,7 @@ function retransmitEvent(data) {
 			
 			var cmdVel = new ROSLIB.Topic({
     			'ros' : ros,
-    			'name' : '/cmd_vel',
+    			'name' : '/cmd_vel_mux/input/navi',
    				 messageType : 'geometry_msgs/Twist'
   			});
   			
@@ -252,7 +257,6 @@ function retransmitEvent(data) {
    				 messageType : 'turtlesim/Velocity'
   			});
   			
-  			//var string = new ROSLIB.Message({ data: "hello " + data.direction });
 			
   			var velocity = new ROSLIB.Message({
     			linear : numLinear,
