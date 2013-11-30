@@ -93,6 +93,26 @@ function tryRadioClick() {
 	if (document.getElementById("messageVel").checked) control_msgtype = MSG_VELOCITY;	
 
 	console.log(control_msgtype);
+	
+	switch (control_msgtype) {
+		case MSG_STRING:
+			document.getElementById('setupText').innerHTML= "TURTLEBOT SETUP: <br>" +
+			" This is for the 'rostopic list' method.";
+		break;
+		
+		case MSG_CMD_VEL:
+			document.getElementById('setupText').innerHTML= "TURTLEBOT SETUP: <br>" +//;
+			"in separate turtlebot terminals...<br><br>" +
+			"$ roscore <br>" +
+			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
+			"$ roslaunch turtlebot_actions server_turtlebot_move.launch <br><br>" +
+			"... then direct the turtlebot from the Google Hangout screen.";
+		break;
+		
+		case MSG_VELOCITY:
+			document.getElementById('setupText').innerHTML= "TURTLEBOT SETUP: This is for older versions of the ros operating system.";
+		break;
+	}
 }
 
 function formJSONClick(operation) {
