@@ -34,19 +34,7 @@
 <script type="text/javascript"><!-- /script -->
 
 /*
-* Copyright (c) 2011 Google Inc.
-*
-* Licensed under the Apache License, Version 2.0 (the "License"); you may not
-* use this file except in compliance with the License. You may obtain a copy of
-* the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-* License for the specific language governing permissions and limitations under
-* the License.
+
 */
 var serverPath = '//awesometelenp.appspot.com/';
 var tx_number = -1;
@@ -67,33 +55,60 @@ var MSG_STRING = 1;
 var MSG_CMD_VEL = 2;
 var MSG_VELOCITY = 3;
 
+var choose_output_string = "TURTLEBOT SETUP: <br>" +
+			" This is for the 'rostopic echo' method.<br><br><i style='color:blue'>" +
+			"$ roscore <br>" +
+			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
+			"$ rostopic echo /talker <br><br>" +
+			"</i>... then look at terminal for output when" +
+			" arrow buttons are clicked";
+var choose_output_cmd_vel = "TURTLEBOT SETUP: <br>" +//;
+			"in separate turtlebot terminals...<br><br><i style='color:blue'>" +
+			"$ roscore <br>" +
+			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
+			"$ roslaunch turtlebot_actions server_turtlebot_move.launch <br><br>" +
+			"</i>... then direct the turtlebot from the Google Hangout screen.";
+var choose_output_reserved = "TURTLEBOT SETUP: <br>" +
+			" This is reserved for future development.";
+var choose_click = "click the arrows to direct the turtlebot.";
+var choose_stream = "Click to disable - on the turtlebot computer - precautions that prevent " +
+			"more than one remote computer from giving instructions at the same time.";
+var choose_turtlebot = "Click this option to tell the " +
+			"system that this is the node that <i>this</i> is the node that hosts the actual" +
+			"turtlebot hardware.";
 
 
 function tryLeftClick() {
 	formJSONClick("left");
+	if (!control_retransmit) changeHintText(choose_click); 
 }
 
 function tryRightClick() {
 	formJSONClick("right");
+	if (!control_retransmit) changeHintText(choose_click); 
 }
 
 function tryUpClick() {
 	formJSONClick("up");
+	if (!control_retransmit) changeHintText(choose_click); 
 }
 
 function tryDownClick() {
 	formJSONClick("down");
+	if (!control_retransmit) changeHintText(choose_click); 
 }
 
 function tryStopClick() {
 	tx_number = - 1;
 	formJSONClick("stop");
+	if (!control_retransmit) changeHintText(choose_click); 
 }
 
 function tryTurtlebotClick() {
 	if (document.getElementById("setTurtlebot").checked) { 
 		control_retransmit = true;
 		control_msgtype = 2;
+		changeHintText(choose_turtlebot);
 		document.getElementById("messageCmdvel").checked = true;
 	}
 	else {
@@ -105,6 +120,8 @@ function tryTurtlebotClick() {
 
 function tryStreamClick() {
 	if (control_retransmit) {
+		changeHintText(choose_stream);
+		
 		if (! document.getElementById("setStream").checked) {
 			control_stream = false;
 			//tx_number = -1;
@@ -131,23 +148,27 @@ function tryRadioClick() {
 	
 	switch (control_msgtype) {
 		case MSG_STRING:
-			document.getElementById('setupText').innerHTML= "TURTLEBOT SETUP: <br>" +
-			" This is for the 'rostopic list' method.";
+		
+			changeHintText(choose_output_string);
+			
 		break;
 		
 		case MSG_CMD_VEL:
-			document.getElementById('setupText').innerHTML= "TURTLEBOT SETUP: <br>" +//;
-			"in separate turtlebot terminals...<br><br>" +
-			"$ roscore <br>" +
-			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
-			"$ roslaunch turtlebot_actions server_turtlebot_move.launch <br><br>" +
-			"... then direct the turtlebot from the Google Hangout screen.";
+		
+			changeHintText(choose_output_cmd_vel);
+			
 		break;
 		
 		case MSG_VELOCITY:
-			document.getElementById('setupText').innerHTML= "TURTLEBOT SETUP: This is for older versions of the ros operating system.";
+		
+			changeHintText(choose_output_reserved);
+			
 		break;
 	}
+}
+
+function changeHintText(text) {
+	document.getElementById('setupText').innerHTML= text;
 }
 
 function formJSONClick(operation) {
@@ -349,28 +370,13 @@ function init() {
 gadgets.util.registerOnLoadHandler(init);
 
 </script>
-<!-- DOCTYPE html -->
-<!-- The hangout API JavaScript. Always include this first -->
-<!-- script src="//hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0"></script -->
 
-<!-- The JavaScript for this app. This must always be a full URL not a
-     relative path.
-     Tip: You can load it from a local web server such as
-     http://localhost/app.js for faster single user development -->
-
-<!-- script type="text/javascript" src="//awesometelenp.appspot.com/static/eventemitter2.min.js"></script -->
-<!-- script type="text/javascript" src="//awesometelenp.appspot.com/static/roslib.min.js"></script -->     
-<!--script type="text/javascript" src="https://brown-ros-pkg.googlecode.com/svn/tags/brown-ros-pkg/rosbridge/ros.js"></script -->     
-     
-<!-- script src="//awesometelenp.appspot.com/static/app.js"></script -->
-<!-- script src="app.js"></script -->
 
 <body style="background-color: #999">
 <div style="float: left; padding: 0px 20px; background-color: #999">
 
-<h1><img src="//awesometelenp.appspot.com/static/hangouts-logo.png" 
-    alt="-- " height="50" width="50">Controls</h1>
-  
+
+	<br>
 	<table border="0">
 	<tr>
 	<td></td>
