@@ -31,6 +31,7 @@ var choose_output_cmd_vel = "TURTLEBOT SETUP: <br>" +//;
 			"in separate turtlebot terminals...<br><br><i style='color:blue'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
+			"$ roslaunch turtlebot_bringup minimal.launch <br>" +
 			"$ roslaunch turtlebot_actions server_turtlebot_move.launch <br><br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
 var choose_output_reserved = "TURTLEBOT SETUP: <br>" +
@@ -232,7 +233,7 @@ function retransmitEvent(data) {
 		case MSG_CMD_VEL:
 
 			/* 
-			turtlebot_move_action_server 
+			turtlebot_move_action_server (?)
 			roslaunch turtlebot_actions server_turtlebot_move.launch
 			*/
 
@@ -243,7 +244,7 @@ function retransmitEvent(data) {
 			
 			var cmdVel = new ROSLIB.Topic({
     			'ros' : ros,
-    			'name' : '/cmd_vel_mux/input/navi',
+    			'name' : '/mobile_base/commands/velocity',
    				 messageType : 'geometry_msgs/Twist'
   			});
   			
