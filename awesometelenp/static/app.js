@@ -195,21 +195,21 @@ function retransmitEvent(data) {
 		break;
 		
 		case "up":
-			if (last_key == "up" && last_counter < 3) {
+			if (last_key === "up" && last_counter < 3 ) {
 				last_counter ++ ;
 				setSpeedTimer();
 			} 
-			else last_counter = 1;
-			numLinear = 0.33 * last_counter ;
+			else if (timer_key == 0) last_counter = 1;
+			numLinear = 0.33;// * last_counter ;
 		break;
 		
 		case "down":
-			if (last_key == "down" && last_counter < 3) {
+			if (last_key === "down" && last_counter < 3 ) {
 				last_counter ++ ;
 				setSpeedTimer();
 			}
-			else last_counter = 1;
-			numLinear = -0.33 * last_counter ;
+			else if (timer_key == 0) last_counter = 1;
+			numLinear = -0.33;// * last_counter ;
 		break;
 		
 		case "stop":
@@ -267,7 +267,7 @@ function retransmitEvent(data) {
   			
   			var twist = new ROSLIB.Message({
     			linear : {
-      			x : numLinear,
+      			x : numLinear * last_counter,
       			y : 0.0,
       			z : 0.0
     			},
@@ -316,6 +316,9 @@ function retransmitEvent(data) {
 function setSpeedTimer() {
 	if (timer_key != 0) {
 		clearTimeout(timer_key);
+	}
+	else {
+		last_counter = 1;
 	}
 	timer_key = setTimeout(doSpeedTimer, 700);
 }
