@@ -66,8 +66,7 @@ var choose_output_cmd_vel = "TURTLEBOT SETUP: <br>" +//;
 			"in separate turtlebot terminals...<br><br><i style='color:blue'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
-			"$ roslaunch turtlebot_bringup minimal.launch <br>" +
-			//"$ roslaunch turtlebot_actions server_turtlebot_move.launch <br><br>" +
+			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
 var choose_output_reserved = "TURTLEBOT SETUP: <br>" +
 			" This is reserved for future development.";
@@ -245,7 +244,7 @@ function retransmitEvent(data) {
 		case MSG_STRING:
 			
 			var ros = new ROSLIB.Ros({
-    			url : 'wss://localhost:9090'
+    			url : 'ws://localhost:9090'
   			});
 			
 			
@@ -268,8 +267,8 @@ function retransmitEvent(data) {
 		case MSG_CMD_VEL:
 
 			/* 
-			turtlebot_move_action_server (?)
-			roslaunch turtlebot_actions server_turtlebot_move.launch
+			turtlebot_bringup (?)
+			roslaunch turtlebot_bringup minimal.launch
 			*/
 
 			var ros = new ROSLIB.Ros({
