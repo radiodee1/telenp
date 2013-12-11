@@ -5,6 +5,7 @@ var serverPath = '//awesometelenp.appspot.com/';
 var tx_number = -1;
 var tx_operation = "";
 var tx_gapi_key = "telenp";
+var tx_gapi_lock = "telenp_lock";
 var rx_data = "";
 var rx_object = null;
 var rx_data_old = "";
@@ -15,6 +16,9 @@ var control_open = false;
 var connection = new Object();
 var cmdVel = new Object();
 var stream_num = 0;
+var timer_key = 0;
+var last_key = "stop";
+var last_counter = 1;
 
 var MSG_STRING = 1;
 var MSG_CMD_VEL = 2;
@@ -183,6 +187,7 @@ function retransmitEvent(data) {
 	switch(data.direction) {
 		case "left":
 			numAngular = 1;
+			
 		break;
 		
 		case "right":
@@ -190,11 +195,21 @@ function retransmitEvent(data) {
 		break;
 		
 		case "up":
-			numLinear = 1;
+			if (last_key == "up" && last_counter < 3) {
+				last_counter ++ ;
+				setSpeedTimer();
+			} 
+			else last_counter = 1;
+			numLinear = 0.33 * last_counter ;
 		break;
 		
 		case "down":
-			numLinear = -1;
+			if (last_key == "down" && last_counter < 3) {
+				last_counter ++ ;
+				setSpeedTimer();
+			}
+			else last_counter = 1;
+			numLinear = -0.33 * last_counter ;
 		break;
 		
 		case "stop":
@@ -203,6 +218,7 @@ function retransmitEvent(data) {
 		break;
 	}
 	
+	last_key = data.direction;
 	///////////////////////
 	
 	switch (control_msgtype) {
@@ -234,6 +250,7 @@ function retransmitEvent(data) {
 			/* 
 			turtlebot_bringup (?)
 			roslaunch turtlebot_bringup minimal.launch
+			always launch software first then connect turtlebot!!
 			*/
 
 			var ros = new ROSLIB.Ros({
@@ -293,10 +310,19 @@ function retransmitEvent(data) {
 			console.log("no error? -- velocity");
 		break;
 	}
-
 	
+}
 
-	
+function setSpeedTimer() {
+	if (timer_key != 0) {
+		clearTimeout(timer_key);
+	}
+	timer_key = setTimeout(doSpeedTimer, 700);
+}
+
+function doSpeedTimer() {
+	last_counter = 1;
+	timer_key = 0;
 }
 
 // A function to be run at app initialization time which registers our callbacks
