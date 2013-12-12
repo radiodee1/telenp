@@ -17,6 +17,9 @@ var connection = new Object();
 var cmdVel = new Object();
 var stream_num = 0;
 var timer_key = 0;
+var timer_up = 0;
+var timer_down = 0;
+
 var last_key = "stop";
 var last_counter = 1;
 
@@ -58,19 +61,32 @@ function tryRightClick() {
 }
 
 function tryUpClick() {
-	formJSONClick("up");
+	//formJSONClick("up");
 	if (!control_retransmit) changeHintText(choose_click); 
+	if (timer_up == 0) timer_up = setInterval('formJSONClick("up")', 80);
 }
 
 function tryDownClick() {
-	formJSONClick("down");
+	//formJSONClick("down");
 	if (!control_retransmit) changeHintText(choose_click); 
+	if (timer_down == 0) timer_down = setInterval('formJSONClick("down")', 100);
 }
 
 function tryStopClick() {
 	tx_number = - 1;
 	formJSONClick("stop");
 	if (!control_retransmit) changeHintText(choose_click); 
+}
+
+function tryClearTimer() {
+	if (timer_up != 0) {
+		clearInterval(timer_up);
+		timer_up = 0;
+	}
+	if (timer_down != 0) {
+		clearInterval(timer_down);
+		timer_down = 0;
+	}
 }
 
 function tryTurtlebotClick() {
