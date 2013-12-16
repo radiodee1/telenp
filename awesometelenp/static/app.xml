@@ -36,7 +36,7 @@
 /*
 
 */
-var serverPath = '//awesometelenp.appspot.com/';
+//var serverPath = '//awesometelenp.appspot.com/';
 var tx_number = -1;
 var tx_operation = "";
 var tx_gapi_key = "telenp";
@@ -96,15 +96,15 @@ function tryRightClick() {
 }
 
 function tryUpClick() {
-	//formJSONClick("up");
+	formJSONClick("up");
 	if (!control_retransmit) changeHintText(choose_click); 
-	if (timer_up == 0) timer_up = setInterval('formJSONClick("up")', 80);
+	if (timer_up == 0) timer_up = setInterval('formJSONClick("up")', 500);
 }
 
 function tryDownClick() {
-	//formJSONClick("down");
+	formJSONClick("down");
 	if (!control_retransmit) changeHintText(choose_click); 
-	if (timer_down == 0) timer_down = setInterval('formJSONClick("down")', 100);
+	if (timer_down == 0) timer_down = setInterval('formJSONClick("down")', 500);
 }
 
 function tryStopClick() {
