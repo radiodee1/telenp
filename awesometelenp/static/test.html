@@ -18,8 +18,8 @@
 
 var tx_number = -1;
 var tx_operation = "";
-var tx_gapi_key = "telenp";
-var tx_gapi_error = "telenp_error";
+var tx_gapi_key = "telenp"; // used by transmitting node
+var tx_gapi_error = "telenp_error"; // used by turtlebot node
 var rx_data = "";
 var rx_error = "";
 var rx_error_obj = null;
@@ -52,7 +52,7 @@ var choose_output_string = "TURTLEBOT SETUP: <br>" +
 			"$ rostopic echo /talker <br><br>" +
 			"</i>... then look at terminal for output when" +
 			" arrow buttons are clicked";
-var choose_output_cmd_vel = "TURTLEBOT SETUP: <br>" +//;
+var choose_output_cmd_vel = "TURTLEBOT SETUP: <br>" +
 			"in separate turtlebot terminals...<br><br><i style='color:blue'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
