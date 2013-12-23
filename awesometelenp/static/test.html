@@ -23,8 +23,9 @@ var tx_gapi_error = "telenp_error"; // used by turtlebot node
 var rx_data = "";
 var rx_error = "";
 var rx_error_obj = null;
-var rx_object = null;
+var rx_obj = null;
 var rx_data_old = "";
+var rx_error_old = "";
 var control_retransmit = false;
 var control_msgtype = 0;
 var control_stream = false;
@@ -235,31 +236,32 @@ function recieveEvent () {
 	rx_error = gapi.hangout.data.getState()[tx_gapi_error];
 	console.log(rx_error + " error msg");
 
-	if (rx_error != null) {
+	if (rx_error != null && rx_error != rx_error_old) {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected = true;
+		rx_error_old = rx_error;
 	}
 
 	// direction data from hangouts...
 	rx_data = gapi.hangout.data.getState()[tx_gapi_key];
 	if (rx_data != rx_data_old) { 
 	
-		rx_object = JSON.parse(rx_data) ;	
+		rx_obj = JSON.parse(rx_data) ;	
 
 		// change sequence numbers...
 		stream_num = (stream_num + 1 ) % 16;	
-		if (rx_object.direction == "stop") stream_num = 0;
+		if (rx_obj.direction == "stop") stream_num = 0;
 
-		console.log( rx_object.direction + " -- " + rx_object.number);
+		console.log( rx_obj.direction + " -- " + rx_obj.number);
 		// handle stream setting here...
-		if (!control_stream && rx_object.number != stream_num) {
+		if (!control_stream && rx_obj.number != stream_num) {
 			control_stopped = true;
 			changeButtonPic(button_center_error);
 			console.log("exit due to bad seq num");
 			return;
 		}
 		rx_data_old = rx_data;
-		if(control_retransmit == true) retransmitEvent(rx_object);
+		if(control_retransmit == true) retransmitEvent(rx_obj);
 	}
 }
 
