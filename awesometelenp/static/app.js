@@ -16,6 +16,7 @@ var control_msgtype = 0;
 var control_stream = false;
 var control_open = false;
 var control_connected = false;
+var control_stopped = false;
 var connection = new Object();
 var cmdVel = new Object();
 var stream_num = 0;
@@ -51,6 +52,10 @@ var choose_stream = "Click to disable - on the turtlebot computer - precautions 
 var choose_turtlebot = "Click this option to tell the " +
 			"system that this is the node that <i>this</i> is the node that hosts the actual" +
 			"turtlebot hardware.";
+var button_center_start = '<img src="//awesometelenp.appspot.com/static/bitmap/button_center.png"' +  
+			'onmousedown="tryStopClick()" alt="CLICK" >';
+var button_center_error = '<img src="//awesometelenp.appspot.com/static/bitmap/button_err.png"' +  
+			'onmousedown="tryStopClick()" alt="ERROR" >';
 
 
 function tryLeftClick() {
@@ -78,7 +83,9 @@ function tryDownClick() {
 function tryStopClick() {
 	tx_number = - 1;
 	formJSONClick("stop");
-	if (!control_retransmit) changeHintText(choose_click); 
+	control_stopped = false;
+	if (!control_retransmit) changeHintText(choose_click);
+	changeButtonPic(button_center_start); 
 }
 
 function tryClearTimer() {
@@ -100,10 +107,12 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		document.getElementById("messageCmdvel").checked = true;
 		control_connected = true;
+		formJSONError();
 	}
 	else {
 		control_retransmit = false;
 		document.getElementById("setStream").checked = false;
+		if (control_connected) formJSONError();
 	}
 	console.log(control_retransmit + "  retransmit");
 }
@@ -161,6 +170,10 @@ function changeHintText(text) {
 	document.getElementById('setupText').innerHTML= text;
 }
 
+function changeButtonPic(button_html) {
+	document.getElementById('middleButton').innerHTML = button_html;
+}
+
 function formJSONClick(operation) {
 	tx_operation = operation; 
 	tx_number ++;
@@ -178,7 +191,7 @@ function formJSONClick(operation) {
 
 function formJSONError() {
 	var connect = control_connected;
-	var stopped = null;
+	var stopped = control_stopped;
 	var kinect = null;
 
 	makeText = JSON.stringify(makeJSONError(connect, stopped, kinect));
@@ -224,6 +237,8 @@ function recieveEvent () {
 		console.log( rx_object.direction + " -- " + rx_object.number);
 		// handle stream setting here...
 		if (!control_stream && rx_object.number != stream_num) {
+			control_stopped = true;
+			changeButtonPic(button_center_error);
 			console.log("exit due to bad seq num");
 			return;
 		}
