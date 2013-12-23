@@ -1,0 +1,54 @@
+
+
+<body style="background-color: #999">
+<div style="float: left; padding: 0px 20px; background-color: #999">
+
+
+	<br>
+	<table border="0">
+	<tr>
+	<td></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_up.png" 
+		onmousedown="tryUpClick()" onmouseup="tryClearTimer()" onmouseout="tryClearTimer()" 
+		alt="CLICK"></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_left.png" 
+		onmousedown="tryLeftClick()"  alt="CLICK"></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_center.png"  
+		onmousedown="tryStopClick()" alt="CLICK"></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_right.png" 
+		onmousedown="tryRightClick()"  alt="CLICK"></td>
+	</tr>
+	<tr>
+	<td></td>
+	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_down.png"  
+		onmousedown="tryDownClick()" onmouseup="tryClearTimer()" onmouseout="tryClearTimer()" 
+		alt="CLICK"></td>
+	<td></td>
+	</tr>
+	</table>
+
+  <br>
+  
+  <table border="0">
+  <tr><td>
+	<b>Various:</b><br>
+  <input type=checkbox value="Turtlebot" id="setTurtlebot"
+        onClick="tryTurtlebotClick()">Turtlebot Node?</input><br>
+  <input type=checkbox value="Stream" id="setStream"
+        onClick="tryStreamClick()">Stream Mode?</input>         
+	</td></tr><tr><td>
+	<b>Message Type:</b><br>
+	<form action="">
+	<input type="radio" name="message" id="messageString" value="string" onclick="tryRadioClick()" >String<br>
+	<input type="radio" name="message" id="messageCmdvel" value="cmdvel" onclick="tryRadioClick()">cmd_vel<br>
+	<input type="radio" name="message" id="messageVel" value="velocity" onclick="tryRadioClick()">command_ velocity
+	</form>
+	</td></tr>
+	</table>
+<br>
+</div>
+<div style="clear: both; background-color:#aaaaaa" id="setupText">TURTLEBOT SETUP:</div>
+</body>

@@ -36,18 +36,21 @@
 /*
 
 */
-//var serverPath = '//awesometelenp.appspot.com/';
+
 var tx_number = -1;
 var tx_operation = "";
 var tx_gapi_key = "telenp";
-var tx_gapi_lock = "telenp_lock";
+var tx_gapi_error = "telenp_error";
 var rx_data = "";
+var rx_error = "";
+var rx_error_obj = null;
 var rx_object = null;
 var rx_data_old = "";
 var control_retransmit = false;
 var control_msgtype = 0;
 var control_stream = false;
 var control_open = false;
+var control_connected = false;
 var connection = new Object();
 var cmdVel = new Object();
 var stream_num = 0;
@@ -125,11 +128,13 @@ function tryClearTimer() {
 }
 
 function tryTurtlebotClick() {
-	if (document.getElementById("setTurtlebot").checked) { 
+	
+	if (document.getElementById("setTurtlebot").checked && !control_connected) { 
 		control_retransmit = true;
 		control_msgtype = 2;
 		changeHintText(choose_turtlebot);
 		document.getElementById("messageCmdvel").checked = true;
+		control_connected = true;
 	}
 	else {
 		control_retransmit = false;
@@ -196,38 +201,70 @@ function formJSONClick(operation) {
 	tx_number ++;
 	tx_number = tx_number % 16;
 	console.log(operation);
-	makeText = JSON.stringify(makeJSON(operation,  tx_number) ) ;
+	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
 	console.log( makeText );
 	try {	
 		gapi.hangout.data.setValue( tx_gapi_key, makeText);
 	}
 	catch (e) {
-		console.log("hangout setValue error.");
+		console.log("hangout setValue error. -- Click");
 	}
 }
 
-function makeJSON(operation, num ) {
+function formJSONError() {
+	var connect = control_connected;
+	var stopped = null;
+	var kinect = null;
+
+	makeText = JSON.stringify(makeJSONError(connect, stopped, kinect));
+	try {
+		gapi.hangout.data.setValue( tx_gapi_error, makeText);
+	}
+	catch (e) {
+		console.log("hangout setValue error. -- Error");
+	}
+}
+
+function makeJSONCommand(operation, num ) {
 	var myJSON = { "direction" : operation , "number" : num }; 
+	return myJSON;
+}
+
+function makeJSONError(connected, stopped, kinect) {
+	var myJSON = { "connected" : connected , "stopped" : stopped , "kinect" : kinect  };
 	return myJSON;
 }
 
 function recieveEvent () {
 	
-	rx_data = gapi.hangout.data.getState()[tx_gapi_key];
-	if (rx_data == rx_data_old) return;
-	rx_object = JSON.parse(rx_data) ;	
-	
-	stream_num = (stream_num + 1 ) % 16;	
-	if (rx_object.direction == "stop") stream_num = 0;
+	// error data from hangouts...
+	rx_error = gapi.hangout.data.getState()[tx_gapi_error];
+	console.log(rx_error + " error msg");
 
-	console.log( rx_object.direction + " -- " + rx_object.number);
-	//handle stream setting here...
-	if (!control_stream && rx_object.number != stream_num) {
-		console.log("exit due to bad seq num");
-		return;
+	if (rx_error != null) {
+		rx_error_obj = JSON.parse(rx_error);
+		if (rx_error_obj.connected == true) control_connected = true;
 	}
-	rx_data_old = rx_data;
-	if(control_retransmit == true) retransmitEvent(rx_object);
+
+	// direction data from hangouts...
+	rx_data = gapi.hangout.data.getState()[tx_gapi_key];
+	if (rx_data != rx_data_old) { 
+	
+		rx_object = JSON.parse(rx_data) ;	
+
+		// change sequence numbers...
+		stream_num = (stream_num + 1 ) % 16;	
+		if (rx_object.direction == "stop") stream_num = 0;
+
+		console.log( rx_object.direction + " -- " + rx_object.number);
+		// handle stream setting here...
+		if (!control_stream && rx_object.number != stream_num) {
+			console.log("exit due to bad seq num");
+			return;
+		}
+		rx_data_old = rx_data;
+		if(control_retransmit == true) retransmitEvent(rx_object);
+	}
 }
 
 function retransmitEvent(data) {
