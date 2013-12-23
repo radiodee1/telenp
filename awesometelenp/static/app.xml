@@ -254,9 +254,13 @@ function makeJSONError(connected, stopped, kinect) {
 function recieveEvent () {
 	
 	// error data from hangouts...
-	rx_error = gapi.hangout.data.getState()[tx_gapi_error];
-	console.log(rx_error + " error msg");
-
+	try {
+		rx_error = gapi.hangout.data.getState()[tx_gapi_error];
+		console.log(rx_error + " error msg");
+	}
+	catch (e) {
+		console.log("error google hangouts api -- " + tx_gapi_error);
+	}
 	if (rx_error != null && rx_error != rx_error_old) {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected = true;
