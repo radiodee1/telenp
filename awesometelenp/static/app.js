@@ -38,7 +38,7 @@ var choose_output_string = "TURTLEBOT SETUP: <br>" +
 			"$ rostopic echo /talker <br><br>" +
 			"</i>... then look at terminal for output when" +
 			" arrow buttons are clicked";
-var choose_output_cmd_vel = "TURTLEBOT SETUP: <br>" +
+var choose_output_twist = "TURTLEBOT SETUP: <br>" +
 			"in separate turtlebot terminals...<br><br><i style='color:blue'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
@@ -52,10 +52,12 @@ var choose_stream = "Click to disable - on the turtlebot computer - precautions 
 var choose_turtlebot = "Click this option to tell the " +
 			"system that this is the node that <i>this</i> is the node that hosts the actual" +
 			"turtlebot hardware.";
-var button_center_start = '<img src="//awesometelenp.appspot.com/static/bitmap/button_center.png"' +  
-			'onmousedown="tryStopClick()" alt="CLICK" >';
-var button_center_error = '<img src="//awesometelenp.appspot.com/static/bitmap/button_err.png"' +  
-			'onmousedown="tryStopClick()" alt="ERROR" >';
+var button_center_start = '<img ' + //'src="bitmap/button_center.png"' +
+			' src="//awesometelenp.appspot.com/static/bitmap/button_center.png"' +  
+			' onmousedown="tryStopClick()" alt="CLICK" >';
+var button_center_error = '<img ' + //'src="bitmap/button_err.png"' + 
+			' src="//awesometelenp.appspot.com/static/bitmap/button_err.png"' +  
+			' onmousedown="tryStopClick()" alt="ERROR" >';
 
 
 function tryLeftClick() {
@@ -105,7 +107,7 @@ function tryTurtlebotClick() {
 		control_retransmit = true;
 		control_msgtype = 2;
 		changeHintText(choose_turtlebot);
-		document.getElementById("messageCmdvel").checked = true;
+		document.getElementById("messageTwist").checked = true;
 		control_connected = true;
 		formJSONError();
 	}
@@ -139,9 +141,9 @@ function tryRadioClick() {
 
 	if (document.getElementById("messageString").checked) control_msgtype = MSG_STRING;
 
-	if (document.getElementById("messageCmdvel").checked) control_msgtype = MSG_CMD_VEL;	
+	if (document.getElementById("messageTwist").checked) control_msgtype = MSG_CMD_VEL;	
 
-	if (document.getElementById("messageVel").checked) control_msgtype = MSG_VELOCITY;	
+	if (document.getElementById("messageStamped").checked) control_msgtype = MSG_VELOCITY;	
 
 	console.log(control_msgtype);
 	
@@ -154,7 +156,7 @@ function tryRadioClick() {
 		
 		case MSG_CMD_VEL:
 		
-			changeHintText(choose_output_cmd_vel);
+			changeHintText(choose_output_twist);
 			
 		break;
 		
