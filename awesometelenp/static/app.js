@@ -51,8 +51,8 @@ var choose_click = "click the arrows to direct the turtlebot.";
 var choose_stream = "Click to disable - on the turtlebot computer - precautions that prevent " +
 			"more than one remote computer from giving instructions at the same time.";
 var choose_turtlebot = "Click this option to tell the " +
-			"system that this is the node that <i>this</i> is the node that hosts the actual" +
-			" turtlebot hardware.";
+			"system that this is the node that <i><u>this</u></i> is the node that hosts the " +
+			 " actual turtlebot hardware.";
 var button_center_start = '<img ' + //'src="bitmap/button_center.png"' +
 			' src="//awesometelenp.appspot.com/static/bitmap/button_center.png"' +  
 			' onmousedown="tryStopClick()" alt="CLICK" >';
@@ -180,9 +180,13 @@ function changeHintText(text) {
 function changeAlertText() {
 	var text;
 	var connected;
+	var stopped;
 	if (control_connected) connected = "<b style='color:red'>" + "[connected]";
 	else connected = "<b style='color:green'>" + "[free]";
-	text =  connected + "</b><br>" ;
+	
+	if (control_stopped) stopped = "<b style='color:red'>" + "[stopped]";
+	else stopped = "<b style='color:green'>" + "[running]";
+	text =  connected + "</b>"  + stopped + "</b>" ;
 	document.getElementById('alertText').innerHTML= text;
 }
 
@@ -266,6 +270,7 @@ function recieveEvent () {
 		if (!control_stream && rx_obj.number != stream_num) {
 			control_stopped = true;
 			changeButtonSrc(button_center_src_error);
+			formJSONError(); // OK??
 			console.log("exit due to bad seq num");
 			return;
 		}
