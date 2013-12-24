@@ -52,13 +52,15 @@ var choose_stream = "Click to disable - on the turtlebot computer - precautions 
 			"more than one remote computer from giving instructions at the same time.";
 var choose_turtlebot = "Click this option to tell the " +
 			"system that this is the node that <i>this</i> is the node that hosts the actual" +
-			"turtlebot hardware.";
+			" turtlebot hardware.";
 var button_center_start = '<img ' + //'src="bitmap/button_center.png"' +
 			' src="//awesometelenp.appspot.com/static/bitmap/button_center.png"' +  
 			' onmousedown="tryStopClick()" alt="CLICK" >';
 var button_center_error = '<img ' + //'src="bitmap/button_err.png"' + 
 			' src="//awesometelenp.appspot.com/static/bitmap/button_err.png"' +  
 			' onmousedown="tryStopClick()" alt="ERROR" >';
+var button_center_src_start = "//awesometelenp.appspot.com/static/bitmap/button_center.png";
+var button_center_src_error = "//awesometelenp.appspot.com/static/bitmap/button_err.png";
 
 
 function tryLeftClick() {
@@ -88,7 +90,7 @@ function tryStopClick() {
 	formJSONClick("stop");
 	control_stopped = false;
 	if (!control_retransmit) changeHintText(choose_click);
-	changeButtonPic(button_center_start); 
+	changeButtonSrc(button_center_src_start); 
 }
 
 function tryClearTimer() {
@@ -107,15 +109,17 @@ function tryTurtlebotClick() {
 	if (document.getElementById("setTurtlebot").checked && !control_connected) { 
 		control_retransmit = true;
 		control_msgtype = 2;
-		changeHintText(choose_turtlebot);
-		document.getElementById("messageTwist").checked = true;
 		control_connected = true;
+		changeHintText(choose_turtlebot);
+		changeAlertText();
+		document.getElementById("messageTwist").checked = true;
 		formJSONError();
 	}
 	else {
 		control_retransmit = false;
 		document.getElementById("setStream").checked = false;
 		if (control_connected) formJSONError();
+		control_connected = false;
 	}
 	console.log(control_retransmit + "  retransmit");
 }
@@ -173,8 +177,21 @@ function changeHintText(text) {
 	document.getElementById('setupText').innerHTML= text;
 }
 
+function changeAlertText() {
+	var text;
+	var connected;
+	if (control_connected) connected = "<b style='color:red'>" + "[connected]";
+	else connected = "<b style='color:green'>" + "[free]";
+	text =  connected + "</b><br>" ;
+	document.getElementById('alertText').innerHTML= text;
+}
+
 function changeButtonPic(button_html) {
-	document.getElementById('middleButton').innerHTML = button_html;
+	document.getElementById('middleButtonHtml').innerHTML = button_html;
+}
+
+function changeButtonSrc(url) {
+	document.getElementById('middleButtonSrc').src = url;
 }
 
 function formJSONClick(operation) {
@@ -229,6 +246,8 @@ function recieveEvent () {
 	if (rx_error != null && rx_error != rx_error_old) {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected = true;
+		else control_connected = false;
+		changeAlertText();
 		rx_error_old = rx_error;
 	}
 
@@ -246,7 +265,7 @@ function recieveEvent () {
 		// handle stream setting here...
 		if (!control_stream && rx_obj.number != stream_num) {
 			control_stopped = true;
-			changeButtonPic(button_center_error);
+			changeButtonSrc(button_center_src_error);
 			console.log("exit due to bad seq num");
 			return;
 		}
