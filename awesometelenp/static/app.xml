@@ -39,7 +39,7 @@
 
 var tx_number = -1;
 var tx_operation = "";
-var tx_gapi_key = "telenp"; // used by transmitting node
+var tx_gapi_key = "telenp"; // used by transmitting (user) node
 var tx_gapi_error = "telenp_error"; // used by turtlebot node
 var rx_data = "";
 var rx_error = "";
@@ -68,14 +68,16 @@ var MSG_CMD_VEL = 2;
 var MSG_VELOCITY = 3;
 
 var choose_output_string = "TURTLEBOT SETUP: <br>" +
-			" This is for the 'rostopic echo' method.<br><br><i style='color:blue'>" +
+			" This is for the 'rostopic echo' method.<br><br>" + 
+			"<i style='color:blue;font-size:10pt'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
 			"$ rostopic echo /talker <br><br>" +
 			"</i>... then look at terminal for output when" +
 			" arrow buttons are clicked";
 var choose_output_twist = "TURTLEBOT SETUP: <br>" +
-			"in separate turtlebot terminals...<br><br><i style='color:blue'>" +
+			"in separate turtlebot terminals...<br><br>" +
+			"<i style='color:blue;font-size:10pt'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
 			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
@@ -318,7 +320,7 @@ function recieveEvent () {
 			control_stopped = true;
 			changeButtonSrc(button_center_src_error);
 			formJSONError(); // OK??
-			console.log("exit due to bad seq num");
+			console.log("exit -- bad seq num");
 			return;
 		}
 		rx_data_old = rx_data;
