@@ -258,6 +258,8 @@ function recieveEvent () {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected = true;
 		else control_connected = false;
+		if (rx_error_obj.stopped == true) control_stopped = true;
+		else control_stopped = false;
 		if (rx_error_obj.kinect == true) control_obstructed = true;
 		else control_obstructed = false;
 		
