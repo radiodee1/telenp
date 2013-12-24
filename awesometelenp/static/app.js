@@ -150,7 +150,7 @@ function tryRadioClick() {
 
 	if (document.getElementById("messageStamped").checked) control_msgtype = MSG_VELOCITY;	
 
-	console.log(control_msgtype);
+	//console.log(control_msgtype);
 	
 	switch (control_msgtype) {
 		case MSG_STRING:
@@ -254,7 +254,7 @@ function recieveEvent () {
 	catch (e) {
 		console.log("error google hangouts api -- " + tx_gapi_error);
 	}
-	if (rx_error != null && rx_error != rx_error_old) {
+	if (rx_error != undefined && rx_error != rx_error_old) {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected = true;
 		else control_connected = false;
