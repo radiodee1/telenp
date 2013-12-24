@@ -29,7 +29,7 @@ var rx_error_old = "";
 var control_retransmit = false;
 var control_msgtype = 0;
 var control_stream = false;
-var control_open = false;
+var control_obstructed = false;
 var control_connected = false;
 var control_stopped = false;
 var connection = new Object();
@@ -195,12 +195,18 @@ function changeAlertText() {
 	var text;
 	var connected;
 	var stopped;
-	if (control_connected) connected = "<b style='color:red'>" + "[connected]";
+	var obstructed;
+	
+	if (control_connected) connected = "<b style='color:yellow'>" + "[connected]";
 	else connected = "<b style='color:green'>" + "[free]";
 	
 	if (control_stopped) stopped = "<b style='color:red'>" + "[stopped]";
 	else stopped = "<b style='color:green'>" + "[running]";
-	text =  connected + "</b>"  + stopped + "</b>" ;
+	
+	if (control_obstructed) obstructed = "<b style='color:red'>" + "[blocked]";
+	else obstructed = "<b style='color:green'>" + "[clear]";
+	
+	text =  connected + "</b> "  + stopped + "</b> " + obstructed + "</b> " ;
 	document.getElementById('alertText').innerHTML= text;
 }
 
@@ -228,9 +234,10 @@ function formJSONClick(operation) {
 }
 
 function formJSONError() {
+	if (!control_retransmit) return;
 	var connect = control_connected;
 	var stopped = control_stopped;
-	var kinect = null;
+	var kinect = control_obstructed;
 
 	makeText = JSON.stringify(makeJSONError(connect, stopped, kinect));
 	try {
@@ -265,6 +272,9 @@ function recieveEvent () {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected = true;
 		else control_connected = false;
+		if (rx_error_obj.kinect == true) control_obstructed = true;
+		else control_obstructed = false;
+		
 		changeAlertText();
 		rx_error_old = rx_error;
 	}
@@ -536,8 +546,9 @@ gadgets.util.registerOnLoadHandler(init);
 <br>
 </div>
 <div style="clear: both; background-color:#aaaaaa" id="alertText">
-	<b style="color:green">[free]</b>
-	<b style="color:green">[running]</b>
+	<b style="color:green">[free] </b>
+	<b style="color:green">[running] </b>
+	<b style="color:green">[clear]</b>
 </div>
 <div style="clear: both; background-color:#aaaaaa" id="setupText">
 	
