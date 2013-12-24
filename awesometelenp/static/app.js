@@ -34,7 +34,7 @@ var MSG_VELOCITY = 3;
 
 var choose_output_string = "TURTLEBOT SETUP: <br>" +
 			" This is for the 'rostopic echo' method.<br><br>" + 
-			"<i style='color:blue;font-size:10pt'>" +
+			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
 			"$ rostopic echo /talker <br><br>" +
@@ -42,7 +42,7 @@ var choose_output_string = "TURTLEBOT SETUP: <br>" +
 			" arrow buttons are clicked";
 var choose_output_twist = "TURTLEBOT SETUP: <br>" +
 			"in separate turtlebot terminals...<br><br>" +
-			"<i style='color:blue;font-size:10pt'>" +
+			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
 			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
 			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
