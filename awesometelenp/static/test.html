@@ -16,7 +16,7 @@
 
 */
 
-var tx_number = -1;
+var tx_number = 0;// -1;
 var tx_operation = "";
 var tx_gapi_key = "telenp"; // used by transmitting (user) node
 var tx_gapi_error = "telenp_error"; // used by turtlebot node
@@ -63,10 +63,10 @@ var choose_output_twist = "TURTLEBOT SETUP: <br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
 var choose_output_reserved = "TURTLEBOT SETUP: <br>" +
 			" This is reserved for future development.";
-var choose_click = "click the arrows to direct the turtlebot.";
-var choose_stream = "Click to disable - on the turtlebot computer - precautions that prevent " +
+var choose_click =      "click the arrows to direct the turtlebot.";
+var choose_stream =     "Click to disable - on the turtlebot computer - precautions that prevent " +
 			"more than one remote computer from giving instructions at the same time.";
-var choose_turtlebot = "Click this option to tell the " +
+var choose_turtlebot =  "Click this option to tell the " +
 			"system that this is the node that <i><u>this</u></i> is the node that hosts the " +
 			 " actual turtlebot hardware.";
 var button_center_start = '<img ' + //'src="bitmap/button_center.png"' +
@@ -105,6 +105,7 @@ function tryStopClick() {
 	tx_number = - 1;
 	formJSONClick("stop");
 	control_stopped = false;
+	changeAlertText();
 	if (!control_retransmit) changeHintText(choose_click);
 	changeButtonSrc(button_center_src_start); 
 }
