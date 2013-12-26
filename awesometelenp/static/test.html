@@ -137,6 +137,7 @@ function tryTurtlebotClick() {
 		if (control_connected) formJSONError();
 		control_connected = false;
 	}
+	
 	console.log(control_retransmit + "  retransmit");
 }
 
@@ -279,9 +280,9 @@ function recieveEvent () {
 		if (rx_error_obj.kinect == true) control_obstructed = true;
 		else control_obstructed = false;
 		
-		changeAlertText();
 		rx_error_old = rx_error;
 	}
+	changeAlertText();
 
 	// direction data from hangouts...
 	rx_data = gapi.hangout.data.getState()[tx_gapi_key];
