@@ -444,35 +444,32 @@ function doSpeedTimer() {
 
 // A function to be run at app initialization time which registers our callbacks
 function init() {
-  console.log('Init app.');
+	console.log('Init app.');
 
-  var apiReady = function(eventObj) {
-    if (eventObj.isApiReady) {
-      console.log('API is ready');
-
+	var apiReady = function(eventObj) {
+		if (eventObj.isApiReady) {
+			console.log('API is ready');
 	
+			gapi.hangout.data.onStateChanged.add(function(eventObj) {
+				recieveEvent();
+			});
 	
-    gapi.hangout.data.onStateChanged.add(function(eventObj) {
-        recieveEvent();
-    });
-	console.log("websocket test");
-	if ('WebSocket' in window){
-    	/* WebSocket is supported.*/
+			//console.log("websocket test");
+			if ('WebSocket' in window){
+    				// WebSocket is supported.
 			
-	} else {
-    	/*WebSockets are not supported.*/
+			} else {
+    				// WebSockets are not supported.
+				alert("no web sockets.");
+			}
 	
-		alert("no web sockets.");
-	}
 	
-	
-      gapi.hangout.onApiReady.remove(apiReady);
-    }
-  };
+      			gapi.hangout.onApiReady.remove(apiReady);
+    		}
+	};
 
-  // This application is pretty simple, but use this special api ready state
-  // event if you would like to any more complex app setup.
-  gapi.hangout.onApiReady.add(apiReady);
+	// Use this special api ready state event
+	gapi.hangout.onApiReady.add(apiReady);
 }
 
 gadgets.util.registerOnLoadHandler(init);
