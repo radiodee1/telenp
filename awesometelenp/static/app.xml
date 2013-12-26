@@ -64,8 +64,8 @@ var last_key = "stop";
 var last_counter = 1;
 
 var MSG_STRING = 1;
-var MSG_CMD_VEL = 2;
-var MSG_VELOCITY = 3;
+var MSG_TWIST = 2;
+var MSG_RESERVED = 3;
 
 var choose_output_string = "TURTLEBOT SETUP: <br>" +
 			" This is for the 'rostopic echo' method.<br><br>" + 
@@ -183,9 +183,9 @@ function tryRadioClick() {
 
 	if (document.getElementById("messageString").checked) control_msgtype = MSG_STRING;
 
-	if (document.getElementById("messageTwist").checked) control_msgtype = MSG_CMD_VEL;	
+	if (document.getElementById("messageTwist").checked) control_msgtype = MSG_TWIST;	
 
-	if (document.getElementById("messageStamped").checked) control_msgtype = MSG_VELOCITY;	
+	if (document.getElementById("messageStamped").checked) control_msgtype = MSG_RESERVED;	
 
 	//console.log(control_msgtype);
 	
@@ -196,13 +196,13 @@ function tryRadioClick() {
 			
 		break;
 		
-		case MSG_CMD_VEL:
+		case MSG_TWIST:
 		
 			changeHintText(choose_output_twist);
 			
 		break;
 		
-		case MSG_VELOCITY:
+		case MSG_RESERVED:
 		
 			changeHintText(choose_output_reserved);
 			
@@ -394,7 +394,7 @@ function retransmitEvent(data) {
 			
 		break;
 		
-		case MSG_CMD_VEL:
+		case MSG_TWIST:
 
 			/* 
 			turtlebot_bringup (?)
@@ -434,7 +434,7 @@ function retransmitEvent(data) {
 
 		break;
 		
-		case MSG_VELOCITY:
+		case MSG_RESERVED:
 			
 			var ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
