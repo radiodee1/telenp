@@ -1,0 +1,6 @@
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles/clean_test_results.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles/doxygen.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/gtest/CMakeFiles/gtest.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/gtest/CMakeFiles/gtest_main.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles/run_tests.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles/tests.dir
