@@ -1,0 +1,8 @@
+prefix=/home/dave/workspace/telenp/turtlebot_tele_presence/install
+
+Name: tele_presence
+Description: Description of tele_presence
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/dave/workspace/telenp/turtlebot_tele_presence/install/lib 
+Requires: 

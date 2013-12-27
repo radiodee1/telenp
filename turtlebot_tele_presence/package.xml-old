@@ -1,9 +1,0 @@
-<package>
-  <name>turtlebot_tele_presence</name>
-  <version>1.0.0</version>
-  <description>
-  This package provides turtlebot tele-presence-robot capability.
-  </description>
-  <maintainer email="david.c.liebman@gmail.com">David Liebman</maintainer>
-  <license>BSD</license>
-</package>
