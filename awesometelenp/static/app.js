@@ -2,7 +2,7 @@
 
 */
 
-var tx_number = 0;// -1;
+var tx_number = 0;
 var tx_operation = "";
 var tx_gapi_key = "telenp"; // used by transmitting (user) node
 var tx_gapi_error = "telenp_error"; // used by turtlebot node
