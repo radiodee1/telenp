@@ -27,6 +27,7 @@ var timer_down = 0;
 
 var last_key = "stop";
 var last_counter = 1;
+var seq_ros = 0;
 
 var MSG_STRING = 1;
 var MSG_TWIST = 2;
@@ -410,14 +411,30 @@ function retransmitEvent(data) {
 			
 			var cmdVel = new ROSLIB.Topic({
     			'ros' : ros,
-    			'name' : '/turtle1/command_velocity',
-   				 messageType : 'turtlesim/Velocity'
+    			'name' : '/instructions/command_velocity',
+   				 messageType : 'geometry_msgs/TwistStamped'
   			});
   			
 			
   			var velocity = new ROSLIB.Message({
-    			linear : numLinear,
-    			angular : numAngular
+    			header : {
+    			    seq : seq_ros,
+    			    time : 0,
+    			    frame_id : "0";
+    			},
+    			twist : {
+    			    linear : {
+      			    x : numLinear * last_counter,
+      			    y : 0.0,
+      			    z : 0.0
+    			    },
+    			    angular : {
+     			    x : 0.0,
+      			    y : 0.0,
+      			    z : numAngular
+    			    }
+  			    }
+    			
   			});
   				
 
