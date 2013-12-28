@@ -16,6 +16,7 @@ kinect_obstruction = False
 def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
     rospy.Subscriber("instructions/command_velocity", TwistStamped, callback_move)
+    # rospy.Subscriber("", Pointcloud, callback_kinect)
     while not rospy.is_shutdown():
         str = "hello world %f" % rospy.get_time()
         rospy.loginfo(str)
@@ -34,13 +35,15 @@ def callback_move(data):
     seq_counter = seq_counter % mod_base
     if seq_counter == 0 :
         seq_counter = seq_counter + 1
+    if data.header.seq == 0 :
+        seq_counter = 0
     # linear_x
-    if not (kinect_obstruction and ( seq_counter == data.header.seq ) ) :
+    if (not kinect_obstruction ) and ( seq_counter == data.header.seq )  :
         linear_x = data.twist.linear.x
     else :
         linear_x = 0
     # angular_z
-    if not seq_counter == data.header.seq :
+    if seq_counter == data.header.seq :
         angular_z = data.twist.angular.z
     else :
         andular_z = 0
@@ -53,10 +56,8 @@ def callback_move(data):
     twist.angular.y = 0;
     twist.angular.z = angular_z
     pub_move.publish(twist)
+    rospy.loginfo(twist)
 
-
-def listener_x():
-    rospy.spin()
 
 def callback_kinect(data):
     rospy.loginfo("kinect ")
