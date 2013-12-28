@@ -23,7 +23,12 @@ def listen():
 
 def callback_move(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
-    rospy.loginfo(rospy.get_name() + ": I heard " + data.header.seq)
+    rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq))
+    # global vars
+    global seq_counter
+    global linear_x
+    global angular_z
+    global kinect_obstruction
     # check seq counter
     seq_counter = seq_counter + 1
     seq_counter = seq_counter % mod_base
@@ -35,7 +40,7 @@ def callback_move(data):
     else :
         linear_x = 0
     # angular_z
-    if not seq_num == data.header.seq :
+    if not seq_counter == data.header.seq :
         angular_z = data.twist.angular.z
     else :
         andular_z = 0
