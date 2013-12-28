@@ -17,15 +17,18 @@ def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
     rospy.Subscriber("instructions/command_velocity", TwistStamped, callback_move)
     while not rospy.is_shutdown():
-        str = "hello world " + rospy.get_time()
+        str = "hello world %f" % rospy.get_time()
         rospy.loginfo(str)
         rospy.sleep(1.0)
 
 def callback_move(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
     rospy.loginfo(rospy.get_name() + ": I heard " + data.header.seq)
+    # check seq counter
     seq_counter = seq_counter + 1
     seq_counter = seq_counter % mod_base
+    if seq_counter == 0 :
+        seq_counter = seq_counter + 1
     # linear_x
     if not (kinect_obstruction and ( seq_counter == data.header.seq ) ) :
         linear_x = data.twist.linear.x
