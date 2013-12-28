@@ -14,4 +14,4 @@ $ ./set-workspace.bash
 
 You may want to add the projects path to the ROS_PACKAGE_PATH to your '.bashrc' file. Use the following code:
 
-export ROS_PACKAGE_PATH=~/workspace/telenp/turtlebot_tele_presence/:$ROS_PACKAGE_PATH;
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/workspace/telenp/turtlebot_tele_presence/;
