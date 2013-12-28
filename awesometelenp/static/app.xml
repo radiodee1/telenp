@@ -70,9 +70,9 @@ var MSG_TWIST = 2;
 var MSG_RESERVED = 3;
 
 var choose_output_string = "TURTLEBOT SETUP: <br>" +
-			" This is for the 'rostopic echo' method.<br><br>" + 
+			"in separate turtlebot terminals...<br>" +
+			" (this is for the 'rostopic echo' method.)<br><br>" + 
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
-			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
 			"$ rostopic echo /talker <br><br>" +
 			"</i>... then look at terminal for output when" +
@@ -80,7 +80,6 @@ var choose_output_string = "TURTLEBOT SETUP: <br>" +
 var choose_output_twist = "TURTLEBOT SETUP: <br>" +
 			"in separate turtlebot terminals...<br><br>" +
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
-			"$ roscore <br>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
 			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
