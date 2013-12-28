@@ -50,7 +50,10 @@ var choose_output_twist = "TURTLEBOT SETUP: <br>" +
 			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
 var choose_output_reserved = "TURTLEBOT SETUP: <br>" +
-			" This is reserved for future development.";
+			"after installing tele-np ros packages...<br><br>" +
+			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
+			"$ roslaunch tele_presence full.launch <br><br>" +
+			"</i>... then direct the turtlebot from the Google Hangout screen.";
 var choose_click =      "click the arrows to direct the turtlebot.";
 var choose_stream =     "Click to disable - on the turtlebot computer - precautions that prevent " +
 			"more than one remote computer from giving instructions at the same time.";
