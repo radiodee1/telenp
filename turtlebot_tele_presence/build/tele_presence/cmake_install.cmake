@@ -48,6 +48,9 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/tele_presence" TYPE PROGRAM FILES "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/scripts/turtlebot_listen.py")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/tele_presence" TYPE PROGRAM FILES
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/scripts/turtlebot_listen.py"
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/scripts/turtlebot_talktest.py"
+    )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

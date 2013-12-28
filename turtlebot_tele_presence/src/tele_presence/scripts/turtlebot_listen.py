@@ -7,32 +7,38 @@ from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
 
+linear_x = 0
+angular_z = 0
+seq_counter = 0
+
 def listen():
-    rospy.Subscriber("instructions/command_velocity", TwistStamped, callback)
-    pub_string = rospy.Publisher('chatter', String)
     rospy.init_node('turtlebot_listen', anonymous=True)
+    rospy.Subscriber("instructions/command_velocity", TwistStamped, callback)
     while not rospy.is_shutdown():
-        str = "hello world %s" % rospy.get_time()
+        str = "hello world " + rospy.get_time()
         rospy.loginfo(str)
-        pub_string.publish(String(str))
+        #stamped = TwistStamped()
+        #stamped.header.seq = 20
+        #stamped.twist.linear.x = 111
+        #stamped.twist.angular.z = 222
         rospy.sleep(1.0)
 
 def callback(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
-    rospy.loginfo(rospy.get_name() + ": I heard %s" % data.header.seq)
+    rospy.loginfo(rospy.get_name() + ": I heard " + data.header.seq)
+    linear_x = data.twist.linear.x
+    angular_z = data.twist.angular.z
     twist = Twist();
-    twist.linear.x = data.twist.linear.x;
+    twist.linear.x = linear_x
     twist.linear.y = 0;
     twist.linear.z = 0;
     twist.angular.x = 0;
     twist.angular.y = 0;
-    twist.angular.z = data.twist.angular.z;
+    twist.angular.z = angular_z
     pub_move.publish(twist)
 
 
 def listener_x():
-    rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber("chatter", String, callback)
     rospy.spin()
 
 

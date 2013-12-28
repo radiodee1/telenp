@@ -126,6 +126,7 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
  install(PROGRAMS
    scripts/turtlebot_listen.py
+   scripts/turtlebot_talktest.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
