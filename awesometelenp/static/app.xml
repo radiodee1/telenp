@@ -37,6 +37,7 @@
 
 */
 
+var mod_base = 16;
 var tx_number = 0;
 var tx_operation = "";
 var tx_gapi_key = "telenp"; // used by transmitting (user) node
@@ -247,7 +248,7 @@ function changeButtonSrc(url) {
 function formJSONClick(operation) {
 	tx_operation = operation; 
 	tx_number ++;
-	tx_number = tx_number % 16;
+	tx_number = tx_number % mod_base;
 	console.log(operation);
 	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
 	console.log( makeText );
@@ -314,7 +315,7 @@ function recieveEvent () {
 		rx_obj = JSON.parse(rx_data) ;	
 
 		// change sequence numbers...
-		stream_num = (stream_num + 1 ) % 16;	
+		stream_num = (stream_num + 1 ) % mod_base;	
 		if (rx_obj.direction == "stop") stream_num = 0;
 
 		console.log( rx_obj.direction + " -- " + rx_obj.number);
@@ -455,7 +456,7 @@ function retransmitEvent(data) {
     			header : {
     			    seq : 33, //seq_ros,
     			    time : 0,
-    			    frame_id : "0";
+    			    frame_id : "0"
     			},
     			twist : {
     			    linear : {

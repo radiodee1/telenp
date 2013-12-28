@@ -7,27 +7,36 @@ from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
 
+mod_base = 16
 linear_x = 0
 angular_z = 0
 seq_counter = 0
+kinect_obstruction = False
 
 def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
-    rospy.Subscriber("instructions/command_velocity", TwistStamped, callback)
+    rospy.Subscriber("instructions/command_velocity", TwistStamped, callback_move)
     while not rospy.is_shutdown():
         str = "hello world " + rospy.get_time()
         rospy.loginfo(str)
-        #stamped = TwistStamped()
-        #stamped.header.seq = 20
-        #stamped.twist.linear.x = 111
-        #stamped.twist.angular.z = 222
         rospy.sleep(1.0)
 
-def callback(data):
+def callback_move(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
     rospy.loginfo(rospy.get_name() + ": I heard " + data.header.seq)
-    linear_x = data.twist.linear.x
-    angular_z = data.twist.angular.z
+    seq_counter = seq_counter + 1
+    seq_counter = seq_counter % mod_base
+    # linear_x
+    if not (kinect_obstruction and ( seq_counter == data.header.seq ) ) :
+        linear_x = data.twist.linear.x
+    else :
+        linear_x = 0
+    # angular_z
+    if not seq_num == data.header.seq :
+        angular_z = data.twist.angular.z
+    else :
+        andular_z = 0
+    # twist output
     twist = Twist();
     twist.linear.x = linear_x
     twist.linear.y = 0;
@@ -41,7 +50,8 @@ def callback(data):
 def listener_x():
     rospy.spin()
 
-
+def callback_kinect(data):
+    rospy.loginfo("kinect ")
 
 
 if __name__ == '__main__':
