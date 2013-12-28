@@ -1,16 +1,8 @@
 <launch>
   
-  <!-- machine name="local_alt" address="localhost" default="true" ros-root="/u/user/ros/ros/" ros-package-path="/u/user/ros/ros-pkg" / -->
-  <!-- a basic listener node -->
-  <!-- node name="listener-1" pkg="rospy_tutorials" type="listener" / -->
-  <!-- pass args to the listener node -->
-  <!-- node name="listener-2" pkg="rospy_tutorials" type="listener" args="-foo arg2" / -->
   
   <!-- a respawn-able listener node -->
   <node name="turtlebot_listen" pkg="tele_presence" type="turtlebot_listen.py" respawn="true" />
   
-  <!-- start listener node in the 'wg1' namespace -->
-  <!-- node ns="wg1" name="listener-wg1" pkg="rospy_tutorials" type="listener" respawn="true" / -->
-  <!-- start a group of nodes in the 'wg2' namespace -->
   
 </launch>
