@@ -6,6 +6,7 @@ from std_msgs.msg import Header
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
+from sensor_msgs.msg import PointCloud2
 
 mod_base = 16
 linear_x = 0
@@ -16,7 +17,7 @@ kinect_obstruction = False
 def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
     rospy.Subscriber("instructions/command_velocity", TwistStamped, callback_move)
-    # rospy.Subscriber("", Pointcloud, callback_kinect)
+    # rospy.Subscriber("", PointCloud2, callback_kinect)
     while not rospy.is_shutdown():
         str = "hello world %f" % rospy.get_time()
         rospy.loginfo(str)
