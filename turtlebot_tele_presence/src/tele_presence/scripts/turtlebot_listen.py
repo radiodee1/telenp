@@ -61,6 +61,7 @@ def callback_move(data):
 
 
 def callback_kinect(data):
+    # no obstruction to start
     rospy.loginfo("kinect ")
 
 
