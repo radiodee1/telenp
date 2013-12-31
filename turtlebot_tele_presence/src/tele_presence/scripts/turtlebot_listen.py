@@ -18,6 +18,7 @@ def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
     rospy.Subscriber("instructions/command_velocity", TwistStamped, callback_move)
     rospy.Subscriber("camera/depth_registered/points", PointCloud2, callback_kinect)
+    # remove me!!
     while not rospy.is_shutdown():
         str = "hello world %f" % rospy.get_time()
         rospy.loginfo(str)
