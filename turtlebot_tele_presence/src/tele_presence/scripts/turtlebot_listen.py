@@ -22,6 +22,7 @@ def listen():
     while not rospy.is_shutdown():
         str = "hello world %f" % rospy.get_time()
         rospy.loginfo(str)
+        # callback_kinect(PointCloud2())
         rospy.sleep(1.0)
 
 def callback_move(data):
@@ -63,7 +64,9 @@ def callback_move(data):
 
 def callback_kinect(data):
     # no obstruction to start
-    rospy.loginfo("kinect ")
+    global kinect_obstruction
+    # kinect_obstruction = True
+    rospy.loginfo("kinect " + str(kinect_obstruction))
 
 
 if __name__ == '__main__':
