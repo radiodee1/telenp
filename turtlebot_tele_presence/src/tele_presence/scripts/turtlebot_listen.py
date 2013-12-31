@@ -62,12 +62,36 @@ def callback_move(data):
     rospy.loginfo(twist)
 
 
-def callback_kinect(data):
+def callback_kinect(data) :
     # no obstruction to start
     global kinect_obstruction
     # kinect_obstruction = True
     rospy.loginfo("kinect " + str(kinect_obstruction))
 
+
+def read_depth(height, width, data) :
+    # read function
+    if (height >= data.height) or (width >= data.width) :
+        return -1
+    index = (height * data.step) + (width * (data.step/data.width));
+    # rectified depth image
+    if ((data.step/data.width) == 4) :  
+        i = 0;
+        int_data = 0
+        for i in xrange ( 4 ) : 
+            int_data = (int_data << 8) + data.data[index + i]
+        return int(int_data * 1000)
+    # raw depth image    
+    temp_val = 0
+    if (data.is_bigendian) :
+        temp_val = (data.data[index] << 8 ) + data.data[ index + 1 ]
+    else :
+        temp_val = data.data[index] + ( data.data [index + 1] << 8 )
+    if temp_val == temp_val :
+        return temp_val
+    return -1
+        
+        
 
 if __name__ == '__main__':
     try:
