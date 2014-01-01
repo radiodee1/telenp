@@ -2,6 +2,7 @@
 import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Header
+from std_msgs.msg import UInt8
 
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
@@ -24,10 +25,19 @@ def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
     rospy.Subscriber("instructions/command_velocity", TwistStamped, callback_move)
     rospy.Subscriber("camera/depth_registered/points", PointCloud2, callback_kinect)
-    # remove me!!
+    pub_kinect = rospy.Publisher('instructions/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
-        str = "hello world %f" % rospy.get_time()
-        rospy.loginfo(str)
+        str1 = "hello world %f" % rospy.get_time()
+        rospy.loginfo(str1)
+        temp_var = 0
+        if (kinect_left) :
+            temp_var = temp_var + 4
+        if (kinect_middle) :
+            temp_var = temp_var + 2
+        if (kinect_right) :
+            temp_var = temp_var + 1
+        pub_kinect.publish (temp_var)
+        rospy.loginfo("kinect feedback " + str(temp_var) )
         # callback_kinect(PointCloud2())
         rospy.sleep(1.0)
 
