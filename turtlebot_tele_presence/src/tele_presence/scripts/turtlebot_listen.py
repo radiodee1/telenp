@@ -127,7 +127,7 @@ def read_depth(width, height, data) :
         return int(int_data * 1000)
     # raw depth image    
     if (data.is_bigendian) :
-        int_data = ( int(data.data[index]).astype('int8') << hex(8) ) + data.data[ index + 1 ]
+        int_data = np.uint8( np.left_shift(data.data[index],8)  ) + np.uint8( data.data[ index + 1 ])
     else :
         int_data = data.data[index] + (  int(data.data [index + 1]).astype('uint8') << 8 )
     if int_data == int_data :
