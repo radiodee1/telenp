@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import rospy
+import numpy as np
+
 from std_msgs.msg import String
 from std_msgs.msg import Header
 from std_msgs.msg import UInt8
@@ -116,18 +118,18 @@ def read_depth(width, height, data) :
     # read function
     if (height >= data.height) or (width >= data.width) :
         return -1
-    index = (height * data.step) + (width * (data.step/data.width));
+    index = (height * data.row_step) + (width * (data.row_step/data.width));
     int_data = 0 
     # rectified depth image
-    if ((data.step/data.width) == 4) :  
+    if ((data.point_step) == 4) :  
         for i in xrange ( 4 ) : 
             int_data = (int_data << 8) + data.data[index + i]
         return int(int_data * 1000)
     # raw depth image    
     if (data.is_bigendian) :
-        int_data = (data.data[index] << 8 ) + data.data[ index + 1 ]
+        int_data = ( int(data.data[index]).astype('int8') << hex(8) ) + data.data[ index + 1 ]
     else :
-        int_data = data.data[index] + ( data.data [index + 1] << 8 )
+        int_data = data.data[index] + (  int(data.data [index + 1]).astype('uint8') << 8 )
     if int_data == int_data :
         return int_data
     return -1
