@@ -27,8 +27,9 @@ def listen():
     rospy.Subscriber("camera/depth_registered/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('instructions/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
-        str1 = "hello world %f" % rospy.get_time()
-        rospy.loginfo(str1)
+        str1 = "hello world " + str (rospy.get_time())
+        if not kinect_obstruction :
+            rospy.loginfo(str1)
         temp_var = 0
         if (kinect_left) :
             temp_var = temp_var + 4
@@ -37,7 +38,8 @@ def listen():
         if (kinect_right) :
             temp_var = temp_var + 1
         pub_kinect.publish (temp_var)
-        rospy.loginfo("kinect feedback " + str(temp_var) )
+        if kinect_obstruction :
+            rospy.loginfo("kinect feedback " + str(temp_var) )
         # callback_kinect(PointCloud2())
         rospy.sleep(1.0)
 
@@ -45,10 +47,7 @@ def callback_move(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
     rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq))
     # global vars
-    global seq_counter
-    global linear_x
-    global angular_z
-    global kinect_obstruction
+    global seq_counter, linear_x, angular_z , kinect_obstruction
     # check seq counter
     seq_counter = seq_counter + 1
     seq_counter = seq_counter % mod_base
