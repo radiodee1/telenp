@@ -181,8 +181,20 @@ function tryRadioClick() {
 	}
 }
 
+function trySetupControls() {
+    document.getElementById("setupControls").style.display="";
+    document.getElementById("setupText").style.display="none";
+    document.getElementById("alertText").style.display="";
+}
+
+function trySetupText() {
+    document.getElementById("setupControls").style.display="none";
+    document.getElementById("setupText").style.display="";
+    document.getElementById("alertText").style.display="none";
+}
+
 function changeHintText(text) {
-	document.getElementById('setupText').innerHTML= text;
+	document.getElementById('setupText').innerHTML= "<br>" + text;
 }
 
 function changeAlertText() {

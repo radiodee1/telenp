@@ -195,8 +195,20 @@ function tryRadioClick() {
 	}
 }
 
+function trySetupControls() {
+    document.getElementById("setupControls").style.display="";
+    document.getElementById("setupText").style.display="none";
+    document.getElementById("alertText").style.display="";
+}
+
+function trySetupText() {
+    document.getElementById("setupControls").style.display="none";
+    document.getElementById("setupText").style.display="";
+    document.getElementById("alertText").style.display="none";
+}
+
 function changeHintText(text) {
-	document.getElementById('setupText').innerHTML= text;
+	document.getElementById('setupText').innerHTML= "<br>" + text;
 }
 
 function changeAlertText() {
@@ -514,7 +526,14 @@ gadgets.util.registerOnLoadHandler(init);
 
 
 <body style="background-color: #999">
-<div style="float: left; padding: 0px 20px; background-color: #999">
+<div style="padding: 0px 20px; background-color: #999">
+	<img src="//awesometelenp.appspot.com/static/bitmap/button_up.png" 
+	alt="CONTROLS" onclick="trySetupControls()">
+	<img src="//awesometelenp.appspot.com/static/bitmap/button_up.png" 
+	alt="SETUP" onclick="trySetupText()">
+</div>
+<div style="float: left; padding: 0px 20px; background-color: #999"
+	id="setupControls">
 
 
 	<br>
@@ -574,7 +593,7 @@ gadgets.util.registerOnLoadHandler(init);
 	<b style="color:green;font-size:10pt">[clear]</b>
 </div>
 <div style="clear: both; background-color:#aaaaaa" id="setupText">
-	
+	<br>
 	TURTLEBOT SETUP:
 </div>
 </body>
