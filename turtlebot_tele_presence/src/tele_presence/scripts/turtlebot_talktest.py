@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 import rospy
-import ctypes
-import struct
 import sensor_msgs.point_cloud2 as pc2
 
 from std_msgs.msg import String
@@ -10,7 +8,7 @@ from std_msgs.msg import Header
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
-from sensor_msgs.msg import PointCloud2
+from sensor_msgs.msg import PointCloud2, PointField
 
 def test():
     rospy.init_node('turtlebot_talktest', anonymous=True)
@@ -30,6 +28,7 @@ def test():
         stamped.twist.linear.x = linearx + counter
         stamped.twist.angular.z = angularz + counter
         pub_twist.publish(stamped)
+        pub_cloud.publish(pcloud)
         #rospy.loginfo(stamped)
         rospy.loginfo(pcloud)
         rospy.sleep(1.0)

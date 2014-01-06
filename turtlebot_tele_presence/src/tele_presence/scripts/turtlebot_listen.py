@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import rospy
 import numpy as np
-import ctypes
+import sensor_msgs.point_cloud2 as pc2
+
+import roslib ; roslib.load_manifest('sensor_msgs')
 
 from std_msgs.msg import String
 from std_msgs.msg import Header
@@ -10,7 +12,7 @@ from std_msgs.msg import UInt8
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
-from sensor_msgs.msg import PointCloud2
+from sensor_msgs.msg import PointCloud2, PointField
 
 mod_base = 16
 boundary_depth = 1
@@ -119,24 +121,14 @@ def read_depth(width, height, data) :
     # read function
     if (height >= data.height) or (width >= data.width) :
         return -1
-    index = (height * data.row_step) + (width * (data.row_step/data.width));
-    int_data = 0 
-    # rectified depth image
-    if ((data.point_step) == 4) :  
-        for i in xrange ( 4 ) : 
-            int_data = (int_data << 8) + data.data[index + i]
-        return int(int_data * 1000)
-    # raw depth image    
-    if (data.is_bigendian) :
-        rospy.loginfo(str(int(data.data[index],10)))
-        int_data = 0
-        int_data += int(int(data.data[index], 10) << 8 ,10) 
-        int_data += np.uint8( data.data[ index + 1 ])
-    else :
-        int_data = data.data[index] + (  int(data.data [index + 1]).astype('uint8') << 8 )
-    if int_data == int_data :
-        return int_data
-    return -1
+    #index = (height * data.row_step) + (width * (data.row_step/data.width));
+    index = 1
+    int_data = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[index])
+    for i in int_data :
+        int_data_2 = i # next(int_data.next())
+    rospy.loginfo("int_data " + str(int_data_2))
+    return int_data_2
+   
         
         
 
