@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import rospy
 import numpy as np
+import ctypes
 
 from std_msgs.msg import String
 from std_msgs.msg import Header
@@ -127,7 +128,10 @@ def read_depth(width, height, data) :
         return int(int_data * 1000)
     # raw depth image    
     if (data.is_bigendian) :
-        int_data = np.uint8( np.left_shift(data.data[index],8)  ) + np.uint8( data.data[ index + 1 ])
+        rospy.loginfo(str(int(data.data[index],10)))
+        int_data = 0
+        int_data += int(int(data.data[index], 10) << 8 ,10) 
+        int_data += np.uint8( data.data[ index + 1 ])
     else :
         int_data = data.data[index] + (  int(data.data [index + 1]).astype('uint8') << 8 )
     if int_data == int_data :

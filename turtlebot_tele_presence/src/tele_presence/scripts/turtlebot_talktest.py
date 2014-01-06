@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 import rospy
+import ctypes
+import struct
+import sensor_msgs.point_cloud2 as pc2
+
 from std_msgs.msg import String
 from std_msgs.msg import Header
 
@@ -18,15 +22,9 @@ def test():
     while not rospy.is_shutdown():
         counter = counter + 1
         pcloud = PointCloud2()
-        pcloud.data = [33,33,33,33,33,33,33,33,33,33,  
-            22,22,22,22,22,22,22,22,22,22, 
-            11,11,11,11,11,11,11,11,11,11]
-        pcloud.is_bigendian = True
-        pcloud.point_step = 2
-        pcloud.row_step = 10
-        pcloud.width = 5
-        pcloud.height = 3
-        pub_cloud.publish(pcloud)
+        # make point cloud
+        cloud = [[33,22,11],[55,33,22],[33,22,11]]
+        pcloud = pc2.create_cloud_xyz32(pcloud.header, cloud)
         stamped = TwistStamped()
         stamped.header.seq = counter
         stamped.twist.linear.x = linearx + counter
