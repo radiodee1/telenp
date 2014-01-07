@@ -613,7 +613,7 @@ gadgets.util.registerOnLoadHandler(init);
 	<b style="color:green;font-size:10pt">[running] </b>
 	<b style="color:green;font-size:10pt">[clear]</b>
 </div>
-<div style="clear: both; background-color:#aaaaaa" id="setupText">
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="setupText">
 	<br>
 	TURTLEBOT SETUP:
 </div>
