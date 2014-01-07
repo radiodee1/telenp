@@ -21,7 +21,7 @@ def test():
         counter = counter + 1
         pcloud = PointCloud2()
         # make point cloud
-        cloud = [[33,22,11],[55,33,22],[33,22,11]]
+        cloud = [[99,77,11],[55,33,22],[44,88,66]]
         pcloud = pc2.create_cloud_xyz32(pcloud.header, cloud)
         stamped = TwistStamped()
         stamped.header.seq = counter
