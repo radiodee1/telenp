@@ -2,8 +2,8 @@
 import rospy
 import numpy as np
 import sensor_msgs.point_cloud2 as pc2
-
-import roslib ; roslib.load_manifest('sensor_msgs')
+from roslib import message
+#import roslib ; roslib.load_manifest('sensor_msgs')
 
 from std_msgs.msg import String
 from std_msgs.msg import Header
@@ -121,13 +121,11 @@ def read_depth(width, height, data) :
     # read function
     if (height >= data.height) or (width >= data.width) :
         return -1
-    #index = (height * data.row_step) + (width * (data.row_step/data.width));
-    index = 1
-    int_data = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[index])
-    for i in int_data :
-        int_data_2 = i # next(int_data.next())
-    rospy.loginfo("int_data " + str(int_data_2))
-    return int_data_2
+    data_out = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[[width, height]])
+    data_out
+    int_data = next(data_out)
+    rospy.loginfo("int_data " + str(int_data[1]))
+    return int_data[1]
    
         
         

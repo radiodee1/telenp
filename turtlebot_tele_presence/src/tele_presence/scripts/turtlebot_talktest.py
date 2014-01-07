@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 import sensor_msgs.point_cloud2 as pc2
-
+from roslib import message
 from std_msgs.msg import String
 from std_msgs.msg import Header
 
