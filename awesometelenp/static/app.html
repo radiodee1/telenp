@@ -22,11 +22,13 @@
 	</tr>
 	<tr>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_left.png" 
-		onmousedown="tryLeftClick()"  alt="CLICK"></td>
+		onmousedown="tryLeftClick()" onmouseup="tryClearTimer()" onmouseout="tryClearTimer()" 
+		alt="CLICK"></td>
 	<td id="middleButtonHtml"><img src="//awesometelenp.appspot.com/static/bitmap/button_center.png"  
 		onmousedown="tryStopClick()" alt="CLICK" id="middleButtonSrc"></td>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_right.png" 
-		onmousedown="tryRightClick()"  alt="CLICK"></td>
+		onmousedown="tryRightClick()" onmouseup="tryClearTimer()" onmouseout="tryClearTimer()" 
+		alt="CLICK"></td>
 	</tr>
 	<tr>
 	<td></td>

@@ -25,6 +25,8 @@ var stream_num = 0;
 var timer_key = 0;
 var timer_up = 0;
 var timer_down = 0;
+var timer_left = 0;
+var timer_right = 0;
 
 var last_key = "stop";
 var last_counter = 1;
@@ -72,11 +74,13 @@ var button_center_src_error = "//awesometelenp.appspot.com/static/bitmap/button_
 function tryLeftClick() {
 	formJSONClick("left");
 	if (!control_retransmit) changeHintText(choose_click); 
+	if (timer_left == 0) timer_left = setInterval('formJSONClick("left")', 500);
 }
 
 function tryRightClick() {
 	formJSONClick("right");
 	if (!control_retransmit) changeHintText(choose_click); 
+	if (timer_right == 0) timer_right = setInterval('formJSONClick("right")', 500);
 }
 
 function tryUpClick() {
@@ -108,6 +112,14 @@ function tryClearTimer() {
 	if (timer_down != 0) {
 		clearInterval(timer_down);
 		timer_down = 0;
+	}
+	if (timer_left != 0) {
+		clearInterval(timer_left);
+		left_left = 0;
+	}
+	if (timer_right != 0) {
+		clearInterval(timer_right);
+		timer_right = 0;
 	}
 }
 
@@ -314,7 +326,7 @@ function recieveEvent () {
 
 		console.log( rx_obj.direction + " -- " + rx_obj.number);
 		// handle stream setting here...
-		if (!control_stream && rx_obj.number != stream_num) {
+		if (!control_stream && control_retransmit && rx_obj.number != stream_num) {
 			control_stopped = true;
 			changeButtonSrc(button_center_src_error);
 			formJSONError(); // OK??
