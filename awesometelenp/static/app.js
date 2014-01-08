@@ -120,12 +120,14 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
+		tryHidePadControls();
 		formJSONError();
 	}
 	else {
 		control_retransmit = false;
 		document.getElementById("setStream").checked = false;
 		if (control_connected) formJSONError();
+		tryShowPadControls();
 		control_connected = false;
 	}
 	
@@ -191,6 +193,18 @@ function trySetupText() {
     document.getElementById("setupControls").style.display="none";
     document.getElementById("setupText").style.display="";
     document.getElementById("alertText").style.display="none";
+}
+
+function tryHidePadControls() {
+    document.getElementById("padTable").style.display="none";
+    document.getElementById("turtlebotTable").style.display="";
+    document.getElementById("alertText").style.display="none";
+}
+
+function tryShowPadControls() {
+    document.getElementById("padTable").style.display="";
+    document.getElementById("turtlebotTable").style.display="";
+    document.getElementById("alertText").style.display="";
 }
 
 function changeHintText(text) {

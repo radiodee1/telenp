@@ -155,12 +155,14 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
+		tryHidePadControls();
 		formJSONError();
 	}
 	else {
 		control_retransmit = false;
 		document.getElementById("setStream").checked = false;
 		if (control_connected) formJSONError();
+		tryShowPadControls();
 		control_connected = false;
 	}
 	
@@ -226,6 +228,18 @@ function trySetupText() {
     document.getElementById("setupControls").style.display="none";
     document.getElementById("setupText").style.display="";
     document.getElementById("alertText").style.display="none";
+}
+
+function tryHidePadControls() {
+    document.getElementById("padTable").style.display="none";
+    document.getElementById("turtlebotTable").style.display="";
+    document.getElementById("alertText").style.display="none";
+}
+
+function tryShowPadControls() {
+    document.getElementById("padTable").style.display="";
+    document.getElementById("turtlebotTable").style.display="";
+    document.getElementById("alertText").style.display="";
 }
 
 function changeHintText(text) {
@@ -558,7 +572,7 @@ gadgets.util.registerOnLoadHandler(init);
 
 
 	<br>
-	<table border="0">
+	<table border="0" id="padTable">
 	<tr>
 	<td></td>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_up.png" 
@@ -585,7 +599,13 @@ gadgets.util.registerOnLoadHandler(init);
 
   <br>
   
-  <table border="0">
+<div style="clear: both; background-color:#aaaaaa" id="alertText">
+	<b style="color:green;font-size:10pt">[free] </b>
+	<b style="color:green;font-size:10pt">[running] </b>
+	<b style="color:green;font-size:10pt">[clear]</b>
+</div>  
+  
+  <table border="0" id="turtlebotTable">
   <tr><td>
 	<b>Various:</b><br>
   <input type=checkbox value="Turtlebot" id="setTurtlebot"
@@ -608,11 +628,7 @@ gadgets.util.registerOnLoadHandler(init);
 	</table>
 <br>
 </div>
-<div style="clear: both; background-color:#aaaaaa" id="alertText">
-	<b style="color:green;font-size:10pt">[free] </b>
-	<b style="color:green;font-size:10pt">[running] </b>
-	<b style="color:green;font-size:10pt">[clear]</b>
-</div>
+
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupText">
 	<br>
 	TURTLEBOT SETUP:

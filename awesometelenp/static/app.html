@@ -12,7 +12,7 @@
 
 
 	<br>
-	<table border="0">
+	<table border="0" id="padTable">
 	<tr>
 	<td></td>
 	<td><img src="//awesometelenp.appspot.com/static/bitmap/button_up.png" 
@@ -39,7 +39,13 @@
 
   <br>
   
-  <table border="0">
+<div style="clear: both; background-color:#aaaaaa" id="alertText">
+	<b style="color:green;font-size:10pt">[free] </b>
+	<b style="color:green;font-size:10pt">[running] </b>
+	<b style="color:green;font-size:10pt">[clear]</b>
+</div>  
+  
+  <table border="0" id="turtlebotTable">
   <tr><td>
 	<b>Various:</b><br>
   <input type=checkbox value="Turtlebot" id="setTurtlebot"
@@ -62,11 +68,7 @@
 	</table>
 <br>
 </div>
-<div style="clear: both; background-color:#aaaaaa" id="alertText">
-	<b style="color:green;font-size:10pt">[free] </b>
-	<b style="color:green;font-size:10pt">[running] </b>
-	<b style="color:green;font-size:10pt">[clear]</b>
-</div>
+
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupText">
 	<br>
 	TURTLEBOT SETUP:
