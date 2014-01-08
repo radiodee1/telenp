@@ -17,8 +17,10 @@ var control_retransmit = false;
 var control_msgtype = 0;
 var control_stream = false;
 var control_obstructed = false;
-var control_connected = false;
+var control_connected_motors = false;
+var control_connected_rx = false;
 var control_stopped = false;
+var control_stopped_rx = false;
 var connection = new Object();
 var cmdVel = new Object();
 var stream_num = 0;
@@ -30,6 +32,7 @@ var timer_right = 0;
 
 var last_key = "stop";
 var last_counter = 1;
+var speed_max = 3;
 var seq_ros = 0;
 
 var MSG_STRING = 1;
@@ -99,6 +102,7 @@ function tryStopClick() {
 	tx_number = - 1;
 	formJSONClick("stop");
 	control_stopped = false;
+	control_stopped_rx = false;
 	changeAlertText();
 	if (!control_retransmit) changeHintText(choose_click);
 	changeButtonSrc(button_center_src_start); 
@@ -125,22 +129,26 @@ function tryClearTimer() {
 
 function tryTurtlebotClick() {
 	
-	if (document.getElementById("setTurtlebot").checked && !control_connected) { 
+	if (document.getElementById("setTurtlebot").checked && !control_connected_motors) { 
 		control_retransmit = true;
 		control_msgtype = 2;
-		control_connected = true;
+		control_connected_motors = true;
+		control_connected_rx = true;
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
 		tryHidePadControls();
+		tryShowMotorControls();
 		formJSONError();
 	}
-	else {
-		control_retransmit = false;
+	else if (control_connected_motors) {
 		document.getElementById("setStream").checked = false;
-		if (control_connected) formJSONError();
+		control_connected_motors = false;
+		control_connected_rx = false;
+		if (control_retransmit) formJSONError();
+		control_retransmit = false;
 		tryShowPadControls();
-		control_connected = false;
+		tryShowMotorControls();
 		changeAlertText();
 	}
 	
@@ -220,6 +228,16 @@ function tryShowPadControls() {
     document.getElementById("alertText").style.display="";
 }
 
+function tryHideMotorControls() {
+    document.getElementById("turtlebotTable").style.display="none";
+    document.getElementById("alertText").style.display="";
+}
+
+function tryShowMotorControls() {
+    document.getElementById("turtlebotTable").style.display="";
+    document.getElementById("alertText").style.display="";
+}
+
 function changeHintText(text) {
 	document.getElementById('setupText').innerHTML= "<br>" + text;
 }
@@ -230,10 +248,16 @@ function changeAlertText() {
 	var stopped;
 	var obstructed;
 	
-	if (control_connected) connected = "<b style='color:yellow;font-size:10pt'>" + "[connected]";
-	else connected = "<b style='color:green;font-size:10pt'>" + "[free]";
+	if (control_connected_rx  && !control_retransmit) {
+	    connected = "<b style='color:yellow;font-size:10pt'>" + "[connected]";
+	    if (!control_retransmit) tryHideMotorControls();
+	}
+	else {
+	    connected = "<b style='color:green;font-size:10pt'>" + "[free]";
+	    tryShowMotorControls();
+	}
 	
-	if (control_stopped) stopped = "<b style='color:red;font-size:10pt'>" + "[stopped]";
+	if (control_stopped_rx) stopped = "<b style='color:red;font-size:10pt'>" + "[stopped]";
 	else stopped = "<b style='color:green;font-size:10pt'>" + "[running]";
 	
 	if (control_obstructed) obstructed = "<b style='color:red;font-size:10pt'>" + "[blocked]";
@@ -267,8 +291,8 @@ function formJSONClick(operation) {
 }
 
 function formJSONError() {
-	if (!control_retransmit) return;
-	var connect = control_connected;
+	if (!control_retransmit ) return;
+	var connect = control_connected_motors;
 	var stopped = control_stopped;
 	var kinect = control_obstructed;
 
@@ -301,12 +325,12 @@ function recieveEvent () {
 	catch (e) {
 		console.log("error google hangouts api -- " + tx_gapi_error);
 	}
-	if (rx_error != undefined && rx_error != rx_error_old) {
+	if (rx_error != undefined && rx_error != rx_error_old || true) {
 		rx_error_obj = JSON.parse(rx_error);
-		if (rx_error_obj.connected == true) control_connected = true;
-		else control_connected = false;
-		if (rx_error_obj.stopped == true) control_stopped = true;
-		else control_stopped = false;
+		if (rx_error_obj.connected == true) control_connected_rx = true;
+		else control_connected_rx = false;
+		if (rx_error_obj.stopped == true) control_stopped_rx = true;
+		else control_stopped_rx = false;
 		if (rx_error_obj.kinect == true) control_obstructed = true;
 		else control_obstructed = false;
 		
@@ -315,7 +339,13 @@ function recieveEvent () {
 	changeAlertText();
 
 	// direction data from hangouts...
-	rx_data = gapi.hangout.data.getState()[tx_gapi_key];
+	try {
+	    rx_data = gapi.hangout.data.getState()[tx_gapi_key];
+	    console.log(rx_data + " key msg");
+	}
+	catch (e){
+	    console.log("error google hangouts api -- " );
+	}
 	if (rx_data != rx_data_old) { 
 	
 		rx_obj = JSON.parse(rx_data) ;	
@@ -354,7 +384,7 @@ function retransmitEvent(data) {
 		break;
 		
 		case "up":
-			if (last_key === "up" && last_counter < 5 ) {
+			if (last_key === "up" && last_counter < speed_max ) {
 				last_counter ++ ;
 				setSpeedTimer();
 			} 
@@ -363,7 +393,7 @@ function retransmitEvent(data) {
 		break;
 		
 		case "down":
-			if (last_key === "down" && last_counter < 5 ) {
+			if (last_key === "down" && last_counter < speed_max ) {
 				last_counter ++ ;
 				setSpeedTimer();
 			}
@@ -514,7 +544,7 @@ function init() {
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
 			});
-	
+	        
 			//console.log("websocket test");
 			if ('WebSocket' in window){
     				// WebSocket is supported.
