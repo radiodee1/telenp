@@ -129,6 +129,7 @@ function tryTurtlebotClick() {
 		if (control_connected) formJSONError();
 		tryShowPadControls();
 		control_connected = false;
+		changeAlertText();
 	}
 	
 	console.log(control_retransmit + "  retransmit");
