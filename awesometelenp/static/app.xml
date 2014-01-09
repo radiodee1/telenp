@@ -283,7 +283,7 @@ function changeAlertText() {
 	var stopped;
 	var obstructed;
 	
-	if (control_connected_rx  && !control_retransmit) {
+	if (control_connected_rx ){// && !control_retransmit) {
 	    connected = "<b style='color:yellow;font-size:10pt'>" + "[connected]";
 	    if (!control_retransmit) tryHideMotorControls();
 	}
