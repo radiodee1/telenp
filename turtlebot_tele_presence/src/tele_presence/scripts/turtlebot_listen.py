@@ -91,9 +91,9 @@ def callback_kinect(data) :
     # pick a height
     height =  int (data.height / 2)
     # pick three x coords near front and center
-    left_x = 2 # int ( data.width * 3 / 8)
-    middle_x = 1 # int (data.width / 2)
-    right_x = 1 # int (data.width - ( data.width * 3 / 8 ))
+    left_x =  int ( data.width * 3 / 8)
+    middle_x =  int (data.width / 2)
+    right_x =  int (data.width - ( data.width * 3 / 8 ))
     # examine three points
     left = read_depth (left_x, height, data)
     middle = read_depth (middle_x, height, data)
@@ -123,7 +123,7 @@ def read_depth(width, height, data) :
         return -1
     data_out = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[[width, height]])
     data_out
-    int_data = next(data_out)
+    int_data = next(data_out) # this returns a tuple!!
     rospy.loginfo("int_data " + str(int_data[0]))
     return int_data[0]
    
