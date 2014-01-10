@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 import rospy
+import roslib; roslib.load_manifest('sensor_msgs')
+
+import ctypes
+import math
+import struct
+
 import sensor_msgs.point_cloud2 as pc2
 from roslib import message
 from std_msgs.msg import String
@@ -20,24 +26,41 @@ def test():
     while not rospy.is_shutdown():
         counter = counter + 1
         pcloud = PointCloud2()
-        # make point cloud
-        cloud = [[99,77,11],[55,33,22],[44,88,66],[99,77,11],[55,33,22],[44,88,66],
-            [99,77,11],[55,33,22],[44,88,66],[99,77,11],[55,33,22],[44,88,66],
-            [99,77,11],[55,33,22],[44,88,66],[99,77,11],[55,33,22],[44,88,66],
-            [99,77,11],[55,33,22],[44,88,66],[99,77,11],[55,33,22],[44,88,66],
-            [99,77,11],[55,33,22],[44,88,66],[99,77,11],[55,33,22],[44,88,66],
-            [99,77,11],[55,33,22],[44,88,66],[99,77,11],[55,33,22],[44,88,66]]
-        pcloud = pc2.create_cloud_xyz32(pcloud.header, cloud)
         pcloud.height = 6
         pcloud.width = 6
+        # make point cloud
+        fields = [PointField('x',0, PointField.INT16, 1)]
+        cloud2 =  [11,22,66,11,22,66,
+            11,22,66,11,22,66,
+            11,22,66,11,22,66,
+            11,22,66,11,22,66,
+            11,22,66,11,22,66,
+            11,22,66,11,22,66] 
+        cloud_struct = struct.Struct(pc2._get_struct_fmt(False, fields))
+        buff = ctypes.create_string_buffer(cloud_struct.size * len(cloud2))
+        point_step, pack_into = cloud_struct.size, cloud_struct.pack_into
+        offset = 0
+        for p in cloud2:
+            pack_into(buff, offset, p)
+            offset += point_step
+        pcloud2 = PointCloud2(header=pcloud.header,
+            height=pcloud.height,
+            width=pcloud.width, 
+            is_dense=False,
+            is_bigendian=False,
+            fields=fields,
+            point_step=cloud_struct.size,
+            row_step= len(cloud2) / pcloud.height,
+            data=buff.raw)
+        # publish twist
         stamped = TwistStamped()
         stamped.header.seq = counter
         stamped.twist.linear.x = linearx + counter
         stamped.twist.angular.z = angularz + counter
         pub_twist.publish(stamped)
-        pub_cloud.publish(pcloud)
-        #rospy.loginfo(stamped)
-        rospy.loginfo(pcloud)
+        # publish pointcloud
+        pub_cloud.publish(pcloud2)
+        rospy.loginfo(pcloud2)
         rospy.sleep(1.0)
 
 

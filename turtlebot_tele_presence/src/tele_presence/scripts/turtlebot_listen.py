@@ -89,6 +89,7 @@ def callback_kinect(data) :
     # kinect_obstruction = True
     rospy.loginfo("kinect " + str(kinect_obstruction))
     # pick a height
+    rospy.loginfo("height " + str(data.height))
     height =  int (data.height / 2)
     # pick three x coords near front and center
     left_x =  int ( data.width * 3 / 8)
@@ -122,9 +123,8 @@ def read_depth(width, height, data) :
     if (height >= data.height) or (width >= data.width) :
         return -1
     data_out = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[[width, height]])
-    data_out
     int_data = next(data_out) # this returns a tuple!!
-    rospy.loginfo("int_data " + str(int_data[0]))
+    rospy.loginfo("out_data " + str(int_data[0]))
     return int_data[0]
    
         
