@@ -25,33 +25,8 @@ def test():
     counter = 0
     while not rospy.is_shutdown():
         counter = counter + 1
-        pcloud = PointCloud2()
-        pcloud.height = 6
-        pcloud.width = 6
         # make point cloud
-        fields = [PointField('x',0, PointField.INT16, 1)]
-        cloud2 =  [11,22,66,11,22,66,
-            11,22,66,11,22,66,
-            11,22,66,11,22,66,
-            11,22,66,11,22,66,
-            11,22,66,11,22,66,
-            11,22,66,11,22,66] 
-        cloud_struct = struct.Struct(pc2._get_struct_fmt(False, fields))
-        buff = ctypes.create_string_buffer(cloud_struct.size * len(cloud2))
-        point_step, pack_into = cloud_struct.size, cloud_struct.pack_into
-        offset = 0
-        for p in cloud2:
-            pack_into(buff, offset, p)
-            offset += point_step
-        pcloud2 = PointCloud2(header=pcloud.header,
-            height=pcloud.height,
-            width=pcloud.width, 
-            is_dense=False,
-            is_bigendian=False,
-            fields=fields,
-            point_step=cloud_struct.size,
-            row_step= len(cloud2) / pcloud.height,
-            data=buff.raw)
+        pcloud2 = make_cloud()
         # publish twist
         stamped = TwistStamped()
         stamped.header.seq = counter
@@ -63,8 +38,35 @@ def test():
         rospy.loginfo(pcloud2)
         rospy.sleep(1.0)
 
-
-
+def make_cloud() :
+    pcloud = PointCloud2()
+    c_height = 6
+    c_width = 6
+    # make point cloud
+    fields = [PointField('x',0, PointField.INT16, 1)]
+    cloud2 =  [11,22,66,11,22,66,
+        11,22,66,11,22,66,
+        11,22,66,11,22,66,
+        11,22,66,11,22,66,
+        11,22,66,11,22,66,
+        11,22,66,11,22,66] 
+    cloud_struct = struct.Struct(pc2._get_struct_fmt(False, fields))
+    buff = ctypes.create_string_buffer(cloud_struct.size * len(cloud2))
+    point_step, pack_into = cloud_struct.size, cloud_struct.pack_into
+    offset = 0
+    for p in cloud2:
+        pack_into(buff, offset, p)
+        offset += point_step
+    pcloud2 = PointCloud2(header=pcloud.header,
+        height=c_height,
+        width=c_width, 
+        is_dense=False,
+        is_bigendian=False,
+        fields=fields,
+        point_step=cloud_struct.size,
+        row_step= len(cloud2) / c_height,
+        data=buff.raw)
+    return pcloud2
 
 
 
