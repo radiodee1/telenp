@@ -62,9 +62,13 @@ var choose_output_reserved = "this option is RESERVED for future development. <b
 			"$ roslaunch tele_presence full.launch <br><br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
 var choose_click =      "click the arrows to direct the turtlebot.";
-var choose_stream =     "Click to disable - on the turtlebot computer - precautions that prevent " +
+var choose_stream = "for communication with ROS, <br>" +
+            "\"Stream Mode\" clicked <br><br>" +    
+            "Click to disable - on the turtlebot computer - precautions that prevent " +
 			"more than one remote computer from giving instructions at the same time.";
-var choose_turtlebot =  "Click this option to tell the " +
+var choose_turtlebot = "for communication with ROS, <br>" +
+            "\"Turtlebot Node\" clicked <br><br>" + 
+            "Click this option to tell the " +
 			"system that this is the node that <i><u>this</u></i> is the node that hosts the " +
 			 " actual turtlebot hardware.";
 var button_center_start = '<img ' + //'src="bitmap/button_center.png"' +
