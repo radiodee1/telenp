@@ -39,7 +39,8 @@ var MSG_STRING = 1;
 var MSG_TWIST = 2;
 var MSG_RESERVED = 3;
 
-var choose_output_string = "TURTLEBOT SETUP: <br>" +
+var choose_output_string = "for ROS String ouput...<br><br>" +
+            "TURTLEBOT SETUP: <br>" +
 			"in separate turtlebot terminals...<br>" +
 			" (this is for the 'rostopic echo' method.)<br><br>" + 
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
@@ -47,13 +48,15 @@ var choose_output_string = "TURTLEBOT SETUP: <br>" +
 			"$ rostopic echo /talker <br><br>" +
 			"</i>... then look at terminal for output when" +
 			" arrow buttons are clicked";
-var choose_output_twist = "TURTLEBOT SETUP: <br>" +
+var choose_output_twist = "for ROS Twist output... <br><br>" +
+            "TURTLEBOT SETUP: <br>" +
 			"in separate turtlebot terminals...<br><br>" +
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
 			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
 			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
-var choose_output_reserved = "TURTLEBOT SETUP: <br>" +
+var choose_output_reserved = "this option is RESERVED for future development. <br><br>" +
+            "TURTLEBOT SETUP: <br>" +
 			"after installing tele-np ros packages...<br><br>" +
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
 			"$ roslaunch tele_presence full.launch <br><br>" +
@@ -72,6 +75,11 @@ var button_center_error = '<img ' + //'src="bitmap/button_err.png"' +
 			' onmousedown="tryStopClick()" alt="ERROR" >';
 var button_center_src_start = "//awesometelenp.appspot.com/static/bitmap/button_center.png";
 var button_center_src_error = "//awesometelenp.appspot.com/static/bitmap/button_err.png";
+
+var tab_controls_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_controls.png";
+var tab_controls_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_controls_unselected.png";
+var tab_text_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_setup.png";
+var tab_text_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_setup_unselected.png";
 
 
 function tryLeftClick() {
@@ -208,12 +216,18 @@ function trySetupControls() {
     document.getElementById("setupControls").style.display="";
     document.getElementById("setupText").style.display="none";
     document.getElementById("alertText").style.display="";
+    
+    document.getElementById("tabControls").src= tab_controls_src_selected;
+    document.getElementById("tabText").src= tab_text_src_unselected;
 }
 
 function trySetupText() {
     document.getElementById("setupControls").style.display="none";
     document.getElementById("setupText").style.display="";
     document.getElementById("alertText").style.display="none";
+    
+    document.getElementById("tabControls").src= tab_controls_src_unselected;
+    document.getElementById("tabText").src= tab_text_src_selected;
 }
 
 function tryHidePadControls() {
