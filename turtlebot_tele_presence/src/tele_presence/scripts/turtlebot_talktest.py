@@ -57,6 +57,7 @@ def make_cloud() :
     for p in cloud2:
         pack_into(buff, offset, p)
         offset += point_step
+    pcloud.header.frame_id = '/map'
     pcloud2 = PointCloud2(header=pcloud.header,
         height=c_height,
         width=c_width, 
