@@ -266,7 +266,7 @@ function changeAlertText() {
 	var stopped;
 	var obstructed;
 	
-	if (control_connected_rx ){// && !control_retransmit) {
+	if (control_connected_rx ) {
 	    connected = "<b style='color:yellow;font-size:10pt'>" + "[connected]";
 	    if (!control_retransmit) tryHideMotorControls();
 	}
@@ -275,9 +275,14 @@ function changeAlertText() {
 	    tryShowMotorControls();
 	}
 	
-	if (control_stopped_rx) stopped = "<b style='color:red;font-size:10pt'>" + "[stopped]";
-	else stopped = "<b style='color:green;font-size:10pt'>" + "[running]";
-	
+	if (control_stopped_rx) { 
+	    stopped = "<b style='color:red;font-size:10pt'>" + "[stopped]";
+	    changeButtonSrc(button_center_src_error);
+	}
+	else {
+	    stopped = "<b style='color:green;font-size:10pt'>" + "[running]";
+	    changeButtonSrc(button_center_src_start);
+	}
 	if (control_obstructed) obstructed = "<b style='color:red;font-size:10pt'>" + "[blocked]";
 	else obstructed = "<b style='color:green;font-size:10pt'>" + "[clear]";
 	
