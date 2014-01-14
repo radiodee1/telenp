@@ -24,11 +24,11 @@ kinect_obstruction = False
 kinect_left = False
 kinect_middle = False
 kinect_right = False
-
+basename = "telenp"
 
 def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
-    rospy.Subscriber("instructions/command_velocity", TwistStamped, callback_move)
+    rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
     rospy.Subscriber("camera/depth_registered/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('instructions/kinect_feedback', UInt8)
     while not rospy.is_shutdown():

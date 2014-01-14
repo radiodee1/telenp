@@ -38,6 +38,7 @@
 */
 
 var mod_base = 16;
+var basename = "telenp";
 var tx_number = 0;
 var tx_operation = "";
 var tx_gapi_key = "telenp"; // used by transmitting (user) node
@@ -153,6 +154,7 @@ function tryStopClick() {
 	changeAlertText();
 	if (!control_retransmit) changeHintText(choose_click);
 	changeButtonSrc(button_center_src_start); 
+	formJSONError();
 }
 
 function tryClearTimer() {
@@ -404,7 +406,7 @@ function recieveEvent () {
 	catch (e){
 	    console.log("error google hangouts api -- " );
 	}
-	if (rx_data != rx_data_old) { 
+	if (rx_data != rx_data_old ) { 
 	
 		rx_obj = JSON.parse(rx_data) ;	
 
@@ -414,9 +416,9 @@ function recieveEvent () {
 
 		console.log( rx_obj.direction + " -- " + rx_obj.number);
 		// handle stream setting here...
-		if (!control_stream && control_retransmit && rx_obj.number != stream_num) {
+		if (!control_stream && control_retransmit && rx_obj.number != stream_num && rx_obj.number != 0) {
 			control_stopped = true;
-			changeButtonSrc(button_center_src_error);
+			//changeButtonSrc(button_center_src_error);
 			formJSONError(); // OK??
 			console.log("exit -- bad seq num");
 			return;
@@ -541,7 +543,7 @@ function retransmitEvent(data) {
 			
 			var cmdVel = new ROSLIB.Topic({
     			'ros' : ros,
-    			'name' : '/instructions/command_velocity',
+    			'name' : '/'+ basename +'/command_velocity',
    				 messageType : 'geometry_msgs/TwistStamped'
   			});
   			
@@ -597,7 +599,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready');
+			console.log('API is ready v1.0');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
