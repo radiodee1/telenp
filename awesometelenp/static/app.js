@@ -305,7 +305,7 @@ function formJSONClick(operation) {
 	tx_operation = operation; 
 	tx_number ++;
 	tx_number = tx_number % mod_base;
-	if (tx_number == 0) tx_number ++;
+	//if (tx_number == 0) tx_number ++;
 	console.log(operation);
 	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
 	console.log( makeText );
@@ -362,7 +362,7 @@ function recieveEvent () {
 		}
 		else {
 		    control_stopped_rx = false;
-		    control_stopped = false;
+		    //control_stopped = false;
 		}
 		if (rx_error_obj.kinect == true) control_obstructed = true;
 		else control_obstructed = false;
@@ -379,13 +379,17 @@ function recieveEvent () {
 	catch (e){
 	    console.log("error google hangouts api -- " );
 	}
-	if (rx_data != rx_data_old ) { 
+	stream_num ++;
+	stream_num = (stream_num ) % mod_base;	
+	//if (stream_num == 0) stream_num ++;
+	
+	if (rx_data != rx_data_old || rx_obj.direction == "stop") { 
 	
 		rx_obj = JSON.parse(rx_data) ;	
 
 		// change sequence numbers...
-		stream_num = (stream_num + 1 ) % mod_base;	
-		if (rx_obj.direction == "stop") stream_num = 1;
+		
+		if (rx_obj.direction == "stop" || rx_obj.number == 0 ) stream_num = 0;
         console.log("stream = " + stream_num);
 
 		console.log( rx_obj.direction + " -- " + rx_obj.number);
@@ -399,7 +403,6 @@ function recieveEvent () {
 			rx_data_old = rx_data;
 			return;
 		}
-		if (rx_obj.number == 0) stream_num = 1;
 		rx_data_old = rx_data;
 		if(control_retransmit == true) retransmitEvent(rx_obj);
 	}
@@ -576,7 +579,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.0');
+			console.log('API is ready v1.1');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
