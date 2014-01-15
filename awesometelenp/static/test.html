@@ -372,11 +372,9 @@ function recieveEvent () {
 		else control_connected_rx = false;
 		if (rx_error_obj.stopped == true) {
 		    control_stopped_rx = true;
-		    //control_stopped = true;
 		}
 		else {
 		    control_stopped_rx = false;
-		    //control_stopped = false;
 		}
 		if (rx_error_obj.kinect == true) control_obstructed = true;
 		else control_obstructed = false;
