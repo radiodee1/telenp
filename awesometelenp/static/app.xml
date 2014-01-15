@@ -419,7 +419,11 @@ function recieveEvent () {
 
 		// change sequence numbers...
 		
-		if (rx_obj.direction == "stop" || rx_obj.number == 0 ) stream_num = 0;
+		if (rx_obj.direction == "stop" || rx_obj.number == 0 ) {
+		    stream_num = 0;
+		    control_stopped = false;
+		    control_stopped_rx = false;
+		}
         console.log("stream = " + stream_num);
 		console.log( rx_obj.direction + " -- " + rx_obj.number);
 		
@@ -434,6 +438,7 @@ function recieveEvent () {
 			return;
 		}
 		rx_data_old = rx_data;
+		formJSONError();
 		if(control_retransmit == true) retransmitEvent(rx_obj);
 	}
 }
