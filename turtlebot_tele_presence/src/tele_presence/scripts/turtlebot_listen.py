@@ -56,8 +56,8 @@ def callback_move(data):
     # check seq counter
     seq_counter = seq_counter + 1
     seq_counter = seq_counter % mod_base
-    if seq_counter == 0 :
-        seq_counter = seq_counter + 1
+    #if seq_counter == 0 :
+    #    seq_counter = seq_counter + 1
     if data.header.seq == 0 :
         seq_counter = 0
     # linear_x
