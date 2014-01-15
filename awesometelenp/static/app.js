@@ -340,10 +340,6 @@ function makeJSONError(connected, stopped, kinect) {
 	return myJSON;
 }
 
-kinect_listener.subscribe(function(message) {
-    console.log( "Received message on " + kinect_listener.name + "" + message.data );
-} );
-
 function recieveEvent () {
 	
 	// error data from hangouts...
@@ -612,7 +608,13 @@ function init() {
     				// WebSockets are not supported.
 				alert("no web sockets.");
 			}
-	
+            
+            setKinectListener();
+
+            kinect_listener.subscribe(function(message) {
+                console.log( "Received message on " + kinect_listener.name + " : " + message.data );
+            } );
+
 	
       			gapi.hangout.onApiReady.remove(apiReady);
     		}
