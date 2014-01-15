@@ -44,12 +44,12 @@ def make_cloud() :
     c_width = 6
     # make point cloud
     fields = [PointField('x',0, PointField.INT16, 1)]
-    cloud2 =  [11,22,66,11,22,66,
-        11,22,66,11,22,66,
-        11,22,66,11,22,66,
-        11,22,66,11,22,66,
-        11,22,66,11,22,66,
-        11,22,66,11,22,66] 
+    cloud2 =  [1,2,6,1,2,6,
+        1,2,6,1,2,6,
+        1,2,6,1,2,6,
+        1,2,6,1,2,6,
+        1,2,6,1,2,6,
+        1,2,6,1,2,6] 
     cloud_struct = struct.Struct(pc2._get_struct_fmt(False, fields))
     buff = ctypes.create_string_buffer(cloud_struct.size * len(cloud2))
     point_step, pack_into = cloud_struct.size, cloud_struct.pack_into

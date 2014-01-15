@@ -24,6 +24,7 @@ var control_stopped = false;
 var control_stopped_rx = false;
 var connection = new Object();
 var cmdVel = new Object();
+var kinect_listener = null;
 var stream_num = 0;
 var timer_key = 0;
 var timer_up = 0;
@@ -152,6 +153,7 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
+		setKinectListener();
 		tryHidePadControls();
 		tryShowMotorControls();
 		formJSONError();
@@ -337,6 +339,10 @@ function makeJSONError(connected, stopped, kinect) {
 	var myJSON = { "connected" : connected , "stopped" : stopped , "kinect" : kinect  };
 	return myJSON;
 }
+
+kinect_listener.subscribe(function(message) {
+    console.log( "Received message on " + kinect_listener.name + "" + message.data );
+} );
 
 function recieveEvent () {
 	
@@ -571,6 +577,19 @@ function setSpeedTimer() {
 function doSpeedTimer() {
 	last_counter = 1;
 	timer_key = 0;
+}
+
+function setKinectListener() {
+            var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
+			
+			
+			kinect_listener = new ROSLIB.Topic({
+    			'ros' : ros,
+    			'name' : '/'+ basename +'/kinect_feedback',
+   				 messageType : 'std_msgs/UInt8'
+  			});
 }
 
 // A function to be run at app initialization time which registers our callbacks

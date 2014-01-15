@@ -15,7 +15,7 @@ from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import PointCloud2, PointField
 
 mod_base = 16
-boundary_depth = 1
+boundary_depth = 10
 
 linear_x = 0
 angular_z = 0
@@ -30,7 +30,7 @@ def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
     rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
     rospy.Subscriber("camera/depth_registered/points", PointCloud2, callback_kinect)
-    pub_kinect = rospy.Publisher('instructions/kinect_feedback', UInt8)
+    pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
         str1 = "hello world " + str (rospy.get_time())
         if not kinect_obstruction :
@@ -116,6 +116,9 @@ def callback_kinect(data) :
         kinect_obstruction = True
         kinect_right = True
     # exit ?
+    if ( kinect_obstruction ) :
+        rospy.loginfo("HIT ON KINECT!!")
+    # form reply message
 
 
 def read_depth(width, height, data) :
