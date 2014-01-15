@@ -148,6 +148,7 @@ function tryDownClick() {
 
 function tryStopClick() {
 	tx_number = - 1;
+	stream_num = 0;
 	formJSONClick("stop");
 	control_stopped = false;
 	control_stopped_rx = false;
@@ -339,6 +340,7 @@ function formJSONClick(operation) {
 	tx_operation = operation; 
 	tx_number ++;
 	tx_number = tx_number % mod_base;
+	if (tx_number == 0) tx_number ++;
 	console.log(operation);
 	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
 	console.log( makeText );
@@ -412,12 +414,13 @@ function recieveEvent () {
 
 		// change sequence numbers...
 		stream_num = (stream_num + 1 ) % mod_base;	
-		if (rx_obj.direction == "stop") stream_num = 0;
+		if (rx_obj.direction == "stop") stream_num = 1;
         console.log("stream = " + stream_num);
 
 		console.log( rx_obj.direction + " -- " + rx_obj.number);
 		// handle stream setting here...
-		if (!control_stream && control_retransmit && rx_obj.number != stream_num && rx_obj.number != 0) {
+		if (!control_stream && control_retransmit && 
+		        rx_obj.number != stream_num && rx_obj.number != 0) {
 			control_stopped = true;
 			changeButtonSrc(button_center_src_error);
 			formJSONError(); // OK??
@@ -425,6 +428,7 @@ function recieveEvent () {
 			rx_data_old = rx_data;
 			return;
 		}
+		if (rx_obj.number == 0) stream_num = 1;
 		rx_data_old = rx_data;
 		if(control_retransmit == true) retransmitEvent(rx_obj);
 	}
