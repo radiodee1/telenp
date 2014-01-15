@@ -413,14 +413,16 @@ function recieveEvent () {
 		// change sequence numbers...
 		stream_num = (stream_num + 1 ) % mod_base;	
 		if (rx_obj.direction == "stop") stream_num = 0;
+        console.log("stream = " + stream_num);
 
 		console.log( rx_obj.direction + " -- " + rx_obj.number);
 		// handle stream setting here...
 		if (!control_stream && control_retransmit && rx_obj.number != stream_num && rx_obj.number != 0) {
 			control_stopped = true;
-			//changeButtonSrc(button_center_src_error);
+			changeButtonSrc(button_center_src_error);
 			formJSONError(); // OK??
 			console.log("exit -- bad seq num");
+			rx_data_old = rx_data;
 			return;
 		}
 		rx_data_old = rx_data;
