@@ -60,24 +60,16 @@ def listen():
 def callback_move(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
     global twist ;
-    rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq))
+    rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq)) #non-standard use of 'seq'
     # global vars
     global seq_counter, linear_x, angular_z , kinect_obstruction
-    # check seq counter
-    seq_counter = seq_counter + 1
-    seq_counter = seq_counter % mod_base
-    if data.header.seq == 0 :
-        seq_counter = 0
-    # linear_x
-    if (not kinect_obstruction ) and ( seq_counter == data.header.seq )  :
+    # don't use 'seq' from 'header'
+    if not kinect_obstruction  : 
         linear_x = data.twist.linear.x
-    else :
-        linear_x = 0
-    # angular_z
-    if seq_counter == data.header.seq :
         angular_z = data.twist.angular.z
     else :
-        andular_z = 0
+        linear_x = 0
+        angular_z = data.twist.angular.z
     # twist output
     twist = Twist();
     twist.linear.x = linear_x

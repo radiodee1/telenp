@@ -26,12 +26,11 @@ def test():
     angularz = 1
     counter = 0
     while not rospy.is_shutdown():
-        counter = counter + 1
-        # make point cloud
         pcloud2 = make_cloud()
         # publish twist
         stamped = TwistStamped()
-        stamped.header.seq = counter
+        stamped.header = Header()
+        stamped.header.stamp = rospy.Time.now()
         stamped.twist.linear.x = linearx + counter
         stamped.twist.angular.z = angularz + counter
         pub_twist.publish(stamped)
@@ -59,6 +58,8 @@ def make_cloud() :
     for p in cloud2:
         pack_into(buff, offset, p)
         offset += point_step
+    pcloud.header = Header()
+    pcloud.header.stamp = rospy.Time.now()
     pcloud.header.frame_id = '/map'
     pcloud2 = PointCloud2(header=pcloud.header,
         height=c_height,

@@ -24,7 +24,7 @@ var control_stopped = false;
 var control_stopped_rx = false;
 var connection = new Object();
 var cmdVel = new Object();
-var kinect_listener = null;
+//var kinect_listener = null;
 var stream_num = 0;
 var timer_key = 0;
 var timer_up = 0;
@@ -122,6 +122,7 @@ function tryStopClick() {
 	if (!control_retransmit) changeHintText(choose_click);
 	changeButtonSrc(button_center_src_start); 
 	formJSONError();
+	setKinectListener();
 }
 
 function tryClearTimer() {
@@ -583,21 +584,26 @@ function setKinectListener() {
   			});
 			
 			
+			
 			var kinect_listener = new ROSLIB.Topic({
     			'ros' : ros,
-    			'name' : '/'+ basename +'/kinect_feedback',
-   				 messageType : 'std_msgs/UInt8'
+    			//'name' : '/'+ basename +'/kinect_feedback',
+    			'name' : '/listener',
+   				// messageType : 'std_msgs/UInt8'
+   				 messageType : 'std_msgs/String'
   			});
   			
-  			try {
-  			    kinect_listener.subscribe(function(message) {
+  			console.log("kinect no error. ");
+  			
+  			//try {
+  			    kinect_listener.subscribe( '/listener',function(message) {
                     console.log( "Received message on " + kinect_listener.name + " : " + message.data );
                     //kinect_listener.unsubscribe();
                 } );
-            }
-            catch (e) {
-                console.log ("no message");
-            }
+            //}
+            //catch (e) {
+            //    console.log ("no message");
+            //}
 
 }
 
