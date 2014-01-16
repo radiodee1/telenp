@@ -153,7 +153,7 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
-		setKinectListener();
+		//setKinectListener();
 		tryHidePadControls();
 		tryShowMotorControls();
 		formJSONError();
@@ -576,17 +576,33 @@ function doSpeedTimer() {
 }
 
 function setKinectListener() {
+            console.log("kinect setup");
+
             var ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
   			});
 			
 			
-			kinect_listener = new ROSLIB.Topic({
+			var kinect_listener = new ROSLIB.Topic({
     			'ros' : ros,
     			'name' : '/'+ basename +'/kinect_feedback',
-   				 messageType : 'std_msgs/UInt8'
+   				 messageType : 'std_msgs/UInt16'
   			});
+  			
+  			try {
+  			    kinect_listener.subscribe(function(message) {
+                    console.log( "Received message on " + kinect_listener.name + " : " + message.data );
+                    kinect_listener.unsubscribe();
+                } );
+            }
+            catch (e) {
+                console.log ("no message");
+            }
+
 }
+
+
+    
 
 // A function to be run at app initialization time which registers our callbacks
 function init() {
@@ -594,7 +610,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.1');
+			console.log('API is ready v1.2');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
@@ -610,10 +626,6 @@ function init() {
 			}
             
             setKinectListener();
-
-            kinect_listener.subscribe(function(message) {
-                console.log( "Received message on " + kinect_listener.name + " : " + message.data );
-            } );
 
 	
       			gapi.hangout.onApiReady.remove(apiReady);

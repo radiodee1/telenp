@@ -28,6 +28,12 @@ basename = "telenp"
 
 def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
+    global kinect_obstruction
+    global kinect_left, kinect_right, kinect_middle
+    kinect_obstruction = False
+    kinect_left = False
+    kinect_right = False
+    kinect_middle = False
     rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
     rospy.Subscriber("camera/depth_registered/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
@@ -42,10 +48,13 @@ def listen():
             temp_var = temp_var + 2
         if (kinect_right) :
             temp_var = temp_var + 1
-        pub_kinect.publish (temp_var)
-        if kinect_obstruction :
-            rospy.loginfo("kinect feedback " + str(temp_var) )
-        # callback_kinect(PointCloud2())
+        pub_kinect.publish (np.uint8(temp_var))
+        rospy.loginfo("kinect feedback " + str(temp_var) )
+        temp_var = 0
+        kinect_obstruction = False
+        kinect_left = False
+        kinect_right = False
+        kinect_middle = False
         rospy.sleep(1.0)
 
 def callback_move(data):
@@ -103,6 +112,7 @@ def callback_kinect(data) :
     if (left == -1 or middle == -1 or right == -1) :
         rospy.loginfo("exit -- bad depth")
         return
+    kinect_obstruction = False
     kinect_left = False
     kinect_right = False
     kinect_middle = False

@@ -8,7 +8,9 @@
      http://localhost/app.js for faster single user development -->
 
 <script type="text/javascript" src="//awesometelenp.appspot.com/static/eventemitter2.min.js"></script>
-<script type="text/javascript" src="//awesometelenp.appspot.com/static/roslib.min.js"></script>          
-     
+<script type="text/javascript" src="//awesometelenp.appspot.com/static/roslib.min.js"></script>
+
+<!-- script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script -->
+<!-- script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script -->
 <script type="text/javascript"><!-- /script -->
 
