@@ -2,7 +2,7 @@
 
 */
 
-var mod_base = 16;
+var mod_base = 512;
 var basename = "telenp";
 var tx_number = 0;
 var tx_operation = "";
@@ -610,7 +610,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.2');
+			console.log('API is ready v1.3');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();

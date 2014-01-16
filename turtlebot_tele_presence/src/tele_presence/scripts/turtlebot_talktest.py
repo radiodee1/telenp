@@ -16,12 +16,14 @@ from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import PointCloud2, PointField
 
+basename = "telenp"
+
 def test():
     rospy.init_node('turtlebot_talktest', anonymous=True)
-    pub_twist = rospy.Publisher("instructions/command_velocity", TwistStamped)
+    pub_twist = rospy.Publisher("/" + basename + "/command_velocity", TwistStamped)
     pub_cloud = rospy.Publisher("camera/depth_registered/points", PointCloud2)
-    linearx = 111
-    angularz = 222
+    linearx = 1
+    angularz = 1
     counter = 0
     while not rospy.is_shutdown():
         counter = counter + 1

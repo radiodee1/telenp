@@ -3,7 +3,6 @@ import rospy
 import numpy as np
 import sensor_msgs.point_cloud2 as pc2
 from roslib import message
-#import roslib ; roslib.load_manifest('sensor_msgs')
 
 from std_msgs.msg import String
 from std_msgs.msg import Header
@@ -14,7 +13,7 @@ from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import PointCloud2, PointField
 
-mod_base = 16
+mod_base = 512
 boundary_depth = 10
 
 linear_x = 0
@@ -25,6 +24,7 @@ kinect_left = False
 kinect_middle = False
 kinect_right = False
 basename = "telenp"
+twist = Twist()
 
 def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
@@ -59,14 +59,13 @@ def listen():
 
 def callback_move(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
+    global twist ;
     rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq))
     # global vars
     global seq_counter, linear_x, angular_z , kinect_obstruction
     # check seq counter
     seq_counter = seq_counter + 1
     seq_counter = seq_counter % mod_base
-    #if seq_counter == 0 :
-    #    seq_counter = seq_counter + 1
     if data.header.seq == 0 :
         seq_counter = 0
     # linear_x
@@ -89,7 +88,7 @@ def callback_move(data):
     twist.angular.z = angular_z
     pub_move.publish(twist)
     rospy.loginfo(twist)
-
+    
 
 def callback_kinect(data) :
     # no obstruction to start
