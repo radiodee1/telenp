@@ -4,6 +4,7 @@
 
 var mod_base = 512;
 var basename = "telenp";
+var test_config = true;
 var tx_number = 0;
 var tx_operation = "";
 var tx_gapi_key = "telenp"; // used by transmitting (user) node
@@ -40,6 +41,12 @@ var seq_ros = 0;
 var MSG_STRING = 1;
 var MSG_TWIST = 2;
 var MSG_RESERVED = 3;
+
+    var ros = null ; //new ROSLIB.Ros({
+    //	url : 'ws://localhost:9090'
+  	//});
+			
+			
 
 var choose_output_string = "for ROS String ouput...<br><br>" +
             "TURTLEBOT SETUP: <br>" +
@@ -238,12 +245,14 @@ function trySetupText() {
 }
 
 function tryHidePadControls() {
+    if (test_config) return;
     document.getElementById("padTable").style.display="none";
     document.getElementById("turtlebotTable").style.display="";
     document.getElementById("alertText").style.display="none";
 }
 
 function tryShowPadControls() {
+    if (test_config) return;
     document.getElementById("padTable").style.display="";
     document.getElementById("turtlebotTable").style.display="";
     document.getElementById("alertText").style.display="";
@@ -456,9 +465,9 @@ function retransmitEvent(data) {
 	switch (control_msgtype) {
 		case MSG_STRING:
 			
-			var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
+			//var ros = new ROSLIB.Ros({
+    		//	url : 'ws://localhost:9090'
+  			//});
 			
 			
 			var cmdVel = new ROSLIB.Topic({
@@ -485,9 +494,9 @@ function retransmitEvent(data) {
 			always launch software first then connect turtlebot!!
 			*/
 
-			var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
+			//var ros = new ROSLIB.Ros({
+    		//	url : 'ws://localhost:9090'
+  			//});
 			
 			
 			var cmdVel = new ROSLIB.Topic({
@@ -519,9 +528,9 @@ function retransmitEvent(data) {
 		
 		case MSG_RESERVED:
 			
-			var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
+			//var ros = new ROSLIB.Ros({
+    		//	url : 'ws://localhost:9090'
+  			//});
 			
 			
 			var cmdVel = new ROSLIB.Topic({
@@ -579,31 +588,31 @@ function doSpeedTimer() {
 function setKinectListener() {
             console.log("kinect setup");
 
-            var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
-			
-			
-			
+            
+			/*
 			var kinect_listener = new ROSLIB.Topic({
     			'ros' : ros,
     			//'name' : '/'+ basename +'/kinect_feedback',
     			'name' : '/listener',
    				// messageType : 'std_msgs/UInt8'
-   				 messageType : 'std_msgs/String'
+   				 messageType : 'std_msgs/String',
+   				 
   			});
+  			*/
   			
   			console.log("kinect no error. ");
   			
-  			//try {
-  			    kinect_listener.subscribe( '/listener',function(message) {
+  			/*
+  			try {
+  			    kinect_listener.subscribe( function(message) {
                     console.log( "Received message on " + kinect_listener.name + " : " + message.data );
                     //kinect_listener.unsubscribe();
                 } );
-            //}
-            //catch (e) {
-            //    console.log ("no message");
-            //}
+            }
+            catch (e) {
+                console.log ("no message " + e.message);
+            }
+            */
 
 }
 
@@ -616,7 +625,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.3');
+			console.log('API is ready v1.4');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
@@ -631,6 +640,9 @@ function init() {
 				alert("no web sockets.");
 			}
             
+            ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
             setKinectListener();
 
 	
