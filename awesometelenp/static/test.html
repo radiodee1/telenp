@@ -602,13 +602,13 @@ function setKinectListener() {
 			var kinect_listener = new ROSLIB.Topic({
     			'ros' : ros,
     			'name' : '/'+ basename +'/kinect_feedback',
-   				 messageType : 'std_msgs/UInt16'
+   				 messageType : 'std_msgs/UInt8'
   			});
   			
   			try {
   			    kinect_listener.subscribe(function(message) {
                     console.log( "Received message on " + kinect_listener.name + " : " + message.data );
-                    kinect_listener.unsubscribe();
+                    //kinect_listener.unsubscribe();
                 } );
             }
             catch (e) {
