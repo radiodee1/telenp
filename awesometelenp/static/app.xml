@@ -565,8 +565,8 @@ function retransmitEvent(data) {
 			
   			var velocity = new ROSLIB.Message({
     			header : {
-    			    seq : 33, //seq_ros,
-    			    time : 0,
+    			    seq : 0, //
+    			    stamp : 0,
     			    frame_id : "0"
     			},
     			twist : {
