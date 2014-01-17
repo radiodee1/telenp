@@ -42,11 +42,36 @@ var MSG_STRING = 1;
 var MSG_TWIST = 2;
 var MSG_RESERVED = 3;
 
-    var ros = null ; //new ROSLIB.Ros({
-    //	url : 'ws://localhost:9090'
-  	//});
+    var ros = new ROSLIB.Ros({
+    	url : 'ws://localhost:9090'
+  	});
+	
+	var cmdVel = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/talker',
+   		 messageType : 'std_msgs/String'
+  	});
 			
-			
+	var cmdVel2 = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/mobile_base/commands/velocity',
+   		 messageType : 'geometry_msgs/Twist'
+  	});
+
+    var cmdVel3 = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/'+ basename +'/command_velocity',
+   		 messageType : 'geometry_msgs/TwistStamped'
+  	});
+
+    var kinect_listener = new ROSLIB.Topic({
+    	'ros' : ros,
+    	//'name' : '/'+ basename +'/kinect_feedback',
+    	'name' : '/listener',
+   		// messageType : 'std_msgs/UInt8'
+   		 messageType : 'std_msgs/String',
+   		 
+  	});
 
 var choose_output_string = "for ROS String ouput...<br><br>" +
             "TURTLEBOT SETUP: <br>" +
@@ -129,7 +154,6 @@ function tryStopClick() {
 	if (!control_retransmit) changeHintText(choose_click);
 	changeButtonSrc(button_center_src_start); 
 	formJSONError();
-	setKinectListener();
 }
 
 function tryClearTimer() {
@@ -161,7 +185,6 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
-		//setKinectListener();
 		tryHidePadControls();
 		tryShowMotorControls();
 		formJSONError();
@@ -465,9 +488,10 @@ function retransmitEvent(data) {
 	switch (control_msgtype) {
 		case MSG_STRING:
 			
-			//var ros = new ROSLIB.Ros({
-    		//	url : 'ws://localhost:9090'
-  			//});
+			/*
+			var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
 			
 			
 			var cmdVel = new ROSLIB.Topic({
@@ -475,6 +499,7 @@ function retransmitEvent(data) {
     			'name' : '/talker',
    				 messageType : 'std_msgs/String'
   			});
+  			*/
   			
   			var string = new ROSLIB.Message({ data: "hello " + data.direction });
 			
@@ -494,17 +519,18 @@ function retransmitEvent(data) {
 			always launch software first then connect turtlebot!!
 			*/
 
-			//var ros = new ROSLIB.Ros({
-    		//	url : 'ws://localhost:9090'
-  			//});
+            /*
+			var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
 			
 			
-			var cmdVel = new ROSLIB.Topic({
+			var cmdVel2 = new ROSLIB.Topic({
     			'ros' : ros,
     			'name' : '/mobile_base/commands/velocity',
    				 messageType : 'geometry_msgs/Twist'
   			});
-  			
+  			*/
   			
   			var twist = new ROSLIB.Message({
     			linear : {
@@ -520,7 +546,7 @@ function retransmitEvent(data) {
   			});
   				
 
-			cmdVel.publish(twist);
+			cmdVel2.publish(twist);
 
 			console.log("no error? -- twist");
 
@@ -528,17 +554,18 @@ function retransmitEvent(data) {
 		
 		case MSG_RESERVED:
 			
-			//var ros = new ROSLIB.Ros({
-    		//	url : 'ws://localhost:9090'
-  			//});
+			/*
+			var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
 			
 			
-			var cmdVel = new ROSLIB.Topic({
+			var cmdVel3 = new ROSLIB.Topic({
     			'ros' : ros,
     			'name' : '/'+ basename +'/command_velocity',
    				 messageType : 'geometry_msgs/TwistStamped'
   			});
-  			
+  			*/
 			
   			var velocity = new ROSLIB.Message({
     			header : {
@@ -562,7 +589,7 @@ function retransmitEvent(data) {
   			});
   				
 
-			cmdVel.publish(velocity);
+			cmdVel3.publish(velocity);
 
 			console.log("no error? -- velocity");
 		break;
@@ -588,8 +615,11 @@ function doSpeedTimer() {
 function setKinectListener() {
             console.log("kinect setup");
 
-            
-			/*
+            /*
+            var ros = new ROSLIB.Ros({
+    			url : 'ws://localhost:9090'
+  			});
+			
 			var kinect_listener = new ROSLIB.Topic({
     			'ros' : ros,
     			//'name' : '/'+ basename +'/kinect_feedback',
@@ -600,9 +630,9 @@ function setKinectListener() {
   			});
   			*/
   			
-  			console.log("kinect no error. ");
+  			//console.log("kinect no error. ");
   			
-  			/*
+  			
   			try {
   			    kinect_listener.subscribe( function(message) {
                     console.log( "Received message on " + kinect_listener.name + " : " + message.data );
@@ -612,7 +642,7 @@ function setKinectListener() {
             catch (e) {
                 console.log ("no message " + e.message);
             }
-            */
+            
 
 }
 
@@ -639,12 +669,13 @@ function init() {
     				// WebSockets are not supported.
 				alert("no web sockets.");
 			}
-            
+            /*
             ros = new ROSLIB.Ros({
     			url : 'ws://localhost:9090'
   			});
+  			*/
             setKinectListener();
-
+            
 	
       			gapi.hangout.onApiReady.remove(apiReady);
     		}
