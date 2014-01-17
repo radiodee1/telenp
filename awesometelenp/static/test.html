@@ -504,26 +504,11 @@ function retransmitEvent(data) {
 	switch (control_msgtype) {
 		case MSG_STRING:
 			
-			/*
-			var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
-			
-			
-			var cmdVel = new ROSLIB.Topic({
-    			'ros' : ros,
-    			'name' : '/talker',
-   				 messageType : 'std_msgs/String'
-  			});
-  			*/
-  			
   			var string = new ROSLIB.Message({ data: "hello " + data.direction });
 			
-
 			cmdVel.publish(string);
-
+			
 			console.log("no error? -- string");
-
 			
 		break;
 		
@@ -534,19 +519,6 @@ function retransmitEvent(data) {
 			roslaunch turtlebot_bringup minimal.launch
 			always launch software first then connect turtlebot!!
 			*/
-
-            /*
-			var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
-			
-			
-			var cmdVel2 = new ROSLIB.Topic({
-    			'ros' : ros,
-    			'name' : '/mobile_base/commands/velocity',
-   				 messageType : 'geometry_msgs/Twist'
-  			});
-  			*/
   			
   			var twist = new ROSLIB.Message({
     			linear : {
@@ -569,19 +541,6 @@ function retransmitEvent(data) {
 		break;
 		
 		case MSG_RESERVED:
-			
-			/*
-			var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
-			
-			
-			var cmdVel3 = new ROSLIB.Topic({
-    			'ros' : ros,
-    			'name' : '/'+ basename +'/command_velocity',
-   				 messageType : 'geometry_msgs/TwistStamped'
-  			});
-  			*/
 			
   			var velocity = new ROSLIB.Message({
     			header : {
@@ -630,28 +589,13 @@ function doSpeedTimer() {
 
 function setKinectListener() {
             console.log("kinect setup");
-
-            /*
-            var ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
-			
-			var kinect_listener = new ROSLIB.Topic({
-    			'ros' : ros,
-    			//'name' : '/'+ basename +'/kinect_feedback',
-    			'name' : '/listener',
-   				// messageType : 'std_msgs/UInt8'
-   				 messageType : 'std_msgs/String',
-   				 
-  			});
-  			*/
   			
   			//console.log("kinect no error. ");
   			
   			
   			try {
   			    kinect_listener.subscribe( function(message) {
-                    console.log( "Received message on " + kinect_listener.name + " : " + message.data );
+                    console.log(  kinect_listener.name + " : " + message.data );
                     //kinect_listener.unsubscribe();
                 } );
             }
