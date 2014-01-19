@@ -150,6 +150,8 @@ var button_center_error = '<img ' + //'src="bitmap/button_err.png"' +
 			' onmousedown="tryStopClick()" alt="ERROR" >';
 var button_center_src_start = "//awesometelenp.appspot.com/static/bitmap/button_center.png";
 var button_center_src_error = "//awesometelenp.appspot.com/static/bitmap/button_err.png";
+var button_test_start = "static/bitmap/button_center.png";
+var button_test_error = "https://awesometelenp.appspot.com/static/bitmap/button_err.png";
 
 var tab_controls_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_controls.png";
 var tab_controls_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_controls_unselected.png";
@@ -236,7 +238,7 @@ function tryTurtlebotClick() {
 		tryShowMotorControls();
 		changeAlertText();
 	}
-	
+	//changeButtonSrc(button_test_error);
 	console.log(control_retransmit + "  retransmit");
 }
 
