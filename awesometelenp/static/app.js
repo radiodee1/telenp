@@ -252,9 +252,9 @@ function tryRadioClick() {
 }
 
 function trySetupControls() {
-    document.getElementById("setupControls").style.display="";
+    document.getElementById("setupControls").style.display="block";
     document.getElementById("setupText").style.display="none";
-    document.getElementById("alertText").style.display="";
+    document.getElementById("alertText").style.display="block";
     
     document.getElementById("tabControls").src= tab_controls_src_selected;
     document.getElementById("tabText").src= tab_text_src_unselected;
@@ -262,7 +262,7 @@ function trySetupControls() {
 
 function trySetupText() {
     document.getElementById("setupControls").style.display="none";
-    document.getElementById("setupText").style.display="";
+    document.getElementById("setupText").style.display="block";
     document.getElementById("alertText").style.display="none";
     
     document.getElementById("tabControls").src= tab_controls_src_unselected;
@@ -272,25 +272,25 @@ function trySetupText() {
 function tryHidePadControls() {
     if (test_config) return;
     document.getElementById("padTable").style.display="none";
-    document.getElementById("turtlebotTable").style.display="";
+    document.getElementById("turtlebotTable").style.display="block";
     document.getElementById("alertText").style.display="none";
 }
 
 function tryShowPadControls() {
     if (test_config) return;
-    document.getElementById("padTable").style.display="";
-    document.getElementById("turtlebotTable").style.display="";
-    document.getElementById("alertText").style.display="";
+    document.getElementById("padTable").style.display="block";
+    document.getElementById("turtlebotTable").style.display="block";
+    document.getElementById("alertText").style.display="block";
 }
 
 function tryHideMotorControls() {
     document.getElementById("turtlebotTable").style.display="none";
-    document.getElementById("alertText").style.display="";
+    document.getElementById("alertText").style.display="block";
 }
 
 function tryShowMotorControls() {
-    document.getElementById("turtlebotTable").style.display="";
-    document.getElementById("alertText").style.display="";
+    document.getElementById("turtlebotTable").style.display="block";
+    document.getElementById("alertText").style.display="block";
 }
 
 function changeHintText(text) {
