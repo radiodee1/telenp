@@ -21,7 +21,7 @@ basename = "telenp"
 def test():
     rospy.init_node('turtlebot_talktest', anonymous=True)
     pub_twist = rospy.Publisher("/" + basename + "/command_velocity", TwistStamped)
-    pub_cloud = rospy.Publisher("camera/depth_registered/points", PointCloud2)
+    pub_cloud = rospy.Publisher("/"+ basename + "/camera/depth_registered/points", PointCloud2)
     linearx = 1
     angularz = 1
     counter = 0
@@ -33,7 +33,7 @@ def test():
         stamped.header.stamp = rospy.Time.now()
         stamped.twist.linear.x = linearx + counter
         stamped.twist.angular.z = angularz + counter
-        pub_twist.publish(stamped)
+        # pub_twist.publish(stamped)
         # publish pointcloud
         pub_cloud.publish(pcloud2)
         rospy.loginfo(pcloud2)
@@ -60,7 +60,7 @@ def make_cloud() :
         offset += point_step
     pcloud.header = Header()
     pcloud.header.stamp = rospy.Time.now()
-    pcloud.header.frame_id = '/map'
+    pcloud.header.frame_id = 'base_footprint'
     pcloud2 = PointCloud2(header=pcloud.header,
         height=c_height,
         width=c_width, 
