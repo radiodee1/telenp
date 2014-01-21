@@ -21,7 +21,7 @@ basename = "telenp"
 def test():
     rospy.init_node('turtlebot_talktest', anonymous=True)
     pub_twist = rospy.Publisher("/" + basename + "/command_velocity", TwistStamped)
-    pub_cloud = rospy.Publisher("/"+ basename + "/camera/depth_registered/points", PointCloud2)
+    pub_cloud = rospy.Publisher("/"+ basename + "/camera/depth/points", PointCloud2)
     linearx = 1
     angularz = 1
     counter = 0

@@ -35,8 +35,9 @@ def listen():
     kinect_left = False
     kinect_right = False
     kinect_middle = False
-    rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
-    rospy.Subscriber("/" + basename + "/camera/depth_registered/points", PointCloud2, callback_kinect)
+    #rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
+    rospy.Subscriber("/" + basename + "/camera/depth/points", PointCloud2, callback_kinect)
+    rospy.Subscriber("/camera/depth/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
         str1 = "hello world " + str (rospy.get_time())
@@ -91,16 +92,27 @@ def callback_kinect(data) :
     # kinect_obstruction = True
     rospy.loginfo("kinect " + str(kinect_obstruction))
     # pick a height
-    rospy.loginfo("height " + str(data.height))
-    height =  int (data.height / 2)
+    rospy.loginfo("height " + str(data.height) + " width " + str(data.width))
+    start = read_depth_tuple(0, 0, data)
+    end = read_depth_tuple( (data.width - 1), 0 , data)
+    rospy.loginfo("start " + str(start) + " -- end " + str(end) )
+    xx = 0
+    yy = 1
+    zz = 0
+    height =  int ((end[zz] - start[zz]) / 2)
     # pick three x coords near front and center
-    left_x =  int ( data.width * 3 / 8)
-    middle_x =  int (data.width / 2)
-    right_x =  int (data.width - ( data.width * 3 / 8 ))
+    padding = int (height * (end[zz] - start[zz])) 
+    left_x =  int ( (end[yy] - start[yy]) * 3 / 8) + padding
+    middle_x =  int ( (end[yy] - start[yy]) / 2) + padding
+    right_x =  int ( (end[yy] -start[yy]) - ( (end[yy] - start[yy]) * 3 / 8 )) + padding
+    
+    rospy.loginfo("left middle right height " + \
+        str(left_x) + " " + str(middle_x) + " " +str(right_x) +" "+ str(height))
+    
     # examine three points
-    left = read_depth (left_x, height, data)
-    middle = read_depth (middle_x, height, data)
-    right = read_depth (right_x, height, data)
+    left = read_depth (left_x, 0, data)
+    middle = read_depth (middle_x, 0, data)
+    right = read_depth (right_x, 0, data)
     # do stuff
     if (left == -1 or middle == -1 or right == -1) :
         rospy.loginfo("exit -- bad depth")
@@ -125,16 +137,21 @@ def callback_kinect(data) :
 
 
 def read_depth(width, height, data) :
+    return (read_depth_tuple(width, height, data) )[2]
+
+
+def read_depth_tuple(width, height, data) :
     # read function
-    if (height >= data.height) or (width >= data.width) :
+    if (height > data.height) :
+        rospy.loginfo("data height "+ str(data.height) )
         return -1
+    if (width > data.width) :
+        return -2
     data_out = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[[width, height]])
     int_data = next(data_out) # this returns a tuple!!
-    rospy.loginfo("out_data " + str(  mult * int_data[2]) + " all info: " + str(int_data))
-    rospy.loginfo("length " + str(len( int_data)))
-    return int_data[2] # 0 is x, 1 is y, 2 is z
-   
-        
+    #rospy.loginfo("out_data " + str(  mult * int_data[2]) + " all info: " + str(int_data))
+    #rospy.loginfo("length " + str(len( int_data)))
+    return int_data # [2] # 0 is x, 1 is y, 2 is z
         
 
 if __name__ == '__main__':
