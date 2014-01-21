@@ -40,36 +40,17 @@ def test():
         rospy.sleep(1.0)
 
 def make_cloud() :
-    pcloud = PointCloud2()
-    c_height = 6
-    c_width = 6
     # make point cloud
-    fields = [PointField('x',0, PointField.INT16, 1)]
-    cloud2 =  [1,2,6,1,2,6,
-        1,2,6,1,2,6,
-        1,2,6,1,2,6,
-        1,2,6,1,2,6,
-        1,2,6,1,2,6,
-        1,2,6,1,2,6] 
-    cloud_struct = struct.Struct(pc2._get_struct_fmt(False, fields))
-    buff = ctypes.create_string_buffer(cloud_struct.size * len(cloud2))
-    point_step, pack_into = cloud_struct.size, cloud_struct.pack_into
-    offset = 0
-    for p in cloud2:
-        pack_into(buff, offset, p)
-        offset += point_step
-    pcloud.header = Header()
-    pcloud.header.stamp = rospy.Time.now()
-    pcloud.header.frame_id = 'base_footprint'
-    pcloud2 = PointCloud2(header=pcloud.header,
-        height=c_height,
-        width=c_width, 
-        is_dense=False,
-        is_bigendian=False,
-        fields=fields,
-        point_step=cloud_struct.size,
-        row_step= len(cloud2) / c_height,
-        data=buff.raw)
+    cloud =  [[1,1,3],[2,1,33],[3,1,333],[4,1,344],[5,1,35],[6,1,36],
+        [1,2,3],[2,2,33],[3,2,333],[4,2,344],[5,2,35],[6,2,36],
+        [1,3,3],[2,3,33],[3,3,333],[4,3,344],[5,3,35],[6,3,36],
+        [1,4,3],[2,4,33],[3,4,333],[4,4,344],[5,4,35],[6,4,36],
+        [1,5,3],[2,5,33],[3,5,333],[4,5,344],[5,5,35],[6,5,36],
+        [1,6,3],[2,6,33],[3,6,333],[4,6,344],[5,6,35],[6,6,36]] 
+    header = Header()
+    header.stamp = rospy.Time.now()
+    header.frame_id = 'base_footprint'
+    pcloud2 = pc2.create_cloud_xyz32(header ,cloud);
     return pcloud2
 
 

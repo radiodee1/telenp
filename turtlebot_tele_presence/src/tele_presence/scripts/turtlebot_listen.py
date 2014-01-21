@@ -14,8 +14,8 @@ from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import PointCloud2, PointField
 
 mod_base = 512
-boundary_depth = 1
-mult = 100
+boundary_depth = 5
+mult = 1
 
 linear_x = 0
 angular_z = 0
@@ -36,7 +36,7 @@ def listen():
     kinect_right = False
     kinect_middle = False
     rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
-    rospy.Subscriber("/camera/depth_registered/points", PointCloud2, callback_kinect)
+    rospy.Subscriber("/" + basename + "/camera/depth_registered/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
         str1 = "hello world " + str (rospy.get_time())
@@ -130,9 +130,9 @@ def read_depth(width, height, data) :
         return -1
     data_out = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[[width, height]])
     int_data = next(data_out) # this returns a tuple!!
-    rospy.loginfo("out_data " + str(  mult * int_data[0]))
-    rospy.loginfo("length " + int_data.length)
-    return int_data[0]
+    rospy.loginfo("out_data " + str(  mult * int_data[2]) + " all info: " + str(int_data))
+    rospy.loginfo("length " + str(len( int_data)))
+    return int_data[2] # 0 is x, 1 is y, 2 is z
    
         
         
