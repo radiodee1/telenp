@@ -55,14 +55,17 @@ var rx_error_old = "";
 var control_retransmit = false;
 var control_msgtype = 0;
 var control_stream = false;
+var control_stream_rx = false;
 var control_obstructed = false;
+var control_obstructed_string = "";
+var control_obstructed_num = 0;
 var control_connected_motors = false;
 var control_connected_rx = false;
 var control_stopped = false;
 var control_stopped_rx = false;
 var connection = new Object();
 var cmdVel = new Object();
-//var kinect_listener = null;
+
 var stream_num = 0;
 var timer_key = 0;
 var timer_up = 0;
@@ -103,10 +106,10 @@ var MSG_RESERVED = 3;
 
     var kinect_listener = new ROSLIB.Topic({
     	'ros' : ros,
-    	//'name' : '/'+ basename +'/kinect_feedback',
-    	'name' : '/listener',
-   		// messageType : 'std_msgs/UInt8'
-   		 messageType : 'std_msgs/String',
+    	'name' : '/'+ basename +'/kinect_feedback',
+    	//'name' : '/listener',
+   		 messageType : 'std_msgs/UInt8'
+   		// messageType : 'std_msgs/String',
    		 
   	});
 
@@ -253,6 +256,7 @@ function tryStreamClick() {
 		else { 
 			control_stream = true;
 		}
+		formJSONError();
 	}
 	else {
 		document.getElementById("setStream").checked = false;
@@ -321,11 +325,13 @@ function tryShowPadControls() {
 }
 
 function tryHideMotorControls() {
+    if (test_config) return;
     document.getElementById("turtlebotTable").style.display="none";
     document.getElementById("alertText").style.display="block";
 }
 
 function tryShowMotorControls() {
+    if (test_config) return;
     document.getElementById("turtlebotTable").style.display="block";
     document.getElementById("alertText").style.display="block";
 }
@@ -357,7 +363,12 @@ function changeAlertText() {
 	    stopped = "<b style='color:green;font-size:10pt'>" + "[running]";
 	    changeButtonSrc(button_center_src_start);
 	}
-	if (control_obstructed) obstructed = "<b style='color:red;font-size:10pt'>" + "[blocked]";
+	if (control_stream_rx) {
+	    stopped = "<b style='color:green;font-size:10pt'>" + "[stream]";
+	}
+	if (control_obstructed) {
+	    obstructed = "<b style='color:red;font-size:10pt'>" + control_obstructed_string ;//"[blocked]";
+	}
 	else obstructed = "<b style='color:green;font-size:10pt'>" + "[clear]";
 	
 	text =  connected + "</b> "  + stopped + "</b> " + obstructed + "</b> " ;
@@ -391,9 +402,17 @@ function formJSONError() {
 	if (!control_retransmit ) return;
 	var connect = control_connected_motors;
 	var stopped = control_stopped;
-	var kinect = control_obstructed;
-
-	makeText = JSON.stringify(makeJSONError(connect, stopped, kinect));
+	var kinect = 0;//control_obstructed;
+	var stream = false;
+	
+    if (control_obstructed_num > 0) {
+        kinect = control_obstructed_num;
+    }
+    if (control_retransmit && control_stream) {
+        stream = true;
+    }
+    
+	makeText = JSON.stringify(makeJSONError(connect, stopped, kinect, stream));
 	try {
 		gapi.hangout.data.setValue( tx_gapi_error, makeText);
 	}
@@ -407,8 +426,11 @@ function makeJSONCommand(operation, num ) {
 	return myJSON;
 }
 
-function makeJSONError(connected, stopped, kinect) {
-	var myJSON = { "connected" : connected , "stopped" : stopped , "kinect" : kinect  };
+function makeJSONError(connected, stopped, kinect, stream) {
+	var myJSON = { "connected" : connected , 
+	    "stopped" : stopped , 
+	    "kinect" : kinect , 
+	    "stream" : stream };
 	return myJSON;
 }
 
@@ -434,9 +456,11 @@ function recieveEvent () {
 		    control_stopped_rx = false;
 		    control_stopped = false;
 		}
-		if (rx_error_obj.kinect == true) control_obstructed = true;
+		if (rx_error_obj.kinect > 0) control_obstructed = true;
 		else control_obstructed = false;
-		
+		if (rx_error_obj.stream) {
+		    control_stream_rx = true;
+		}
 		rx_error_old = rx_error;
 	}
 	changeAlertText();
@@ -611,21 +635,42 @@ function doSpeedTimer() {
 }
 
 function setKinectListener() {
-            console.log("kinect setup");
-  			
-  			//console.log("kinect no error. ");
-  			
-  			
-  			try {
-  			    kinect_listener.subscribe( function(message) {
-                    console.log(  kinect_listener.name + " : " + message.data );
-                    //kinect_listener.unsubscribe();
-                } );
+    //console.log("kinect setup");
+  	
+  	try {
+  	    kinect_listener.subscribe( function(message) {
+            console.log(  kinect_listener.name + " : " + message.data );
+            var data = message.data;
+            control_obstructed_num = message.data;
+            control_obstructed_string = "[";
+            if (data > 7) {
+                control_obstructed_string = "[xxx]";
+                data = 0;
             }
-            catch (e) {
-                console.log ("no message " + e.message);
+            // read message
+            if (data >= 4) {
+                control_obstructed_string += "x";
+                data -= 4;
             }
+            else { control_obstructed_string += "-";}
+            if (data >= 2) {
+                control_obstructed_string += "x";
+                data -= 2;
+            }
+            else { control_obstructed_string += "-";}
+            if (data >= 1) {
+                control_obstructed_string += "x";
+                data -= 1;
+            }
+            else { control_obstructed_string += "-";}
             
+            control_obstructed_string += "]";
+        } );
+    }
+    catch (e) {
+        console.log ("no message " + e.message);
+    }
+
 
 }
 

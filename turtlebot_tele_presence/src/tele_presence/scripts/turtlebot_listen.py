@@ -14,7 +14,7 @@ from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import PointCloud2, PointField
 
 mod_base = 512
-boundary_depth = 5
+boundary_depth = 100
 mult = 1
 
 linear_x = 0
