@@ -26,6 +26,11 @@ kinect_middle = False
 kinect_right = False
 basename = "telenp"
 twist = Twist()
+# order of axis in point cloud tuple
+xx = 0
+yy = 1
+zz = 2
+
 
 def listen():
     rospy.init_node('turtlebot_listen', anonymous=True)
@@ -35,7 +40,7 @@ def listen():
     kinect_left = False
     kinect_right = False
     kinect_middle = False
-    #rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
+    rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
     rospy.Subscriber("/" + basename + "/camera/depth/points", PointCloud2, callback_kinect)
     rospy.Subscriber("/camera/depth/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
@@ -82,33 +87,31 @@ def callback_move(data):
     twist.angular.z = angular_z
     pub_move.publish(twist)
     rospy.loginfo(twist)
-    
+
 
 def callback_kinect(data) :
-    rospy.loginfo("detect kinect")
     # no obstruction to start
     global kinect_obstruction
     global kinect_left, kinect_right, kinect_middle
-    # kinect_obstruction = True
     rospy.loginfo("kinect " + str(kinect_obstruction))
     # pick a height
     rospy.loginfo("height " + str(data.height) + " width " + str(data.width))
     start = read_depth_tuple(0, 0, data)
     end = read_depth_tuple( (data.width - 1), 0 , data)
     rospy.loginfo("start " + str(start) + " -- end " + str(end) )
-    xx = 0
-    yy = 1
-    zz = 0
-    height =  int ((end[zz] - start[zz]) / 2)
     # pick three x coords near front and center
-    padding = int (height * (end[zz] - start[zz])) 
-    left_x =  int ( (end[yy] - start[yy]) * 3 / 8) + padding
-    middle_x =  int ( (end[yy] - start[yy]) / 2) + padding
-    right_x =  int ( (end[yy] -start[yy]) - ( (end[yy] - start[yy]) * 3 / 8 )) + padding
-    
-    rospy.loginfo("left middle right height " + \
-        str(left_x) + " " + str(middle_x) + " " +str(right_x) +" "+ str(height))
-    
+    height =  int ((end[zz] - start[zz]) / 2) + 1
+    line = int (end[yy] - start[yy])
+    padding = int (height * line) 
+    #
+    left_x =  int ( line * 3 / 8) + padding
+    middle_x =  int ( line / 2) + padding
+    right_x =  int ( line - ( line * 3 / 8 )) + padding
+    #
+    rospy.loginfo("left middle right height line padding " + \
+        str(left_x) + " " + str(middle_x) + " " +str(right_x) +" "+ str(height) +\
+        " " + str(line) + " " + str(padding) )
+    #
     # examine three points
     left = read_depth (left_x, 0, data)
     middle = read_depth (middle_x, 0, data)
@@ -124,12 +127,15 @@ def callback_kinect(data) :
     if (left * mult < boundary_depth) :
         kinect_obstruction = True
         kinect_left = True
+        rospy.loginfo("HIT ON KINECT!! LEFT")
     if (middle * mult < boundary_depth) :
         kinect_obstruction = True
         kinect_middle = True
+        rospy.loginfo("HIT ON KINECT!! MIDDLE")
     if (right * mult < boundary_depth) :
         kinect_obstruction = True
         kinect_right = True
+        rospy.loginfo("HIT ON KINECT!! RIGHT")
     # exit ?
     if ( kinect_obstruction ) :
         rospy.loginfo("HIT ON KINECT!!")
@@ -137,22 +143,18 @@ def callback_kinect(data) :
 
 
 def read_depth(width, height, data) :
-    return (read_depth_tuple(width, height, data) )[2]
+    return (read_depth_tuple(width, height, data) )[xx]
 
 
 def read_depth_tuple(width, height, data) :
     # read function
-    if (height > data.height) :
-        rospy.loginfo("data height "+ str(data.height) )
+    if (height >= data.height) :
         return -1
-    if (width > data.width) :
+    if (width >= data.width) :
         return -2
     data_out = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[[width, height]])
-    int_data = next(data_out) # this returns a tuple!!
-    #rospy.loginfo("out_data " + str(  mult * int_data[2]) + " all info: " + str(int_data))
-    #rospy.loginfo("length " + str(len( int_data)))
-    return int_data # [2] # 0 is x, 1 is y, 2 is z
-        
+    return next(data_out)
+
 
 if __name__ == '__main__':
     try:
