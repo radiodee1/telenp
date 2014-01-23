@@ -33,6 +33,7 @@ var rx_data_old = "";
 var rx_error_old = "";
 var control_retransmit = false;
 var control_msgtype = 0;
+var control_msgtype_rx = 0;
 var control_stream = false;
 var control_stream_rx = false;
 var control_obstructed = false;
@@ -345,11 +346,17 @@ function changeAlertText() {
 	if (control_stream_rx) {
 	    stopped = "<b style='color:green;font-size:10pt'>" + "[stream]";
 	}
-	if (control_obstructed) {
+	if (control_obstructed && control_msgtype_rx == MSG_RESERVED ) {
 	    obstructed = "<b style='color:red;font-size:10pt'>" + control_obstructed_string ;//"[blocked]";
 	}
 	else obstructed = "<b style='color:green;font-size:10pt'>" + "[clear]";
 	
+	if (control_msgtype_rx == MSG_STRING) {
+	    obstructed = "<b style='color:green;font-size:10pt'>" + "[string]";
+	}
+	else if (control_msgtype_rx == MSG_TWIST) {
+	    obstructed = "<b style='color:green;font-size:10pt'>" + "[twist]";
+	}
 	text =  connected + "</b> "  + stopped + "</b> " + obstructed + "</b> " ;
 	document.getElementById('alertText').innerHTML= text;
 }
@@ -406,10 +413,11 @@ function makeJSONCommand(operation, num ) {
 }
 
 function makeJSONError(connected, stopped, kinect, stream) {
-	var myJSON = { "connected" : connected , 
-	    "stopped" : stopped , 
-	    "kinect" : kinect , 
-	    "stream" : stream };
+	var myJSON = { "connected" : connected , // identify the robot node
+	    "stopped" : stopped ,  // is sequence number wrong (see stream)
+	    "kinect" : kinect ,  // output from the kinect on the robot (see msg type info)
+	    "stream" : stream , // is stream set on robot
+	    "msgtype" : control_msgtype  }; // included for status message on robot only
 	return myJSON;
 }
 
@@ -439,6 +447,9 @@ function recieveEvent () {
 		else control_obstructed = false;
 		if (rx_error_obj.stream) {
 		    control_stream_rx = true;
+		}
+		if (rx_error_obj.msgtype != 0) {
+		    control_msgtype_rx = rx_error_obj.msgtype;
 		}
 		rx_error_old = rx_error;
 	}
