@@ -264,6 +264,45 @@ geometry_msgs_generate_messages_py/fast:
 .PHONY : geometry_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named map_store_generate_messages_cpp
+
+# Build rule for target.
+map_store_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 map_store_generate_messages_cpp
+.PHONY : map_store_generate_messages_cpp
+
+# fast build rule for target.
+map_store_generate_messages_cpp/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/build
+.PHONY : map_store_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named map_store_generate_messages_lisp
+
+# Build rule for target.
+map_store_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 map_store_generate_messages_lisp
+.PHONY : map_store_generate_messages_lisp
+
+# fast build rule for target.
+map_store_generate_messages_lisp/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/build
+.PHONY : map_store_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named map_store_generate_messages_py
+
+# Build rule for target.
+map_store_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 map_store_generate_messages_py
+.PHONY : map_store_generate_messages_py
+
+# fast build rule for target.
+map_store_generate_messages_py/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_py.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_py.dir/build
+.PHONY : map_store_generate_messages_py/fast
+
+#=============================================================================
 # Target rules for targets named roscpp_generate_messages_cpp
 
 # Build rule for target.
@@ -380,6 +419,97 @@ std_msgs_generate_messages_py/fast:
 	$(MAKE) -f tele_presence/CMakeFiles/std_msgs_generate_messages_py.dir/build.make tele_presence/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
+#=============================================================================
+# Target rules for targets named tele_presence_gencpp
+
+# Build rule for target.
+tele_presence_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_gencpp
+.PHONY : tele_presence_gencpp
+
+# fast build rule for target.
+tele_presence_gencpp/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_gencpp.dir/build.make tele_presence/CMakeFiles/tele_presence_gencpp.dir/build
+.PHONY : tele_presence_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named tele_presence_generate_messages
+
+# Build rule for target.
+tele_presence_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_generate_messages
+.PHONY : tele_presence_generate_messages
+
+# fast build rule for target.
+tele_presence_generate_messages/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build
+.PHONY : tele_presence_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named tele_presence_generate_messages_cpp
+
+# Build rule for target.
+tele_presence_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_generate_messages_cpp
+.PHONY : tele_presence_generate_messages_cpp
+
+# fast build rule for target.
+tele_presence_generate_messages_cpp/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build
+.PHONY : tele_presence_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named tele_presence_generate_messages_lisp
+
+# Build rule for target.
+tele_presence_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_generate_messages_lisp
+.PHONY : tele_presence_generate_messages_lisp
+
+# fast build rule for target.
+tele_presence_generate_messages_lisp/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build
+.PHONY : tele_presence_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named tele_presence_generate_messages_py
+
+# Build rule for target.
+tele_presence_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_generate_messages_py
+.PHONY : tele_presence_generate_messages_py
+
+# fast build rule for target.
+tele_presence_generate_messages_py/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build
+.PHONY : tele_presence_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named tele_presence_genlisp
+
+# Build rule for target.
+tele_presence_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_genlisp
+.PHONY : tele_presence_genlisp
+
+# fast build rule for target.
+tele_presence_genlisp/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_genlisp.dir/build.make tele_presence/CMakeFiles/tele_presence_genlisp.dir/build
+.PHONY : tele_presence_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named tele_presence_genpy
+
+# Build rule for target.
+tele_presence_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_genpy
+.PHONY : tele_presence_genpy
+
+# fast build rule for target.
+tele_presence_genpy/fast:
+	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_genpy.dir/build.make tele_presence/CMakeFiles/tele_presence_genpy.dir/build
+.PHONY : tele_presence_genpy/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -402,6 +532,9 @@ help:
 	@echo "... geometry_msgs_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... geometry_msgs_generate_messages_py"
+	@echo "... map_store_generate_messages_cpp"
+	@echo "... map_store_generate_messages_lisp"
+	@echo "... map_store_generate_messages_py"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_py"
@@ -411,6 +544,13 @@ help:
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... tele_presence_gencpp"
+	@echo "... tele_presence_generate_messages"
+	@echo "... tele_presence_generate_messages_cpp"
+	@echo "... tele_presence_generate_messages_lisp"
+	@echo "... tele_presence_generate_messages_py"
+	@echo "... tele_presence_genlisp"
+	@echo "... tele_presence_genpy"
 .PHONY : help
 
 

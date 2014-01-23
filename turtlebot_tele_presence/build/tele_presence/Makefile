@@ -189,6 +189,48 @@ geometry_msgs_generate_messages_py/fast:
 .PHONY : geometry_msgs_generate_messages_py/fast
 
 # Convenience name for target.
+tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/rule
+.PHONY : tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+map_store_generate_messages_cpp: tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/rule
+.PHONY : map_store_generate_messages_cpp
+
+# fast build rule for target.
+map_store_generate_messages_cpp/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/build
+.PHONY : map_store_generate_messages_cpp/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/rule
+.PHONY : tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+map_store_generate_messages_lisp: tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/rule
+.PHONY : map_store_generate_messages_lisp
+
+# fast build rule for target.
+map_store_generate_messages_lisp/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/build
+.PHONY : map_store_generate_messages_lisp/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/map_store_generate_messages_py.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/map_store_generate_messages_py.dir/rule
+.PHONY : tele_presence/CMakeFiles/map_store_generate_messages_py.dir/rule
+
+# Convenience name for target.
+map_store_generate_messages_py: tele_presence/CMakeFiles/map_store_generate_messages_py.dir/rule
+.PHONY : map_store_generate_messages_py
+
+# fast build rule for target.
+map_store_generate_messages_py/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_py.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_py.dir/build
+.PHONY : map_store_generate_messages_py/fast
+
+# Convenience name for target.
 tele_presence/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 .PHONY : tele_presence/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
@@ -314,6 +356,104 @@ std_msgs_generate_messages_py/fast:
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/std_msgs_generate_messages_py.dir/build.make tele_presence/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
+# Convenience name for target.
+tele_presence/CMakeFiles/tele_presence_gencpp.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_gencpp.dir/rule
+.PHONY : tele_presence/CMakeFiles/tele_presence_gencpp.dir/rule
+
+# Convenience name for target.
+tele_presence_gencpp: tele_presence/CMakeFiles/tele_presence_gencpp.dir/rule
+.PHONY : tele_presence_gencpp
+
+# fast build rule for target.
+tele_presence_gencpp/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/tele_presence_gencpp.dir/build.make tele_presence/CMakeFiles/tele_presence_gencpp.dir/build
+.PHONY : tele_presence_gencpp/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/tele_presence_generate_messages.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/rule
+.PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages.dir/rule
+
+# Convenience name for target.
+tele_presence_generate_messages: tele_presence/CMakeFiles/tele_presence_generate_messages.dir/rule
+.PHONY : tele_presence_generate_messages
+
+# fast build rule for target.
+tele_presence_generate_messages/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build
+.PHONY : tele_presence_generate_messages/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/rule
+.PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+tele_presence_generate_messages_cpp: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/rule
+.PHONY : tele_presence_generate_messages_cpp
+
+# fast build rule for target.
+tele_presence_generate_messages_cpp/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build
+.PHONY : tele_presence_generate_messages_cpp/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/rule
+.PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+tele_presence_generate_messages_lisp: tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/rule
+.PHONY : tele_presence_generate_messages_lisp
+
+# fast build rule for target.
+tele_presence_generate_messages_lisp/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build
+.PHONY : tele_presence_generate_messages_lisp/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/rule
+.PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/rule
+
+# Convenience name for target.
+tele_presence_generate_messages_py: tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/rule
+.PHONY : tele_presence_generate_messages_py
+
+# fast build rule for target.
+tele_presence_generate_messages_py/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build
+.PHONY : tele_presence_generate_messages_py/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/tele_presence_genlisp.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_genlisp.dir/rule
+.PHONY : tele_presence/CMakeFiles/tele_presence_genlisp.dir/rule
+
+# Convenience name for target.
+tele_presence_genlisp: tele_presence/CMakeFiles/tele_presence_genlisp.dir/rule
+.PHONY : tele_presence_genlisp
+
+# fast build rule for target.
+tele_presence_genlisp/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/tele_presence_genlisp.dir/build.make tele_presence/CMakeFiles/tele_presence_genlisp.dir/build
+.PHONY : tele_presence_genlisp/fast
+
+# Convenience name for target.
+tele_presence/CMakeFiles/tele_presence_genpy.dir/rule:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_genpy.dir/rule
+.PHONY : tele_presence/CMakeFiles/tele_presence_genpy.dir/rule
+
+# Convenience name for target.
+tele_presence_genpy: tele_presence/CMakeFiles/tele_presence_genpy.dir/rule
+.PHONY : tele_presence_genpy
+
+# fast build rule for target.
+tele_presence_genpy/fast:
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence/CMakeFiles/tele_presence_genpy.dir/build.make tele_presence/CMakeFiles/tele_presence_genpy.dir/build
+.PHONY : tele_presence_genpy/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -328,6 +468,9 @@ help:
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
+	@echo "... map_store_generate_messages_cpp"
+	@echo "... map_store_generate_messages_lisp"
+	@echo "... map_store_generate_messages_py"
 	@echo "... rebuild_cache"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
@@ -338,6 +481,13 @@ help:
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... tele_presence_gencpp"
+	@echo "... tele_presence_generate_messages"
+	@echo "... tele_presence_generate_messages_cpp"
+	@echo "... tele_presence_generate_messages_lisp"
+	@echo "... tele_presence_generate_messages_py"
+	@echo "... tele_presence_genlisp"
+	@echo "... tele_presence_genpy"
 	@echo "... test"
 .PHONY : help
 

@@ -1,8 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(FATAL_ERROR "Could not find messages which '/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg' depends on. Did you forget to specify generate_messages(DEPENDENCIES ...)?
-Cannot locate message [MapListEntry] in package [tele_presence] with paths [['/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg']]")
-message(STATUS "tele_presence: 1 messages, 0 services")
+message(STATUS "tele_presence: 2 messages, 0 services")
 
 set(MSG_I_FLAGS "-Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg")
 
@@ -19,6 +17,18 @@ add_custom_target(tele_presence_generate_messages ALL)
 
 ### Section generating for lang: gencpp
 ### Generating Messages
+_generate_msg_cpp(tele_presence
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/tele_presence
+)
+_generate_msg_cpp(tele_presence
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg"
+  "${MSG_I_FLAGS}"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/tele_presence
+)
 
 ### Generating Services
 
@@ -42,6 +52,18 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS tele_presence_generate_messages_cpp
 
 ### Section generating for lang: genlisp
 ### Generating Messages
+_generate_msg_lisp(tele_presence
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/tele_presence
+)
+_generate_msg_lisp(tele_presence
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg"
+  "${MSG_I_FLAGS}"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/tele_presence
+)
 
 ### Generating Services
 
@@ -65,6 +87,18 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS tele_presence_generate_messages_lis
 
 ### Section generating for lang: genpy
 ### Generating Messages
+_generate_msg_py(tele_presence
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/tele_presence
+)
+_generate_msg_py(tele_presence
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg"
+  "${MSG_I_FLAGS}"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/tele_presence
+)
 
 ### Generating Services
 

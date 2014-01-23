@@ -284,6 +284,9 @@ gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 //Path to a library.
 lib:FILEPATH=/opt/ros/hydro/lib/libxmlrpcpp.so
 
+//The directory containing a CMake configuration file for map_store.
+map_store_DIR:PATH=/opt/ros/hydro/share/map_store/cmake
+
 //The directory containing a CMake configuration file for message_generation.
 message_generation_DIR:PATH=/opt/ros/hydro/share/message_generation/cmake
 

@@ -56,9 +56,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(tele_presence_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "" STREQUAL "")
+if(NOT "include" STREQUAL "")
   set(tele_presence_INCLUDE_DIRS "")
-  set(_include_dirs "")
+  set(_include_dirs "include")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -74,7 +74,7 @@ if(NOT "" STREQUAL "")
   endforeach()
 endif()
 
-set(libraries "")
+set(libraries "tele_presence;map_store")
 foreach(library ${libraries})
   # keep build configuration keywords, target names and absolute libraries as-is
   if("${library}" MATCHES "^debug|optimized|general$")
@@ -110,7 +110,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(tele_presence_EXPORTED_TARGETS "")
+set(tele_presence_EXPORTED_TARGETS "tele_presence_generate_messages_cpp;tele_presence_generate_messages_lisp;tele_presence_generate_messages_py")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${tele_presence_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -140,7 +140,7 @@ foreach(depend ${depends})
   list(APPEND tele_presence_EXPORTED_TARGETS ${${tele_presence_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "")
+set(pkg_cfg_extras "tele_presence-msg-extras.cmake")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${tele_presence_DIR}/${extra})

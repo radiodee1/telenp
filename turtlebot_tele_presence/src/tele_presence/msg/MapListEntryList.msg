@@ -2,6 +2,6 @@
 int8 len
 
 # list of available map_id objects
-map_store/MapListEntry[] list
+tele_presence/MapListElement[] list
 
 

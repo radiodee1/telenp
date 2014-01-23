@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
+  map_store
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,6 +50,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   MapListEntryList.msg
+  MapListElement.msg
 #   Message2.msg
 )
 
@@ -67,11 +69,12 @@ add_message_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-#generate_messages(
-  #DEPENDENCIES
-  
+generate_messages(
+  DEPENDENCIES
+  #tele_presence
+#  MapListEntryList  
 #   geometry_msgs#   std_msgs
-#)
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -84,7 +87,7 @@ add_message_files(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES tele_presence
+  LIBRARIES tele_presence map_store
   CATKIN_DEPENDS message_runtime geometry_msgs roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -110,7 +113,7 @@ include_directories(
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(tele_presence_node tele_presence_generate_messages_cpp)
+#add_dependencies(map_store)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(tele_presence_node
@@ -129,6 +132,7 @@ include_directories(
  install(PROGRAMS
    scripts/turtlebot_listen.py
    scripts/turtlebot_talktest.py
+   scripts/turtlebot_map.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
