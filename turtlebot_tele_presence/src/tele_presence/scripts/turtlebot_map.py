@@ -5,7 +5,8 @@ import sensor_msgs.point_cloud2 as pc2
 
 import roslib; roslib.load_manifest('map_store')
 import sys
-import unittest
+import map_store.srv
+
 from nav_msgs.msg import *
 from nav_msgs.srv import *
 from map_store.srv import *
@@ -21,45 +22,28 @@ from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import PointCloud2, PointField
 
+# type 'rosrun map_store map_manager' to start...
+
 basename = "telenp"
 
 
 def map_stuff():
     rospy.init_node('turtlebot_map', anonymous=True)
-    rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_list)
-    #rospy.Subscriber("/" + basename + "/camera/depth/points", PointCloud2, callback_kinect)
-    #rospy.Subscriber("/camera/depth/points", PointCloud2, callback_kinect)
-    pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
-        temp_var = 0
-        pub_kinect.publish (np.uint8(temp_var))
-        rospy.loginfo("kinect feedback " + str(temp_var) )
+        #
+        try_list()
         rospy.sleep(1.0)
 
-def callback_list(data):
-    pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
-    global twist ;
-    rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq)) #non-standard use of 'seq'
-    # global vars
-    global seq_counter, linear_x, angular_z , kinect_obstruction
-    # don't use 'seq' from 'header'
-    if not kinect_obstruction  : 
-        linear_x = data.twist.linear.x
-        angular_z = data.twist.angular.z
-    else :
-        linear_x = 0
-        angular_z = data.twist.angular.z
-    # twist output
-    twist = Twist();
-    twist.linear.x = linear_x
-    twist.linear.y = 0;
-    twist.linear.z = 0;
-    twist.angular.x = 0;
-    twist.angular.y = 0;
-    twist.angular.z = angular_z
-    pub_move.publish(twist)
-    rospy.loginfo(twist)
-
+def try_list():
+    #pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
+    rospy.wait_for_service("/list_maps")
+    list_maps = rospy.ServiceProxy('/list_maps', map_store.srv.ListMaps)
+    initial_map_list = []
+    for m in list_maps().map_list:
+        initial_map_list.append(m.map_id)
+        print "map: " , m.map_id
+    print "done" 
+    #
 
 if __name__ == '__main__':
     try:
