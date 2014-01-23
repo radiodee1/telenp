@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   map_store
+  #tele_presence
 )
 
 ## System dependencies are found with CMake's conventions
@@ -88,7 +89,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
   LIBRARIES tele_presence map_store
-  CATKIN_DEPENDS message_runtime geometry_msgs roscpp rospy std_msgs
+  #CATKIN_DEPENDS message_runtime geometry_msgs roscpp rospy std_msgs tele_presence
 #  DEPENDS system_lib
 )
 
@@ -137,11 +138,11 @@ include_directories(
  )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS tele_presence tele_presence_node
+#install(TARGETS tele_presence #tele_presence_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+#)
 
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
