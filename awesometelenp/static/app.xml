@@ -804,6 +804,12 @@ gadgets.util.registerOnLoadHandler(init);
 	<br>
 	TURTLEBOT SETUP:
 </div>
+<!-- /body tag is now after 'app-map.html' code -->
+
+
+
+
+<!-- closing body tag -->
 </body>
 ]]></Content>
 </Module>
