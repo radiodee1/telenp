@@ -124,8 +124,8 @@ var tab_controls_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_c
 var tab_controls_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_controls_unselected.png";
 var tab_text_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_setup.png";
 var tab_text_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_setup_unselected.png";
-var tab_map_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_setup.png";
-var tab_map_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_setup_unselected.png";
+var tab_map_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_map.png";
+var tab_map_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_map_unselected.png";
 
 
 function tryLeftClick() {
