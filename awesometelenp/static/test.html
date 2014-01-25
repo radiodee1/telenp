@@ -275,19 +275,34 @@ function tryRadioClick() {
 function trySetupControls() {
     document.getElementById("setupControls").style.display="block";
     document.getElementById("setupText").style.display="none";
+    document.getElementById("setupMap").style.display="none";
     document.getElementById("alertText").style.display="block";
     
     document.getElementById("tabControls").src= tab_controls_src_selected;
     document.getElementById("tabText").src= tab_text_src_unselected;
+    document.getElementById("tabMap").src= tab_text_src_unselected;
 }
 
 function trySetupText() {
     document.getElementById("setupControls").style.display="none";
     document.getElementById("setupText").style.display="block";
+    document.getElementById("setupMap").style.display="none";
     document.getElementById("alertText").style.display="none";
     
     document.getElementById("tabControls").src= tab_controls_src_unselected;
     document.getElementById("tabText").src= tab_text_src_selected;
+    document.getElementById("tabMap").src= tab_text_src_unselected;
+}
+
+function trySetupMap() {
+    document.getElementById("setupControls").style.display="none";
+    document.getElementById("setupText").style.display="none";
+    document.getElementById("setupMap").style.display="block";
+    document.getElementById("alertText").style.display="none";
+    
+    document.getElementById("tabControls").src= tab_controls_src_unselected;
+    document.getElementById("tabText").src= tab_text_src_selected;
+    document.getElementById("tabMap").src= tab_text_src_unselected;
 }
 
 function tryHidePadControls() {
@@ -705,6 +720,9 @@ function init() {
 
 gadgets.util.registerOnLoadHandler(init);
 
+// app-map.js
+
+
 </script>
 
 
@@ -714,6 +732,8 @@ gadgets.util.registerOnLoadHandler(init);
 	alt="CONTROLS" onclick="trySetupControls()" id="tabControls">
 	<img src="//awesometelenp.appspot.com/static/bitmap/tab_setup_unselected.png" 
 	alt="SETUP" onclick="trySetupText()" id="tabText">
+	<img src="//awesometelenp.appspot.com/static/bitmap/tab_setup_unselected.png" 
+	alt="MAP" onclick="trySetupMap()" id="tabMap">
 </div>
 <div style="float: left; padding: 0px 20px; background-color: #999"
 	id="setupControls">
@@ -784,9 +804,54 @@ gadgets.util.registerOnLoadHandler(init);
 	TURTLEBOT SETUP:
 </div>
 <!-- /body tag is now after 'app-map.html' code -->
+<!-- one div for entire tab -->
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
+    <br>
+    MAP SETUP:
+<!-- one div for each frame of wizard -->
+<div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">
+<table border=1 id="wizChooseOpTable">
+
+<tr><td><button type="button" onclick="" style="width:100%">Load Map</button></td></tr>
+<tr><td><button type="button" onclick="" style="width:100%">Make Map</button></td></tr>
+<tr><td><button type="button" onclick="" style="width:100%">Delete Map</button></td></tr>
+<tr><td><button type="button" onclick="" style="width:100%">Rename Map</button></td></tr>
+<tr><td><button type="button" onclick="" style="width:100%">Save Map</button></td></tr>
+</table>
+<br>
+<button type="button" onclick="">Cancel</button>
 
 
+</div>
 
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpLoad">
+<button type="button" onclick="">Cancel</button>
+</div>
 
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpNew">
+<button type="button" onclick="">Cancel</button>
+</div>
+
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpDel">
+<button type="button" onclick="">Cancel</button>
+</div>
+
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpRename">
+<button type="button" onclick="">Cancel</button>
+</div>
+
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpSave">
+<button type="button" onclick="">Cancel</button>
+</div>
+
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpDone">
+<button type="button" onclick="">Done</button>
+</div>
+
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpStart">
+<button type="button" onclick="">Done</button>
+</div>
+<!-- end of wizard -->
+</div>
 <!-- closing body tag -->
 </body>

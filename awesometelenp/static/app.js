@@ -259,19 +259,34 @@ function tryRadioClick() {
 function trySetupControls() {
     document.getElementById("setupControls").style.display="block";
     document.getElementById("setupText").style.display="none";
+    document.getElementById("setupMap").style.display="none";
     document.getElementById("alertText").style.display="block";
     
     document.getElementById("tabControls").src= tab_controls_src_selected;
     document.getElementById("tabText").src= tab_text_src_unselected;
+    document.getElementById("tabMap").src= tab_text_src_unselected;
 }
 
 function trySetupText() {
     document.getElementById("setupControls").style.display="none";
     document.getElementById("setupText").style.display="block";
+    document.getElementById("setupMap").style.display="none";
     document.getElementById("alertText").style.display="none";
     
     document.getElementById("tabControls").src= tab_controls_src_unselected;
     document.getElementById("tabText").src= tab_text_src_selected;
+    document.getElementById("tabMap").src= tab_text_src_unselected;
+}
+
+function trySetupMap() {
+    document.getElementById("setupControls").style.display="none";
+    document.getElementById("setupText").style.display="none";
+    document.getElementById("setupMap").style.display="block";
+    document.getElementById("alertText").style.display="none";
+    
+    document.getElementById("tabControls").src= tab_controls_src_unselected;
+    document.getElementById("tabText").src= tab_text_src_selected;
+    document.getElementById("tabMap").src= tab_text_src_unselected;
 }
 
 function tryHidePadControls() {
