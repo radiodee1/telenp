@@ -124,6 +124,8 @@ var tab_controls_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_c
 var tab_controls_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_controls_unselected.png";
 var tab_text_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_setup.png";
 var tab_text_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_setup_unselected.png";
+var tab_map_src_selected = "//awesometelenp.appspot.com/static/bitmap/tab_setup.png";
+var tab_map_src_unselected = "//awesometelenp.appspot.com/static/bitmap/tab_setup_unselected.png";
 
 
 function tryLeftClick() {
@@ -264,7 +266,7 @@ function trySetupControls() {
     
     document.getElementById("tabControls").src= tab_controls_src_selected;
     document.getElementById("tabText").src= tab_text_src_unselected;
-    document.getElementById("tabMap").src= tab_text_src_unselected;
+    document.getElementById("tabMap").src= tab_map_src_unselected;
 }
 
 function trySetupText() {
@@ -275,7 +277,7 @@ function trySetupText() {
     
     document.getElementById("tabControls").src= tab_controls_src_unselected;
     document.getElementById("tabText").src= tab_text_src_selected;
-    document.getElementById("tabMap").src= tab_text_src_unselected;
+    document.getElementById("tabMap").src= tab_map_src_unselected;
 }
 
 function trySetupMap() {
@@ -285,8 +287,8 @@ function trySetupMap() {
     document.getElementById("alertText").style.display="none";
     
     document.getElementById("tabControls").src= tab_controls_src_unselected;
-    document.getElementById("tabText").src= tab_text_src_selected;
-    document.getElementById("tabMap").src= tab_text_src_unselected;
+    document.getElementById("tabText").src= tab_text_src_unselected;
+    document.getElementById("tabMap").src= tab_map_src_selected;
 }
 
 function tryHidePadControls() {
