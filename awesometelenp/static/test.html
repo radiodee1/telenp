@@ -25,6 +25,8 @@ var tx_number = 0;
 var tx_operation = "";
 var tx_gapi_key = "telenp"; // used by transmitting (user) node
 var tx_gapi_error = "telenp_error"; // used by turtlebot node
+var tx_gapi_controller_name = "telenp_controller";
+var tx_gapi_turtlebot_name = "telenp_turtlebot";
 var rx_data = "";
 var rx_error = "";
 var rx_error_obj = null;
@@ -201,7 +203,9 @@ function tryClearTimer() {
 
 function tryTurtlebotClick() {
 	
-	if (document.getElementById("setTurtlebot").checked && !control_connected_motors) { 
+	if (document.getElementById("setTurtlebot").checked && !control_connected_motors &&
+	        isUnsetName(tx_gapi_turtlebot_name) ) { 
+	    formJSONTurtlebotName();
 		control_retransmit = true;
 		control_msgtype = 2;
 		control_connected_motors = true;
@@ -213,7 +217,8 @@ function tryTurtlebotClick() {
 		tryShowMotorControls();
 		formJSONError();
 	}
-	else if (control_connected_motors) {
+	else if (control_connected_motors && isMatchingName(tx_gapi_turtlebot_name) ) {
+	    gapi.hangout.data.clearValue(tx_gapi_turtlebot_name);
 		document.getElementById("setStream").checked = false;
 		control_connected_motors = false;
 		control_connected_rx = false;
@@ -424,6 +429,26 @@ function formJSONError() {
 	}
 }
 
+function formJSONControllerName() {
+    makeText = JSON.stringify(makeJSONName());
+	try {
+		gapi.hangout.data.setValue( tx_gapi_controller_name, makeText);
+	}
+	catch (e) {
+		console.log("hangout setValue error. -- Error");
+	}
+}
+
+function formJSONTurtlebotName() {
+    makeText = JSON.stringify(makeJSONName());
+	try {
+		gapi.hangout.data.setValue( tx_gapi_turtlebot_name, makeText);
+	}
+	catch (e) {
+		console.log("hangout setValue error. -- Error");
+	}
+}
+
 function makeJSONCommand(operation, num ) {
 	var myJSON = { "direction" : operation , "number" : num }; 
 	return myJSON;
@@ -438,6 +463,53 @@ function makeJSONError(connected, stopped, kinect, stream) {
 	return myJSON;
 }
 
+function makeJSONName() {
+    var myData = gapi.hangout.getLocalParticipantId();
+    console.log(myData)
+    var myJSON = {"data" : myData};
+    return myJSON;
+}
+
+function isMatchingName(tx_gapi_data) {
+    try {
+		rx_data = gapi.hangout.data.getState()[tx_gapi_data];
+	}
+	catch (e) {
+		console.log("error google hangouts api -- " + tx_gapi_data);
+	}
+	try {
+		rx_id = gapi.hangout.getLocalParticipantId();
+	}
+	catch (e) {
+		console.log("error google hangouts api -- " + tx_gapi_data);
+	}
+	if (typeof rx_data !== 'undefined' && typeof rx_id !== 'undefined') {
+	    console.log(rx_error + " error msg");
+	    var rx_data_parsed = JSON.parse(rx_data);
+	    if (rx_id === rx_data_parsed.data) return true;
+	    else return false;
+	}
+	return false;
+}
+
+function isUnsetName(tx_gapi_data) {
+    try {
+		rx_data = gapi.hangout.data.getState()[tx_gapi_data];
+	}
+	catch (e) {
+		console.log("error google hangouts api -- " + tx_gapi_data);
+	}
+	if (typeof rx_data === 'undefined') {
+
+	    console.log("unset name test - true");
+	    return true;
+	}
+	else {
+	    console.log("unset name test - false");
+	    return false;
+	}
+}
+
 function recieveEvent () {
 	
 	// error data from hangouts...
@@ -448,7 +520,7 @@ function recieveEvent () {
 	catch (e) {
 		console.log("error google hangouts api -- " + tx_gapi_error);
 	}
-	if (rx_error != undefined && rx_error != rx_error_old || true) {
+	if (typeof rx_error !== 'undefined' && rx_error != rx_error_old || true) {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected_rx = true;
 		else control_connected_rx = false;
@@ -711,6 +783,8 @@ function init() {
   			*/
             setKinectListener();
             
+            //gapi.hangout.data.clearValue(tx_gapi_turtlebot_name);
+            //gapi.hangout.data.clearValue(tx_gapi_controller_name);
 	
       			gapi.hangout.onApiReady.remove(apiReady);
     		}
