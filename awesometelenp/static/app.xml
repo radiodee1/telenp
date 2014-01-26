@@ -234,8 +234,8 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
-		tryHidePadControls();
-		tryShowMotorControls();
+		//tryHidePadControls();
+		//tryShowMotorControls();
 		formJSONError();
 	}
 	else if (control_connected_motors && isMatchingName(tx_gapi_turtlebot_name) ) {
@@ -245,8 +245,8 @@ function tryTurtlebotClick() {
 		control_connected_rx = false;
 		if (control_retransmit) formJSONError();
 		control_retransmit = false;
-		tryShowPadControls();
-		tryShowMotorControls();
+		//tryShowPadControls();
+		//tryShowMotorControls();
 		changeAlertText();
 	}
 	//changeButtonSrc(button_test_error);
@@ -336,14 +336,14 @@ function trySetupMap() {
 function tryHidePadControls() {
     if (test_config) return;
     document.getElementById("padTable").style.display="none";
-    document.getElementById("turtlebotTable").style.display="block";
+    //document.getElementById("turtlebotTable").style.display="block";
     document.getElementById("alertText").style.display="none";
 }
 
 function tryShowPadControls() {
     if (test_config) return;
     document.getElementById("padTable").style.display="block";
-    document.getElementById("turtlebotTable").style.display="block";
+    //document.getElementById("turtlebotTable").style.display="block";
     document.getElementById("alertText").style.display="block";
 }
 
@@ -604,6 +604,23 @@ function recieveEvent () {
 		formJSONError();
 		if(control_retransmit == true) retransmitEvent(rx_obj);
 	}
+	// -- check if names are set, re-arrange screen --
+	if (! isUnsetName(tx_gapi_controller_name)) {
+	    if (isMatchingName(tx_gapi_controller_name)) {
+	        tryShowPadControls();
+	    }
+	    else {
+	        tryHidePadControls();
+	    }
+	}
+	if (! isUnsetName(tx_gapi_turtlebot_name)) {
+	    if (isMatchingName(tx_gapi_turtlebot_name)) {
+	        tryShowMotorControls();
+	    }
+	    else {
+	        tryHideMotorControls();
+	    }
+	}
 }
 
 function retransmitEvent(data) {
@@ -783,7 +800,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.4');
+			console.log('API is ready v1.5');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
@@ -939,6 +956,11 @@ function opCancel() {
 	<b style="color:green;font-size:10pt">[clear]</b>
 </div>  
   
+<div style="clear: both; background-color:#aaaaaa; display:none" id="controllerText">
+	<input type=checkbox value="Controller" id="setController"
+        onClick="tryControllerClick()">Controller Node?</input><br>
+</div>
+  
   <table border="0" id="turtlebotTable">
   <tr><td>
 	<b>Various:</b><br>
@@ -961,6 +983,11 @@ function opCancel() {
 	</td></tr>
 	</table>
 <br>
+</div>
+
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="monitorDiv">
+	<br>
+	TURTLEBOT MONITOR:
 </div>
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupText">

@@ -197,8 +197,8 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
-		tryHidePadControls();
-		tryShowMotorControls();
+		//tryHidePadControls();
+		//tryShowMotorControls();
 		formJSONError();
 	}
 	else if (control_connected_motors && isMatchingName(tx_gapi_turtlebot_name) ) {
@@ -208,8 +208,8 @@ function tryTurtlebotClick() {
 		control_connected_rx = false;
 		if (control_retransmit) formJSONError();
 		control_retransmit = false;
-		tryShowPadControls();
-		tryShowMotorControls();
+		//tryShowPadControls();
+		//tryShowMotorControls();
 		changeAlertText();
 	}
 	//changeButtonSrc(button_test_error);
@@ -299,14 +299,14 @@ function trySetupMap() {
 function tryHidePadControls() {
     if (test_config) return;
     document.getElementById("padTable").style.display="none";
-    document.getElementById("turtlebotTable").style.display="block";
+    //document.getElementById("turtlebotTable").style.display="block";
     document.getElementById("alertText").style.display="none";
 }
 
 function tryShowPadControls() {
     if (test_config) return;
     document.getElementById("padTable").style.display="block";
-    document.getElementById("turtlebotTable").style.display="block";
+    //document.getElementById("turtlebotTable").style.display="block";
     document.getElementById("alertText").style.display="block";
 }
 
@@ -566,6 +566,23 @@ function recieveEvent () {
 		rx_data_old = rx_data;
 		formJSONError();
 		if(control_retransmit == true) retransmitEvent(rx_obj);
+	}
+	// -- check if names are set, re-arrange screen --
+	if (! isUnsetName(tx_gapi_controller_name)) {
+	    if (isMatchingName(tx_gapi_controller_name)) {
+	        tryShowPadControls();
+	    }
+	    else {
+	        tryHidePadControls();
+	    }
+	}
+	if (! isUnsetName(tx_gapi_turtlebot_name)) {
+	    if (isMatchingName(tx_gapi_turtlebot_name)) {
+	        tryShowMotorControls();
+	    }
+	    else {
+	        tryHideMotorControls();
+	    }
 	}
 }
 
