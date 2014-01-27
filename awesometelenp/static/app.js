@@ -48,6 +48,12 @@ var MSG_STRING = 1;
 var MSG_TWIST = 2;
 var MSG_RESERVED = 3;
 
+var ros;
+var cmdVel;
+var cmdVel2;
+var cmdVel3;
+var kinect_listener;
+/*
     var ros = new ROSLIB.Ros({
     	url : 'ws://localhost:9090'
   	});
@@ -78,6 +84,7 @@ var MSG_RESERVED = 3;
    		// messageType : 'std_msgs/String',
    		 
   	});
+*/
 
 var choose_output_string = "for ROS String ouput...<br><br>" +
             "TURTLEBOT SETUP: <br>" +
@@ -199,6 +206,7 @@ function tryTurtlebotClick() {
 		document.getElementById("messageTwist").checked = true;
 		//tryHidePadControls();
 		//tryShowMotorControls();
+		trySetupROS();
 		formJSONError();
 	}
 	else if (control_connected_motors && isMatchingName(tx_gapi_turtlebot_name) ) {
@@ -214,6 +222,16 @@ function tryTurtlebotClick() {
 	}
 	//changeButtonSrc(button_test_error);
 	console.log(control_retransmit + "  retransmit");
+}
+
+function tryControllerClick() {
+    if (document.getElementById("setController").checked && 
+            isUnsetName(tx_gapi_controller_name)) {
+        formJSONControllerName();
+    }
+    else {
+        gapi.hangout.data.clearValue(tx_gapi_controller_name);
+    }
 }
 
 function tryStreamClick() {
@@ -263,6 +281,42 @@ function tryRadioClick() {
 	}
 }
 
+function trySetupROS() {
+
+    ros = new ROSLIB.Ros({
+    	url : 'ws://localhost:9090'
+  	});
+	
+	cmdVel = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/talker',
+   		 messageType : 'std_msgs/String'
+  	});
+			
+	cmdVel2 = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/mobile_base/commands/velocity',
+   		 messageType : 'geometry_msgs/Twist'
+  	});
+
+    cmdVel3 = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/'+ basename +'/command_velocity',
+   		 messageType : 'geometry_msgs/TwistStamped'
+  	});
+
+    kinect_listener = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/'+ basename +'/kinect_feedback',
+    	//'name' : '/listener',
+   		 messageType : 'std_msgs/UInt8'
+   		// messageType : 'std_msgs/String',
+   		 
+  	});
+    
+    setKinectListener();
+}
+
 function trySetupControls() {
     document.getElementById("setupControls").style.display="block";
     document.getElementById("setupText").style.display="none";
@@ -308,6 +362,18 @@ function tryShowPadControls() {
     document.getElementById("padTable").style.display="block";
     //document.getElementById("turtlebotTable").style.display="block";
     document.getElementById("alertText").style.display="block";
+}
+
+function tryHidePadSelectControls() {
+    if (test_config) return;
+    document.getElementById("controllerText").style.display="none";
+    
+}
+
+function tryShowPadSelectControls() {
+    if (test_config) return;
+    document.getElementById("controllerText").style.display="block";
+    
 }
 
 function tryHideMotorControls() {
@@ -504,7 +570,7 @@ function recieveEvent () {
 	catch (e) {
 		console.log("error google hangouts api -- " + tx_gapi_error);
 	}
-	if (typeof rx_error !== 'undefined' && rx_error != rx_error_old || true) {
+	if (typeof rx_error !== 'undefined'){// && rx_error != rx_error_old || true) {
 		rx_error_obj = JSON.parse(rx_error);
 		if (rx_error_obj.connected == true) control_connected_rx = true;
 		else control_connected_rx = false;
@@ -531,15 +597,17 @@ function recieveEvent () {
 	// direction data from hangouts...
 	try {
 	    rx_data = gapi.hangout.data.getState()[tx_gapi_key];
-	    console.log(rx_data + " key msg");
+	    
 	}
 	catch (e){
 	    console.log("error google hangouts api -- " );
 	}
+	console.log(rx_data + " key msg");
+	
 	stream_num ++;
 	stream_num = (stream_num ) % mod_base;
 	
-	if (rx_data != rx_data_old || rx_obj.direction == "stop") { 
+	if (typeof rx_data !== 'undefined' && ( rx_data != rx_data_old || rx_obj.direction == "stop")) { 
 	
 		rx_obj = JSON.parse(rx_data) ;	
 
@@ -567,6 +635,15 @@ function recieveEvent () {
 		formJSONError();
 		if(control_retransmit == true) retransmitEvent(rx_obj);
 	}
+	// -- set debug var test_config --
+	try {
+	    var users = gapi.hangout.getParticipants();
+	}
+	catch (e) {
+	    console.log("bad users list");
+	}
+	if (users.length <= 1) test_config = true;
+	else test_config = false;
 	// -- check if names are set, re-arrange screen --
 	if (! isUnsetName(tx_gapi_controller_name)) {
 	    if (isMatchingName(tx_gapi_controller_name)) {
@@ -576,12 +653,21 @@ function recieveEvent () {
 	        tryHidePadControls();
 	    }
 	}
+	else {
+	    // -- controller has not been selected yet --
+	    tryShowPadControls();
+	    tryShowPadSelectControls();
+	}
 	if (! isUnsetName(tx_gapi_turtlebot_name)) {
 	    if (isMatchingName(tx_gapi_turtlebot_name)) {
 	        tryShowMotorControls();
+	        tryHidePadControls();
+	        tryHidePadSelectControls();
 	    }
 	    else {
 	        tryHideMotorControls();
+	        tryShowPadControls();
+	        tryShowPadSelectControls();
 	    }
 	}
 }
@@ -782,7 +868,7 @@ function init() {
     			url : 'ws://localhost:9090'
   			});
   			*/
-            setKinectListener();
+            //setKinectListener();
             
             //gapi.hangout.data.clearValue(tx_gapi_turtlebot_name);
             //gapi.hangout.data.clearValue(tx_gapi_controller_name);
