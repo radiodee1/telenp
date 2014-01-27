@@ -4,7 +4,7 @@
 
 var mod_base = 512;
 var basename = "telenp";
-var test_config = true;
+var test_config = false;
 var tx_number = 0;
 var tx_operation = "";
 var tx_gapi_key = "telenp"; // used by transmitting (user) node
@@ -228,9 +228,11 @@ function tryControllerClick() {
     if (document.getElementById("setController").checked && 
             isUnsetName(tx_gapi_controller_name)) {
         formJSONControllerName();
+        console.log("set controller");
     }
-    else {
+    else if ( ! isUnsetName(tx_gapi_controller_name)) {
         gapi.hangout.data.clearValue(tx_gapi_controller_name);
+        console.log("unset controller");
     }
 }
 
@@ -487,6 +489,7 @@ function formJSONControllerName() {
 	catch (e) {
 		console.log("hangout setValue error. -- Error");
 	}
+	console.log("pad " + makeText);
 }
 
 function formJSONTurtlebotName() {
@@ -497,6 +500,7 @@ function formJSONTurtlebotName() {
 	catch (e) {
 		console.log("hangout setValue error. -- Error");
 	}
+	console.log("machine " + makeText);
 }
 
 function makeJSONCommand(operation, num ) {
@@ -636,8 +640,9 @@ function recieveEvent () {
 		if(control_retransmit == true) retransmitEvent(rx_obj);
 	}
 	// -- set debug var test_config --
+	var users;
 	try {
-	    var users = gapi.hangout.getParticipants();
+	    users = gapi.hangout.getParticipants();
 	}
 	catch (e) {
 	    console.log("bad users list");
@@ -651,6 +656,7 @@ function recieveEvent () {
 	    }
 	    else {
 	        tryHidePadControls();
+	        tryHidePadSelectControls();
 	    }
 	}
 	else {
@@ -666,9 +672,19 @@ function recieveEvent () {
 	    }
 	    else {
 	        tryHideMotorControls();
-	        tryShowPadControls();
-	        tryShowPadSelectControls();
+	        if (isUnsetName(tx_gapi_controller_name)) {
+	            tryShowPadControls();
+	            tryShowPadSelectControls();
+	        }
 	    }
+	}
+	else {
+	    if (true) {
+	        tryShowMotorControls();
+	        tryShowPadControls();
+	        tryHidePadSelectControls();
+	    }
+	   
 	}
 }
 
