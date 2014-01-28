@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import rospy
 import numpy as np
+import math
 import sensor_msgs.point_cloud2 as pc2
 from roslib import message
 
@@ -14,8 +15,8 @@ from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import PointCloud2, PointField
 
 mod_base = 512
-boundary_depth = 100
-mult = 1
+boundary_depth = 1
+mult = 1000
 
 linear_x = 0
 angular_z = 0
@@ -41,7 +42,7 @@ def listen():
     kinect_right = False
     kinect_middle = False
     rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
-    #rospy.Subscriber("/" + basename + "/camera/depth/points", PointCloud2, callback_kinect)
+    rospy.Subscriber("/camera/depth_registered/points", PointCloud2, callback_kinect)
     rospy.Subscriber("/camera/depth/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
@@ -71,12 +72,14 @@ def callback_move(data):
     # global vars
     global seq_counter, linear_x, angular_z , kinect_obstruction
     # don't use 'seq' from 'header'
-    if not kinect_obstruction  : 
+    if not kinect_obstruction or data.twist.linear.x < 0 : 
         linear_x = data.twist.linear.x
-        angular_z = data.twist.angular.z
+        kinect_obstruction = False
     else :
         linear_x = 0
+    if data.twist.angular.z != 0 or data.twist.linear.x < 0 :
         angular_z = data.twist.angular.z
+        kinect_obstruction = False
     # twist output
     twist = Twist();
     twist.linear.x = linear_x
@@ -95,44 +98,42 @@ def callback_kinect(data) :
     global kinect_left, kinect_right, kinect_middle
     rospy.loginfo("kinect " + str(kinect_obstruction))
     # pick a height
-    rospy.loginfo("height " + str(data.height) + " width " + str(data.width))
-    start = read_depth_tuple(0, 0, data)
-    end = read_depth_tuple( (data.width - 1), 0 , data)
-    rospy.loginfo("start " + str(start) + " -- end " + str(end) )
+    rospy.loginfo(str(data.width) + " -- " + str(data.height));
     # pick three x coords near front and center
-    height =  int ((end[zz] - start[zz]) / 2) + 1
-    line = int (end[yy] - start[yy])
-    padding = int (height * line) 
+    height = int( data.height / 2 ) 
+    line =  int (data.width) 
     #
-    left_x =  int ( line * 3 / 8) + padding
-    middle_x =  int ( line / 2) + padding
-    right_x =  int ( line - ( line * 3 / 8 )) + padding
+    left_x =  int ( line * 3 / 8) 
+    middle_x =  int ( line / 2) 
+    right_x =  int ( line - ( line * 3 / 8 )) 
     #
-    rospy.loginfo("left middle right height line padding " + \
-        str(left_x) + " " + str(middle_x) + " " +str(right_x) +" "+ str(height) +\
-        " " + str(line) + " " + str(padding) )
+    rospy.loginfo("left middle right height " + \
+        str(left_x) + " " + str(middle_x) + " " +str(right_x) +" "+ str(height)  )
     #
+    rospy.loginfo(str (read_depth_tuple(middle_x, height, data)) )
+    #rospy.loginfo(str(data.fields))
     # examine three points
-    left = read_depth (left_x, 0, data)
-    middle = read_depth (middle_x, 0, data)
-    right = read_depth (right_x, 0, data)
+    left = read_depth (left_x, height, data)
+    middle = read_depth (middle_x, height, data)
+    right = read_depth (right_x, height, data)
     # do stuff
-    if (left == -1 or middle == -1 or right == -1) :
-        rospy.loginfo("exit -- bad depth")
-        return
+    if (math.isnan(left)  or math.isnan(middle) or math.isnan(right) ) :
+        rospy.loginfo("exit -- bad depth : " + str(not math.isnan(left)) + " " +\
+            str(not math.isnan(middle)) + " " + str( not math.isnan(right)))
+        #return
     kinect_obstruction = False
     kinect_left = False
     kinect_right = False
     kinect_middle = False
-    if (left * mult < boundary_depth) :
+    if ( not math.isnan(left) and left * mult < boundary_depth) :
         kinect_obstruction = True
         kinect_left = True
         rospy.loginfo("HIT ON KINECT!! LEFT")
-    if (middle * mult < boundary_depth) :
+    if ( not math.isnan(middle) and middle * mult < boundary_depth) :
         kinect_obstruction = True
         kinect_middle = True
         rospy.loginfo("HIT ON KINECT!! MIDDLE")
-    if (right * mult < boundary_depth) :
+    if ( not math.isnan(right) and right * mult < boundary_depth) :
         kinect_obstruction = True
         kinect_right = True
         rospy.loginfo("HIT ON KINECT!! RIGHT")
@@ -143,15 +144,11 @@ def callback_kinect(data) :
 
 
 def read_depth(width, height, data) :
-    return (read_depth_tuple(width, height, data) )[xx]
+    return (read_depth_tuple(width, height, data) )[zz]
 
 
 def read_depth_tuple(width, height, data) :
-    # read function
-    if (height >= data.height) :
-        return -1
-    if (width >= data.width) :
-        return -2
+    #
     data_out = pc2.read_points(data, field_names=None, skip_nans=False, uvs=[[width, height]])
     return next(data_out)
 
