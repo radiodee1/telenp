@@ -25,7 +25,7 @@ function opChooseOp() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "block";
     
-    sendMapComandsShort(map_command_list, 0, "", "", map_command_list);
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
 }
 
 function opLoad() {
@@ -88,7 +88,7 @@ function opCancel() {
 }
 
 function receiveMapEvent() {
-    
+    console.log("map");
     if (! isMatchingName(tx_gapi_turtlebot_name)) return;
     var rx_map_commands ;
     try {
@@ -96,7 +96,7 @@ function receiveMapEvent() {
 	    
 	}
 	catch (e){
-	    console.log("error google hangouts api -- " );
+	    console.log("error google hangouts api -- map" );
 	}
 	if (typeof rx_map_commands !== "undefined") {
 	    var commands = JSON.parse(rx_map_commands);
@@ -105,7 +105,7 @@ function receiveMapEvent() {
 	        case map_command_list : 
 	            var request = new ROSLIB.ServiceRequest({});
 	            map_service_list.callService( request, function (result) {
-	                console.log(result.map_list);
+	                console.log("map results " + result.map_list);
 	                putListInBoxLocal(result.map_list, commands.wizard);
 	            });
 	        break;
@@ -157,7 +157,7 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 function setMapServices() {
     map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/list_map',
+    	'name' : '/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
@@ -196,9 +196,13 @@ function setMapServices() {
 
 function putListInBoxLocal(list, wizard) {
     var string = "";
-    for(l in list) {
-        string = string + l;
+    var x;
+    for(x =0; x < list.length; x ++ ) { //l in list) {
+        string = string + x + ". " ;
+        string = string + list[x].name;
+        if (list[x].name == "") string = string + "[unnamed]";
         string = string + "<br>";
+        console.log("list -" + list[x].name + "- " + list[x].map_id);
     }
 
     document.getElementById("listSpace").innerHTML = string;
