@@ -53,38 +53,6 @@ var cmdVel;
 var cmdVel2;
 var cmdVel3;
 var kinect_listener;
-/*
-    var ros = new ROSLIB.Ros({
-    	url : 'ws://localhost:9090'
-  	});
-	
-	var cmdVel = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : '/talker',
-   		 messageType : 'std_msgs/String'
-  	});
-			
-	var cmdVel2 = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : '/mobile_base/commands/velocity',
-   		 messageType : 'geometry_msgs/Twist'
-  	});
-
-    var cmdVel3 = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : '/'+ basename +'/command_velocity',
-   		 messageType : 'geometry_msgs/TwistStamped'
-  	});
-
-    var kinect_listener = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : '/'+ basename +'/kinect_feedback',
-    	//'name' : '/listener',
-   		 messageType : 'std_msgs/UInt8'
-   		// messageType : 'std_msgs/String',
-   		 
-  	});
-*/
 
 var choose_output_string = "for ROS String ouput...<br><br>" +
             "TURTLEBOT SETUP: <br>" +
@@ -204,8 +172,6 @@ function tryTurtlebotClick() {
 		changeHintText(choose_turtlebot);
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
-		//tryHidePadControls();
-		//tryShowMotorControls();
 		trySetupROS();
 		formJSONError();
 	}
@@ -216,11 +182,8 @@ function tryTurtlebotClick() {
 		control_connected_rx = false;
 		if (control_retransmit) formJSONError();
 		control_retransmit = false;
-		//tryShowPadControls();
-		//tryShowMotorControls();
 		changeAlertText();
 	}
-	//changeButtonSrc(button_test_error);
 	console.log(control_retransmit + "  retransmit");
 }
 
@@ -317,6 +280,7 @@ function trySetupROS() {
   	});
     
     setKinectListener();
+    setMapServices();
 }
 
 function trySetupControls() {
@@ -373,7 +337,7 @@ function tryHidePadSelectControls() {
 }
 
 function tryShowPadSelectControls() {
-    if (test_config) return;
+    //if (test_config) return;
     document.getElementById("controllerText").style.display="block";
     
 }
@@ -686,6 +650,16 @@ function recieveEvent () {
 	    }
 	   
 	}
+	if (test_config && ! isUnsetName(tx_gapi_turtlebot_name)) {
+	    tryShowMotorControls();
+	    tryShowPadControls();
+	    tryShowPadSelectControls();
+	    console.log("test config setting");
+	}
+	
+	
+	receiveMapEvent();
+	receiveMapBroadcast();
 }
 
 function retransmitEvent(data) {
@@ -821,7 +795,7 @@ function setKinectListener() {
   	
   	try {
   	    kinect_listener.subscribe( function(message) {
-            console.log(  kinect_listener.name + " : " + message.data );
+            //console.log(  kinect_listener.name + " : " + message.data );
             var data = message.data;
             control_obstructed_num = message.data;
             control_obstructed_string = "[";
@@ -865,7 +839,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.5');
+			console.log('API is ready v1.6');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();

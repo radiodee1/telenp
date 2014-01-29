@@ -15,19 +15,15 @@ from map_store.srv import *
 # or 'roslaunch tele_presence full.launch' to start...
 
 basename = "telenp"
-test_map = None #
-dynamic_map = rospy.Service('dynamic_map', GetMap, lambda x: GetMapResponse(map=test_map))
+#test_map = None #
+#dynamic_map = rospy.Service('dynamic_map', GetMap, lambda x: GetMapResponse(map=test_map))
 
 def map_stuff():
     rospy.init_node('turtlebot_map', anonymous=True)
     if not rospy.is_shutdown():
-        #
-        #try_list()
-        #save_a_map()
-        print "-------------------"
-        show_a_map()
-        #try_list()
-        #rospy.sleep(1.0)
+        test_map = None #
+        dynamic_map = rospy.Service('dynamic_map', GetMap, lambda x: GetMapResponse(map=test_map))
+        rospy.spin()
 
 def try_list():
     pub_list = rospy.Publisher("/" + basename + '/map_list', MapListEntryList)
