@@ -11,6 +11,7 @@ var tx_gapi_key = "telenp"; // used by transmitting (user) node
 var tx_gapi_error = "telenp_error"; // used by turtlebot node
 var tx_gapi_controller_name = "telenp_controller";
 var tx_gapi_turtlebot_name = "telenp_turtlebot";
+var tx_gapi_list = "telenp_list";
 var rx_data = "";
 var rx_error = "";
 var rx_error_obj = null;

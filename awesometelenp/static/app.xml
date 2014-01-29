@@ -48,6 +48,7 @@ var tx_gapi_key = "telenp"; // used by transmitting (user) node
 var tx_gapi_error = "telenp_error"; // used by turtlebot node
 var tx_gapi_controller_name = "telenp_controller";
 var tx_gapi_turtlebot_name = "telenp_turtlebot";
+var tx_gapi_list = "telenp_list";
 var rx_data = "";
 var rx_error = "";
 var rx_error_obj = null;
@@ -1018,7 +1019,8 @@ function receiveMapEvent() {
 	            var request = new ROSLIB.ServiceRequest({});
 	            map_service_list.callService( request, function (result) {
 	                console.log("map results " + result.map_list);
-	                putListInBoxLocal(result.map_list, commands.wizard);
+	                //putListInBoxLocal(result.map_list, "listSpace");
+	                sendMapBroadcast(commands.wizard, result.map_list, 0);
 	            });
 	        break;
 	        
@@ -1106,10 +1108,10 @@ function setMapServices() {
 }
 
 
-function putListInBoxLocal(list, wizard) {
+function putListInBoxLocal(list, space) {
     var string = "";
     var x;
-    for(x =0; x < list.length; x ++ ) { //l in list) {
+    for(x =0; x < list.length; x ++ ) { 
         string = string + x + ". " ;
         string = string + list[x].name;
         if (list[x].name == "") string = string + "[unnamed]";
@@ -1117,15 +1119,64 @@ function putListInBoxLocal(list, wizard) {
         console.log("list -" + list[x].name + "- " + list[x].map_id);
     }
 
-    document.getElementById("listSpace").innerHTML = string;
+    document.getElementById(space).innerHTML = string;
 }
 
-function sendMapBroadcast() {
-
+function sendMapBroadcast(type, list, num) {
+    if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
+    var x;
+    var map_list = "";
+    for (x = 0; x < list.length; x ++) {
+        var element = { 'name' : list[x].name ,
+                        'session_id' : list[x].session_id ,
+                        'date' : list[x].date , 
+                        'map_id' : list[x].map_id };
+        if (x != 0) map_list = map_list + ","; 
+        map_list = map_list +  JSON.stringify(element);
+    }
+    if (num == 0) num = list.length;
+    map_list = "[" + map_list + "]";
+    var listText = '{"type":"'+type+'","map_list":'+ map_list + ', "num":'+num + '}';
+    console.log (listText);
+    try {
+		gapi.hangout.data.setValue( tx_gapi_list, listText);
+	}
+	catch (e) {
+		console.log("hangout setValue error. -- Error");
+	}
+	console.log("map event " + listText);
 }
 
 function receiveMapBroadcast() {
-
+    if (! isMatchingName(tx_gapi_controller_name)  ) return;
+    try {
+	    rx_data = gapi.hangout.data.getState()[tx_gapi_list];
+	    
+	}
+	catch (e){
+	    console.log("error google hangouts api -- " );
+	}
+	console.log(rx_data + " list msg");
+	
+	if (typeof rx_data !== "undefined") {
+	    // do something...
+	    data = JSON.parse(rx_data);
+	    switch(data.type) {
+	        case map_command_list :
+	            putListInBoxLocal(data.map_list, "listSpace");
+	        break;
+	        
+	        case map_command_load :
+	        break;
+	    }
+	}
+	try {
+	    gapi.hangout.data.clearValue(tx_gapi_list);
+	    
+	}
+	catch (e){
+	    console.log("error google hangouts api -- " );
+	}
 }
 </script>
 
