@@ -8,12 +8,14 @@ var map_service_delete ;
 var map_service_rename ;
 var map_service_save ;
 
+// commands for operations
 var map_command_load = "load";
 var map_command_make = "new";
 var map_command_delete = "delete";
 var map_command_rename = "rename";
 var map_command_save = "save";
 var map_command_list = "list";
+// more commands for lists that are needed in above ops.
 var map_command_list_load = "embedded_list_for_load";
 var map_command_list_delete = "embedded_list_for_delete";
 var map_command_list_rename = "embedded_list_for_rename";
@@ -110,8 +112,7 @@ function receiveMapEvent() {
 	        case map_command_list : 
 	            var request = new ROSLIB.ServiceRequest({});
 	            map_service_list.callService( request, function (result) {
-	                //console.log("map results " + result.map_list);
-	                //putListInBoxLocal(result.map_list, "listSpace");
+	                
 	                sendMapBroadcast(commands.wizard, result.map_list, 0);
 	            });
 	        break;
@@ -274,6 +275,10 @@ function receiveMapBroadcast() {
 	            putListInBoxLocal(data.map_list, "listSpace");
 	        break;
 	        
+	        case map_command_load :
+	            //do nothing
+	        break;
+	        
 	        case map_command_list_load :
 	            putListInSelectLocal(data.map_list, "selectSpaceLoad");
 	        break;
@@ -289,5 +294,6 @@ function receiveMapBroadcast() {
 }
 
 function executeLoad() {
-
+    var map_id = document.getElementById("selectSpaceLoad").value;
+    sendMapCommandsShort(map_command_load, map_id, "", "", map_command_load);
 }
