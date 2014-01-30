@@ -14,6 +14,9 @@ var map_command_delete = "delete";
 var map_command_rename = "rename";
 var map_command_save = "save";
 var map_command_list = "list";
+var map_command_list_load = "embedded_list_for_load";
+var map_command_list_delete = "embedded_list_for_delete";
+var map_command_list_rename = "embedded_list_for_rename";
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -37,6 +40,8 @@ function opLoad() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
 
 function opMake() {
@@ -105,14 +110,17 @@ function receiveMapEvent() {
 	        case map_command_list : 
 	            var request = new ROSLIB.ServiceRequest({});
 	            map_service_list.callService( request, function (result) {
-	                console.log("map results " + result.map_list);
+	                //console.log("map results " + result.map_list);
 	                //putListInBoxLocal(result.map_list, "listSpace");
 	                sendMapBroadcast(commands.wizard, result.map_list, 0);
 	            });
 	        break;
 	        
 	        case map_command_load : 
-	            
+	            var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
+	            map_service_load.callService( request, function (result) {
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
 	        break;
 	        
 	    }
@@ -194,6 +202,19 @@ function setMapServices() {
   	});
 }
 
+function putListInSelectLocal(list, space) {
+    var string = "";
+    var x;
+    for(x =0; x < list.length; x ++ ) { 
+        string = string + '<option value="' + list[x].map_id;
+        string = string + '">' + list[x].name  ;
+        if (list[x].name == "") string = string + "[unnamed]";
+        string = string + "</option>";
+        //console.log("list -" + list[x].name + "- " + list[x].map_id);
+    }
+    console.log(string);
+    document.getElementById(space).innerHTML = string;
+}
 
 function putListInBoxLocal(list, space) {
     var string = "";
@@ -253,7 +274,8 @@ function receiveMapBroadcast() {
 	            putListInBoxLocal(data.map_list, "listSpace");
 	        break;
 	        
-	        case map_command_load :
+	        case map_command_list_load :
+	            putListInSelectLocal(data.map_list, "selectSpaceLoad");
 	        break;
 	    }
 	}
@@ -264,4 +286,8 @@ function receiveMapBroadcast() {
 	catch (e){
 	    console.log("error google hangouts api -- " );
 	}
+}
+
+function executeLoad() {
+
 }
