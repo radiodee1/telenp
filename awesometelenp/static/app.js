@@ -274,9 +274,7 @@ function trySetupROS() {
     kinect_listener = new ROSLIB.Topic({
     	'ros' : ros,
     	'name' : '/'+ basename +'/kinect_feedback',
-    	//'name' : '/listener',
    		 messageType : 'std_msgs/UInt8'
-   		// messageType : 'std_msgs/String',
    		 
   	});
     
@@ -661,6 +659,7 @@ function recieveEvent () {
 	
 	receiveMapEvent();
 	receiveMapBroadcast();
+	receiveRawMapBroadcast();
 }
 
 function retransmitEvent(data) {
@@ -840,7 +839,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.6');
+			console.log('API is ready v1.7 --------------------------------');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();

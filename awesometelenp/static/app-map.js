@@ -1,12 +1,16 @@
 // app-map.js
+var test_map = "";
 
 var tx_gapi_map_event = "telenp_map";
+var tx_gapi_map_raw = "telenp_map_raw";
 var map_service_list ;
 var map_service_load ;
 var map_service_new ;
 var map_service_delete ;
 var map_service_rename ;
 var map_service_save ;
+// listen to map topic.
+var map_listener ;
 
 // commands for operations
 var map_command_load = "load";
@@ -19,6 +23,8 @@ var map_command_list = "list";
 var map_command_list_load = "embedded_list_for_load";
 var map_command_list_delete = "embedded_list_for_delete";
 var map_command_list_rename = "embedded_list_for_rename";
+var map_command_list_start = "embedded_list_for_show_map";
+
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -90,6 +96,17 @@ function opSave() {
     document.getElementById("wizChooseOp").style.display = "none";
 }
 
+function opStart() {
+    document.getElementById("wizOpLoad").style.display = "none";
+    document.getElementById("wizOpNew").style.display = "none";
+    document.getElementById("wizOpDel").style.display = "none";
+    document.getElementById("wizOpRename").style.display = "none";
+    document.getElementById("wizOpSave").style.display = "none";
+    document.getElementById("wizOpDone").style.display = "none";
+    document.getElementById("wizOpStart").style.display = "block";
+    document.getElementById("wizChooseOp").style.display = "none";
+}
+
 function opCancel() {
     opChooseOp();
 }
@@ -122,6 +139,22 @@ function receiveMapEvent() {
 	            map_service_load.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
+	        break;
+	        
+	        case map_command_list_start :
+	            var list;
+                try {
+                    map_listener.subscribe( function(message) {
+                        list = message.data;
+                        
+                        sendMapPicBroadcast(message);
+                        map_listener.unsubscribe();
+                    });
+                }
+                catch (e) {
+                    console.log("map listener fail");
+                }
+                
 	        break;
 	        
 	    }
@@ -201,6 +234,13 @@ function setMapServices() {
     	'name' : '/save_map',
    		 messageType : 'map_store/SaveMap'
   	});
+  	
+  	map_listener = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/map',
+   		 messageType : 'nav_msgs/OccupancyGrid'
+   		 
+  	});
 }
 
 function putListInSelectLocal(list, space) {
@@ -211,7 +251,7 @@ function putListInSelectLocal(list, space) {
         string = string + '">' + list[x].name  ;
         if (list[x].name == "") string = string + "[unnamed]";
         string = string + "</option>";
-        //console.log("list -" + list[x].name + "- " + list[x].map_id);
+        
     }
     console.log(string);
     document.getElementById(space).innerHTML = string;
@@ -235,15 +275,26 @@ function sendMapBroadcast(type, list, num) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
     var x;
     var map_list = "";
-    for (x = 0; x < list.length; x ++) {
-        var element = { 'name' : list[x].name ,
-                        'session_id' : list[x].session_id ,
-                        'date' : list[x].date , 
-                        'map_id' : list[x].map_id };
-        if (x != 0) map_list = map_list + ","; 
-        map_list = map_list +  JSON.stringify(element);
+    if (list == null || typeof list === "undefined") {
+        map_list = JSON.stringify ({ 
+                            'name' : '' ,
+                            'session_id' : '' ,
+                            'date' : '' , 
+                            'map_id' : ''
+        });
     }
-    if (num == 0) num = list.length;
+    else if (list != null) {
+        for (x = 0; x < list.length; x ++) {
+            var element = { 'name' : list[x].name ,
+                            'session_id' : list[x].session_id ,
+                            'date' : list[x].date , 
+                            'map_id' : list[x].map_id };
+            if (x != 0) map_list = map_list + ","; 
+            map_list = map_list +  JSON.stringify(element);
+        }
+    }
+    if (num == 0 && list != null && typeof list !== "undefined") num = list.length;
+    
     map_list = "[" + map_list + "]";
     var listText = '{"type":"'+type+'","map_list":'+ map_list + ', "num":'+num + '}';
     console.log (listText);
@@ -254,6 +305,37 @@ function sendMapBroadcast(type, list, num) {
 		console.log("hangout setValue error. -- Error");
 	}
 	console.log("map event " + listText);
+}
+
+function sendMapPicBroadcast(map_in) {
+    if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
+    if (typeof map_in === "undefined") {
+        console.log("map_in is undefined...-----------------------");
+        return;
+    }
+    var x,y;
+    var width = map_in.info.width;
+    var height = map_in.info.height;
+    var map = '{"width":"' + width + '","height":"' + height + '","map": [';
+    for (y = 0; y < height; y ++) {
+        for (x = 0; x < width; x ++) {
+            var element = { "data" : map_in.data[(y * width) + x] };
+
+            map = map + JSON.stringify(element);
+            if  (x == width - 1 && y == height - 1) {
+                //don't add comma
+            }
+            else map = map + ',' ;
+        }
+    }
+    map = map + ']}';
+    try {
+		gapi.hangout.data.setValue( tx_gapi_map_raw, map);
+	}
+	catch (e) {
+		console.log("hangout setValue error. -- Error with map pic");
+	}
+	console.log(map);
 }
 
 function receiveMapBroadcast() {
@@ -277,10 +359,15 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_load :
 	            //do nothing
+	            //opChooseOp();
 	        break;
 	        
 	        case map_command_list_load :
 	            putListInSelectLocal(data.map_list, "selectSpaceLoad");
+	        break;
+	        
+	        case map_command_list_start:
+	        
 	        break;
 	    }
 	}
@@ -293,7 +380,61 @@ function receiveMapBroadcast() {
 	}
 }
 
+function receiveRawMapBroadcast() {
+    if (! isMatchingName(tx_gapi_controller_name) && 
+        ! isMatchingName(tx_gapi_turtlebot_name) ) return;
+    try {
+	    rx_data = gapi.hangout.data.getState()[tx_gapi_map_raw];
+	    
+	}
+	catch (e){
+	    console.log("error google hangouts api -- " );
+	}
+	if (typeof rx_data !== "undefined") {
+	    var list = JSON.parse(rx_data);
+	    fillMapSpace('showMapSpace', list);
+	}
+}
+
 function executeLoad() {
     var map_id = document.getElementById("selectSpaceLoad").value;
     sendMapCommandsShort(map_command_load, map_id, "", "", map_command_load);
+}
+
+function fillMapSpace(space, list) {
+    return;
+    var string = '<table border="0" id="mapSpaceTable">';
+    var x, y;
+    var height = list.height;
+    var width = list.width;
+    for (y = 0; y < height; y ++) {
+        string = string + "<tr>";
+        for(x =0; x < width; x ++ ) { 
+            string = string + "<td>";
+            if (list.map[(y * height) + x].data > 5) {
+                string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_light.png" ' ;
+            }
+            else {
+                string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_dark.png" ' ;
+            }
+            string = string + 'onclick="recordXY('+ x + ","+ y +')">';
+            string = string + "</td>";
+        }
+        string = string + "</tr>";
+    }
+    string = string + "</table>";
+    console.log(string);
+    document.getElementById(space).innerHTML = string;
+}
+
+function getMapTopic() {
+    if (! isMatchingName(tx_gapi_turtlebot_name) && 
+        ! isMatchingName(tx_gapi_controller_name) ) return;
+    sendMapCommandsShort(map_command_list_start, 0, "", "", map_command_list_start);
+    return;
+
+}
+
+function recordXY(x,y) {
+
 }
