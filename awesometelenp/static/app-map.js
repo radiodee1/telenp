@@ -319,7 +319,7 @@ function sendMapPicBroadcast(map_in) {
     var map = '{"width":"' + width + '","height":"' + height + '","map": [';
     for (y = 0; y < height; y ++) {
         for (x = 0; x < width; x ++) {
-            var element = { "data" : map_in.data[(y * width) + x] };
+            var element = { "d" : map_in.data[(y * width) + x] };
 
             map = map + JSON.stringify(element);
             if  (x == width - 1 && y == height - 1) {
@@ -390,8 +390,11 @@ function receiveRawMapBroadcast() {
 	catch (e){
 	    console.log("error google hangouts api -- " );
 	}
+	
+	//console.log("raw map broadcast!! ---------------------");
 	if (typeof rx_data !== "undefined") {
 	    var list = JSON.parse(rx_data);
+	    //console.log("data received " + list);
 	    fillMapSpace('showMapSpace', list);
 	}
 }
@@ -402,7 +405,7 @@ function executeLoad() {
 }
 
 function fillMapSpace(space, list) {
-    return;
+    
     var string = '<table border="0" id="mapSpaceTable">';
     var x, y;
     var height = list.height;
@@ -411,13 +414,13 @@ function fillMapSpace(space, list) {
         string = string + "<tr>";
         for(x =0; x < width; x ++ ) { 
             string = string + "<td>";
-            if (list.map[(y * height) + x].data > 5) {
+            if (list.map[(y * height) + x].d > 5) {
                 string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_light.png" ' ;
             }
             else {
                 string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_dark.png" ' ;
             }
-            string = string + 'onclick="recordXY('+ x + ","+ y +')">';
+            string = string + 'onclick="xy('+ x + ","+ y +')">';
             string = string + "</td>";
         }
         string = string + "</tr>";
@@ -435,6 +438,6 @@ function getMapTopic() {
 
 }
 
-function recordXY(x,y) {
+function xy(x,y) {
 
 }
