@@ -1297,14 +1297,15 @@ function executeLoad() {
 
 function fillMapSpace(space, list) {
     
-    var string = '<table border="0" id="mapSpaceTable">';
+    var string = '<div border="0" id="mapSpaceTable"' ;
+    string = string + ' style="display:block; min-height:3px;min-width:3px">';
     var x, y;
     var height = list.height;
     var width = list.width;
     for (y = 0; y < height; y ++) {
-        string = string + "<tr>";
+        string = string + '<div style="display:block">';//
         for(x =0; x < width; x ++ ) { 
-            string = string + "<td>";
+            string = string + '<div style="display:inline; min-height:3px; height:8px">';
             if (list.map[(y * height) + x].d > 5) {
                 string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_light.png" ' ;
             }
@@ -1312,11 +1313,11 @@ function fillMapSpace(space, list) {
                 string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_dark.png" ' ;
             }
             string = string + 'onclick="xy('+ x + ","+ y +')">';
-            string = string + "</td>";
+            string = string + "</div>";
         }
-        string = string + "</tr>";
+        string = string + "</div>";
     }
-    string = string + "</table>";
+    string = string + "</div>";
     console.log(string);
     document.getElementById(space).innerHTML = string;
 }
