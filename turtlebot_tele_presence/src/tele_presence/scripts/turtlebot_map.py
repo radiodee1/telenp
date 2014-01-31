@@ -22,7 +22,7 @@ def map_stuff():
     rospy.init_node('turtlebot_map', anonymous=True)
     if not rospy.is_shutdown():
         test_map = None #
-        dynamic_map = rospy.Service('dynamic_map', GetMap, lambda x: GetMapResponse(map=test_map))
+        #dynamic_map = rospy.Service('dynamic_map', GetMap, lambda x: GetMapResponse(map=test_map))
         rospy.spin()
 
 def try_list():
@@ -42,7 +42,8 @@ def try_list():
     list_message.len = len(initial_map_list)
     list_message.list = initial_map_list
     pub_list.publish(list_message)
-    
+
+
 def save_a_map() :
     map_pub = rospy.Publisher('/map', OccupancyGrid)
     newmap = create_map( 0 ) 

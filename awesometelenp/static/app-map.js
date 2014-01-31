@@ -49,6 +49,8 @@ function opLoad() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
     
+    document.getElementById("wizOpLoadConfirm").style.display = "none";
+    
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
 
@@ -61,6 +63,8 @@ function opMake() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    
+    document.getElementById("wizOpNewConfirm").style.display = "none";
 }
 
 function opDelete() {
@@ -72,6 +76,10 @@ function opDelete() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    
+    document.getElementById("wizOpDelConfirm").style.display = "none";
+    
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_delete);
 }
 
 function opRename() {
@@ -83,6 +91,8 @@ function opRename() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    
+    document.getElementById("wizOpRenameConfirm").style.display = "none";
 }
 
 function opSave() {
@@ -94,6 +104,8 @@ function opSave() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    
+    document.getElementById("wizOpSaveConfirm").style.display = "none";
 }
 
 function opStart() {
@@ -105,6 +117,8 @@ function opStart() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "block";
     document.getElementById("wizChooseOp").style.display = "none";
+    
+    document.getElementById('wizOpStartConfirm').style.display = "none";
 }
 
 function opCancel() {
@@ -157,6 +171,14 @@ function receiveMapEvent() {
                 
 	        break;
 	        
+	        case map_command_delete :
+                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
+	            map_service_delete.callService( request, function (result) {
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	        
+	        
+	        break;
 	    }
 	}
     gapi.hangout.data.clearValue(tx_gapi_map_event);
@@ -248,7 +270,8 @@ function putListInSelectLocal(list, space) {
     var x;
     for(x =0; x < list.length; x ++ ) { 
         string = string + '<option value="' + list[x].map_id;
-        string = string + '">' + list[x].name  ;
+        var num = x + 1;
+        string = string + '">' + num + '. ' + list[x].name  ;
         if (list[x].name == "") string = string + "[unnamed]";
         string = string + "</option>";
         
@@ -261,7 +284,8 @@ function putListInBoxLocal(list, space) {
     var string = "";
     var x;
     for(x =0; x < list.length; x ++ ) { 
-        string = string + x + ". " ;
+        var num = x + 1;
+        string = string + num + ". " ;
         string = string + list[x].name;
         if (list[x].name == "") string = string + "[unnamed]";
         string = string + "<br>";
@@ -358,8 +382,12 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case map_command_load :
-	            //do nothing
+	            document.getElementById("wizOpLoadConfirm").style.display = "block";
 	            //opChooseOp();
+	        break;
+	        
+	        case map_command_delete :
+	            document.getElementById("wizOpDelConfirm").style.display = "block";
 	        break;
 	        
 	        case map_command_list_load :
@@ -368,6 +396,10 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_list_start:
 	        
+	        break;
+	        
+	        case map_command_list_delete :
+	            putListInSelectLocal(data.map_list, "selectSpaceDelete");
 	        break;
 	    }
 	}
@@ -404,6 +436,11 @@ function executeLoad() {
     sendMapCommandsShort(map_command_load, map_id, "", "", map_command_load);
 }
 
+function executeDelete() {
+    var map_id = document.getElementById("selectSpaceDelete").value;
+    sendMapCommandsShort(map_command_delete, map_id, "", "", map_command_delete);
+}
+
 function fillMapSpace(space, list) {
     
     var string = '<div border="0" id="mapSpaceTable"' ;
@@ -429,6 +466,7 @@ function fillMapSpace(space, list) {
     string = string + "</div>";
     console.log(string);
     document.getElementById(space).innerHTML = string;
+    document.getElementById("wizOpStartConfirm").style.display = "block";
 }
 
 function getMapTopic() {

@@ -1,10 +1,27 @@
 <!-- one div for entire tab -->
+
+<style>
+table
+{
+    border-collapse:collapse;
+}
+table, td, tr
+{
+    border:0px solid black;
+}
+button 
+{
+    border:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+</style>
+
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
     <br>
     MAP SETUP:
 <!-- one div for each frame of wizard  CHOOSE-->
 <div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">
-<table border=1 id="wizChooseOpTable">
+<table border=0 id="wizChooseOpTable" style="">
 
 <tr><td><button type="button" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
 <tr><td><button type="button" onclick="opMake()" style="width:100%">Make Map</button></td></tr>
@@ -34,42 +51,56 @@ List of Maps:<br>
     <option value="none">None</option>
     </select><button type="button" onclick="executeLoad()">LOAD</button><br>
     </form>
-<button type="button" onclick="opCancel()">Done</button>
+<button type="button" onclick="opCancel()">Close</button>
+<p id="wizOpLoadConfirm" style="display:none">Your map loaded.</p>
+
 </div>
 
 <!-- one div for each frame of wizard  NEW -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpNew">
 new
 <button type="button" onclick="opCancel()">Cancel</button>
+<p id="wizOpNewConfirm" style="display:none">New map ready.</p>
 </div>
 <!-- one div for each frame of wizard  DELETE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpDel">
-delete
-<button type="button" onclick="opCancel()">Cancel</button>
+    Delete this file:
+    <form action="">
+    <select id="selectSpaceDelete">
+    <option value="none">None</option>
+    </select><button type="button" onclick="executeDelete()">DELETE</button><br>
+    </form>
+<button type="button" onclick="opCancel()">Close</button>
+    <p id="wizOpDelConfirm" style="display:none">Your map was deleted. Refresh or click 'Close' to see new
+    list</p>
 </div>
 <!-- one div for each frame of wizard  RENAME -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpRename">
 rename
 <button type="button" onclick="opCancel()">Cancel</button>
+<p id="wizOpRenameConfirm" style="display:none">Your map was renamed.</p>
 </div>
 <!-- one div for each frame of wizard  SAVE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpSave">
 save
 <button type="button" onclick="opCancel()">Cancel</button>
+<p id="wizOpSaveConfirm" style="display:none">Your map was saved.</p>
 </div>
 <!-- one div for each frame of wizard  DONE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpDone">
 <button type="button" onclick="">Done</button>
+<p id="wizOpDoneConfirm" style="display:none">Your operation is done.</p>
 </div>
 <!-- one div for each frame of wizard  START ROBOT / CONFIG-->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpStart">
     <button type="button" onclick='getMapTopic();'>Show</button>
     <div id="showMapSpace" style="border-style:solid;border-width:3px; border-color:black;
-        width:300px; height:175px; overflow:auto">
-    Click 'SHOW' button to see...<br>
+        width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
+    <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
     </div>
 
 <button type="button" onclick="opCancel()">Done</button>
+<p id="wizOpStartConfirm" style="display:none">Your map is shown.</p>
 </div>
 <!-- end of wizard -->
 </div>
