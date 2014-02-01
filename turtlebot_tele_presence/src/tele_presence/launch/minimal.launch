@@ -5,7 +5,7 @@
   <node name="turtlebot_listen" pkg="tele_presence" type="turtlebot_listen.py" respawn="true" />
   
   <!-- map stuff is all done with rosbridge server? need dynamic map statement?-->
-  <!-- node name="turtlebot_map" pkg="tele_presence" type="turtlebot_map.py" respawn="true" / -->
+  <node name="turtlebot_map" pkg="tele_presence" type="turtlebot_map.py" respawn="true" />
   
   
 </launch>

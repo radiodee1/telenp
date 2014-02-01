@@ -201,8 +201,13 @@ function receiveMapEvent() {
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
+	        break;
 	        
-	        
+	        case map_command_make :
+                var request = new ROSLIB.ServiceRequest({});
+	            map_service_new.callService( request, function (result) {
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
 	        break;
 	    }
 	}
@@ -260,8 +265,8 @@ function setMapServices() {
   	//no service for new map
   	map_service_new = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/create_map',
-   		 messageType : 'map_store/'
+    	'name' : '/new_map',
+   		 messageType : 'tele_presence/CreateMap'
   	});
   	
   	map_service_delete = new ROSLIB.Service({
@@ -438,6 +443,10 @@ function receiveMapBroadcast() {
             case map_command_save :
 	            document.getElementById("wizOpSaveConfirm").style.display = "block";
 	        break;
+	        
+	        case map_command_make :
+	            document.getElementById("wizOpNewConfirm").style.display = "block";
+	        break;
 	    }
 	}
 	try {
@@ -490,6 +499,11 @@ function executeSave() {
     //check for bad 'new_name' string (no quotes, etc.)
     sendMapCommandsShort(map_command_save, 0, new_name, "", map_command_save);
 }
+
+function executeNew() {
+    sendMapCommandsShort(map_command_make, 0, "", "", map_command_make);
+}
+
 
 function fillMapSpace(space, list) {
     

@@ -44,7 +44,9 @@ include tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/progress
 
 tele_presence/CMakeFiles/tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py
 tele_presence/CMakeFiles/tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntryList.py
+tele_presence/CMakeFiles/tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py
 tele_presence/CMakeFiles/tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py
+tele_presence/CMakeFiles/tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/__init__.py
 
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py: /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg
@@ -59,17 +61,34 @@ tele_presence/CMakeFiles/tele_presence_generate_messages_py: /home/dave/workspac
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python from MSG tele_presence/MapListEntryList"
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg -Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg -p tele_presence -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg
 
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py: /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python code from SRV tele_presence/CreateMap"
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv -Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg -p tele_presence -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv
+
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntryList.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_3)
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python msg __init__.py for tele_presence"
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg --initpy
+
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/__init__.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/__init__.py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/__init__.py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntryList.py
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/__init__.py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python srv __init__.py for tele_presence"
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv --initpy
 
 tele_presence_generate_messages_py: tele_presence/CMakeFiles/tele_presence_generate_messages_py
 tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py
 tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntryList.py
+tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py
 tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py
+tele_presence_generate_messages_py: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/__init__.py
 tele_presence_generate_messages_py: tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build.make
 .PHONY : tele_presence_generate_messages_py
 
