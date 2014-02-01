@@ -13,13 +13,20 @@ img
 {
     vertical-align:middle;
 }
+button
+{
+    padding:0;
+    margin:0;
+}
 </style>
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
-    <br>
-    MAP SETUP:
+
+
 <!-- one div for each frame of wizard  CHOOSE-->
 <div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">
+    MAP SETUP:
+    <br>
 <table border=0 id="wizChooseOpTable" style="">
 
 <tr><td><button type="button" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
@@ -75,14 +82,24 @@ new
 </div>
 <!-- one div for each frame of wizard  RENAME -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpRename">
-rename
-<button type="button" onclick="opCancel()">Cancel</button>
-<p id="wizOpRenameConfirm" style="display:none">Your map was renamed.</p>
+    Rename this file:
+    <form action="">
+    <select id="selectSpaceRename">
+    <option value="none">None</option>
+    </select>
+    <input type="text" name="rename" id="inputSpaceRename">
+    <button type="button" onclick="executeRename()">RENAME</button><br>
+    </form>
+<button type="button" onclick="opCancel()">Done</button>
+    <p id="wizOpRenameConfirm" style="display:none">Your map was renamed. Refresh of click 'Done' to see new
+    list</p>
 </div>
 <!-- one div for each frame of wizard  SAVE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpSave">
-save
-<button type="button" onclick="opCancel()">Cancel</button>
+    Give your map a name:
+    <input type="text" name="rename" id="inputSpaceSave">
+    <button type="button" onclick="executeSave()">SAVE</button><br>
+<button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpSaveConfirm" style="display:none">Your map was saved.</p>
 </div>
 <!-- one div for each frame of wizard  DONE -->

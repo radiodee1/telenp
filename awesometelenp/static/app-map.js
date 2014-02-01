@@ -93,6 +93,9 @@ function opRename() {
     document.getElementById("wizChooseOp").style.display = "none";
     
     document.getElementById("wizOpRenameConfirm").style.display = "none";
+    document.getElementById("inputSpaceRename").value = "";
+
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_rename);
 }
 
 function opSave() {
@@ -104,6 +107,9 @@ function opSave() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    
+    document.getElementById("wizOpSaveConfirm").style.display = "none";
+    document.getElementById("inputSpaceSave").value = "";
     
     document.getElementById("wizOpSaveConfirm").style.display = "none";
 }
@@ -174,6 +180,25 @@ function receiveMapEvent() {
 	        case map_command_delete :
                 var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
 	            map_service_delete.callService( request, function (result) {
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	        
+	        
+	        break;
+	        
+	        case map_command_rename :
+                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id, 
+                    "new_name": commands.rename});
+	            map_service_rename.callService( request, function (result) {
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	        
+	        
+	        break;
+	        
+	        case map_command_save :
+                var request = new ROSLIB.ServiceRequest({ "map_name": commands.name});
+	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	        
@@ -401,6 +426,18 @@ function receiveMapBroadcast() {
 	        case map_command_list_delete :
 	            putListInSelectLocal(data.map_list, "selectSpaceDelete");
 	        break;
+	        
+	        case map_command_list_rename :
+	            putListInSelectLocal(data.map_list, "selectSpaceRename");
+	        break;
+	        
+	        case map_command_rename :
+	            document.getElementById("wizOpRenameConfirm").style.display = "block";
+	        break;
+            
+            case map_command_save :
+	            document.getElementById("wizOpSaveConfirm").style.display = "block";
+	        break;
 	    }
 	}
 	try {
@@ -439,6 +476,19 @@ function executeLoad() {
 function executeDelete() {
     var map_id = document.getElementById("selectSpaceDelete").value;
     sendMapCommandsShort(map_command_delete, map_id, "", "", map_command_delete);
+}
+
+function executeRename() {
+    var map_id = document.getElementById("selectSpaceRename").value;
+    var new_name = document.getElementById("inputSpaceRename").value;
+    //check for bad 'new_name' string (no quotes, etc.)
+    sendMapCommandsShort(map_command_rename, map_id, "",new_name, map_command_rename);
+}
+
+function executeSave() {
+    var new_name = document.getElementById("inputSpaceSave").value;
+    //check for bad 'new_name' string (no quotes, etc.)
+    sendMapCommandsShort(map_command_save, 0, new_name, "", map_command_save);
 }
 
 function fillMapSpace(space, list) {
