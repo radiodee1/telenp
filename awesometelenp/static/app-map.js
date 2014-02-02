@@ -204,7 +204,7 @@ function receiveMapEvent() {
 	        break;
 	        
 	        case map_command_make :
-                var request = new ROSLIB.ServiceRequest({});
+                var request = new ROSLIB.ServiceRequest({"width": 100, "height":100});
 	            map_service_new.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
