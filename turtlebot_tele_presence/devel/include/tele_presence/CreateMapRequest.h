@@ -57,13 +57,21 @@ struct CreateMapRequest_
   typedef CreateMapRequest_<ContainerAllocator> Type;
 
   CreateMapRequest_()
-    {
+    : width(0)
+    , height(0)  {
     }
   CreateMapRequest_(const ContainerAllocator& _alloc)
-    {
+    : width(0)
+    , height(0)  {
     }
 
 
+
+   typedef uint32_t _width_type;
+  _width_type width;
+
+   typedef uint32_t _height_type;
+  _height_type height;
 
 
 
@@ -143,12 +151,12 @@ struct MD5Sum< ::tele_presence::CreateMapRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d41d8cd98f00b204e9800998ecf8427e";
+    return "d00b1659f7d843bad3388af53e042f94";
   }
 
   static const char* value(const ::tele_presence::CreateMapRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd41d8cd98f00b204ULL;
-  static const uint64_t static_value2 = 0xe9800998ecf8427eULL;
+  static const uint64_t static_value1 = 0xd00b1659f7d843baULL;
+  static const uint64_t static_value2 = 0xd3388af53e042f94ULL;
 };
 
 template<class ContainerAllocator>
@@ -169,6 +177,9 @@ struct Definition< ::tele_presence::CreateMapRequest_<ContainerAllocator> >
   {
     return "\n\
 \n\
+uint32 width\n\
+uint32 height\n\
+\n\
 ";
   }
 
@@ -185,8 +196,11 @@ namespace serialization
 
   template<class ContainerAllocator> struct Serializer< ::tele_presence::CreateMapRequest_<ContainerAllocator> >
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream&, T)
-    {}
+    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
+    {
+      stream.next(m.width);
+      stream.next(m.height);
+    }
 
     ROS_DECLARE_ALLINONE_SERIALIZER;
   }; // struct CreateMapRequest_
@@ -202,8 +216,13 @@ namespace message_operations
 template<class ContainerAllocator>
 struct Printer< ::tele_presence::CreateMapRequest_<ContainerAllocator> >
 {
-  template<typename Stream> static void stream(Stream&, const std::string&, const ::tele_presence::CreateMapRequest_<ContainerAllocator>&)
-  {}
+  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::tele_presence::CreateMapRequest_<ContainerAllocator>& v)
+  {
+    s << indent << "width: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.width);
+    s << indent << "height: ";
+    Printer<uint32_t>::stream(s, indent + "  ", v.height);
+  }
 };
 
 } // namespace message_operations

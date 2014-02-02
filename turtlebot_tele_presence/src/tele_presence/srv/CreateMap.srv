@@ -1,3 +1,6 @@
-# no parameters, no reply.
+# two parameters, no reply.
+
+uint32 width
+uint32 height
 
 ---

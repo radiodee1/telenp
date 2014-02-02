@@ -12,41 +12,52 @@ from std_msgs.msg import *
 
 #from roslib import message
 
-
-basename = "telenp"
+map_pub = None
+my_map = OccupancyGrid()
 
 def map_stuff():
+    global my_map, map_pub
     rospy.init_node('turtlebot_map', anonymous=True)
-    if not rospy.is_shutdown():
-        #
-        #rospy.Service('new_map', CreateMap, create_map)
-        create_map()
-        #create_map(0)
-        print "ready to make new map."
+    map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
+    req = None
+    #create_map(req)
+    rospy.Service('new_map', CreateMap, create_map)
+    #
+    while not rospy.is_shutdown():
+        #if (my_map.info.width is not 0) :
+            #
         rospy.spin()
 
-def create_map( ):
+def create_map(req ):
+    if (req is not None):
+        width = req.width
+        height = req.height
+    else :
+        width = 10
+        height = 10
+    global my_map, map_pub
     h = Header()
     h.frame_id = ''
     test_map = OccupancyGrid()
     test_map.header = h
     test_map.info.resolution = 1.0 
-    test_map.info.width = 10
-    test_map.info.height = 10
-    test_map.info.origin.position.x = 0.0 
-    test_map.info.origin.position.y = 1.0 
-    test_map.info.origin.position.z = 2.0 
-    test_map.info.origin.orientation.x = 3.0 
-    test_map.info.origin.orientation.y = 4.0 
-    test_map.info.origin.orientation.z = 5.0 
-    test_map.info.origin.orientation.w = 6.0 
+    test_map.info.width = width
+    test_map.info.height = height
+    test_map.info.origin.position.x = width / 2
+    test_map.info.origin.position.y = height / 2
+    test_map.info.origin.position.z = 0
+    test_map.info.origin.orientation.x = 0 
+    test_map.info.origin.orientation.y = 0 
+    test_map.info.origin.orientation.z = 0 
+    test_map.info.origin.orientation.w = 0 
     test_map.data = []
-    for i in range(0, 100):
-        test_map.data.append(i)
+    for i in range(0, (width*height)):
+        test_map.data.append(0)
     print test_map
-    map_pub = rospy.Publisher('/map', OccupancyGrid)
-    map_pub.publish(test_map);
-    return #test_map
+    #map_pub.publish(test_map);
+    my_map = test_map
+    map_pub.publish(my_map)
+    return []
 
 if __name__ == '__main__':
     try:
