@@ -204,7 +204,7 @@ function receiveMapEvent() {
 	        break;
 	        
 	        case map_command_make :
-                var request = new ROSLIB.ServiceRequest({"width": 100, "height":100});
+                var request = new ROSLIB.ServiceRequest({"width": 10, "height":10});
 	            map_service_new.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
@@ -516,7 +516,7 @@ function fillMapSpace(space, list) {
         string = string + '<div style="display:block">';//
         for(x =0; x < width; x ++ ) { 
             string = string + '<div style="display:inline; min-height:3px; height:8px">';
-            if (list.map[(y * height) + x].d > 5) {
+            if (list.map[(y * height) + x].d < 5) {
                 string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_light.png" ' ;
             }
             else {
