@@ -660,6 +660,7 @@ function recieveEvent () {
 	receiveMapEvent();
 	receiveMapBroadcast();
 	receiveRawMapBroadcast();
+	receiveAppListBroadcast();
 }
 
 function retransmitEvent(data) {

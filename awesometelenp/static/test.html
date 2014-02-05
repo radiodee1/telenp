@@ -676,6 +676,7 @@ function recieveEvent () {
 	receiveMapEvent();
 	receiveMapBroadcast();
 	receiveRawMapBroadcast();
+	receiveAppListBroadcast();
 }
 
 function retransmitEvent(data) {
@@ -894,6 +895,7 @@ var test_map = "";
 
 var tx_gapi_map_event = "telenp_map";
 var tx_gapi_map_raw = "telenp_map_raw";
+var tx_gapi_app_list = "telenp_app_list";
 var map_service_list ;
 var map_service_load ;
 var map_service_new ;
@@ -916,7 +918,8 @@ var map_command_list_delete = "embedded_list_for_delete";
 var map_command_list_rename = "embedded_list_for_rename";
 var map_command_list_start = "embedded_list_for_show_map";
 var map_command_list_view = "embedded_list_for_view_map";
-
+// comands for working with apps.
+var app_command_list = "app_list";
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -1122,6 +1125,28 @@ function receiveMapEvent() {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	        break;
+
+            case app_command_list :
+                var list = new Array();
+                var x;
+                try {
+                    app_topic_list.subscribe( function(message) {
+                        var len = message.available_apps.length;
+                        for (x = 0; x < len; x ++) {
+                            console.log(message.available_apps[x].name);
+                            list.push(message.available_apps[x].name);
+                        }
+                        
+                        //list = message.data;
+                        
+                        sendAppListBroadcast(commands.wizard, list);
+                        app_topic_list.unsubscribe();
+                    });
+                }
+                catch (e) {
+                    console.log("map listener fail");
+                }
+            break;
 	    }
 	}
     gapi.hangout.data.clearValue(tx_gapi_map_event);
@@ -1206,6 +1231,12 @@ function setMapServices() {
    		 messageType : 'nav_msgs/OccupancyGrid'
    		 
   	});
+  	
+  	app_topic_list = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/turtlebot/app_list',
+   		 messageType : 'rocon_app_manager_msgs/AppList'
+  	});
 }
 
 function putListInSelectLocal(list, space) {
@@ -1233,6 +1264,21 @@ function putListInBoxLocal(list, space) {
         if (list[x].name == "") string = string + "[unnamed]";
         string = string + "<br>";
         console.log("list -" + list[x].name + "- " + list[x].map_id);
+    }
+
+    document.getElementById(space).innerHTML = string;
+}
+
+function fillAppSpace(list, space) {
+    var string = "";
+    var x;
+    for(x =0; x < list.list.length; x ++ ) { 
+        var num = x + 1;
+        string = string + num + ". " ;
+        string = string + list.list[x].name;
+        if (list.list[x].name == "") string = string + "[unnamed]";
+        string = string + "<br>";
+        console.log("list apps-" + list.list[x].name );
     }
 
     document.getElementById(space).innerHTML = string;
@@ -1303,6 +1349,25 @@ function sendMapPicBroadcast(wizard, map_in) {
 		console.log("hangout setValue error. -- Error with map pic");
 	}
 	console.log(map);
+}
+
+function sendAppListBroadcast(wizard, list) {
+    if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
+    var newlist = '{"wizard":"' + wizard + '","list":[';
+    var x;
+    
+    for (x = 0; x < list.length; x ++) {
+        var element = {'name' : list[x] };
+        newlist = newlist + JSON.stringify(element) ;
+        if (x < list.length - 1) newlist += ",";
+    }
+    newlist += "]}";
+    try {
+		gapi.hangout.data.setValue( tx_gapi_app_list, newlist);
+	}
+	catch (e) {
+		console.log("hangout setValue error. -- Error with map pic");
+	}
 }
 
 function receiveMapBroadcast() {
@@ -1397,6 +1462,24 @@ function receiveRawMapBroadcast() {
 	}
 }
 
+function receiveAppListBroadcast() {
+    if (! isMatchingName(tx_gapi_controller_name) && 
+        ! isMatchingName(tx_gapi_turtlebot_name) ) return;
+    try {
+	    rx_data = gapi.hangout.data.getState()[tx_gapi_app_list];
+	    
+	}
+	catch (e){
+	    console.log("error google hangouts api -- " );
+	}
+	
+    if (typeof rx_data !== "undefined") {
+	    var list = JSON.parse(rx_data);
+        fillAppSpace(list, 'listSpaceApps');
+        gapi.hangout.data.clearValue(tx_gapi_app_list);
+	}
+}
+
 function executeLoad() {
     var map_id = document.getElementById("selectSpaceLoad").value;
     sendMapCommandsShort(map_command_load, map_id, "", "", map_command_load);
@@ -1425,6 +1508,9 @@ function executeNew() {
     sendMapCommandsShort(map_command_make, 0, "", "", map_command_make);
 }
 
+function executeListApps() {
+    sendMapCommandsShort(app_command_list, 0, "", "", app_command_list);
+}
 
 function fillMapSpace(space, list) {
     
@@ -1605,6 +1691,7 @@ button
 <tr><td><button type="button" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
 </table>
 <br>
+<!--
 <button type="button" onclick="opChooseOp()">List</button>
 List of Maps:<br>
     <div id="listSpace" style="border-style:solid;border-width:3px; border-color:black;
@@ -1613,7 +1700,18 @@ List of Maps:<br>
     
     </div>
 <br>
+-->
 <button type="button" onclick="opCancel()">Cancel</button>
+    
+    <br><br>
+    <button type="button" onclick="executeListApps()">APPS</button>
+    List of Apps:<br>
+    <div id="listSpaceApps" style="border-style:solid;border-width:3px; border-color:black;
+        width:300px; height:175px; overflow:auto">
+    Click 'APPS' button to see...<br>
+    
+    </div>
+<br>
 
 </div>
 
