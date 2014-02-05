@@ -185,18 +185,18 @@ function tryTurtlebotClick() {
 		control_retransmit = false;
 		changeAlertText();
 	}
-	console.log(control_retransmit + "  retransmit");
+	;//console.log(control_retransmit + "  retransmit");
 }
 
 function tryControllerClick() {
     if (document.getElementById("setController").checked && 
             isUnsetName(tx_gapi_controller_name)) {
         formJSONControllerName();
-        console.log("set controller");
+        ;//console.log("set controller");
     }
     else if ( ! isUnsetName(tx_gapi_controller_name)) {
         gapi.hangout.data.clearValue(tx_gapi_controller_name);
-        console.log("unset controller");
+        ;//console.log("unset controller");
     }
 }
 
@@ -216,7 +216,7 @@ function tryStreamClick() {
 	else {
 		document.getElementById("setStream").checked = false;
 	}
-	console.log("stream " + control_stream);
+	;//console.log("stream " + control_stream);
 }
 
 function tryRadioClick() {
@@ -227,7 +227,7 @@ function tryRadioClick() {
 
 	if (document.getElementById("messageStamped").checked) control_msgtype = MSG_RESERVED;	
 
-	//console.log(control_msgtype);
+	//;//console.log(control_msgtype);
 	
 	switch (control_msgtype) {
 		case MSG_STRING:
@@ -410,14 +410,14 @@ function formJSONClick(operation) {
 	tx_operation = operation; 
 	tx_number ++;
 	tx_number = tx_number % mod_base;
-	console.log(operation);
+	;//console.log(operation);
 	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
-	console.log( makeText );
+	;//console.log( makeText );
 	try {	
 		gapi.hangout.data.setValue( tx_gapi_key, makeText);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Click");
+		;//console.log("hangout setValue error. -- Click");
 	}
 }
 
@@ -440,7 +440,7 @@ function formJSONError() {
 		gapi.hangout.data.setValue( tx_gapi_error, makeText);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Error");
+		;//console.log("hangout setValue error. -- Error");
 	}
 }
 
@@ -450,9 +450,9 @@ function formJSONControllerName() {
 		gapi.hangout.data.setValue( tx_gapi_controller_name, makeText);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Error");
+		;//console.log("hangout setValue error. -- Error");
 	}
-	console.log("pad " + makeText);
+	;//console.log("pad " + makeText);
 }
 
 function formJSONTurtlebotName() {
@@ -461,9 +461,9 @@ function formJSONTurtlebotName() {
 		gapi.hangout.data.setValue( tx_gapi_turtlebot_name, makeText);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Error");
+		;//console.log("hangout setValue error. -- Error");
 	}
-	console.log("machine " + makeText);
+	;//console.log("machine " + makeText);
 }
 
 function makeJSONCommand(operation, num ) {
@@ -482,7 +482,7 @@ function makeJSONError(connected, stopped, kinect, stream) {
 
 function makeJSONName() {
     var myData = gapi.hangout.getLocalParticipantId();
-    console.log(myData)
+    ;//console.log(myData)
     var myJSON = {"data" : myData};
     return myJSON;
 }
@@ -492,16 +492,16 @@ function isMatchingName(tx_gapi_data) {
 		rx_data = gapi.hangout.data.getState()[tx_gapi_data];
 	}
 	catch (e) {
-		console.log("error google hangouts api -- " + tx_gapi_data);
+		;//console.log("error google hangouts api -- " + tx_gapi_data);
 	}
 	try {
 		rx_id = gapi.hangout.getLocalParticipantId();
 	}
 	catch (e) {
-		console.log("error google hangouts api -- " + tx_gapi_data);
+		;//console.log("error google hangouts api -- " + tx_gapi_data);
 	}
 	if (typeof rx_data !== 'undefined' && typeof rx_id !== 'undefined') {
-	    console.log(rx_error + " error msg");
+	    ;//console.log(rx_error + " error msg");
 	    var rx_data_parsed = JSON.parse(rx_data);
 	    if (rx_id === rx_data_parsed.data) return true;
 	    else return false;
@@ -514,15 +514,15 @@ function isUnsetName(tx_gapi_data) {
 		rx_data = gapi.hangout.data.getState()[tx_gapi_data];
 	}
 	catch (e) {
-		console.log("error google hangouts api -- " + tx_gapi_data);
+		;//console.log("error google hangouts api -- " + tx_gapi_data);
 	}
 	if (typeof rx_data === 'undefined') {
 
-	    console.log("unset name test - true");
+	    ;//console.log("unset name test - true");
 	    return true;
 	}
 	else {
-	    console.log("unset name test - false");
+	    ;//console.log("unset name test - false");
 	    return false;
 	}
 }
@@ -532,10 +532,10 @@ function recieveEvent () {
 	// error data from hangouts...
 	try {
 		rx_error = gapi.hangout.data.getState()[tx_gapi_error];
-		console.log(rx_error + " error msg");
+		;//console.log(rx_error + " error msg");
 	}
 	catch (e) {
-		console.log("error google hangouts api -- " + tx_gapi_error);
+		;//console.log("error google hangouts api -- " + tx_gapi_error);
 	}
 	if (typeof rx_error !== 'undefined'){// && rx_error != rx_error_old || true) {
 		rx_error_obj = JSON.parse(rx_error);
@@ -567,9 +567,9 @@ function recieveEvent () {
 	    
 	}
 	catch (e){
-	    console.log("error google hangouts api -- " );
+	    ;//console.log("error google hangouts api -- " );
 	}
-	console.log(rx_data + " key msg");
+	;//console.log(rx_data + " key msg");
 	
 	stream_num ++;
 	stream_num = (stream_num ) % mod_base;
@@ -585,8 +585,8 @@ function recieveEvent () {
 		    control_stopped = false;
 		    control_stopped_rx = false;
 		}
-        console.log("stream = " + stream_num);
-		console.log( rx_obj.direction + " -- " + rx_obj.number);
+        ;//console.log("stream = " + stream_num);
+		;//console.log( rx_obj.direction + " -- " + rx_obj.number);
 		
 		// handle stream setting here...
 		if (!control_stream && control_retransmit && 
@@ -594,7 +594,7 @@ function recieveEvent () {
 			control_stopped = true;
 			changeButtonSrc(button_center_src_error);
 			formJSONError(); // OK??
-			console.log("exit -- bad seq num");
+			;//console.log("exit -- bad seq num");
 			rx_data_old = rx_data;
 			return;
 		}
@@ -608,7 +608,7 @@ function recieveEvent () {
 	    users = gapi.hangout.getParticipants();
 	}
 	catch (e) {
-	    console.log("bad users list");
+	    ;//console.log("bad users list");
 	}
 	if (users.length <= 1) test_config = true;
 	else test_config = false;
@@ -653,7 +653,7 @@ function recieveEvent () {
 	    tryShowMotorControls();
 	    tryShowPadControls();
 	    tryShowPadSelectControls();
-	    console.log("test config setting");
+	    ;//console.log("test config setting");
 	}
 	
 	
@@ -664,7 +664,7 @@ function recieveEvent () {
 }
 
 function retransmitEvent(data) {
-	console.log(data.direction + " -- retransmit");
+	;//console.log(data.direction + " -- retransmit");
 	var numLinear = 0;
 	var numAngular = 0;
 	
@@ -712,7 +712,7 @@ function retransmitEvent(data) {
 			
 			cmdVel.publish(string);
 			
-			console.log("no error? -- string");
+			;//console.log("no error? -- string");
 			
 		break;
 		
@@ -740,7 +740,7 @@ function retransmitEvent(data) {
 
 			cmdVel2.publish(twist);
 
-			console.log("no error? -- twist");
+			;//console.log("no error? -- twist");
 
 		break;
 		
@@ -770,7 +770,7 @@ function retransmitEvent(data) {
 
 			cmdVel3.publish(velocity);
 
-			console.log("no error? -- velocity");
+			;//console.log("no error? -- velocity");
 		break;
 	}
 	
@@ -792,11 +792,11 @@ function doSpeedTimer() {
 }
 
 function setKinectListener() {
-    //console.log("kinect setup");
+    //;//console.log("kinect setup");
   	
   	try {
   	    kinect_listener.subscribe( function(message) {
-            //console.log(  kinect_listener.name + " : " + message.data );
+            //;//console.log(  kinect_listener.name + " : " + message.data );
             var data = message.data;
             control_obstructed_num = message.data;
             control_obstructed_string = "[";
@@ -825,7 +825,7 @@ function setKinectListener() {
         } );
     }
     catch (e) {
-        console.log ("no message " + e.message);
+        ;//console.log ("no message " + e.message);
     }
 
 
@@ -836,17 +836,17 @@ function setKinectListener() {
 
 // A function to be run at app initialization time which registers our callbacks
 function init() {
-	console.log('Init app.');
+	;//console.log('Init app.');
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.7 --------------------------------');
+			console.log('API is ready v1.8 --------------------------------');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
 			});
 	        
-			//console.log("websocket test");
+			//;//console.log("websocket test");
 			if ('WebSocket' in window){
     				// WebSocket is supported.
 			

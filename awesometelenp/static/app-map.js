@@ -155,7 +155,7 @@ function opCancel() {
 }
 
 function receiveMapEvent() {
-    console.log("map");
+    ;//console.log("map");
     if (! isMatchingName(tx_gapi_turtlebot_name)) return;
     var rx_map_commands ;
     try {
@@ -163,7 +163,7 @@ function receiveMapEvent() {
 	    
 	}
 	catch (e){
-	    console.log("error google hangouts api -- map" );
+	    ;//console.log("error google hangouts api -- map" );
 	}
 	if (typeof rx_map_commands !== "undefined") {
 	    var commands = JSON.parse(rx_map_commands);
@@ -195,7 +195,7 @@ function receiveMapEvent() {
                     });
                 }
                 catch (e) {
-                    console.log("map listener fail");
+                    ;//console.log("map listener fail");
                 }
                 
 	        break;
@@ -241,7 +241,7 @@ function receiveMapEvent() {
                     app_topic_list.subscribe( function(message) {
                         var len = message.available_apps.length;
                         for (x = 0; x < len; x ++) {
-                            console.log(message.available_apps[x].name);
+                            ;//console.log(message.available_apps[x].name);
                             list.push(message.available_apps[x].name);
                         }
                         
@@ -252,7 +252,7 @@ function receiveMapEvent() {
                     });
                 }
                 catch (e) {
-                    console.log("map listener fail");
+                    ;//console.log("map listener fail");
                 }
             break;
 	    }
@@ -290,9 +290,9 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 		gapi.hangout.data.setValue( tx_gapi_map_event, makeText);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Error");
+		;//console.log("hangout setValue error. -- Error");
 	}
-	console.log("map event short" + makeText);
+	;//console.log("map event short" + makeText);
 }
 
 function setMapServices() {
@@ -358,7 +358,7 @@ function putListInSelectLocal(list, space) {
         string = string + "</option>";
         
     }
-    console.log(string);
+    ;//console.log(string);
     document.getElementById(space).innerHTML = string;
 }
 
@@ -371,7 +371,7 @@ function putListInBoxLocal(list, space) {
         string = string + list[x].name;
         if (list[x].name == "") string = string + "[unnamed]";
         string = string + "<br>";
-        console.log("list -" + list[x].name + "- " + list[x].map_id);
+        ;//console.log("list -" + list[x].name + "- " + list[x].map_id);
     }
 
     document.getElementById(space).innerHTML = string;
@@ -386,7 +386,7 @@ function fillAppSpace(list, space) {
         string = string + list.list[x].name;
         if (list.list[x].name == "") string = string + "[unnamed]";
         string = string + "<br>";
-        console.log("list apps-" + list.list[x].name );
+        ;//console.log("list apps-" + list.list[x].name );
     }
 
     document.getElementById(space).innerHTML = string;
@@ -418,20 +418,20 @@ function sendMapBroadcast(type, list, num) {
     
     map_list = "[" + map_list + "]";
     var listText = '{"type":"'+type+'","map_list":'+ map_list + ', "num":'+num + '}';
-    console.log (listText);
+    ;//console.log (listText);
     try {
 		gapi.hangout.data.setValue( tx_gapi_list, listText);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Error");
+		;//console.log("hangout setValue error. -- Error");
 	}
-	console.log("map event " + listText);
+	;//console.log("map event " + listText);
 }
 
 function sendMapPicBroadcast(wizard, map_in) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
     if (typeof map_in === "undefined") {
-        console.log("map_in is undefined...-----------------------");
+        ;//console.log("map_in is undefined...-----------------------");
         return;
     }
     var x,y;
@@ -454,9 +454,9 @@ function sendMapPicBroadcast(wizard, map_in) {
 		gapi.hangout.data.setValue( tx_gapi_map_raw, map);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Error with map pic");
+		;//console.log("hangout setValue error. -- Error with map pic");
 	}
-	console.log(map);
+	;//console.log(map);
 }
 
 function sendAppListBroadcast(wizard, list) {
@@ -474,7 +474,7 @@ function sendAppListBroadcast(wizard, list) {
 		gapi.hangout.data.setValue( tx_gapi_app_list, newlist);
 	}
 	catch (e) {
-		console.log("hangout setValue error. -- Error with map pic");
+		;//console.log("hangout setValue error. -- Error with map pic");
 	}
 }
 
@@ -485,9 +485,9 @@ function receiveMapBroadcast() {
 	    
 	}
 	catch (e){
-	    console.log("error google hangouts api -- " );
+	    ;//console.log("error google hangouts api -- " );
 	}
-	console.log(rx_data + " list msg");
+	;//console.log(rx_data + " list msg");
 	
 	if (typeof rx_data !== "undefined") {
 	    // do something...
@@ -540,7 +540,7 @@ function receiveMapBroadcast() {
 	    
 	}
 	catch (e){
-	    console.log("error google hangouts api -- " );
+	    ;//console.log("error google hangouts api -- " );
 	}
 }
 
@@ -552,13 +552,13 @@ function receiveRawMapBroadcast() {
 	    
 	}
 	catch (e){
-	    console.log("error google hangouts api -- " );
+	    ;//console.log("error google hangouts api -- " );
 	}
 	
-	//console.log("raw map broadcast!! ---------------------");
+	//;//console.log("raw map broadcast!! ---------------------");
 	if (typeof rx_data !== "undefined") {
 	    var list = JSON.parse(rx_data);
-	    //console.log("data received " + list);
+	    //;//console.log("data received " + list);
 	    if ( list.wizard == map_command_list_start ) {
 	        fillMapSpace('showMapSpace', list);
 	    }
@@ -578,7 +578,7 @@ function receiveAppListBroadcast() {
 	    
 	}
 	catch (e){
-	    console.log("error google hangouts api -- " );
+	    ;//console.log("error google hangouts api -- " );
 	}
 	
     if (typeof rx_data !== "undefined") {
@@ -609,7 +609,7 @@ function executeSave() {
     var new_name = document.getElementById("inputSpaceSave").value;
     //check for bad 'new_name' string (no quotes, etc.)
     sendMapCommandsShort(map_command_save, 0, new_name, "", map_command_save);
-    console.log("save name " + new_name);
+    ;//console.log("save name " + new_name);
 }
 
 function executeNew() {
@@ -643,7 +643,7 @@ function fillMapSpace(space, list) {
         string = string + "</div>";
     }
     string = string + "</div>";
-    console.log(string);
+    ;//console.log(string);
     document.getElementById(space).innerHTML = string;
     document.getElementById("wizOpStartConfirm").style.display = "block";
 }
