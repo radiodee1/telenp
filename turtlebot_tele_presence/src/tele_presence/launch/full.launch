@@ -7,10 +7,10 @@
   
   <node name="map_manager" pkg="map_store" type="map_manager" respawn="false" output="screen" />
   <node pkg="map_store" type="map_saver" name="map_saver" />
-  
-
-  
-  <!-- node name="map_server" pkg="map_server" type="map_server" / -->
+  <!-- node pkg="map_server" type="map_saver" name="map_saver">
+        <param name="f" value="~/workspace/map"/>
+  </node -->
+  <!-- node name="map_saver" pkg="map_server" type="map_server" / -->
   
    <!-- node name="mongo" type="wrapper.py" pkg="mongodb" output="log">
     <param name="database_path" value="~/warehouse_data"/>

@@ -24,6 +24,7 @@ var map_command_list_load = "embedded_list_for_load";
 var map_command_list_delete = "embedded_list_for_delete";
 var map_command_list_rename = "embedded_list_for_rename";
 var map_command_list_start = "embedded_list_for_show_map";
+var map_command_list_view = "embedded_list_for_view_map";
 
 
 function opChooseOp() {
@@ -35,6 +36,7 @@ function opChooseOp() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "block";
+    document.getElementById("wizOpView").style.display = "none";
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
 }
@@ -48,6 +50,7 @@ function opLoad() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    document.getElementById("wizOpView").style.display = "none";
     
     document.getElementById("wizOpLoadConfirm").style.display = "none";
     
@@ -63,7 +66,8 @@ function opMake() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
-    
+    document.getElementById("wizOpView").style.display = "none";
+        
     document.getElementById("wizOpNewConfirm").style.display = "none";
 }
 
@@ -76,7 +80,8 @@ function opDelete() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
-    
+    document.getElementById("wizOpView").style.display = "none";
+        
     document.getElementById("wizOpDelConfirm").style.display = "none";
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_delete);
@@ -91,7 +96,8 @@ function opRename() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
-    
+    document.getElementById("wizOpView").style.display = "none";
+        
     document.getElementById("wizOpRenameConfirm").style.display = "none";
     document.getElementById("inputSpaceRename").value = "";
 
@@ -107,6 +113,7 @@ function opSave() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
+    document.getElementById("wizOpView").style.display = "none";    
     
     document.getElementById("wizOpSaveConfirm").style.display = "none";
     document.getElementById("inputSpaceSave").value = "";
@@ -123,10 +130,24 @@ function opStart() {
     document.getElementById("wizOpDone").style.display = "none";
     document.getElementById("wizOpStart").style.display = "block";
     document.getElementById("wizChooseOp").style.display = "none";
+    document.getElementById("wizOpView").style.display = "none";
     
     document.getElementById('wizOpStartConfirm').style.display = "none";
 }
 
+function opView() {
+    document.getElementById("wizOpLoad").style.display = "none";
+    document.getElementById("wizOpNew").style.display = "none";
+    document.getElementById("wizOpDel").style.display = "none";
+    document.getElementById("wizOpRename").style.display = "none";
+    document.getElementById("wizOpSave").style.display = "none";
+    document.getElementById("wizOpDone").style.display = "none";
+    document.getElementById("wizOpStart").style.display = "none";
+    document.getElementById("wizChooseOp").style.display = "none";
+    document.getElementById("wizOpView").style.display = "block";
+        
+    document.getElementById('wizOpViewConfirm').style.display = "none";
+}
 function opCancel() {
     opChooseOp();
 }
@@ -167,7 +188,7 @@ function receiveMapEvent() {
                     map_listener.subscribe( function(message) {
                         list = message.data;
                         
-                        sendMapPicBroadcast(message);
+                        sendMapPicBroadcast(commands.wizard, message);
                         map_listener.unsubscribe();
                     });
                 }
@@ -197,9 +218,10 @@ function receiveMapEvent() {
 	        break;
 	        
 	        case map_command_save :
-                var request = new ROSLIB.ServiceRequest({ "map_name": commands.name});
+                var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
+	                ;//
 	            } );
 	        break;
 	        
@@ -226,7 +248,7 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
     var send = {
                     'command' : command,
                     'id' : id,
-                    'name' : name1,
+                    'new_name' : name1,
                     'rename' : name2,
                     'wizard' : wizard,
                     //extra ops
@@ -246,7 +268,7 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 	catch (e) {
 		console.log("hangout setValue error. -- Error");
 	}
-	console.log("map event " + makeText);
+	console.log("map event short" + makeText);
 }
 
 function setMapServices() {
@@ -361,7 +383,7 @@ function sendMapBroadcast(type, list, num) {
 	console.log("map event " + listText);
 }
 
-function sendMapPicBroadcast(map_in) {
+function sendMapPicBroadcast(wizard, map_in) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
     if (typeof map_in === "undefined") {
         console.log("map_in is undefined...-----------------------");
@@ -370,7 +392,7 @@ function sendMapPicBroadcast(map_in) {
     var x,y;
     var width = map_in.info.width;
     var height = map_in.info.height;
-    var map = '{"width":"' + width + '","height":"' + height + '","map": [';
+    var map = '{"width":"' + width + '","height":"' + height + '","wizard":"' + wizard + '","map": [';
     for (y = 0; y < height; y ++) {
         for (x = 0; x < width; x ++) {
             var element = { "d" : map_in.data[(y * width) + x] };
@@ -473,7 +495,14 @@ function receiveRawMapBroadcast() {
 	if (typeof rx_data !== "undefined") {
 	    var list = JSON.parse(rx_data);
 	    //console.log("data received " + list);
-	    fillMapSpace('showMapSpace', list);
+	    if ( list.wizard == map_command_list_start ) {
+	        fillMapSpace('showMapSpace', list);
+	    }
+	    else if (list.wizard == map_command_list_view ) {
+    	    fillMapSpace('showMapSpaceView', list);
+	    }
+	    
+    gapi.hangout.data.clearValue(tx_gapi_map_raw);
 	}
 }
 
@@ -498,6 +527,7 @@ function executeSave() {
     var new_name = document.getElementById("inputSpaceSave").value;
     //check for bad 'new_name' string (no quotes, etc.)
     sendMapCommandsShort(map_command_save, 0, new_name, "", map_command_save);
+    console.log("save name " + new_name);
 }
 
 function executeNew() {
@@ -537,6 +567,14 @@ function getMapTopic() {
     if (! isMatchingName(tx_gapi_turtlebot_name) && 
         ! isMatchingName(tx_gapi_controller_name) ) return;
     sendMapCommandsShort(map_command_list_start, 0, "", "", map_command_list_start);
+    return;
+
+}
+
+function getMapTopicView() {
+    if (! isMatchingName(tx_gapi_turtlebot_name) && 
+        ! isMatchingName(tx_gapi_controller_name) ) return;
+    sendMapCommandsShort(map_command_list_start, 0, "", "", map_command_list_view);
     return;
 
 }

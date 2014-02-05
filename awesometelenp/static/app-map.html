@@ -21,8 +21,9 @@ button
 </style>
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
-
-
+<br>
+ <img src="//awesometelenp.appspot.com/static/bitmap/icon32.png">
+<br>
 <!-- one div for each frame of wizard  CHOOSE-->
 <div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">
     MAP SETUP:
@@ -30,11 +31,12 @@ button
 <table border=0 id="wizChooseOpTable" style="">
 
 <tr><td><button type="button" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
-<tr><td><button type="button" onclick="opMake()" style="width:100%">Make Map</button></td></tr>
+<tr><td><button type="button" onclick="opMake()" style="width:100%">Make Test Map</button></td></tr>
 <tr><td><button type="button" onclick="opDelete()" style="width:100%">Delete Map</button></td></tr>
 <tr><td><button type="button" onclick="opRename()" style="width:100%">Rename Map</button></td></tr>
 <tr><td><button type="button" onclick="opSave()" style="width:100%">Save Map</button></td></tr>
 <tr><td><button type="button" onclick="opStart()" style="width:100%">Start Robot</button></td></tr>
+<tr><td><button type="button" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
 </table>
 <br>
 <button type="button" onclick="opChooseOp()">List</button>
@@ -64,8 +66,10 @@ List of Maps:<br>
 
 <!-- one div for each frame of wizard  NEW -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpNew">
-    Make a test map here.
-    <button type="button" onclick="executeNew()">NEW MAP</button><br>
+    Make a test map here. If the size of the test map is too large, it will
+    not display in the window found in the 'START ROBOT' dialog box. You will 
+    need to tell it your starting and ending positions in some other manor.
+    <button type="button" onclick="executeNew()">NEW TEST MAP</button><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpNewConfirm" style="display:none">New map ready.</p>
 </div>
@@ -117,7 +121,19 @@ List of Maps:<br>
     </div>
 
 <button type="button" onclick="opCancel()">Done</button>
-<p id="wizOpStartConfirm" style="display:none">Your map is shown.</p>
+<p id="wizOpStartConfirm" style="display:none">Your map is shown. Options below should
+    help you start the robot.</p>
+</div>
+<!-- one div for each frame of wizard  VIEW MAP -->
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpView">
+    <button type="button" onclick='getMapTopicView();'>Show Current Map</button>
+    <div id="showMapSpaceView" style="border-style:solid;border-width:3px; border-color:black;
+        width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
+    <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
+    </div>
+
+<button type="button" onclick="opCancel()">Done</button>
+<p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
 </div>
 <!-- end of wizard -->
 </div>

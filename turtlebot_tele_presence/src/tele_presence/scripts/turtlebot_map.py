@@ -20,7 +20,7 @@ def map_stuff():
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     req = None
-    #create_map(req)
+    create_map(req)
     rospy.Service('new_map', CreateMap, create_map)
     #
     while not rospy.is_shutdown():
@@ -45,14 +45,14 @@ def create_map(req ):
     test_map.info.height = height
     test_map.info.origin.position.x = width / 2
     test_map.info.origin.position.y = height / 2
-    test_map.info.origin.position.z = 0
-    test_map.info.origin.orientation.x = 0 
-    test_map.info.origin.orientation.y = 0 
-    test_map.info.origin.orientation.z = 0 
-    test_map.info.origin.orientation.w = 0 
+    test_map.info.origin.position.z = 1.0
+    test_map.info.origin.orientation.x = 1.0 
+    test_map.info.origin.orientation.y = 1.0 
+    test_map.info.origin.orientation.z = 1.0 
+    test_map.info.origin.orientation.w = 1.0 
     test_map.data = []
     for i in range(0, (width*height)):
-        test_map.data.append(0)
+        test_map.data.append(1)
     print test_map
     #map_pub.publish(test_map);
     my_map = test_map
