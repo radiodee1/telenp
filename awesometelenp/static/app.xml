@@ -925,6 +925,11 @@ var map_service_rename ;
 var map_service_save ;
 // listen to map topic.
 var map_listener ;
+// app stuff
+var app_topic_list;
+var app_service_status;
+var app_service_start;
+var app_service_invite;
 
 // commands for operations
 var map_command_load = "load";
@@ -941,6 +946,7 @@ var map_command_list_start = "embedded_list_for_show_map";
 var map_command_list_view = "embedded_list_for_view_map";
 // comands for working with apps.
 var app_command_list = "app_list";
+var app_command_invite = "app_invite";
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -954,6 +960,7 @@ function opChooseOp() {
     document.getElementById("wizOpView").style.display = "none";
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
+    sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
 }
 
 function opLoad() {
@@ -1158,8 +1165,6 @@ function receiveMapEvent() {
                             list.push(message.available_apps[x].name);
                         }
                         
-                        //list = message.data;
-                        
                         sendAppListBroadcast(commands.wizard, list);
                         app_topic_list.unsubscribe();
                     });
@@ -1167,6 +1172,37 @@ function receiveMapEvent() {
                 catch (e) {
                     ;//console.log("map listener fail");
                 }
+            break;
+            
+            case app_command_invite :
+                //var request = new ROSLIB.ServiceRequest({});
+	            //app_service_status.callService( request, function (result) {
+	            //    console.log("namespace: " + result.application_namespace);
+	            //    console.log("controller: " + result.remote_controller);
+	            //    sendMapBroadcast(commands.wizard, null, 0);
+	            //} );
+            
+                var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
+                "application_namespace" : "turtlebot/application", "cancel": true});
+	            app_service_invite.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	            
+	            request = new ROSLIB.ServiceRequest({"name" : 
+	                "turtlebot_core_apps/android_map_manager"});
+	            app_service_start.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	            
+	            //request = new ROSLIB.ServiceRequest({});
+	            //app_service_status.callService( request, function (result) {
+	            //    console.log("after --- namespace: " + result.application_namespace);
+	            //    console.log("controller: " + result.remote_controller);
+	            //    console.log("app " + result.application.display_name);
+	            //    sendMapBroadcast(commands.wizard, null, 0);
+	            //} );
             break;
 	    }
 	}
@@ -1257,6 +1293,24 @@ function setMapServices() {
     	'ros' : ros,
     	'name' : '/turtlebot/app_list',
    		 messageType : 'rocon_app_manager_msgs/AppList'
+  	});
+  	
+  	app_service_invite = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/turtlebot/invite',
+   		 messageType : 'rocon_app_manager_msgs/Invite'
+  	});
+  	
+  	app_service_start = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/turtlebot/start_app',
+   		 messageType : 'rocon_app_manager_msgs/StartApp'
+  	});
+  	
+  	app_service_status = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/turtlebot/status',
+   		 messageType : 'rocon_app_manager_msgs/Status'
   	});
 }
 
@@ -1445,6 +1499,10 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_make :
 	            document.getElementById("wizOpNewConfirm").style.display = "block";
+	        break;
+	        
+	        case app_command_invite :
+	            // nothing;
 	        break;
 	    }
 	}
