@@ -42,7 +42,7 @@ def listen():
     kinect_right = False
     kinect_middle = False
     rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
-    rospy.Subscriber("/camera/depth_registered/points", PointCloud2, callback_kinect)
+    #rospy.Subscriber("/camera/depth_registered/points", PointCloud2, callback_kinect)
     rospy.Subscriber("/camera/depth/points", PointCloud2, callback_kinect)
     pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
     while not rospy.is_shutdown():
