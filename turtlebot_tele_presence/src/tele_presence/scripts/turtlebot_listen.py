@@ -74,7 +74,7 @@ def callback_move(data):
     # don't use 'seq' from 'header'
     linear_x = 0;
     angular_z = 0;
-    if not kinect_obstruction or data.twist.linear.x < 0 : 
+    if (not kinect_obstruction) or data.twist.linear.x < 0 : 
         linear_x = data.twist.linear.x
         kinect_obstruction = False
     else :
