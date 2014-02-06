@@ -3,11 +3,9 @@
 import rospy
 import sys
 
-#from tele_presence.msg import MapListEntryList, MapListElement
 from tele_presence.srv import CreateMap
 from nav_msgs.msg import *
 from nav_msgs.srv import *
-#from map_store.srv import *
 from std_msgs.msg import *
 
 #from roslib import message
