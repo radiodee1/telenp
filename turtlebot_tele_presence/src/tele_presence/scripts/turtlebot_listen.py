@@ -16,7 +16,7 @@ from sensor_msgs.msg import PointCloud2, PointField
 
 mod_base = 512
 boundary_depth = 1
-mult = 5000
+mult = 100
 
 linear_x = 0
 angular_z = 0
