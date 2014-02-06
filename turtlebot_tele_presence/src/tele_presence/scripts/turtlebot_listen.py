@@ -66,7 +66,8 @@ def listen():
         rospy.sleep(1.0)
 
 def callback_move(data):
-    pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
+    #pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
+    pub_move = rospy.Publisher('/cmd_vel_mux/input/teleop', Twist)
     global twist ;
     #rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq)) #non-standard use of 'seq'
     # global vars
