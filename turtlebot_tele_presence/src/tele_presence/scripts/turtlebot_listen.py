@@ -16,7 +16,7 @@ from sensor_msgs.msg import PointCloud2, PointField
 
 mod_base = 512
 boundary_depth = 1
-mult = 1000
+mult = 100
 
 linear_x = 0
 angular_z = 0
@@ -44,7 +44,7 @@ def listen():
     rospy.Subscriber('/' + basename + "/command_velocity", TwistStamped, callback_move)
     #rospy.Subscriber("/camera/depth_registered/points", PointCloud2, callback_kinect)
     rospy.Subscriber("/camera/depth/points", PointCloud2, callback_kinect)
-    pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8)
+    pub_kinect = rospy.Publisher('/'+ basename +'/kinect_feedback', UInt8, latch=True)
     while not rospy.is_shutdown():
         str1 = "hello world " + str (rospy.get_time())
         if not kinect_obstruction :
@@ -68,10 +68,12 @@ def listen():
 def callback_move(data):
     pub_move = rospy.Publisher('/mobile_base/commands/velocity', Twist)
     global twist ;
-    rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq)) #non-standard use of 'seq'
+    #rospy.loginfo(rospy.get_name() + ": I heard " + str( data.header.seq)) #non-standard use of 'seq'
     # global vars
     global seq_counter, linear_x, angular_z , kinect_obstruction
     # don't use 'seq' from 'header'
+    linear_x = 0;
+    angular_z = 0;
     if not kinect_obstruction or data.twist.linear.x < 0 : 
         linear_x = data.twist.linear.x
         kinect_obstruction = False
