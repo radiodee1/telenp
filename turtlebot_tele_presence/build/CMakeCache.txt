@@ -208,9 +208,6 @@ PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python
 //Specify specific Python version to use ('major.minor' or 'major')
 PYTHON_VERSION:STRING=
 
-//Python version
-PYTHON_VERSION_XDOTY:STRING=2.7
-
 //Value Computed by CMake
 Project_BINARY_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/build
 
@@ -285,7 +282,7 @@ gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 lib:FILEPATH=/opt/ros/hydro/lib/libxmlrpcpp.so
 
 //The directory containing a CMake configuration file for map_store.
-map_store_DIR:PATH=/opt/ros/hydro/share/map_store/cmake
+map_store_DIR:PATH=map_store_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for message_generation.
 message_generation_DIR:PATH=/opt/ros/hydro/share/message_generation/cmake
@@ -319,8 +316,6 @@ std_msgs_DIR:PATH=/opt/ros/hydro/share/std_msgs/cmake
 
 //Value Computed by CMake
 tele_presence_BINARY_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence
-
-tele_presence_DIR:PATH=
 
 //Value Computed by CMake
 tele_presence_SOURCE_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence

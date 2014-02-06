@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
-  map_store
+  #map_store
   #tele_presence
 )
 

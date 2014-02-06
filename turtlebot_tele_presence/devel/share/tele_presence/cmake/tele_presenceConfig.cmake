@@ -46,7 +46,6 @@ macro(_pack_libraries_with_build_configuration VAR)
     endif()
     math(EXPR _index "${_index} + 1")
   endwhile()
-  debug_message(10 "_pack_libraries_with_build_configuration(${VAR} ${ARGN}) ${${VAR}}")
 endmacro()
 
 # unpack a list of libraries with optional build configuration keyword prefixes
@@ -58,7 +57,6 @@ macro(_unpack_libraries_with_build_configuration VAR)
     string(REGEX REPLACE "^(debug|optimized|general)${CATKIN_BUILD_CONFIGURATION_KEYWORD_SEPARATOR}(.+)$" "\\1;\\2" lib "${lib}")
     list(APPEND ${VAR} "${lib}")
   endforeach()
-  debug_message(10 "_unpack_libraries_with_build_configuration(${VAR} ${ARGN}) ${${VAR}}")
 endmacro()
 
 
@@ -124,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib;/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib;/opt/ros/hydro/lib)
+    foreach(path /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib;/opt/ros/hydro/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

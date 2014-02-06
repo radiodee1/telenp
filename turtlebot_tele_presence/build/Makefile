@@ -264,45 +264,6 @@ geometry_msgs_generate_messages_py/fast:
 .PHONY : geometry_msgs_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named map_store_generate_messages_cpp
-
-# Build rule for target.
-map_store_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 map_store_generate_messages_cpp
-.PHONY : map_store_generate_messages_cpp
-
-# fast build rule for target.
-map_store_generate_messages_cpp/fast:
-	$(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_cpp.dir/build
-.PHONY : map_store_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named map_store_generate_messages_lisp
-
-# Build rule for target.
-map_store_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 map_store_generate_messages_lisp
-.PHONY : map_store_generate_messages_lisp
-
-# fast build rule for target.
-map_store_generate_messages_lisp/fast:
-	$(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_lisp.dir/build
-.PHONY : map_store_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named map_store_generate_messages_py
-
-# Build rule for target.
-map_store_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 map_store_generate_messages_py
-.PHONY : map_store_generate_messages_py
-
-# fast build rule for target.
-map_store_generate_messages_py/fast:
-	$(MAKE) -f tele_presence/CMakeFiles/map_store_generate_messages_py.dir/build.make tele_presence/CMakeFiles/map_store_generate_messages_py.dir/build
-.PHONY : map_store_generate_messages_py/fast
-
-#=============================================================================
 # Target rules for targets named roscpp_generate_messages_cpp
 
 # Build rule for target.
@@ -532,9 +493,6 @@ help:
 	@echo "... geometry_msgs_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... geometry_msgs_generate_messages_py"
-	@echo "... map_store_generate_messages_cpp"
-	@echo "... map_store_generate_messages_lisp"
-	@echo "... map_store_generate_messages_py"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_py"
