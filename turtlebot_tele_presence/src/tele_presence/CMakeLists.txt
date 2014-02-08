@@ -59,7 +59,7 @@ add_message_files(
 add_service_files(
    FILES
    CreateMap.srv
-#   Service2.srv
+   PictureMap.srv
 )
 
 ## Generate actions in the 'action' folder

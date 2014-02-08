@@ -6,4 +6,6 @@
   :components ((:file "_package")
     (:file "CreateMap" :depends-on ("_package_CreateMap"))
     (:file "_package_CreateMap" :depends-on ("_package"))
+    (:file "PictureMap" :depends-on ("_package_PictureMap"))
+    (:file "_package_PictureMap" :depends-on ("_package"))
   ))

@@ -2,14 +2,17 @@
 50e544c882fadbafa5731895017f419c /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h
 53f1f8d9b1719e72dcd5d1df817e3083 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListElement.h
 bb19b36ac8f60c917d02341cb02e01b7 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListEntryList.h
+a8c92d91a4162b532f982f76fa3ba465 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h
 ec0c56a2bc497f39bdb637b9377e1cba /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py
 86590013b0a27b22ffaed7b4b5cf9be9 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntryList.py
 231318c5b64473e10d6092b690c1e1c0 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py
 1908ac339e27a6090b24a62586145ebb /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py
+2d408ddd49225a3e6d4935c540dde4f9 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_PictureMap.py
 f908fda366cb7e176e22383717d762cf /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/__init__.py
 6bba3d79dae7ddebc2479b4039fcad3c /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListElement.lisp
 6d5a222527f5582a3ffb1642cff30d22 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListEntryList.lisp
 0ceabbb8f4121f4077aa90677525a877 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/CreateMap.lisp
+a17dca67e06c36f1072354cf579b696d /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/PictureMap.lisp
 7d7893d188dbd8d45b53b7a13e9814a6 CMakeFiles/clean_test_results
 3941f112c7cd428ae130ba03ec2931b7 CMakeFiles/doxygen
 3941f112c7cd428ae130ba03ec2931b7 CMakeFiles/run_tests

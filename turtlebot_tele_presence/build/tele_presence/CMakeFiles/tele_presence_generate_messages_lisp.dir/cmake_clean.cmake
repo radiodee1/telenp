@@ -3,6 +3,7 @@ FILE(REMOVE_RECURSE
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListElement.lisp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListEntryList.lisp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/CreateMap.lisp"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/PictureMap.lisp"
 )
 
 # Per-language clean rules from dependency scanning.

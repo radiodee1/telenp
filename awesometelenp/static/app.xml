@@ -914,6 +914,7 @@ gadgets.util.registerOnLoadHandler(init);
 // app-map.js
 var test_map = "";
 var app_name = "";
+var map_image ;
 
 var tx_gapi_map_event = "telenp_map";
 var tx_gapi_map_raw = "telenp_map_raw";
@@ -921,6 +922,7 @@ var tx_gapi_app_list = "telenp_app_list";
 var map_service_list ;
 var map_service_load ;
 var map_service_new ;
+var map_service_pic ;
 var map_service_delete ;
 var map_service_rename ;
 var map_service_save ;
@@ -940,6 +942,7 @@ var map_command_delete = "delete";
 var map_command_rename = "rename";
 var map_command_save = "save";
 var map_command_list = "list";
+var map_command_pic = "pic";
 // more commands for lists that are needed in above ops.
 var map_command_list_load = "embedded_list_for_load";
 var map_command_list_delete = "embedded_list_for_delete";
@@ -1302,6 +1305,21 @@ function receiveMapEvent() {
 	            } );
 	        break;
 
+            case map_command_pic :
+                var request = new ROSLIB.ServiceRequest({});
+	            map_service_pic.callService( request, function (result) {
+	                //do all picture things here.
+	                if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
+	                console.log("before createImageResource " + result.data );
+	                map_image = gapi.hangout.av.effects.createImageResource(
+	                    result.data );
+	                console.log("before createOverlay");
+	                document.getElementById('showMapSpaceView').innerHTML = '<img src="' + result.data + '">' ;
+	                map_image.showOverlay({position: {x: 0, y: 0}});
+	                //sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	        break;
+
             case app_command_list :
                 
                 var list = new Array();
@@ -1491,13 +1509,13 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 function setMapServices() {
     map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'list_maps',
+    	'name' : '/android/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'publish_map',
+    	'name' : '/android/publish_map',
    		 messageType : 'map_store/PublishMap'
   	});
   	
@@ -1508,15 +1526,21 @@ function setMapServices() {
    		 messageType : 'tele_presence/CreateMap'
   	});
   	
+  	map_service_pic = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/picture_map',
+   		 messageType : 'tele_presence/PictureMap'
+  	});
+  	
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/delete_map',
+    	'name' : '/android/delete_map',
    		 messageType : 'map_store/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/rename_map',
+    	'name' : '/android/rename_map',
    		 messageType : 'map_store/RenameMap'
   	});
   	
@@ -1781,6 +1805,7 @@ function receiveMapBroadcast() {
 function receiveRawMapBroadcast() {
     if (! isMatchingName(tx_gapi_controller_name) && 
         ! isMatchingName(tx_gapi_turtlebot_name) ) return;
+    return; // <----------------------------
     try {
 	    rx_data = gapi.hangout.data.getState()[tx_gapi_map_raw];
 	    
@@ -1917,7 +1942,7 @@ function getMapTopic() {
 function getMapTopicView() {
     if (! isMatchingName(tx_gapi_turtlebot_name) && 
         ! isMatchingName(tx_gapi_controller_name) ) return;
-    sendMapCommandsShort(map_command_list_start, 0, "", "", map_command_list_view);
+    sendMapCommandsShort(map_command_pic, 0, "", "", map_command_pic);
     return;
 
 }

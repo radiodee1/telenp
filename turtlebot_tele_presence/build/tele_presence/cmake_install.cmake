@@ -40,7 +40,10 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tele_presence/srv" TYPE FILE FILES "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tele_presence/srv" TYPE FILE FILES
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv"
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/PictureMap.srv"
+    )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
