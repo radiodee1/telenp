@@ -23,10 +23,10 @@ def map_stuff():
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     req = None
-    create_map(req)
+    #create_map(req)
     rospy.Service('new_map', CreateMap, create_map)
     rospy.Service('picture_map', PictureMap, picture_map)
-    picture_map(req)
+    #picture_map(req)
     while not rospy.is_shutdown():
         #if (my_map.info.width is not 0) :
             #
@@ -43,10 +43,12 @@ def picture_map( req ) :
     except:
         print 'error at rosrun'
     im = Image.open(mypath + '.pgm')
+    im.convert('RGB')
     im.save(mypath + '.png')
     
     try:
-        data_uri = str(base64.encodestring(open(mypath + ".png", "rb").read()) ).encode( "utf8").replace("\n", "")
+        #data_uri = str(base64.encodestring(open(mypath + ".png", "rb").read()) ).encode( "utf8").replace("\n", "")
+        data_uri = str(base64.b64encode(open(mypath + ".png", "rb").read())) .encode( "utf8").replace("\n", "")
     except:
         print 'error at base64.encodestring'
     try:
@@ -66,7 +68,7 @@ def create_map(req ):
         height = req.height 
     else :
         width = 10
-        height = 10
+        height = 25
     global my_map, map_pub
     h = Header()
     h.frame_id = ''
@@ -84,7 +86,7 @@ def create_map(req ):
     test_map.info.origin.orientation.w = 1.0 
     test_map.data = []
     for i in range(0, (width*height)):
-        test_map.data.append( i % 255)
+        test_map.data.append( i % 8)
     print test_map
     #map_pub.publish(test_map);
     my_map = test_map

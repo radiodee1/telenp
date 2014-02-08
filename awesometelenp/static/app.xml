@@ -1300,7 +1300,7 @@ function receiveMapEvent() {
 	        break;
 	        
 	        case map_command_make :
-                var request = new ROSLIB.ServiceRequest({"width": 10, "height":10});
+                var request = new ROSLIB.ServiceRequest({"width": 100, "height":250});
 	            map_service_new.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
@@ -1317,8 +1317,11 @@ function receiveMapEvent() {
 	                    result.data );
 	                console.log("before createOverlay");
 	                document.getElementById('showMapSpaceView').innerHTML = '<img src="' + result.data + '">' ;
-	                
-	                map_overlay = map_image.showOverlay({position: {x: 0, y: 0}});
+	                map_overlay = map_image.createOverlay( {'scale':
+                        {'magnitude': 0.5,
+                        'reference': gapi.hangout.av.effects.ScaleReference.WIDTH}});
+	                map_overlay.setPosition(0,0.25);
+	                //map_overlay = map_image.showOverlay({'position': {'x': 0, 'y': 0}});
 	                map_overlay.setVisible(true);
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
