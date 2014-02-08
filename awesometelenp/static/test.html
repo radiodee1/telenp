@@ -894,6 +894,7 @@ gadgets.util.registerOnLoadHandler(init);
 var test_map = "";
 var app_name = "";
 var map_image ;
+var map_overlay ;
 
 var tx_gapi_map_event = "telenp_map";
 var tx_gapi_map_raw = "telenp_map_raw";
@@ -1289,12 +1290,15 @@ function receiveMapEvent() {
 	            map_service_pic.callService( request, function (result) {
 	                //do all picture things here.
 	                if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
+	                if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
 	                console.log("before createImageResource " + result.data );
 	                map_image = gapi.hangout.av.effects.createImageResource(
 	                    result.data );
 	                console.log("before createOverlay");
 	                document.getElementById('showMapSpaceView').innerHTML = '<img src="' + result.data + '">' ;
-	                map_image.showOverlay({position: {x: 0, y: 0}});
+	                
+	                map_overlay = map_image.showOverlay({position: {x: 0, y: 0}});
+	                map_overlay.setVisible(true);
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	        break;
