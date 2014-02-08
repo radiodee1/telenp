@@ -88,7 +88,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-  LIBRARIES tele_presence map_store
+  LIBRARIES tele_presence #map_store
   #CATKIN_DEPENDS message_runtime geometry_msgs roscpp rospy std_msgs tele_presence
 #  DEPENDS system_lib
 )

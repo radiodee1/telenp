@@ -22,41 +22,47 @@ button
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
 <br>
- <img src="//awesometelenp.appspot.com/static/bitmap/icon32.png">
+ <img src="//awesometelenp.appspot.com/static/bitmap/button_center.png">
 <br>
 <!-- one div for each frame of wizard  CHOOSE-->
 <div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">
-    MAP SETUP:
+
     <br>
 <table border=0 id="wizChooseOpTable" style="">
-
-<tr><td><button type="button" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
-<tr><td><button type="button" onclick="opMake()" style="width:100%">Make Test Map</button></td></tr>
-<tr><td><button type="button" onclick="opDelete()" style="width:100%">Delete Map</button></td></tr>
-<tr><td><button type="button" onclick="opRename()" style="width:100%">Rename Map</button></td></tr>
-<tr><td><button type="button" onclick="opSave()" style="width:100%">Save Map</button></td></tr>
-<tr><td><button type="button" onclick="opStart()" style="width:100%">Start Robot</button></td></tr>
-<tr><td><button type="button" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
+<tr><td>Do This:<br></td></tr><!-- Make Test Map -->
+<tr><td><button type="button"  id="opMake" onclick="opMake()" style="width:100%">Make Test Map</button></td></tr>
+<tr><td><button type="button"  id="opSave" onclick="opSave()" style="width:100%" disabled>Save Map</button></td></tr>
+<tr><td>Or Do This:<br></td></tr><!-- Nav Map -->
+<tr><td><button type="button"  id="opLoad" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
+<tr><td><button type="button"  id="opChoose" onclick="opChoose()" style="width:100%" disabled>List Maps</button></td></tr>
+<tr><td>Or Do This:<br></td></tr><!-- Map Manage -->
+<tr><td><button type="button"  id="opStart" onclick="opStart()" style="width:100%">Manage Maps</button></td></tr>
+<tr><td><button type="button"  id="opDelete" onclick="opDelete()" style="width:100%" disabled>Delete Map</button></td></tr>
+<tr><td><button type="button"  id="opRename" onclick="opRename()" style="width:100%" disabled>Rename Map</button></td></tr>
+<tr><td>Sometimes Do This:<br></td></tr><!-- View Map, Etc... -->
+<tr><td><button type="button"  id="opView" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
+<tr><td><button type="button"  id="stopService" onclick="stopService()" style="width:100%">STOP/SWITCH SERVICE</button></td></tr>
 </table>
 <br>
-<!--
+
 <button type="button" onclick="opChooseOp()">List</button>
 List of Maps:<br>
     <div id="listSpace" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
-    Click 'LIST' button to see...<br>
+    Click 'LIST' button to see... Must be using load-map functions.<br>
     
     </div>
 <br>
--->
+
 <button type="button" onclick="opCancel()">Cancel</button>
-    
+    <!--
     <br><br>
     <button type="button" onclick="executeListApps()">APPS</button>
     List of Apps:<br>
     <div id="listSpaceApps" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
     Click 'APPS' button to see...<br>
+    -->
     
     </div>
 <br>
@@ -80,8 +86,12 @@ List of Maps:<br>
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpNew">
     Make a test map here. If the size of the test map is too large, it will
     not display in the window found in the 'START ROBOT' dialog box. You will 
-    need to tell it your starting and ending positions in some other manor.
+    need to tell it your starting and ending positions in some other manor.<br>
     <button type="button" onclick="executeNew()">NEW TEST MAP</button><br>
+    <br>
+    Start map app that will make and save one map. Map should be usable for
+    actual gmapping.<br>
+    <button type="button" onclick="executeMakeMapAndroid()">NEW G MAP</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpNewConfirm" style="display:none">New map ready.</p>
 </div>
@@ -132,9 +142,12 @@ List of Maps:<br>
     <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
     </div>
 
-<button type="button" onclick="opCancel()">Done</button>
+<button type="button" onclick="opCancel()">Done</button><br>
 <p id="wizOpStartConfirm" style="display:none">Your map is shown. Options below should
     help you start the robot.</p>
+    <button type="button" onclick='executeMapStart();'>START ANDROID MAP MANAGER</button><br>
+    
+    
 </div>
 <!-- one div for each frame of wizard  VIEW MAP -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpView">

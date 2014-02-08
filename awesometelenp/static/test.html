@@ -908,6 +908,7 @@ var map_listener ;
 var app_topic_list;
 var app_service_status;
 var app_service_start;
+var app_service_stop;
 var app_service_invite;
 
 // commands for operations
@@ -926,6 +927,10 @@ var map_command_list_view = "embedded_list_for_view_map";
 // comands for working with apps.
 var app_command_list = "app_list";
 var app_command_invite = "app_invite";
+var app_command_make_map = "app_makemap";
+var app_command_app_stop = "app_appstop";
+var app_command_map_manager = "app_mapmanage";
+
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -938,8 +943,20 @@ function opChooseOp() {
     document.getElementById("wizChooseOp").style.display = "block";
     document.getElementById("wizOpView").style.display = "none";
     
+
+    document.getElementById("opMake").disabled = 'disabled';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = '';
+    document.getElementById("opChoose").disabled = '';
+    document.getElementById("opStart").disabled = 'disabled';
+    document.getElementById("opRename").disabled = 'disabled';
+    document.getElementById("opDelete").disabled = 'disabled';
+    
+    //sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
+}
+
+function opChoose() {
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
-    sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
 }
 
 function opLoad() {
@@ -954,6 +971,14 @@ function opLoad() {
     document.getElementById("wizOpView").style.display = "none";
     
     document.getElementById("wizOpLoadConfirm").style.display = "none";
+    
+    document.getElementById("opMake").disabled = 'disabled';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = '';
+    document.getElementById("opChoose").disabled = '';
+    document.getElementById("opStart").disabled = 'disabled';
+    document.getElementById("opRename").disabled = 'disabled';
+    document.getElementById("opDelete").disabled = 'disabled';
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
@@ -970,6 +995,14 @@ function opMake() {
     document.getElementById("wizOpView").style.display = "none";
         
     document.getElementById("wizOpNewConfirm").style.display = "none";
+    
+    document.getElementById("opMake").disabled = '';
+    document.getElementById("opSave").disabled = '';
+    document.getElementById("opLoad").disabled = 'disabled';
+    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opStart").disabled = 'disabled';
+    document.getElementById("opRename").disabled = 'disabled';
+    document.getElementById("opDelete").disabled = 'disabled';
 }
 
 function opDelete() {
@@ -984,6 +1017,15 @@ function opDelete() {
     document.getElementById("wizOpView").style.display = "none";
         
     document.getElementById("wizOpDelConfirm").style.display = "none";
+    
+    
+    document.getElementById("opMake").disabled = 'disabled';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = 'disabled';
+    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opStart").disabled = '';
+    document.getElementById("opRename").disabled = '';
+    document.getElementById("opDelete").disabled = '';
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_delete);
 }
@@ -1001,6 +1043,14 @@ function opRename() {
         
     document.getElementById("wizOpRenameConfirm").style.display = "none";
     document.getElementById("inputSpaceRename").value = "";
+    
+    document.getElementById("opMake").disabled = 'disabled';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = 'disabled';
+    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opStart").disabled = '';
+    document.getElementById("opRename").disabled = '';
+    document.getElementById("opDelete").disabled = '';
 
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_rename);
 }
@@ -1020,6 +1070,14 @@ function opSave() {
     document.getElementById("inputSpaceSave").value = "";
     
     document.getElementById("wizOpSaveConfirm").style.display = "none";
+    
+    document.getElementById("opMake").disabled = '';
+    document.getElementById("opSave").disabled = '';
+    document.getElementById("opLoad").disabled = 'disabled';
+    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opStart").disabled = 'disabled';
+    document.getElementById("opRename").disabled = 'disabled';
+    document.getElementById("opDelete").disabled = 'disabled';
 }
 
 function opStart() {
@@ -1034,6 +1092,17 @@ function opStart() {
     document.getElementById("wizOpView").style.display = "none";
     
     document.getElementById('wizOpStartConfirm').style.display = "none";
+    
+    document.getElementById("opMake").disabled = 'disabled';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = 'disabled';
+    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opStart").disabled = '';
+    document.getElementById("opRename").disabled = '';
+    document.getElementById("opDelete").disabled = '';
+    
+    //app_command_map_manager
+    sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
 }
 
 function opView() {
@@ -1048,9 +1117,27 @@ function opView() {
     document.getElementById("wizOpView").style.display = "block";
         
     document.getElementById('wizOpViewConfirm').style.display = "none";
+    
+    document.getElementById("opMake").disabled = '';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = '';
+    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opStart").disabled = '';
+    document.getElementById("opRename").disabled = 'disabled';
+    document.getElementById("opDelete").disabled = 'disabled';
 }
+
 function opCancel() {
-    opChooseOp();
+    //opChooseOp();
+    document.getElementById("wizOpLoad").style.display = "none";
+    document.getElementById("wizOpNew").style.display = "none";
+    document.getElementById("wizOpDel").style.display = "none";
+    document.getElementById("wizOpRename").style.display = "none";
+    document.getElementById("wizOpSave").style.display = "none";
+    document.getElementById("wizOpDone").style.display = "none";
+    document.getElementById("wizOpStart").style.display = "none";
+    document.getElementById("wizChooseOp").style.display = "block";
+    document.getElementById("wizOpView").style.display = "none";
 }
 
 function receiveMapEvent() {
@@ -1069,6 +1156,23 @@ function receiveMapEvent() {
 	    //do something... round-trip the 'wizard' operand
 	    switch( commands.command ) {
 	        case map_command_list : 
+	            /*
+                var request = new ROSLIB.ServiceRequest({});
+	            app_service_stop.callService( request, function (result) {
+	                //console.log("result: " + result.result);
+	                
+	            } );
+                */
+                
+                /*
+	            var request = new ROSLIB.ServiceRequest({"name" : 
+	                "turtlebot_core_apps/android_map_manager"});
+	            app_service_start.callService( request, function (result) {
+	                console.log("result: app manager start?" );
+	                //sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	            */
+	        
 	            var request = new ROSLIB.ServiceRequest({});
 	            map_service_list.callService( request, function (result) {
 	                
@@ -1119,7 +1223,16 @@ function receiveMapEvent() {
 	        break;
 	        
 	        case map_command_save :
-                var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
+	            /*
+	            var request = new ROSLIB.ServiceRequest({"name" : 
+	                "turtlebot_core_apps/android_make_a_map"});
+	            app_service_start.callService( request, function (result) {
+	                console.log("result: ");
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	            */
+	        
+                var request = new ROSLIB.ServiceRequest({ "filename": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
@@ -1134,6 +1247,7 @@ function receiveMapEvent() {
 	        break;
 
             case app_command_list :
+                
                 var list = new Array();
                 var x;
                 try {
@@ -1154,12 +1268,7 @@ function receiveMapEvent() {
             break;
             
             case app_command_invite :
-                //var request = new ROSLIB.ServiceRequest({});
-	            //app_service_status.callService( request, function (result) {
-	            //    console.log("namespace: " + result.application_namespace);
-	            //    console.log("controller: " + result.remote_controller);
-	            //    sendMapBroadcast(commands.wizard, null, 0);
-	            //} );
+                
             
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -1175,19 +1284,80 @@ function receiveMapEvent() {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	            
-	            //request = new ROSLIB.ServiceRequest({});
-	            //app_service_status.callService( request, function (result) {
-	            //    console.log("after --- namespace: " + result.application_namespace);
-	            //    console.log("controller: " + result.remote_controller);
-	            //    console.log("app " + result.application.display_name);
-	            //    sendMapBroadcast(commands.wizard, null, 0);
-	            //} );
+	           
+            break;
+            
+            case app_command_make_map :
+            
+                /*
+                var request = new ROSLIB.ServiceRequest({});
+	            app_service_stop.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+            
+                var request = new ROSLIB.ServiceRequest({});
+	            app_service_stop.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+                */
+                
+                /*
+                var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
+                "application_namespace" : "turtlebot/application", "cancel": true});
+	            app_service_invite.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	            */
+	            
+	            request = new ROSLIB.ServiceRequest({"name" : 
+	                "turtlebot_core_apps/android_make_a_map"});
+	            app_service_start.callService( request, function (result) {
+	                console.log("result: make a map? " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+            break;
+            
+            case app_command_map_manager :
+                /*
+                var request = new ROSLIB.ServiceRequest({});
+	            app_service_stop.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+                */
+                
+                /*
+                var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
+                "application_namespace" : "turtlebot/application", "cancel": true});
+	            app_service_invite.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	            */
+	            request = new ROSLIB.ServiceRequest({"name" : 
+	                "turtlebot_core_apps/android_map_manager"});
+	            app_service_start.callService( request, function (result) {
+	                console.log("result: map_manager? " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+            break;
+            
+            case app_command_app_stop :
+                var request = new ROSLIB.ServiceRequest({});
+	            app_service_stop.callService( request, function (result) {
+	                console.log("result: stop_app? " + result.result);
+	                
+	            } );
             break;
 	    }
 	}
     gapi.hangout.data.clearValue(tx_gapi_map_event);
     
 }
+
 
 function sendMapCommandsShort( command, id, name1, name2, wizard) {
     sendMapCommands(command, id, name1, name2, wizard, 0,0,0, 0,0,0);
@@ -1226,13 +1396,13 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 function setMapServices() {
     map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/list_maps',
+    	'name' : 'list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/publish_map',
+    	'name' : 'publish_map',
    		 messageType : 'map_store/PublishMap'
   	});
   	
@@ -1257,8 +1427,8 @@ function setMapServices() {
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/save_map',
-   		 messageType : 'map_store/SaveMap'
+    	'name' : 'save_map',
+   		 messageType : 'map_msgs/SaveMap'
   	});
   	
   	map_listener = new ROSLIB.Topic({
@@ -1284,6 +1454,12 @@ function setMapServices() {
     	'ros' : ros,
     	'name' : '/turtlebot/start_app',
    		 messageType : 'rocon_app_manager_msgs/StartApp'
+  	});
+  	
+  	app_service_stop = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/turtlebot/stop_app',
+   		 messageType : 'rocon_app_manager_msgs/StopApp'
   	});
   	
   	app_service_status = new ROSLIB.Service({
@@ -1570,6 +1746,26 @@ function executeListApps() {
     sendMapCommandsShort(app_command_list, 0, "", "", app_command_list);
 }
 
+function executeMakeMapAndroid() {
+    sendMapCommandsShort(app_command_make_map, 0, "", "", app_command_make_map);
+}
+
+function executeMapStart() {
+    sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
+}
+
+function stopService() {
+    document.getElementById("opMake").disabled = '';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = '';
+    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opStart").disabled = '';
+    document.getElementById("opRename").disabled = 'disabled';
+    document.getElementById("opDelete").disabled = 'disabled';
+    
+    sendMapCommandsShort(app_command_app_stop, 0, "", "", app_command_app_stop);
+}
+
 function fillMapSpace(space, list) {
     
     var string = '<div border="0" id="mapSpaceTable"' ;
@@ -1736,37 +1932,43 @@ button
 <br>
 <!-- one div for each frame of wizard  CHOOSE-->
 <div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">
-    MAP SETUP:
+
     <br>
 <table border=0 id="wizChooseOpTable" style="">
-
-<tr><td><button type="button" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
-<tr><td><button type="button" onclick="opMake()" style="width:100%">Make Test Map</button></td></tr>
-<tr><td><button type="button" onclick="opDelete()" style="width:100%">Delete Map</button></td></tr>
-<tr><td><button type="button" onclick="opRename()" style="width:100%">Rename Map</button></td></tr>
-<tr><td><button type="button" onclick="opSave()" style="width:100%">Save Map</button></td></tr>
-<tr><td><button type="button" onclick="opStart()" style="width:100%">Start Robot</button></td></tr>
-<tr><td><button type="button" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
+<tr><td>Do This:<br></td></tr><!-- Make Test Map -->
+<tr><td><button type="button"  id="opMake" onclick="opMake()" style="width:100%">Make Test Map</button></td></tr>
+<tr><td><button type="button"  id="opSave" onclick="opSave()" style="width:100%" disabled>Save Map</button></td></tr>
+<tr><td>Or Do This:<br></td></tr><!-- Nav Map -->
+<tr><td><button type="button"  id="opLoad" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
+<tr><td><button type="button"  id="opChoose" onclick="opChoose()" style="width:100%" disabled>List Maps</button></td></tr>
+<tr><td>Or Do This:<br></td></tr><!-- Map Manage -->
+<tr><td><button type="button"  id="opStart" onclick="opStart()" style="width:100%">Manage Maps</button></td></tr>
+<tr><td><button type="button"  id="opDelete" onclick="opDelete()" style="width:100%" disabled>Delete Map</button></td></tr>
+<tr><td><button type="button"  id="opRename" onclick="opRename()" style="width:100%" disabled>Rename Map</button></td></tr>
+<tr><td>Sometimes Do This:<br></td></tr><!-- View Map, Etc... -->
+<tr><td><button type="button"  id="opView" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
+<tr><td><button type="button"  id="stopService" onclick="stopService()" style="width:100%">STOP/SWITCH SERVICE</button></td></tr>
 </table>
 <br>
-<!--
+
 <button type="button" onclick="opChooseOp()">List</button>
 List of Maps:<br>
     <div id="listSpace" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
-    Click 'LIST' button to see...<br>
+    Click 'LIST' button to see... Must be using load-map functions.<br>
     
     </div>
 <br>
--->
+
 <button type="button" onclick="opCancel()">Cancel</button>
-    
+    <!--
     <br><br>
     <button type="button" onclick="executeListApps()">APPS</button>
     List of Apps:<br>
     <div id="listSpaceApps" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
     Click 'APPS' button to see...<br>
+    -->
     
     </div>
 <br>
@@ -1790,8 +1992,12 @@ List of Maps:<br>
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpNew">
     Make a test map here. If the size of the test map is too large, it will
     not display in the window found in the 'START ROBOT' dialog box. You will 
-    need to tell it your starting and ending positions in some other manor.
+    need to tell it your starting and ending positions in some other manor.<br>
     <button type="button" onclick="executeNew()">NEW TEST MAP</button><br>
+    <br>
+    Start map app that will make and save one map. Map should be usable for
+    actual gmapping.<br>
+    <button type="button" onclick="executeMakeMapAndroid()">NEW G MAP</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpNewConfirm" style="display:none">New map ready.</p>
 </div>
@@ -1842,9 +2048,12 @@ List of Maps:<br>
     <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
     </div>
 
-<button type="button" onclick="opCancel()">Done</button>
+<button type="button" onclick="opCancel()">Done</button><br>
 <p id="wizOpStartConfirm" style="display:none">Your map is shown. Options below should
     help you start the robot.</p>
+    <button type="button" onclick='executeMapStart();'>START ANDROID MAP MANAGER</button><br>
+    
+    
 </div>
 <!-- one div for each frame of wizard  VIEW MAP -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpView">

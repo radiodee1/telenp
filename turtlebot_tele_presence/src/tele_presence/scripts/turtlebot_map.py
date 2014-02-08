@@ -18,7 +18,7 @@ def map_stuff():
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     req = None
-    create_map(req)
+    #create_map(req)
     rospy.Service('new_map', CreateMap, create_map)
     #
     while not rospy.is_shutdown():
