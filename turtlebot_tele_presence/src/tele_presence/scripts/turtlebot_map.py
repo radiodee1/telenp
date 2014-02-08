@@ -5,6 +5,7 @@ import sys
 import os
 import subprocess
 import base64
+import Image
 
 from tele_presence.srv import CreateMap, PictureMap
 from nav_msgs.msg import *
@@ -22,10 +23,10 @@ def map_stuff():
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     req = None
-    #create_map(req)
+    create_map(req)
     rospy.Service('new_map', CreateMap, create_map)
     rospy.Service('picture_map', PictureMap, picture_map)
-    #picture_map(req)
+    picture_map(req)
     while not rospy.is_shutdown():
         #if (my_map.info.width is not 0) :
             #
@@ -34,14 +35,18 @@ def map_stuff():
 def picture_map( req ) :
     try:
         os.remove(mypath + '.pgm')
+        os.remove(mypath + '.png')
     except:
         print 'error while removing'
     try:
         subprocess.call(['rosrun', 'map_server', 'map_saver', '-f', mypath])
     except:
         print 'error at rosrun'
+    im = Image.open(mypath + '.pgm')
+    im.save(mypath + '.png')
+    
     try:
-        data_uri = str(base64.encodestring(open(mypath + ".pgm", "rb").read()) ).encode( "utf8").replace("\n", "")
+        data_uri = str(base64.encodestring(open(mypath + ".png", "rb").read()) ).encode( "utf8").replace("\n", "")
     except:
         print 'error at base64.encodestring'
     try:
@@ -57,8 +62,8 @@ def picture_map( req ) :
 
 def create_map(req ):
     if (req is not None):
-        width = req.width
-        height = req.height
+        width = req.width 
+        height = req.height 
     else :
         width = 10
         height = 10
