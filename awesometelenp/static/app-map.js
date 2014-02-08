@@ -1,5 +1,6 @@
 // app-map.js
 var test_map = "";
+var app_name = "";
 
 var tx_gapi_map_event = "telenp_map";
 var tx_gapi_map_raw = "telenp_map_raw";
@@ -38,7 +39,7 @@ var app_command_invite = "app_invite";
 var app_command_make_map = "app_makemap";
 var app_command_app_stop = "app_appstop";
 var app_command_map_manager = "app_mapmanage";
-
+var app_command_map_nav = "app_mapnav";
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -52,6 +53,15 @@ function opChooseOp() {
     document.getElementById("wizOpView").style.display = "none";
     
 
+
+    //sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
+}
+
+function opChoose() {
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
+}
+
+function opChooseOpDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = '';
@@ -60,11 +70,6 @@ function opChooseOp() {
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
     
-    //sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
-}
-
-function opChoose() {
-    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
 }
 
 function opLoad() {
@@ -80,6 +85,13 @@ function opLoad() {
     
     document.getElementById("wizOpLoadConfirm").style.display = "none";
     
+    sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
+    
+    //sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
+}
+
+function opLoadDisabled() {
+
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = '';
@@ -88,7 +100,6 @@ function opLoad() {
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
     
-    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
 
 function opMake() {
@@ -103,6 +114,10 @@ function opMake() {
     document.getElementById("wizOpView").style.display = "none";
         
     document.getElementById("wizOpNewConfirm").style.display = "none";
+
+}
+
+function opMakeDisabled() {
     
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = '';
@@ -127,6 +142,11 @@ function opDelete() {
     document.getElementById("wizOpDelConfirm").style.display = "none";
     
     
+
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_delete);
+}
+
+function opDeleteDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = 'disabled';
@@ -135,7 +155,6 @@ function opDelete() {
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
     
-    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_delete);
 }
 
 function opRename() {
@@ -152,6 +171,12 @@ function opRename() {
     document.getElementById("wizOpRenameConfirm").style.display = "none";
     document.getElementById("inputSpaceRename").value = "";
     
+
+
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_rename);
+}
+
+function opRanameDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = 'disabled';
@@ -159,8 +184,6 @@ function opRename() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
-
-    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_rename);
 }
 
 function opSave() {
@@ -179,6 +202,10 @@ function opSave() {
     
     document.getElementById("wizOpSaveConfirm").style.display = "none";
     
+
+}
+
+function opSaveDisabled() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = '';
     document.getElementById("opLoad").disabled = 'disabled';
@@ -201,6 +228,12 @@ function opStart() {
     
     document.getElementById('wizOpStartConfirm').style.display = "none";
     
+    //app_command_map_manager
+    sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
+}
+
+function opStartDisabled() {
+
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = 'disabled';
@@ -209,8 +242,6 @@ function opStart() {
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
     
-    //app_command_map_manager
-    sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
 }
 
 function opView() {
@@ -226,6 +257,10 @@ function opView() {
         
     document.getElementById('wizOpViewConfirm').style.display = "none";
     
+
+}
+
+function opViewDisabled() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = '';
@@ -376,7 +411,7 @@ function receiveMapEvent() {
             break;
             
             case app_command_invite :
-                
+                // NOT USED
             
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -411,19 +446,20 @@ function receiveMapEvent() {
 	            } );
                 */
                 
-                /*
+                
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
 	            app_service_invite.callService( request, function (result) {
 	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
+	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
-	            */
+	            
 	            
 	            request = new ROSLIB.ServiceRequest({"name" : 
 	                "turtlebot_core_apps/android_make_a_map"});
 	            app_service_start.callService( request, function (result) {
 	                console.log("result: make a map? " + result.result);
+	                app_name = "turtlebot_core_apps/android_make_a_map";
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
             break;
@@ -437,28 +473,66 @@ function receiveMapEvent() {
 	            } );
                 */
                 
-                /*
+                
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
 	            app_service_invite.callService( request, function (result) {
 	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
+	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
-	            */
+	            
 	            request = new ROSLIB.ServiceRequest({"name" : 
 	                "turtlebot_core_apps/android_map_manager"});
 	            app_service_start.callService( request, function (result) {
 	                console.log("result: map_manager? " + result.result);
+	                app_name = "turtlebot_core_apps/android_map_manager";
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+            break;
+            
+            case app_command_map_nav :
+                /*
+                var request = new ROSLIB.ServiceRequest({});
+	            app_service_stop.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+                */
+                
+                
+                var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
+                "application_namespace" : "turtlebot/application", "cancel": true});
+	            app_service_invite.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                //sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+	            
+	            request = new ROSLIB.ServiceRequest({"name" : 
+	                "turtlebot_core_apps/android_map_nav"});
+	            app_service_start.callService( request, function (result) {
+	                console.log("result: map_manager? " + result.result);
+	                app_name = "turtlebot_core_apps/android_map_nav";
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
             break;
             
             case app_command_app_stop :
-                var request = new ROSLIB.ServiceRequest({});
-	            app_service_stop.callService( request, function (result) {
-	                console.log("result: stop_app? " + result.result);
+                
+                var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
+                "application_namespace" : "turtlebot/application", "cancel": true});
+	            app_service_invite.callService( request, function (result) {
+	                console.log("result: " + result.result);
+	                //sendMapBroadcast(commands.wizard, null, 0);
+	            //});
+	            
+                    var request = new ROSLIB.ServiceRequest({});
+	                app_service_stop.callService( request, function (result) {
+	                    console.log("result: stop_app? " + result.stopped);
+	                    console.log("error_code: " + result.error_code + " " + result.message);
+	                    sendMapBroadcast(commands.wizard, null, 0);
+	                } );
 	                
-	            } );
+	            } );// INNER CALL!!
             break;
 	    }
 	}
@@ -764,8 +838,21 @@ function receiveMapBroadcast() {
 	            document.getElementById("wizOpNewConfirm").style.display = "block";
 	        break;
 	        
-	        case app_command_invite :
-	            // nothing;
+	        case app_command_make_map :
+	            //
+	            opMakeDisabled();
+	        break;
+	        
+	        case app_command_map_manager :
+	            opStartDisabled();
+	        break;
+	        
+	        case app_command_app_stop :
+	            stopService();
+	        break;
+	        
+	        case app_command_map_nav:
+	            opLoadDisabled();
 	        break;
 	    }
 	}
@@ -871,6 +958,10 @@ function stopService() {
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
     
+
+}
+
+function opStopService() {
     sendMapCommandsShort(app_command_app_stop, 0, "", "", app_command_app_stop);
 }
 
