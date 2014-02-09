@@ -6,6 +6,7 @@ import os
 import subprocess
 import base64
 import Image
+#import png
 
 from tele_presence.srv import CreateMap, PictureMap
 from nav_msgs.msg import *
@@ -35,7 +36,7 @@ def map_stuff():
 def picture_map( req ) :
     try:
         os.remove(mypath + '.pgm')
-        os.remove(mypath + '.png')
+        os.remove(mypath + '.jpeg')
     except:
         print 'error while removing'
     try:
@@ -43,16 +44,16 @@ def picture_map( req ) :
     except:
         print 'error at rosrun'
     im = Image.open(mypath + '.pgm')
-    im.convert('RGB')
-    im.save(mypath + '.png')
+    im.convert('RGBA')
+    im.save(mypath + '.jpeg')
     
     try:
         #data_uri = str(base64.encodestring(open(mypath + ".png", "rb").read()) ).encode( "utf8").replace("\n", "")
-        data_uri = str(base64.b64encode(open(mypath + ".png", "rb").read())) .encode( "utf8").replace("\n", "")
+        data_uri = str(base64.b64encode(open(mypath + ".jpeg", "rb").read())) .encode( "utf8").replace("\n", "")
     except:
         print 'error at base64.encodestring'
     try:
-        img_tag = 'data:image/png;base64,{0}'.format(data_uri)
+        img_tag = 'data:image/jpeg;base64,{0}'.format(data_uri)
     except:
         print 'error at img_tag'
     #erase old map

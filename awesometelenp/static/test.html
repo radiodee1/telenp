@@ -1289,16 +1289,27 @@ function receiveMapEvent() {
                 var request = new ROSLIB.ServiceRequest({});
 	            map_service_pic.callService( request, function (result) {
 	                //do all picture things here.
-	                if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
-	                if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
+	                //if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
+	                //if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
 	                console.log("before createImageResource " + result.data );
 	                map_image = gapi.hangout.av.effects.createImageResource(
 	                    result.data );
+	                    
+	                // Use an onLoad handler
+                    map_image.onLoad.add( function(event) {
+                        if ( !event.isLoaded ) {
+                            //alert("Could not load your overlay.");
+                            console.log("overlay NOT loaded");
+                            map_image.dispose();
+                        } else {
+                            console.log("overlay loaded");
+                            //alert("Overlay loaded.");
+                        }
+                    });
+
 	                console.log("before createOverlay");
 	                document.getElementById('showMapSpaceView').innerHTML = '<img src="' + result.data + '">' ;
-	                map_overlay = map_image.createOverlay( {'scale':
-                        {'magnitude': 0.5,
-                        'reference': gapi.hangout.av.effects.ScaleReference.WIDTH}});
+	                map_overlay = map_image.createOverlay( {});
 	                map_overlay.setPosition(0,0.25);
 	                //map_overlay = map_image.showOverlay({'position': {'x': 0, 'y': 0}});
 	                map_overlay.setVisible(true);
@@ -1495,13 +1506,13 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 function setMapServices() {
     map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/android/list_maps',
+    	'name' : 'turtlebot/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/android/publish_map',
+    	'name' : 'turtlebot_core_apps/android_map_manager/publish_map',
    		 messageType : 'map_store/PublishMap'
   	});
   	
@@ -1520,13 +1531,13 @@ function setMapServices() {
   	
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/android/delete_map',
+    	'name' : 'turtlebot_core_apps/android_map_manager/delete_map',
    		 messageType : 'map_store/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/android/rename_map',
+    	'name' : 'turtlebot_core_apps/android_map_manager/rename_map',
    		 messageType : 'map_store/RenameMap'
   	});
   	
