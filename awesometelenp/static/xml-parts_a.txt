@@ -17,5 +17,6 @@
  */ -->
   <ModulePrefs title="Tele NP App">
     <Require feature="rpc"/>
+    <Require feature="views"/>
   </ModulePrefs>
   <Content type="html"><![CDATA[

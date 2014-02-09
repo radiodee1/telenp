@@ -1,7 +1,7 @@
 # a test version of the app.yaml used for the telenp project.
 application: awesometelenp
 
-version: 12
+version: 13
 runtime: python27
 api_version: 1
 threadsafe: false
@@ -14,5 +14,10 @@ handlers:
   static_files: static/\1
   upload: static/(.*)
 
-- url: .*
+- url: /send
   script: main.py
+  
+#- url: /.*
+#  script: main.py
+  
+

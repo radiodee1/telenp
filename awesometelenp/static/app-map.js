@@ -417,11 +417,15 @@ function receiveMapEvent() {
 
 	                console.log("before createOverlay");
 	                document.getElementById('showMapSpaceView').innerHTML = '<img src="' + result.data + '">' ;
-	                map_overlay = map_image.createOverlay( {});
+	                map_overlay = map_image.createOverlay( {'scale':
+                        {'magnitude': 0.125,
+                        'reference': gapi.hangout.av.effects.ScaleReference.WIDTH}});
 	                map_overlay.setPosition(0,0.25);
+	                //map_overlay.setScale(0.5);
 	                //map_overlay = map_image.showOverlay({'position': {'x': 0, 'y': 0}});
 	                map_overlay.setVisible(true);
 	                //sendMapBroadcast(commands.wizard, null, 0);
+	                sendMapInForm(result.data);
 	            } );
 	        break;
 
@@ -576,6 +580,31 @@ function receiveMapEvent() {
     
 }
 
+function sendMapInForm(data) {
+
+    $.ajax({
+        url: "/send",
+        type: "POST" ,
+        data: {
+            'map': data},
+        success: function( data ) {
+            console.log('ajax here');
+        }
+    });
+                    /*
+	                my_form=document.createElement('FORM');
+                    my_form.name='someform';
+                    my_form.method='POST';
+                    my_form.action='https://awesometelenp.appspot.com/send';
+                    
+                    my_tb=document.createElement('INPUT');
+                    my_tb.type='TEXT';
+                    my_tb.name='map';
+                    my_tb.value= data ;
+                    my_form.appendChild(my_tb);
+                    my_form.submit();
+                    */
+}
 
 function sendMapCommandsShort( command, id, name1, name2, wizard) {
     sendMapCommands(command, id, name1, name2, wizard, 0,0,0, 0,0,0);
@@ -881,7 +910,7 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case app_command_make_map :
-	            //
+	            document.getElementById("wizOpNewConfirm").style.display = "block";
 	            opMakeDisabled();
 	        break;
 	        
