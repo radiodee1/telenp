@@ -27,6 +27,8 @@ def map_stuff():
     #create_map(req)
     rospy.Service('new_map', CreateMap, create_map)
     rospy.Service('picture_map', PictureMap, picture_map)
+    rospy.Service('basic_launch', BasicLaunch, basic_launch)
+    rospy.Service('basic_stop', BasicStop , basic_stop )
     #picture_map(req)
     while not rospy.is_shutdown():
         #if (my_map.info.width is not 0) :
@@ -46,9 +48,8 @@ def picture_map( req ) :
     im = Image.open(mypath + '.pgm')
     im.convert('RGBA')
     im.save(mypath + '.jpeg')
-    
+    #
     try:
-        #data_uri = str(base64.encodestring(open(mypath + ".png", "rb").read()) ).encode( "utf8").replace("\n", "")
         data_uri = str(base64.b64encode(open(mypath + ".jpeg", "rb").read())) .encode( "utf8").replace("\n", "")
     except:
         print 'error at base64.encodestring'
@@ -56,11 +57,6 @@ def picture_map( req ) :
         img_tag = 'data:image/jpeg;base64,{0}'.format(data_uri)
     except:
         print 'error at img_tag'
-    #erase old map
-    #save new map
-    #convert new map to string
-    #return string to ros
-    print img_tag
     return img_tag
 
 def create_map(req ):
@@ -93,6 +89,14 @@ def create_map(req ):
     my_map = test_map
     map_pub.publish(my_map)
     return []
+
+def basic_launch(req) :
+    print req.command
+return []
+
+def basic_stop(req) :
+    print req.command
+return []
 
 if __name__ == '__main__':
     try:

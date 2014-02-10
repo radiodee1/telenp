@@ -44,7 +44,9 @@ include tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/progres
 
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListElement.h
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListEntryList.h
+tele_presence/CMakeFiles/tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h
+tele_presence/CMakeFiles/tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicLaunch.h
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h
 
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListElement.h: /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py
@@ -62,26 +64,44 @@ tele_presence/CMakeFiles/tele_presence_generate_messages_cpp: /home/dave/workspa
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating C++ code from tele_presence/MapListEntryList.msg"
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg -Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg -p tele_presence -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence -e /opt/ros/hydro/share/gencpp/cmake/..
 
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h: /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h: /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicStop.srv
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h: /opt/ros/hydro/share/gencpp/cmake/../msg.h.template
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h: /opt/ros/hydro/share/gencpp/cmake/../srv.h.template
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating C++ code from tele_presence/BasicStop.srv"
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicStop.srv -Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg -p tele_presence -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence -e /opt/ros/hydro/share/gencpp/cmake/..
+
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h: /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h: /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h: /opt/ros/hydro/share/gencpp/cmake/../msg.h.template
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h: /opt/ros/hydro/share/gencpp/cmake/../srv.h.template
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating C++ code from tele_presence/CreateMap.srv"
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv -Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg -p tele_presence -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence -e /opt/ros/hydro/share/gencpp/cmake/..
+
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicLaunch.h: /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicLaunch.h: /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicLaunch.srv
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicLaunch.h: /opt/ros/hydro/share/gencpp/cmake/../msg.h.template
+/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicLaunch.h: /opt/ros/hydro/share/gencpp/cmake/../srv.h.template
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating C++ code from tele_presence/BasicLaunch.srv"
+	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicLaunch.srv -Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg -p tele_presence -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence -e /opt/ros/hydro/share/gencpp/cmake/..
 
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h: /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h: /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/PictureMap.srv
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h: /opt/ros/hydro/share/gencpp/cmake/../msg.h.template
 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h: /opt/ros/hydro/share/gencpp/cmake/../srv.h.template
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating C++ code from tele_presence/PictureMap.srv"
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/PictureMap.srv -Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg -p tele_presence -o /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence -e /opt/ros/hydro/share/gencpp/cmake/..
 
 tele_presence_generate_messages_cpp: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp
 tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListElement.h
 tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListEntryList.h
+tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h
 tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h
+tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicLaunch.h
 tele_presence_generate_messages_cpp: /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h
 tele_presence_generate_messages_cpp: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make
 .PHONY : tele_presence_generate_messages_cpp

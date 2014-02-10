@@ -2,7 +2,9 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/tele_presence_generate_messages_cpp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListElement.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListEntryList.h"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicLaunch.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h"
 )
 

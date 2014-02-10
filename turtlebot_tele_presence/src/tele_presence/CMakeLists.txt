@@ -60,6 +60,8 @@ add_service_files(
    FILES
    CreateMap.srv
    PictureMap.srv
+   BasicLaunch.srv
+   BasicStop.srv
 )
 
 ## Generate actions in the 'action' folder

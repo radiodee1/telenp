@@ -878,7 +878,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.8 --------------------------------');
+			console.log('API is ready v1.9 --------------------------------');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
@@ -922,6 +922,7 @@ var tx_gapi_map_event = "telenp_map";
 var tx_gapi_map_raw = "telenp_map_raw";
 var tx_gapi_app_list = "telenp_app_list";
 var map_service_list ;
+var map_service_list_2 ;
 var map_service_load ;
 var map_service_new ;
 var map_service_pic ;
@@ -1214,6 +1215,22 @@ function receiveMapEvent() {
 	}
 	if (typeof rx_map_commands !== "undefined") {
 	    var commands = JSON.parse(rx_map_commands);
+	    
+	            var request = new ROSLIB.ServiceRequest({});
+	            app_service_status.callService( request, function (result) {
+	                console.log("result: " + result.application.name + " "
+	                    + result.application.display_name);
+	                //sendMapBroadcast(commands.wizard, null, 0);
+	                parseCommands(commands);
+	                
+	            } );
+	    
+	    //parseCommands(commands) ;
+	} // if(typeof...
+} // function...    
+	    
+function parseCommands(commands) {
+    if (true) {
 	    //do something... round-trip the 'wizard' operand
 	    switch( commands.command ) {
 	        case map_command_list : 
@@ -1505,19 +1522,7 @@ function sendMapInForm(data) {
             console.log('ajax here');
         }
     });
-                    /*
-	                my_form=document.createElement('FORM');
-                    my_form.name='someform';
-                    my_form.method='POST';
-                    my_form.action='https://awesometelenp.appspot.com/send';
-                    
-                    my_tb=document.createElement('INPUT');
-                    my_tb.type='TEXT';
-                    my_tb.name='map';
-                    my_tb.value= data ;
-                    my_form.appendChild(my_tb);
-                    my_form.submit();
-                    */
+               
 }
 
 function sendMapCommandsShort( command, id, name1, name2, wizard) {
@@ -1555,15 +1560,22 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 }
 
 function setMapServices() {
-    map_service_list = new ROSLIB.Service({
+    map_service_list_2 = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'turtlebot/list_maps',
+    	'name' : 'turtlebot/application/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
+  	map_service_list = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : 'android_map_nav/list_maps',
+   		 messageType : 'map_store/ListMaps'
+  	});
+  	
+  	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'turtlebot_core_apps/android_map_manager/publish_map',
+    	'name' : 'android_map_nav/publish_map',
    		 messageType : 'map_store/PublishMap'
   	});
   	
@@ -1582,13 +1594,13 @@ function setMapServices() {
   	
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'turtlebot_core_apps/android_map_manager/delete_map',
+    	'name' : 'android_map_nav/delete_map',
    		 messageType : 'map_store/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'turtlebot_core_apps/android_map_manager/rename_map',
+    	'name' : 'android_map_nav/rename_map',
    		 messageType : 'map_store/RenameMap'
   	});
   	
