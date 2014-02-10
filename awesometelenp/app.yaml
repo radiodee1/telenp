@@ -14,10 +14,10 @@ handlers:
   static_files: static/\1
   upload: static/(.*)
 
-- url: /send
-  script: main.py
-  
-#- url: /.*
+#- url: /send
 #  script: main.py
+  
+- url: /*
+  script: main.py
   
 

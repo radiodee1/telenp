@@ -17,40 +17,23 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
-mapurl = "";
+mapurl = "test";
 
 class SendHandler(webapp.RequestHandler):
-    def get(self):
-        mapurl = self.request.get("map")
-        # Set the cross origin resource sharing header to allow AJAX
-        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
-        # Print some JSON
-        #self.response.out.write('{"url":"'+ mapurl +'"}\n')
 
     def post(self):
-        mapurl = self.request.get("map")
-        # Set the cross origin resource sharing header to allow AJAX
-        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
-        # Print some JSON
-        #self.response.out.write('{"url":"'+ mapurl +'"}\n')
-
-class ReturnHandler(webapp.RequestHandler):
-    def get(self):
-        #mapurl = self.request.get("map")
+        global mapurl
+        someurl = self.request.get("map")
+        if len (someurl) > 5:
+            mapurl = someurl
         # Set the cross origin resource sharing header to allow AJAX
         self.response.headers.add_header("Access-Control-Allow-Origin", "*")
         # Print some JSON
         self.response.out.write('{"url":"'+ mapurl +'"}\n')
 
-    def post(self):
-        #mapurl = self.request.get("map")
-        # Set the cross origin resource sharing header to allow AJAX
-        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
-        # Print some JSON
-        self.response.out.write('{"url":"'+ mapurl +'"}\n')
 
 def main():
-    application = webapp.WSGIApplication([('/send', SendHandler),('/return', ReturnHandler)],
+    application = webapp.WSGIApplication([('/', SendHandler)],
                                          debug=True)
     util.run_wsgi_app(application)
 

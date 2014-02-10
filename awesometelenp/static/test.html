@@ -907,6 +907,8 @@ var map_service_pic ;
 var map_service_delete ;
 var map_service_rename ;
 var map_service_save ;
+var map_service_start ;
+var map_service_stop ;
 // listen to map topic.
 var map_listener ;
 // app stuff
@@ -1214,22 +1216,7 @@ function parseCommands(commands) {
 	    //do something... round-trip the 'wizard' operand
 	    switch( commands.command ) {
 	        case map_command_list : 
-	            /*
-                var request = new ROSLIB.ServiceRequest({});
-	            app_service_stop.callService( request, function (result) {
-	                //console.log("result: " + result.result);
-	                
-	            } );
-                */
-                
-                /*
-	            var request = new ROSLIB.ServiceRequest({"name" : 
-	                "turtlebot_core_apps/android_map_manager"});
-	            app_service_start.callService( request, function (result) {
-	                console.log("result: app manager start?" );
-	                //sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-	            */
+	            
 	        
 	            var request = new ROSLIB.ServiceRequest({});
 	            map_service_list.callService( request, function (result) {
@@ -1281,14 +1268,7 @@ function parseCommands(commands) {
 	        break;
 	        
 	        case map_command_save :
-	            /*
-	            var request = new ROSLIB.ServiceRequest({"name" : 
-	                "turtlebot_core_apps/android_make_a_map"});
-	            app_service_start.callService( request, function (result) {
-	                console.log("result: ");
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-	            */
+	            
 	        
                 var request = new ROSLIB.ServiceRequest({ "filename": commands.new_name});
 	            map_service_save.callService( request, function (result) {
@@ -1383,72 +1363,47 @@ function parseCommands(commands) {
             
             case app_command_make_map :
             
-                /*
-                var request = new ROSLIB.ServiceRequest({});
-	            app_service_stop.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-            
-                var request = new ROSLIB.ServiceRequest({});
-	            app_service_stop.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-                */
-                
                 
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
 	            app_service_invite.callService( request, function (result) {
 	                console.log("result: " + result.result);
 	                //sendMapBroadcast(commands.wizard, null, 0);
-	            } );
+	            //} );
 	            
 	            
-	            request = new ROSLIB.ServiceRequest({"name" : 
-	                "turtlebot_core_apps/android_make_a_map"});
-	            app_service_start.callService( request, function (result) {
-	                console.log("result: make a map? " + result.result);
-	                app_name = "turtlebot_core_apps/android_make_a_map";
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
+	                request = new ROSLIB.ServiceRequest({"name" : 
+	                    "turtlebot_core_apps/android_make_a_map"});
+	                app_service_start.callService( request, function (result) {
+	                    console.log("result: make a map? " + result.result);
+	                    app_name = "turtlebot_core_apps/android_make_a_map";
+	                    sendMapBroadcast(commands.wizard, null, 0);
+	                } );
+	            
+	            });//INNER CALL
             break;
             
             case app_command_map_manager :
-                /*
-                var request = new ROSLIB.ServiceRequest({});
-	            app_service_stop.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-                */
-                
                 
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
 	            app_service_invite.callService( request, function (result) {
 	                console.log("result: " + result.result);
 	                //sendMapBroadcast(commands.wizard, null, 0);
-	            } );
+	            //} );
 	            
-	            request = new ROSLIB.ServiceRequest({"name" : 
-	                "turtlebot_core_apps/android_map_manager"});
-	            app_service_start.callService( request, function (result) {
-	                console.log("result: map_manager? " + result.result);
-	                app_name = "turtlebot_core_apps/android_map_manager";
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
+	                request = new ROSLIB.ServiceRequest({"name" : 
+	                    "turtlebot_core_apps/android_map_manager"});
+	                app_service_start.callService( request, function (result) {
+	                    console.log("result: map_manager? " + result.result);
+	                    app_name = "turtlebot_core_apps/android_map_manager";
+	                    sendMapBroadcast(commands.wizard, null, 0);
+	                } );
+	            
+	            });//INNER CALL
             break;
             
             case app_command_map_nav :
-                /*
-                var request = new ROSLIB.ServiceRequest({});
-	            app_service_stop.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-                */
                 
                 
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
@@ -1456,15 +1411,17 @@ function parseCommands(commands) {
 	            app_service_invite.callService( request, function (result) {
 	                console.log("result: " + result.result);
 	                //sendMapBroadcast(commands.wizard, null, 0);
-	            } );
+	            //} );
 	            
-	            request = new ROSLIB.ServiceRequest({"name" : 
-	                "turtlebot_core_apps/android_map_nav"});
-	            app_service_start.callService( request, function (result) {
-	                console.log("result: map_manager? " + result.result);
-	                app_name = "turtlebot_core_apps/android_map_nav";
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
+	                request = new ROSLIB.ServiceRequest({"name" : 
+	                    "turtlebot_core_apps/android_map_nav"});
+	                app_service_start.callService( request, function (result) {
+	                    console.log("result: map_manager? " + result.result);
+	                    app_name = "turtlebot_core_apps/android_map_nav";
+	                    sendMapBroadcast(commands.wizard, null, 0);
+	                } );
+	            
+	            });//INNER CALL
             break;
             
             case app_command_app_stop :
@@ -1494,7 +1451,7 @@ function parseCommands(commands) {
 function sendMapInForm(data) {
 
     $.ajax({
-        url: "/send",
+        url: "/",
         type: "POST" ,
         data: {
             'map': data},
@@ -1542,11 +1499,6 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 function setMapServices( rootname ) {
     if (typeof rootname === "undefined") rootname = "";
 
-    map_service_list_2 = new ROSLIB.Service({
-    	'ros' : ros,
-    	'name' : 'turtlebot/application/list_maps',
-   		 messageType : 'map_store/ListMaps'
-  	});
   	
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
@@ -1561,7 +1513,7 @@ function setMapServices( rootname ) {
    		 messageType : 'map_store/PublishMap'
   	});
   	
-  	//no service for new map
+  	// service for new map
   	map_service_new = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : '/new_map',
@@ -1572,6 +1524,20 @@ function setMapServices( rootname ) {
     	'ros' : ros,
     	'name' : '/picture_map',
    		 messageType : 'tele_presence/PictureMap'
+  	});
+  	
+  	//launch
+  	map_service_start = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/picture_map',
+   		 messageType : 'tele_presence/BasicLaunch'
+  	});
+  	
+  	//stop
+  	map_service_stop = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/picture_map',
+   		 messageType : 'tele_presence/BasicStop'
   	});
   	
   	map_service_delete = new ROSLIB.Service({
