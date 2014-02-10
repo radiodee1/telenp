@@ -1497,7 +1497,7 @@ function receiveMapEvent() {
 function sendMapInForm(data) {
 
     $.ajax({
-        url: "i69egne9hdrdqeou26i9omvtb04m8ucl-a-hangout-opensocial.googleusercontent.com/send",
+        url: "/send",
         type: "POST" ,
         data: {
             'map': data},
