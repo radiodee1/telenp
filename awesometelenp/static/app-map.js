@@ -306,14 +306,16 @@ function receiveMapEvent() {
 	            app_service_status.callService( request, function (result) {
 	                console.log("result: " + result.application.name + " "
 	                    + result.application.display_name);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                //
+	                setMapServices(result.application.name);
+	                
 	                parseCommands(commands);
 	                
 	            } );
 	    
-	    //parseCommands(commands) ;
-	} // if(typeof...
-} // function...    
+	    
+	} // 
+} //     
 	    
 function parseCommands(commands) {
     if (true) {
@@ -645,7 +647,9 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 	;//console.log("map event short" + makeText);
 }
 
-function setMapServices() {
+function setMapServices( rootname ) {
+    if (typeof rootname === "undefined") rootname = "";
+
     map_service_list_2 = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : 'turtlebot/application/list_maps',
@@ -654,14 +658,14 @@ function setMapServices() {
   	
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'android_map_nav/list_maps',
+    	'name' :  rootname + '/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'android_map_nav/publish_map',
+    	'name' :  rootname + '/publish_map',
    		 messageType : 'map_store/PublishMap'
   	});
   	
@@ -680,13 +684,13 @@ function setMapServices() {
   	
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'android_map_nav/delete_map',
+    	'name' : rootname + '/delete_map',
    		 messageType : 'map_store/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'android_map_nav/rename_map',
+    	'name' : rootname + '/rename_map',
    		 messageType : 'map_store/RenameMap'
   	});
   	

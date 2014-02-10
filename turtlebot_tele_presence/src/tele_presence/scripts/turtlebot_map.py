@@ -8,7 +8,7 @@ import base64
 import Image
 #import png
 
-from tele_presence.srv import CreateMap, PictureMap
+from tele_presence.srv import CreateMap, PictureMap, BasicLaunch, BasicStop
 from nav_msgs.msg import *
 from nav_msgs.srv import *
 from std_msgs.msg import *
@@ -92,11 +92,11 @@ def create_map(req ):
 
 def basic_launch(req) :
     print req.command
-return []
+    return []
 
 def basic_stop(req) :
     print req.command
-return []
+    return []
 
 if __name__ == '__main__':
     try:
