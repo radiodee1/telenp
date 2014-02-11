@@ -984,7 +984,7 @@ function opLoad() {
     
     sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
     
-    //sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
 
 function opLoadDisabled() {
@@ -1133,7 +1133,7 @@ function opStart() {
 function opStartDisabled() {
 
     document.getElementById("opMake").disabled = 'disabled';
-    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opSave").disabled = '';
     document.getElementById("opLoad").disabled = 'disabled';
     document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = '';
@@ -1285,13 +1285,22 @@ function parseCommands(commands) {
 	        break;
 	        
 	        case map_command_save :
-	            
-	        
-                var request = new ROSLIB.ServiceRequest({ "filename": commands.new_name});
+	            var start = new Array("rosrun",
+                    "map_store","add_map.py", commands.new_name);
+                
+                var request = new ROSLIB.ServiceRequest({'command': start});
+	            map_service_start.callService( request, function (result) {
+	                console.log("command launch -- save map : " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	                	                
+	            } );
+	            /*
+                var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	            } );
+	            */
 	        break;
 	        
 	        case map_command_make :
@@ -1305,8 +1314,8 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({});
 	            map_service_pic.callService( request, function (result) {
 	                //do all picture things here.
-	                //if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
-	                //if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
+	                if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
+	                if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
 	                console.log("before createImageResource " + result.data );
 	                map_image = gapi.hangout.av.effects.createImageResource(
 	                    result.data );
@@ -1462,7 +1471,8 @@ function parseCommands(commands) {
                     var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array('map_manager');//,'map_store', 'map_server');
+                    var start = new Array();//'map_manager');//,'map_store', 'map_server');
+                    
                 }
                 if (app_name == "navigate") {
                     var start = new Array("amcl");
@@ -1603,8 +1613,8 @@ function setMapServices( rootname ) {
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : 'save_map',
-   		 messageType : 'map_msgs/SaveMap'
+    	'name' : '/save_map',
+   		 messageType : 'map_store/SaveMap'
   	});
   	
   	map_listener = new ROSLIB.Topic({
@@ -1656,7 +1666,7 @@ function putListInSelectLocal(list, space) {
         string = string + "</option>";
         
     }
-    ;//console.log(string);
+    console.log(string);
     document.getElementById(space).innerHTML = string;
 }
 
@@ -1954,7 +1964,7 @@ function stopService() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = '';
-    document.getElementById("opChoose").disabled = 'disabled';
+    document.getElementById("opChoose").disabled = '';//'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
