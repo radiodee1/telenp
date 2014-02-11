@@ -1,0 +1,6 @@
+<launch>
+ 
+  
+<node pkg="map_store" type="map_manager" name="map_manager" output="screen" />
+  
+</launch>
