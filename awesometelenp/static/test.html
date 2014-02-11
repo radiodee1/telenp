@@ -900,7 +900,6 @@ var tx_gapi_map_event = "telenp_map";
 var tx_gapi_map_raw = "telenp_map_raw";
 var tx_gapi_app_list = "telenp_app_list";
 var map_service_list ;
-var map_service_list_2 ;
 var map_service_load ;
 var map_service_new ;
 var map_service_pic ;
@@ -953,7 +952,6 @@ function opChooseOp() {
     
     document.getElementById("wizOpList").style.display = "none";
 
-    //sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
 }
 
 function opChoose() {
@@ -1053,7 +1051,7 @@ function opDeleteDisabled() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
-    
+    document.getElementById("opList").disabled = '';
 }
 
 function opRename() {
@@ -1083,6 +1081,7 @@ function opRanameDisabled() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
+    document.getElementById("opList").disabled = '';
 }
 
 function opSave() {
@@ -1359,36 +1358,18 @@ function parseCommands(commands) {
                 }
             break;
             
-            case app_command_invite :
-                // NOT USED
-            
-                var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
-                "application_namespace" : "turtlebot/application", "cancel": true});
-	            app_service_invite.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-	            
-	            request = new ROSLIB.ServiceRequest({"name" : 
-	                "turtlebot_core_apps/android_map_manager"});
-	            app_service_start.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-	            
-	           
-            break;
-            
             case app_command_make_map :
+                app_name = "gmap";
                 var start = new Array("roslaunch",
                     "turtlebot_navigation","gmapping_demo.launch");
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_start.callService( request, function (result) {
-	                console.log("comand launch: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("command launch -- navigation: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	                	                
 	            } );
-	            app_name = "gmap";
+
                 /*
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -1411,17 +1392,18 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_manager :
-                
+                app_name = "manager";
                 var start = new Array("roslaunch",
                     "tele_presence","map.launch");
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_start.callService( request, function (result) {
-	                console.log("comand launch: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("command launch -- map manager : " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	                
 	            } );
 	            
-	            app_name = "manager";
+	            
                 /*
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -1443,15 +1425,18 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_nav :
+            
+                app_name = "navigate";
                 var start = new Array("roslaunch",
                     "turtlebot_navigation","amcl_demo.launch");
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_start.callService( request, function (result) {
-	                console.log("comand launch: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("comand launch -- navigation: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+
 	            } );
-	            app_name = "navigate";
+	            
                 /*
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -1474,20 +1459,18 @@ function parseCommands(commands) {
             
             case app_command_app_stop :
                 if (app_name == "gmap") {
-                    var start = new Array("roslaunch",
-                        "turtlebot_navigation","amcl_demo.launch");
+                    var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array("roslaunch",
-                        "turtlebot_navigation","amcl_demo.launch");
+                    var start = new Array('map_manager');//,'map_store', 'map_server');
                 }
                 if (app_name == "navigate") {
                     var start = new Array("amcl");
                 }
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
-	                console.log("comand stop: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("command stop: " + app_name + " " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
                 /*
@@ -1855,10 +1838,12 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case app_command_map_manager :
+	            document.getElementById("wizOpStartConfirm").style.display = "block";
 	            opStartDisabled();
 	        break;
 	        
 	        case app_command_app_stop :
+	            document.getElementById("wizOpList").style.display = "none";
 	            stopService();
 	        break;
 	        
@@ -1961,6 +1946,10 @@ function executeMapStart() {
     sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
 }
 
+function executeList() {
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
+}
+
 function stopService() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = 'disabled';
@@ -1969,7 +1958,7 @@ function stopService() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
-    
+    document.getElementById("opList").disabled = 'disabled';    
 
 }
 
@@ -2021,9 +2010,6 @@ function getMapTopicView() {
 
 }
 
-function xy(x,y) {
-
-}
 </script>
 
 
@@ -2166,7 +2152,7 @@ button
 
 <!-- one div for each frame of wizard  LIST -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpList">
-    <button type="button" onclick="opList()">List</button>
+    <button type="button" onclick="executeList()">List</button>
     List of Maps:<br>
     <div id="listSpace" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
@@ -2259,16 +2245,15 @@ button
 </div>
 <!-- one div for each frame of wizard  START ROBOT / CONFIG-->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpStart">
-    <button type="button" onclick='getMapTopic();'>Show</button>
+    <!-- button type="button" onclick='getMapTopic();'>Show</button>
     <div id="showMapSpace" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
     <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
-    </div>
-
+    </div -->
+<button type="button" onclick='executeMapStart();'>START MAP MANAGER</button><br><br>
+    
 <button type="button" onclick="opCancel()">Done</button><br>
-<p id="wizOpStartConfirm" style="display:none">Your map is shown. Options below should
-    help you start the robot.</p>
-    <button type="button" onclick='executeMapStart();'>START ANDROID MAP MANAGER</button><br>
+<p id="wizOpStartConfirm" style="display:none">The map manager is started.</p>
     
     
 </div>

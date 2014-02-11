@@ -91,7 +91,9 @@ def create_map(req ):
     return []
 
 def basic_launch(req) :
-    subprocess.call(req.command)
+    #subprocess.call(req.command)
+    p = subprocess.Popen(req.command, shell=False, \
+        stdin=None, stdout=None, stderr=None, close_fds=True, creationflags=0)
     return []
 
 def basic_stop(req) :

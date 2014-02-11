@@ -8,7 +8,6 @@ var tx_gapi_map_event = "telenp_map";
 var tx_gapi_map_raw = "telenp_map_raw";
 var tx_gapi_app_list = "telenp_app_list";
 var map_service_list ;
-var map_service_list_2 ;
 var map_service_load ;
 var map_service_new ;
 var map_service_pic ;
@@ -61,7 +60,6 @@ function opChooseOp() {
     
     document.getElementById("wizOpList").style.display = "none";
 
-    //sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
 }
 
 function opChoose() {
@@ -161,7 +159,7 @@ function opDeleteDisabled() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
-    
+    document.getElementById("opList").disabled = '';
 }
 
 function opRename() {
@@ -191,6 +189,7 @@ function opRanameDisabled() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
+    document.getElementById("opList").disabled = '';
 }
 
 function opSave() {
@@ -467,36 +466,18 @@ function parseCommands(commands) {
                 }
             break;
             
-            case app_command_invite :
-                // NOT USED
-            
-                var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
-                "application_namespace" : "turtlebot/application", "cancel": true});
-	            app_service_invite.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-	            
-	            request = new ROSLIB.ServiceRequest({"name" : 
-	                "turtlebot_core_apps/android_map_manager"});
-	            app_service_start.callService( request, function (result) {
-	                console.log("result: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-	            
-	           
-            break;
-            
             case app_command_make_map :
+                app_name = "gmap";
                 var start = new Array("roslaunch",
                     "turtlebot_navigation","gmapping_demo.launch");
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_start.callService( request, function (result) {
-	                console.log("comand launch: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("command launch -- navigation: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	                	                
 	            } );
-	            app_name = "gmap";
+
                 /*
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -519,17 +500,18 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_manager :
-                
+                app_name = "manager";
                 var start = new Array("roslaunch",
                     "tele_presence","map.launch");
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_start.callService( request, function (result) {
-	                console.log("comand launch: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("command launch -- map manager : " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+	                
 	            } );
 	            
-	            app_name = "manager";
+	            
                 /*
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -551,15 +533,18 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_nav :
+            
+                app_name = "navigate";
                 var start = new Array("roslaunch",
                     "turtlebot_navigation","amcl_demo.launch");
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_start.callService( request, function (result) {
-	                console.log("comand launch: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("comand launch -- navigation: " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
+
 	            } );
-	            app_name = "navigate";
+	            
                 /*
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
@@ -585,15 +570,15 @@ function parseCommands(commands) {
                     var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array();
+                    var start = new Array('map_manager');//,'map_store', 'map_server');
                 }
                 if (app_name == "navigate") {
                     var start = new Array("amcl");
                 }
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
-	                console.log("comand stop: " + result.result);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                console.log("command stop: " + app_name + " " + result.result);
+	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
                 /*
@@ -669,7 +654,7 @@ function sendMapCommands( command, id,  name1, name2, wizard ,
 }
 
 function setMapServices( rootname ) {
-    if (typeof rootname === "undefined") rootname = "map_manager";
+    if (typeof rootname === "undefined") rootname = "";
 
   	
   	map_service_list = new ROSLIB.Service({
@@ -961,10 +946,12 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case app_command_map_manager :
+	            document.getElementById("wizOpStartConfirm").style.display = "block";
 	            opStartDisabled();
 	        break;
 	        
 	        case app_command_app_stop :
+	            document.getElementById("wizOpList").style.display = "none";
 	            stopService();
 	        break;
 	        
@@ -1067,6 +1054,10 @@ function executeMapStart() {
     sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
 }
 
+function executeList() {
+    sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
+}
+
 function stopService() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = 'disabled';
@@ -1075,7 +1066,7 @@ function stopService() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
-    
+    document.getElementById("opList").disabled = 'disabled';    
 
 }
 
@@ -1127,6 +1118,3 @@ function getMapTopicView() {
 
 }
 
-function xy(x,y) {
-
-}
