@@ -38,14 +38,19 @@ button
 <tr><td><button type="button"  id="opStart" onclick="opStart()" style="width:100%">Manage Maps</button></td></tr>
 <tr><td><button type="button"  id="opDelete" onclick="opDelete()" style="width:100%" disabled>Delete Map</button></td></tr>
 <tr><td><button type="button"  id="opRename" onclick="opRename()" style="width:100%" disabled>Rename Map</button></td></tr>
+<tr><td><button type="button"  id="opList" onclick="opList()" style="width:100%" disabled>List Maps</button></td></tr>
 <tr><td>Sometimes Do This:<br></td></tr><!-- View Map, Etc... -->
 <tr><td><button type="button"  id="opView" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
 <tr><td><button type="button"  id="stopService" onclick="opStopService()" style="width:100%">STOP/SWITCH SERVICE</button></td></tr>
 </table>
 <br>
 
-<button type="button" onclick="opChooseOp()">List</button>
-List of Maps:<br>
+</div><!-- end of table -->
+
+<!-- one div for each frame of wizard  LIST -->
+<div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpList">
+    <button type="button" onclick="opList()">List</button>
+    List of Maps:<br>
     <div id="listSpace" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
     Click 'LIST' button to see... Must be using load-map functions.<br>
@@ -54,6 +59,7 @@ List of Maps:<br>
 <br>
 
 <button type="button" onclick="opCancel()">Cancel</button>
+
     <!--
     <br><br>
     <button type="button" onclick="executeListApps()">APPS</button>
@@ -61,9 +67,10 @@ List of Maps:<br>
     <div id="listSpaceApps" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
     Click 'APPS' button to see...<br>
-    -->
+    
     
     </div>
+    -->
 <br>
 
 </div>

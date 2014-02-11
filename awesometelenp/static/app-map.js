@@ -59,7 +59,7 @@ function opChooseOp() {
     document.getElementById("wizChooseOp").style.display = "block";
     document.getElementById("wizOpView").style.display = "none";
     
-
+    document.getElementById("wizOpList").style.display = "none";
 
     //sendMapCommandsShort(app_command_invite, 0, "", "", app_command_invite);
 }
@@ -89,7 +89,7 @@ function opLoad() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
     document.getElementById("wizOpView").style.display = "none";
-    
+    document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpLoadConfirm").style.display = "none";
     
     sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
@@ -119,7 +119,7 @@ function opMake() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
     document.getElementById("wizOpView").style.display = "none";
-        
+    document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpNewConfirm").style.display = "none";
 
 }
@@ -145,7 +145,7 @@ function opDelete() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
     document.getElementById("wizOpView").style.display = "none";
-        
+    document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpDelConfirm").style.display = "none";
     
     
@@ -174,7 +174,7 @@ function opRename() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
     document.getElementById("wizOpView").style.display = "none";
-        
+    document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpRenameConfirm").style.display = "none";
     document.getElementById("inputSpaceRename").value = "";
     
@@ -203,7 +203,7 @@ function opSave() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
     document.getElementById("wizOpView").style.display = "none";    
-    
+    document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpSaveConfirm").style.display = "none";
     document.getElementById("inputSpaceSave").value = "";
     
@@ -232,7 +232,7 @@ function opStart() {
     document.getElementById("wizOpStart").style.display = "block";
     document.getElementById("wizChooseOp").style.display = "none";
     document.getElementById("wizOpView").style.display = "none";
-    
+    document.getElementById("wizOpList").style.display = "none";
     document.getElementById('wizOpStartConfirm').style.display = "none";
     
     //app_command_map_manager
@@ -248,7 +248,7 @@ function opStartDisabled() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
-    
+    document.getElementById("opList").disabled = '';
 }
 
 function opView() {
@@ -261,7 +261,7 @@ function opView() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "none";
     document.getElementById("wizOpView").style.display = "block";
-        
+    document.getElementById("wizOpList").style.display = "none";
     document.getElementById('wizOpViewConfirm').style.display = "none";
     
 
@@ -275,6 +275,22 @@ function opViewDisabled() {
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
+}
+
+function opList() {
+    document.getElementById("wizOpLoad").style.display = "none";
+    document.getElementById("wizOpNew").style.display = "none";
+    document.getElementById("wizOpDel").style.display = "none";
+    document.getElementById("wizOpRename").style.display = "none";
+    document.getElementById("wizOpSave").style.display = "none";
+    document.getElementById("wizOpDone").style.display = "none";
+    document.getElementById("wizOpStart").style.display = "none";
+    document.getElementById("wizChooseOp").style.display = "none";
+    document.getElementById("wizOpView").style.display = "none";
+    document.getElementById("wizOpList").style.display = "block";
+    document.getElementById('wizOpViewConfirm').style.display = "none";
+    
+
 }
 
 function opCancel() {
@@ -470,8 +486,14 @@ function parseCommands(commands) {
             break;
             
             case app_command_make_map :
-            
+                var start = new Array("a","b","c");
                 
+                var request = new ROSLIB.ServiceRequest({'command': start});
+	            map_service_start.callService( request, function (result) {
+	                console.log("comand launch: " + result.result);
+	                //sendMapBroadcast(commands.wizard, null, 0);
+	            } );
+                /*
                 var request = new ROSLIB.ServiceRequest({"remote_target_name" : "",
                 "application_namespace" : "turtlebot/application", "cancel": true});
 	            app_service_invite.callService( request, function (result) {
@@ -489,6 +511,7 @@ function parseCommands(commands) {
 	                } );
 	            
 	            });//INNER CALL
+	            */
             break;
             
             case app_command_map_manager :
@@ -637,14 +660,14 @@ function setMapServices( rootname ) {
   	//launch
   	map_service_start = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/picture_map',
+    	'name' : '/basic_launch',
    		 messageType : 'tele_presence/BasicLaunch'
   	});
   	
   	//stop
   	map_service_stop = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/picture_map',
+    	'name' : '/basic_stop',
    		 messageType : 'tele_presence/BasicStop'
   	});
   	

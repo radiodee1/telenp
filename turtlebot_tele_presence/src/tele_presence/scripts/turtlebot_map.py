@@ -92,6 +92,8 @@ def create_map(req ):
 
 def basic_launch(req) :
     print req.command
+    for i in req.command :
+        print i
     return []
 
 def basic_stop(req) :
