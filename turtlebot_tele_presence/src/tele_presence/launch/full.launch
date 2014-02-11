@@ -1,20 +1,10 @@
 <launch>
  
   <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+  
+  <!-- allow apps to bring up their own sensors, etc. -->
+  <!-- include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/ -->
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
   <include file="$(find tele_presence)/launch/minimal.launch"/>
-  
-  <node name="map_manager" pkg="map_store" type="map_manager" respawn="false" output="screen" />
-  <node pkg="map_store" type="map_saver" name="map_saver" />
-  <!-- node pkg="map_server" type="map_saver" name="map_saver">
-        <param name="f" value="~/workspace/map"/>
-  </node -->
-  <!-- node name="map_saver" pkg="map_server" type="map_server" / -->
-  
-   <!-- node name="mongo" type="wrapper.py" pkg="mongodb" output="log">
-    <param name="database_path" value="~/warehouse_data"/>
-    <param name="overwrite" value="false"/>
-  </node -->
   
 </launch>

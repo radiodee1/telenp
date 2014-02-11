@@ -91,13 +91,13 @@ def create_map(req ):
     return []
 
 def basic_launch(req) :
-    print req.command
-    for i in req.command :
-        print i
+    subprocess.call(req.command)
     return []
 
 def basic_stop(req) :
     print req.command
+    for i in req.command:
+        subprocess.call(["rosnode","kill", i])
     return []
 
 if __name__ == '__main__':
