@@ -49,7 +49,7 @@ button
 
 <!-- one div for each frame of wizard  LIST -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpList">
-    <button type="button" onclick="executeList()">List</button>
+    <button type="button" onclick="executeList()">Refresh</button>
     List of Maps:<br>
     <div id="listSpace" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
@@ -58,7 +58,7 @@ button
     </div>
 <br>
 
-<button type="button" onclick="opCancel()">Cancel</button>
+<button type="button" onclick="opCancel()">Return</button>
 
     <!--
     <br><br>
@@ -83,7 +83,9 @@ button
     <option value="none">None</option>
     </select><button type="button" onclick="executeLoad()">LOAD</button><br>
     </form>
-<button type="button" onclick="opCancel()">Close</button>
+<br>
+<button type="button" onclick="">RUN NAV</button><br><br>
+<button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpLoadConfirm" style="display:none">Your map loaded.</p>
 
 </div>
@@ -109,7 +111,7 @@ button
     <option value="none">None</option>
     </select><button type="button" onclick="executeDelete()">DELETE</button><br>
     </form>
-<button type="button" onclick="opCancel()">Close</button>
+<button type="button" onclick="opCancel()">Done</button>
     <p id="wizOpDelConfirm" style="display:none">Your map was deleted. Refresh or click 'Close' to see new
     list</p>
 </div>
@@ -147,7 +149,7 @@ button
         width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
     <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
     </div -->
-<button type="button" onclick='executeMapStart();'>START MAP MANAGER</button><br><br>
+<button type="button" onclick='executeMapStart();'>FORCE MAP MANAGER</button><br><br>
     
 <button type="button" onclick="opCancel()">Done</button><br>
 <p id="wizOpStartConfirm" style="display:none">The map manager is started.</p>
@@ -156,10 +158,10 @@ button
 </div>
 <!-- one div for each frame of wizard  VIEW MAP -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpView">
-    <button type="button" onclick='getMapTopicView();'>Show Current Map</button>
+    <button type="button" onclick='getMapTopicView();'>Refresh Current Map</button>
     <div id="showMapSpaceView" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
-    <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
+    <div style="font-size:12pt;">Click 'REFRESH' button to see...</div><br>
     </div>
 
 <button type="button" onclick="opCancel()">Done</button>

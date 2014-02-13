@@ -1,4 +1,4 @@
 # array of parameters, no reply
-
+bool remember
 string[] command 
 ---

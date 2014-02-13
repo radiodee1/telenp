@@ -57,13 +57,18 @@ struct BasicLaunchRequest_
   typedef BasicLaunchRequest_<ContainerAllocator> Type;
 
   BasicLaunchRequest_()
-    : command()  {
+    : remember(false)
+    , command()  {
     }
   BasicLaunchRequest_(const ContainerAllocator& _alloc)
-    : command(_alloc)  {
+    : remember(false)
+    , command(_alloc)  {
     }
 
 
+
+   typedef uint8_t _remember_type;
+  _remember_type remember;
 
    typedef std::vector<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > , typename ContainerAllocator::template rebind<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::other >  _command_type;
   _command_type command;
@@ -146,12 +151,12 @@ struct MD5Sum< ::tele_presence::BasicLaunchRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "3adcc4a2100c5ff118c0238c960ed0f4";
+    return "c48d98551081cf5ebdf0844922ccf154";
   }
 
   static const char* value(const ::tele_presence::BasicLaunchRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x3adcc4a2100c5ff1ULL;
-  static const uint64_t static_value2 = 0x18c0238c960ed0f4ULL;
+  static const uint64_t static_value1 = 0xc48d98551081cf5eULL;
+  static const uint64_t static_value2 = 0xbdf0844922ccf154ULL;
 };
 
 template<class ContainerAllocator>
@@ -171,7 +176,7 @@ struct Definition< ::tele_presence::BasicLaunchRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "\n\
-\n\
+bool remember\n\
 string[] command\n\
 ";
   }
@@ -191,6 +196,7 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
+      stream.next(m.remember);
       stream.next(m.command);
     }
 
@@ -210,6 +216,8 @@ struct Printer< ::tele_presence::BasicLaunchRequest_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::tele_presence::BasicLaunchRequest_<ContainerAllocator>& v)
   {
+    s << indent << "remember: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.remember);
     s << indent << "command[]" << std::endl;
     for (size_t i = 0; i < v.command.size(); ++i)
     {

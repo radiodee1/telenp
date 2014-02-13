@@ -2,7 +2,7 @@
  
  <arg name="map_resolution" value="1.0" />
   <arg name="map_file" value="saved"/>
-  <arg name="map_name" />
+  <arg name="map_name" value="auto-save"/>
 
   <node name="mongo" type="wrapper.py" pkg="mongodb" output="log">
     <param name="database_path" value="warehouse_data"/>
@@ -18,8 +18,12 @@
 
   <node name="map_server" pkg="map_server" type="map_server" args="'$(arg map_file)' '$(arg map_resolution)'">
       <!-- Remaps to load the map file --> 
-     <remap from="/static_map" to="/dynamic_map" />
-     <remap from="/map" to="/map_unused" />
+     <!-- remap from="/static_map" to="/dynamic_map" / -->
+     <!-- remap from="/map" to="/map_unused" / -->
      <!-- remap from="/map" to="/dynamic_map" / -->
   </node>
+  
+  <!-- node pkg="map_store" type="add_map.py" name="add_map" args="'$(arg map_name)'" required="false">
+     <remap from="/map" to="/dynamic_map" />
+  </node -->
 </launch>

@@ -1,7 +1,9 @@
+
 /*
 
 */
 
+var gapi_loaded = false;
 var mod_base = 512;
 var basename = "telenp";
 var test_config = false;
@@ -413,6 +415,11 @@ function formJSONClick(operation) {
 	;//console.log(operation);
 	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
 	;//console.log( makeText );
+	if (! gapi_loaded ) {
+	    trySetupROS();
+	    control_msgtype = MSG_TWIST;
+	    retransmitEvent(makeJSONCommand(operation, tx_number));
+	}
 	try {	
 		gapi.hangout.data.setValue( tx_gapi_key, makeText);
 	}
@@ -860,10 +867,8 @@ function init() {
   			});
   			*/
             //setKinectListener();
+            gapi_loaded = true;
             
-            //gapi.hangout.data.clearValue(tx_gapi_turtlebot_name);
-            //gapi.hangout.data.clearValue(tx_gapi_controller_name);
-	
       			gapi.hangout.onApiReady.remove(apiReady);
     		}
 	};

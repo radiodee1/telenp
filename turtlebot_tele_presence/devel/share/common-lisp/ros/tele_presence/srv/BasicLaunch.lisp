@@ -7,7 +7,12 @@
 ;//! \htmlinclude BasicLaunch-request.msg.html
 
 (cl:defclass <BasicLaunch-request> (roslisp-msg-protocol:ros-message)
-  ((command
+  ((remember
+    :reader remember
+    :initarg :remember
+    :type cl:boolean
+    :initform cl:nil)
+   (command
     :reader command
     :initarg :command
     :type (cl:vector cl:string)
@@ -22,12 +27,18 @@
   (cl:unless (cl:typep m 'BasicLaunch-request)
     (roslisp-msg-protocol:msg-deprecation-warning "using old message class name tele_presence-srv:<BasicLaunch-request> is deprecated: use tele_presence-srv:BasicLaunch-request instead.")))
 
+(cl:ensure-generic-function 'remember-val :lambda-list '(m))
+(cl:defmethod remember-val ((m <BasicLaunch-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader tele_presence-srv:remember-val is deprecated.  Use tele_presence-srv:remember instead.")
+  (remember m))
+
 (cl:ensure-generic-function 'command-val :lambda-list '(m))
 (cl:defmethod command-val ((m <BasicLaunch-request>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader tele_presence-srv:command-val is deprecated.  Use tele_presence-srv:command instead.")
   (command m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <BasicLaunch-request>) ostream)
   "Serializes a message object of type '<BasicLaunch-request>"
+  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'remember) 1 0)) ostream)
   (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'command))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
@@ -43,6 +54,7 @@
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <BasicLaunch-request>) istream)
   "Deserializes a message object of type '<BasicLaunch-request>"
+    (cl:setf (cl:slot-value msg 'remember) (cl:not (cl:zerop (cl:read-byte istream))))
   (cl:let ((__ros_arr_len 0))
     (cl:setf (cl:ldb (cl:byte 8 0) __ros_arr_len) (cl:read-byte istream))
     (cl:setf (cl:ldb (cl:byte 8 8) __ros_arr_len) (cl:read-byte istream))
@@ -69,23 +81,25 @@
   "tele_presence/BasicLaunchRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<BasicLaunch-request>)))
   "Returns md5sum for a message object of type '<BasicLaunch-request>"
-  "3adcc4a2100c5ff118c0238c960ed0f4")
+  "c48d98551081cf5ebdf0844922ccf154")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'BasicLaunch-request)))
   "Returns md5sum for a message object of type 'BasicLaunch-request"
-  "3adcc4a2100c5ff118c0238c960ed0f4")
+  "c48d98551081cf5ebdf0844922ccf154")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<BasicLaunch-request>)))
   "Returns full string definition for message of type '<BasicLaunch-request>"
-  (cl:format cl:nil "~%~%string[] command~%~%~%"))
+  (cl:format cl:nil "~%bool remember~%string[] command~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'BasicLaunch-request)))
   "Returns full string definition for message of type 'BasicLaunch-request"
-  (cl:format cl:nil "~%~%string[] command~%~%~%"))
+  (cl:format cl:nil "~%bool remember~%string[] command~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <BasicLaunch-request>))
   (cl:+ 0
+     1
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'command) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 4 (cl:length ele))))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <BasicLaunch-request>))
   "Converts a ROS message object to a list"
   (cl:list 'BasicLaunch-request
+    (cl:cons ':remember (remember msg))
     (cl:cons ':command (command msg))
 ))
 ;//! \htmlinclude BasicLaunch-response.msg.html
@@ -116,10 +130,10 @@
   "tele_presence/BasicLaunchResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<BasicLaunch-response>)))
   "Returns md5sum for a message object of type '<BasicLaunch-response>"
-  "3adcc4a2100c5ff118c0238c960ed0f4")
+  "c48d98551081cf5ebdf0844922ccf154")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'BasicLaunch-response)))
   "Returns md5sum for a message object of type 'BasicLaunch-response"
-  "3adcc4a2100c5ff118c0238c960ed0f4")
+  "c48d98551081cf5ebdf0844922ccf154")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<BasicLaunch-response>)))
   "Returns full string definition for message of type '<BasicLaunch-response>"
   (cl:format cl:nil "~%~%~%"))

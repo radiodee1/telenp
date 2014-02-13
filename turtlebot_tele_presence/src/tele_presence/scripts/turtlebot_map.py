@@ -18,6 +18,7 @@ from std_msgs.msg import *
 map_pub = None
 my_map = OccupancyGrid()
 mypath = "rosmap"
+process = None # some process
 
 def map_stuff():
     global my_map, map_pub
@@ -92,14 +93,25 @@ def create_map(req ):
 
 def basic_launch(req) :
     #subprocess.call(req.command)
-    p = subprocess.Popen(req.command, shell=False, \
+    if len(req.command) is 0 :
+        return []
+    global process
+    sub = subprocess.Popen(req.command, shell=False, \
         stdin=None, stdout=None, stderr=None, close_fds=True, creationflags=0)
+    if (req.remember) :
+        process = sub
+    else :
+        process = None
     return []
 
 def basic_stop(req) :
+    global process
     print req.command
+    print process
     for i in req.command:
         subprocess.call(["rosnode","kill", i])
+    if len(req.command) > 0 :
+        process.kill();
     return []
 
 if __name__ == '__main__':

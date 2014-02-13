@@ -14,6 +14,10 @@ echo "concat app.xml finished"
 
 
 cat xml-parts_b.txt > test.html
+cat eventemitter2.min.js >> test.html
+echo " " >> test.html
+echo " " >> test.html
+cat roslib.min.js >> test.html
 cat app.js >> test.html
 cat app-map.js >> test.html
 cat xml-parts_c.txt >> test.html
