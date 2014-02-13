@@ -6,7 +6,7 @@ var map_overlay ;
 var map_manager_started = false;
 
 var tx_gapi_map_event = "telenp_map";
-var tx_gapi_map_raw = "telenp_map_raw";
+//var tx_gapi_map_raw = "telenp_map_raw";
 var tx_gapi_app_list = "telenp_app_list";
 var map_service_list ;
 var map_service_load ;
@@ -361,6 +361,7 @@ function parseCommands(commands) {
 	            } );
 	        break;
 	        
+	        /*
 	        case map_command_list_start :
 	            var list;
                 try {
@@ -376,7 +377,7 @@ function parseCommands(commands) {
                 }
                 
 	        break;
-	        
+	        */
 	        case map_command_delete :
                 var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
 	            map_service_delete.callService( request, function (result) {
@@ -567,8 +568,12 @@ function sendMapInForm(data) {
         data: {
             'map': data},
         success: function( ret ) {
-            console.log('ajax here ' + ret.picurl);
-            document.getElementById('showMapSpaceView').innerHTML = '<img src="' + ret.picurl + '">' ;
+            //console.log('ajax here ' + ret.picurl);
+            var mapspace = $('#showMapSpaceView');
+            mapspace.html('<img id="mapimg" src="' + ret.picurl + '">');
+            
+            mapspace.ready(showToolTip);
+            //document.getElementById('showMapSpaceView').innerHTML = '<img id="mapimg" src="' + ret.picurl + '">' ;
             ;//console.log(ret);
         }
     });
@@ -677,37 +682,7 @@ function setMapServices( rootname ) {
    		 messageType : 'nav_msgs/OccupancyGrid'
    		 
   	});
-  	/*
-  	app_topic_list = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : '/turtlebot/app_list',
-   		 messageType : 'rocon_app_manager_msgs/AppList'
-  	});
   	
-  	app_service_invite = new ROSLIB.Service({
-    	'ros' : ros,
-    	'name' : '/turtlebot/invite',
-   		 messageType : 'rocon_app_manager_msgs/Invite'
-  	});
-  	
-  	app_service_start = new ROSLIB.Service({
-    	'ros' : ros,
-    	'name' : '/turtlebot/start_app',
-   		 messageType : 'rocon_app_manager_msgs/StartApp'
-  	});
-  	
-  	app_service_stop = new ROSLIB.Service({
-    	'ros' : ros,
-    	'name' : '/turtlebot/stop_app',
-   		 messageType : 'rocon_app_manager_msgs/StopApp'
-  	});
-  	
-  	app_service_status = new ROSLIB.Service({
-    	'ros' : ros,
-    	'name' : '/turtlebot/status',
-   		 messageType : 'rocon_app_manager_msgs/Status'
-  	});
-  	*/
 }
 
 function putListInSelectLocal(list, space) {
@@ -797,6 +772,7 @@ function sendMapBroadcast(type, list, num) {
 	;//console.log("map event " + listText);
 }
 
+/*
 function sendMapPicBroadcast(wizard, map_in) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
     if (typeof map_in === "undefined") {
@@ -827,6 +803,7 @@ function sendMapPicBroadcast(wizard, map_in) {
 	}
 	;//console.log(map);
 }
+*/
 
 function sendAppListBroadcast(wizard, list) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
@@ -937,7 +914,7 @@ function receiveMapBroadcast() {
 	    ;//console.log("error google hangouts api -- " );
 	}
 }
-
+/*
 function receiveRawMapBroadcast() {
     if (! isMatchingName(tx_gapi_controller_name) && 
         ! isMatchingName(tx_gapi_turtlebot_name) ) return;
@@ -964,6 +941,8 @@ function receiveRawMapBroadcast() {
     gapi.hangout.data.clearValue(tx_gapi_map_raw);
 	}
 }
+*/
+
 
 function receiveAppListBroadcast() {
     if (! isMatchingName(tx_gapi_controller_name) && 
@@ -1043,6 +1022,7 @@ function opStopService() {
     sendMapCommandsShort(app_command_app_stop, 0, "", "", app_command_app_stop);
 }
 
+/*
 function fillMapSpace(space, list) {
     
     var string = '<div border="0" id="mapSpaceTable"' ;
@@ -1069,7 +1049,9 @@ function fillMapSpace(space, list) {
     ;//console.log(string);
     document.getElementById(space).innerHTML = string;
     document.getElementById("wizOpStartConfirm").style.display = "block";
+    
 }
+*/
 
 function getMapTopic() {
     if (! isMatchingName(tx_gapi_turtlebot_name) && 
@@ -1087,3 +1069,32 @@ function getMapTopicView() {
 
 }
 
+/* start code for placing robot on map... */
+function showToolTip() {
+//window.onload = function(){
+
+    var tooltip = $( '<div id="tooltip">' ).appendTo( 'body' )[0];
+    $(tooltip).hide();
+    
+    $( 'img' ).each(function () {
+        var pos = $( this ).position(),
+            top = pos.top,
+            left = pos.left,
+            width = $( this ).width(),
+            height = $( this ).height(); 
+        $( this ).
+            mousemove(function ( e ) {
+                var x = e.pageX - left,
+                    y = e.pageY - top;
+                    //console.log(x + " -- " + y);
+                $( tooltip ).html( 'x = ' + x + ',<br/> y = ' + y ).css({
+                    left: e.clientX + 10,
+                    top: e.clientY + 10
+                }).show();
+            }).
+            mouseleave(function () {
+                $( tooltip ).hide();
+            }); 
+    
+    });
+};
