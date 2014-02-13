@@ -29,7 +29,7 @@ class SendHandler(webapp.RequestHandler):
         # Set the cross origin resource sharing header to allow AJAX
         self.response.headers.add_header("Access-Control-Allow-Origin", "*")
         # Print some JSON
-        self.response.out.write('{"url":"'+ mapurl +'"}\n')
+        self.response.out.write('{"picurl":"'+ mapurl +'"}\n')
 
 
 def main():

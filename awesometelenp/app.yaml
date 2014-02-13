@@ -7,7 +7,8 @@ api_version: 1
 threadsafe: false
 
 # Set cache duration to 0 for development
-default_expiration: "0m"
+# comment out so that maps can be shared!!
+# default_expiration: "0m"
 
 handlers:
 - url: /static/(.*)
