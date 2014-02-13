@@ -518,7 +518,7 @@ function parseCommands(commands) {
             case app_command_map_manager :
                 app_name = "manager";
                 var start = new Array("roslaunch",
-                    "tele_presence","map.launch");
+                    "tele_presence","manage_map.launch");
                 
                 if (map_manager_started && commands.wizard != app_command_map_manager_force) {
                     start = new Array();
@@ -937,6 +937,7 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case map_command_delete :
+	            opDelete();
 	            document.getElementById("wizOpDelConfirm").style.display = "block";
 	        break;
 	        
