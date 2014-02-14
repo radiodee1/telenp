@@ -64,6 +64,9 @@ var map_nav_goal_y = 0;
 var map_nav_goal_z = 0;
 var map_nav_goal_a = 0;
 
+var angle_count_start = 0;
+var angle_count_stop = 0;
+
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -88,7 +91,7 @@ function opChooseOpDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = '';
-    document.getElementById("opChoose").disabled = '';
+    //document.getElementById("opChoose").disabled = '';
     document.getElementById("opStart").disabled = 'disabled';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
@@ -118,7 +121,7 @@ function opLoadDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = '';
-    document.getElementById("opChoose").disabled = '';
+    //document.getElementById("opChoose").disabled = '';
     document.getElementById("opStart").disabled = 'disabled';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
@@ -145,7 +148,7 @@ function opMakeDisabled() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = '';
     document.getElementById("opLoad").disabled = 'disabled';
-    document.getElementById("opChoose").disabled = 'disabled';
+    //document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = 'disabled';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
@@ -173,7 +176,7 @@ function opDeleteDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = 'disabled';
-    document.getElementById("opChoose").disabled = 'disabled';
+    //document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
@@ -203,7 +206,7 @@ function opRanameDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = 'disabled';
-    document.getElementById("opChoose").disabled = 'disabled';
+    //document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
@@ -233,7 +236,7 @@ function opSaveDisabled() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = '';
     document.getElementById("opLoad").disabled = 'disabled';
-    document.getElementById("opChoose").disabled = 'disabled';
+    //document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = 'disabled';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
@@ -261,7 +264,7 @@ function opStartDisabled() {
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = '';
     document.getElementById("opLoad").disabled = '';
-    document.getElementById("opChoose").disabled = 'disabled';
+    //document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
     document.getElementById("opDelete").disabled = '';
@@ -288,7 +291,7 @@ function opViewDisabled() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = 'disabled';
     document.getElementById("opLoad").disabled = '';
-    document.getElementById("opChoose").disabled = 'disabled';
+    //document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = 'disabled';
     document.getElementById("opDelete").disabled = 'disabled';
@@ -321,6 +324,18 @@ function opCancel() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "block";
     document.getElementById("wizOpView").style.display = "none";
+}
+
+function stopService() {
+    document.getElementById("opMake").disabled = '';
+    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = 'disabled';
+    //document.getElementById("opChoose").disabled = '';//'disabled';
+    document.getElementById("opStart").disabled = '';
+    document.getElementById("opRename").disabled = 'disabled';
+    document.getElementById("opDelete").disabled = 'disabled';
+    document.getElementById("opList").disabled = 'disabled';    
+
 }
 
 function receiveMapEvent() {
@@ -481,7 +496,7 @@ function parseCommands(commands) {
                             list.push(message.available_apps[x].name);
                         }
                         
-                        sendAppListBroadcast(commands.wizard, list);
+                        //sendAppListBroadcast(commands.wizard, list);
                         app_topic_list.unsubscribe();
                     });
                 }
@@ -778,7 +793,7 @@ function sendMapBroadcast(type, list, num) {
 	;//console.log("map event " + listText);
 }
 
-
+/*
 function sendAppListBroadcast(wizard, list) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
     var newlist = '{"wizard":"' + wizard + '","list":[';
@@ -797,6 +812,7 @@ function sendAppListBroadcast(wizard, list) {
 		;//console.log("hangout setValue error. -- Error with map pic");
 	}
 }
+*/
 
 function receiveMapBroadcast() {
     if (! isMatchingName(tx_gapi_controller_name)  ) return;
@@ -938,19 +954,10 @@ function executeRunNav() {
     document.getElementById('wizOpNavSettings').style.display = "block";
     opView();
     opViewDisabled();
+    
 }
 
-function stopService() {
-    document.getElementById("opMake").disabled = '';
-    document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = 'disabled';
-    document.getElementById("opChoose").disabled = '';//'disabled';
-    document.getElementById("opStart").disabled = '';
-    document.getElementById("opRename").disabled = 'disabled';
-    document.getElementById("opDelete").disabled = 'disabled';
-    document.getElementById("opList").disabled = 'disabled';    
 
-}
 
 function opStopService() {
     sendMapCommandsShort(app_command_app_stop, 0, "", "", app_command_app_stop);
@@ -1054,6 +1061,28 @@ function chooseStop() {
 
 function chooseClear() {
     nav_map_setup = ENUM_BOT_NONE;
+}
+
+function anglePng(angle) {
+    var num = '' ;
+    num = '000' + angle;
+    var offset = 0;
+    if (num.length > 3) offset = 1;
+    var nums = num[ num.length - 3] + num[ num.length - 2 ] + num[num.length - 1] ;
+    console.log(nums + " -- number for angle.png");
+    return "//awesometelenp.appspot.com/static/bitmap/angle" + nums + ".png"
+}
+
+function makeangleStart() {
+    angle_count_start += 30;
+    angle_count_start = angle_count_start % 360;
+    document.getElementById('angleStart').src = anglePng(angle_count_start);
+}
+
+function makeangleStop() {
+    angle_count_stop += 30;
+    angle_count_stop = angle_count_stop % 360;
+    document.getElementById('angleStop').src = anglePng(angle_count_stop);
 }
 
 function chooseAccept() {

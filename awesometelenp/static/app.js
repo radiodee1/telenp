@@ -667,7 +667,7 @@ function recieveEvent () {
 	receiveMapEvent();
 	receiveMapBroadcast();
 	//receiveRawMapBroadcast();
-	receiveAppListBroadcast();
+	//receiveAppListBroadcast();
 }
 
 function retransmitEvent(data) {
