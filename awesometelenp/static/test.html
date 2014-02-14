@@ -1977,7 +1977,7 @@ function showToolTip() {
     var tooltip = $( '<div id="tooltip">' ).appendTo( 'body' )[0];
     $(tooltip).hide();
     
-    $( 'img' ).each(function () {
+    $( '#mapimg' ).each(function () {
         var pos = $( this ).position(),
             top = pos.top,
             left = pos.left,
