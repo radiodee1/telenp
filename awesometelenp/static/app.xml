@@ -1179,7 +1179,7 @@ function opStartDisabled() {
 
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = '';
-    document.getElementById("opLoad").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = '';
     document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
@@ -1300,23 +1300,7 @@ function parseCommands(commands) {
 	            } );
 	        break;
 	        
-	        /*
-	        case map_command_list_start :
-	            var list;
-                try {
-                    map_listener.subscribe( function(message) {
-                        list = message.data;
-                        
-                        sendMapPicBroadcast(commands.wizard, message);
-                        map_listener.unsubscribe();
-                    });
-                }
-                catch (e) {
-                    ;//console.log("map listener fail");
-                }
-                
-	        break;
-	        */
+	        
 	        case map_command_delete :
                 var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
 	            map_service_delete.callService( request, function (result) {
@@ -1369,9 +1353,11 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({});
 	            map_service_pic.callService( request, function (result) {
 	                //do all picture things here.
+	                /*
 	                if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
 	                if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
 	                console.log("before createImageResource " + result.data );
+	                
 	                map_image = gapi.hangout.av.effects.createImageResource(
 	                    result.data );
 	                    
@@ -1396,7 +1382,7 @@ function parseCommands(commands) {
 	                //map_overlay.setScale(0.5);
 	                //map_overlay = map_image.showOverlay({'position': {'x': 0, 'y': 0}});
 	                map_overlay.setVisible(true);
-	                
+	                */
 	                sendMapInForm(result.data);
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
@@ -1513,8 +1499,7 @@ function sendMapInForm(data) {
             
             mapspace.ready(showToolTip);
             mapspace.click(takePosition);
-            //document.getElementById('showMapSpaceView').innerHTML = '<img id="mapimg" src="' + ret.picurl + '">' ;
-            ;//console.log(ret);
+            
         }
     });
                
@@ -1712,38 +1697,6 @@ function sendMapBroadcast(type, list, num) {
 	;//console.log("map event " + listText);
 }
 
-/*
-function sendMapPicBroadcast(wizard, map_in) {
-    if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
-    if (typeof map_in === "undefined") {
-        ;//console.log("map_in is undefined...-----------------------");
-        return;
-    }
-    var x,y;
-    var width = map_in.info.width;
-    var height = map_in.info.height;
-    var map = '{"width":"' + width + '","height":"' + height + '","wizard":"' + wizard + '","map": [';
-    for (y = 0; y < height; y ++) {
-        for (x = 0; x < width; x ++) {
-            var element = { "d" : map_in.data[(y * width) + x] };
-
-            map = map + JSON.stringify(element);
-            if  (x == width - 1 && y == height - 1) {
-                //don't add comma
-            }
-            else map = map + ',' ;
-        }
-    }
-    map = map + ']}';
-    try {
-		gapi.hangout.data.setValue( tx_gapi_map_raw, map);
-	}
-	catch (e) {
-		;//console.log("hangout setValue error. -- Error with map pic");
-	}
-	;//console.log(map);
-}
-*/
 
 function sendAppListBroadcast(wizard, list) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
@@ -1854,54 +1807,7 @@ function receiveMapBroadcast() {
 	    ;//console.log("error google hangouts api -- " );
 	}
 }
-/*
-function receiveRawMapBroadcast() {
-    if (! isMatchingName(tx_gapi_controller_name) && 
-        ! isMatchingName(tx_gapi_turtlebot_name) ) return;
-    return; // <----------------------------
-    try {
-	    rx_data = gapi.hangout.data.getState()[tx_gapi_map_raw];
-	    
-	}
-	catch (e){
-	    ;//console.log("error google hangouts api -- " );
-	}
-	
-	//;//console.log("raw map broadcast!! ---------------------");
-	if (typeof rx_data !== "undefined") {
-	    var list = JSON.parse(rx_data);
-	    //;//console.log("data received " + list);
-	    if ( list.wizard == map_command_list_start ) {
-	        fillMapSpace('showMapSpace', list);
-	    }
-	    else if (list.wizard == map_command_list_view ) {
-    	    fillMapSpace('showMapSpaceView', list);
-	    }
-	    
-    gapi.hangout.data.clearValue(tx_gapi_map_raw);
-	}
-}
-*/
 
-/*
-function receiveAppListBroadcast() {
-    if (! isMatchingName(tx_gapi_controller_name) && 
-        ! isMatchingName(tx_gapi_turtlebot_name) ) return;
-    try {
-	    rx_data = gapi.hangout.data.getState()[tx_gapi_app_list];
-	    
-	}
-	catch (e){
-	    ;//console.log("error google hangouts api -- " );
-	}
-	
-    if (typeof rx_data !== "undefined") {
-	    var list = JSON.parse(rx_data);
-        fillAppSpace(list, 'listSpaceApps');
-        gapi.hangout.data.clearValue(tx_gapi_app_list);
-	}
-}
-*/
 
 function executeLoad() {
     var map_id = document.getElementById("selectSpaceLoad").value;
@@ -1956,7 +1862,7 @@ function executeRunNav() {
 function stopService() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = '';
+    document.getElementById("opLoad").disabled = 'disabled';
     document.getElementById("opChoose").disabled = '';//'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = 'disabled';
@@ -1968,37 +1874,6 @@ function stopService() {
 function opStopService() {
     sendMapCommandsShort(app_command_app_stop, 0, "", "", app_command_app_stop);
 }
-
-/*
-function fillMapSpace(space, list) {
-    
-    var string = '<div border="0" id="mapSpaceTable"' ;
-    string = string + ' style="display:block; min-height:3px;min-width:3px">';
-    var x, y;
-    var height = list.height;
-    var width = list.width;
-    for (y = 0; y < height; y ++) {
-        string = string + '<div style="display:block">';//
-        for(x =0; x < width; x ++ ) { 
-            string = string + '<div style="display:inline; min-height:3px; height:8px">';
-            if (list.map[(y * height) + x].d < 5) {
-                string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_light.png" ' ;
-            }
-            else {
-                string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_dark.png" ' ;
-            }
-            string = string + 'onclick="xy('+ x + ","+ y +')">';
-            string = string + "</div>";
-        }
-        string = string + "</div>";
-    }
-    string = string + "</div>";
-    ;//console.log(string);
-    document.getElementById(space).innerHTML = string;
-    document.getElementById("wizOpStartConfirm").style.display = "block";
-    
-}
-*/
 
 function getMapTopic() {
     if (! isMatchingName(tx_gapi_turtlebot_name) && 
@@ -2101,6 +1976,8 @@ function chooseClear() {
 }
 
 function chooseAccept() {
+
+    //check for sanity...
     alert("command! " + "\n" + 
         "start: " + map_nav_pose_x + "," + map_nav_pose_y + "\n" +
         "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
@@ -2207,6 +2084,11 @@ table
 }
 table, td, tr
 {
+    border:0px solid black;
+}
+table.lined, td.lined, tr.lined
+{
+    border-collapse:separate;
     border:1px solid black;
 }
 img
@@ -2246,14 +2128,14 @@ button
 <tr><td>Do This:<br></td></tr><!-- Make Test Map -->
 <tr><td><button type="button"  id="opMake" onclick="opMake()" style="width:100%">Make Test Map</button></td></tr>
 <tr><td><button type="button"  id="opSave" onclick="opSave()" style="width:100%" disabled>Save Map</button></td></tr>
-<tr><td>Or Do This:<br></td></tr><!-- Nav Map -->
-<tr><td><button type="button"  id="opLoad" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
+
 <!-- tr><td><button type="button"  id="opChoose" onclick="opChoose()" style="width:100%" disabled>List Maps</button></td></tr -->
 <tr><td>Or Do This:<br></td></tr><!-- Map Manage -->
 <tr><td><button type="button"  id="opStart" onclick="opStart()" style="width:100%">Manage Maps</button></td></tr>
 <tr><td><button type="button"  id="opDelete" onclick="opDelete()" style="width:100%" disabled>Delete Map</button></td></tr>
 <tr><td><button type="button"  id="opRename" onclick="opRename()" style="width:100%" disabled>Rename Map</button></td></tr>
 <tr><td><button type="button"  id="opList" onclick="opList()" style="width:100%" disabled>List Maps</button></td></tr>
+<tr><td><button type="button"  id="opLoad" onclick="opLoad()" style="width:100%" disabled>Load Map</button></td></tr>
 <tr><td>Sometimes Do This:<br></td></tr><!-- View Map, Etc... -->
 <tr><td><button type="button"  id="opView" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
 <tr><td><button type="button"  id="stopService" onclick="opStopService()" style="width:100%">STOP/SWITCH SERVICE</button></td></tr>
@@ -2336,6 +2218,12 @@ button
 </div>
 <!-- one div for each frame of wizard  SAVE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpSave">
+    <br>
+    Saving maps is precarious right now. If you want to save a map, make the map
+    first with the 'G-MAP' option under 'Make-Map', then once your map is made start
+    up the map manager. It will save a map automatically... you must rename it to
+    your liking. The option below DOES NOT WORK.
+    <br>
     Give your map a name:
     <input type="text" name="rename" id="inputSpaceSave">
     <button type="button" onclick="executeSave()">SAVE</button><br>
@@ -2349,11 +2237,8 @@ button
 </div>
 <!-- one div for each frame of wizard  START ROBOT / CONFIG-->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpStart">
-    <!-- button type="button" onclick='getMapTopic();'>Show</button>
-    <div id="showMapSpace" style="border-style:solid;border-width:3px; border-color:black;
-        width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
-    <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
-    </div -->
+    
+    
 <button type="button" onclick='executeMapStart();'>FORCE MAP MANAGER</button><br><br>
     
 <button type="button" onclick="opCancel()">Done</button><br>
@@ -2371,19 +2256,33 @@ button
 
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
-
+<br>
 <!-- start of complicated nav div -->
     <div id="wizOpNavSettings" style="display:none">
-    <table><tr>
-        <td><!-- all start location stuff -->
+    <table class="lined"><tr class="lined">
+        <td class="lined"><!-- start location stuff -->
             <button type="button" onclick="chooseStart()">START COORDS</button>
         </td>
-        <td><!-- all stop location stuff -->
+        <td class="lined"><!-- stop location stuff -->
             <button type="button" onclick="chooseStop()">STOP COORDS</button>
         </td>
-    </tr></table>
+    </tr>
+    <tr class="lined">
+        <td class="lined"><!-- start location stuff -->
+            click here for angle
+            <img src="//awesometelenp.appspot.com/static/bitmap/button_center.png">
+        </td>
+        <td class="lined"><!-- stop location stuff -->
+            click here for angle
+            <img src="//awesometelenp.appspot.com/static/bitmap/button_center.png">
+        </td>
+    </tr>
+    <tr class="lined"><td class="lined" colspan="2">
     <button type="button" onclick="chooseClear()">NO COORDS</button>
     <button type="button" onclick="chooseAccept()">SEND TO BOT</button>
+    </td></tr>
+    </table>
+    
     </div>
     
 <!-- end of complicated nav div -->

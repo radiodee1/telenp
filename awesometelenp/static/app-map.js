@@ -260,7 +260,7 @@ function opStartDisabled() {
 
     document.getElementById("opMake").disabled = 'disabled';
     document.getElementById("opSave").disabled = '';
-    document.getElementById("opLoad").disabled = 'disabled';
+    document.getElementById("opLoad").disabled = '';
     document.getElementById("opChoose").disabled = 'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = '';
@@ -381,23 +381,7 @@ function parseCommands(commands) {
 	            } );
 	        break;
 	        
-	        /*
-	        case map_command_list_start :
-	            var list;
-                try {
-                    map_listener.subscribe( function(message) {
-                        list = message.data;
-                        
-                        sendMapPicBroadcast(commands.wizard, message);
-                        map_listener.unsubscribe();
-                    });
-                }
-                catch (e) {
-                    ;//console.log("map listener fail");
-                }
-                
-	        break;
-	        */
+	        
 	        case map_command_delete :
                 var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
 	            map_service_delete.callService( request, function (result) {
@@ -450,9 +434,11 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({});
 	            map_service_pic.callService( request, function (result) {
 	                //do all picture things here.
+	                /*
 	                if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
 	                if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
 	                console.log("before createImageResource " + result.data );
+	                
 	                map_image = gapi.hangout.av.effects.createImageResource(
 	                    result.data );
 	                    
@@ -477,7 +463,7 @@ function parseCommands(commands) {
 	                //map_overlay.setScale(0.5);
 	                //map_overlay = map_image.showOverlay({'position': {'x': 0, 'y': 0}});
 	                map_overlay.setVisible(true);
-	                
+	                */
 	                sendMapInForm(result.data);
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
@@ -594,8 +580,7 @@ function sendMapInForm(data) {
             
             mapspace.ready(showToolTip);
             mapspace.click(takePosition);
-            //document.getElementById('showMapSpaceView').innerHTML = '<img id="mapimg" src="' + ret.picurl + '">' ;
-            ;//console.log(ret);
+            
         }
     });
                
@@ -793,38 +778,6 @@ function sendMapBroadcast(type, list, num) {
 	;//console.log("map event " + listText);
 }
 
-/*
-function sendMapPicBroadcast(wizard, map_in) {
-    if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
-    if (typeof map_in === "undefined") {
-        ;//console.log("map_in is undefined...-----------------------");
-        return;
-    }
-    var x,y;
-    var width = map_in.info.width;
-    var height = map_in.info.height;
-    var map = '{"width":"' + width + '","height":"' + height + '","wizard":"' + wizard + '","map": [';
-    for (y = 0; y < height; y ++) {
-        for (x = 0; x < width; x ++) {
-            var element = { "d" : map_in.data[(y * width) + x] };
-
-            map = map + JSON.stringify(element);
-            if  (x == width - 1 && y == height - 1) {
-                //don't add comma
-            }
-            else map = map + ',' ;
-        }
-    }
-    map = map + ']}';
-    try {
-		gapi.hangout.data.setValue( tx_gapi_map_raw, map);
-	}
-	catch (e) {
-		;//console.log("hangout setValue error. -- Error with map pic");
-	}
-	;//console.log(map);
-}
-*/
 
 function sendAppListBroadcast(wizard, list) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
@@ -935,54 +888,7 @@ function receiveMapBroadcast() {
 	    ;//console.log("error google hangouts api -- " );
 	}
 }
-/*
-function receiveRawMapBroadcast() {
-    if (! isMatchingName(tx_gapi_controller_name) && 
-        ! isMatchingName(tx_gapi_turtlebot_name) ) return;
-    return; // <----------------------------
-    try {
-	    rx_data = gapi.hangout.data.getState()[tx_gapi_map_raw];
-	    
-	}
-	catch (e){
-	    ;//console.log("error google hangouts api -- " );
-	}
-	
-	//;//console.log("raw map broadcast!! ---------------------");
-	if (typeof rx_data !== "undefined") {
-	    var list = JSON.parse(rx_data);
-	    //;//console.log("data received " + list);
-	    if ( list.wizard == map_command_list_start ) {
-	        fillMapSpace('showMapSpace', list);
-	    }
-	    else if (list.wizard == map_command_list_view ) {
-    	    fillMapSpace('showMapSpaceView', list);
-	    }
-	    
-    gapi.hangout.data.clearValue(tx_gapi_map_raw);
-	}
-}
-*/
 
-/*
-function receiveAppListBroadcast() {
-    if (! isMatchingName(tx_gapi_controller_name) && 
-        ! isMatchingName(tx_gapi_turtlebot_name) ) return;
-    try {
-	    rx_data = gapi.hangout.data.getState()[tx_gapi_app_list];
-	    
-	}
-	catch (e){
-	    ;//console.log("error google hangouts api -- " );
-	}
-	
-    if (typeof rx_data !== "undefined") {
-	    var list = JSON.parse(rx_data);
-        fillAppSpace(list, 'listSpaceApps');
-        gapi.hangout.data.clearValue(tx_gapi_app_list);
-	}
-}
-*/
 
 function executeLoad() {
     var map_id = document.getElementById("selectSpaceLoad").value;
@@ -1037,7 +943,7 @@ function executeRunNav() {
 function stopService() {
     document.getElementById("opMake").disabled = '';
     document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = '';
+    document.getElementById("opLoad").disabled = 'disabled';
     document.getElementById("opChoose").disabled = '';//'disabled';
     document.getElementById("opStart").disabled = '';
     document.getElementById("opRename").disabled = 'disabled';
@@ -1049,37 +955,6 @@ function stopService() {
 function opStopService() {
     sendMapCommandsShort(app_command_app_stop, 0, "", "", app_command_app_stop);
 }
-
-/*
-function fillMapSpace(space, list) {
-    
-    var string = '<div border="0" id="mapSpaceTable"' ;
-    string = string + ' style="display:block; min-height:3px;min-width:3px">';
-    var x, y;
-    var height = list.height;
-    var width = list.width;
-    for (y = 0; y < height; y ++) {
-        string = string + '<div style="display:block">';//
-        for(x =0; x < width; x ++ ) { 
-            string = string + '<div style="display:inline; min-height:3px; height:8px">';
-            if (list.map[(y * height) + x].d < 5) {
-                string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_light.png" ' ;
-            }
-            else {
-                string = string + '<img src="//awesometelenp.appspot.com/static/bitmap/pix_dark.png" ' ;
-            }
-            string = string + 'onclick="xy('+ x + ","+ y +')">';
-            string = string + "</div>";
-        }
-        string = string + "</div>";
-    }
-    string = string + "</div>";
-    ;//console.log(string);
-    document.getElementById(space).innerHTML = string;
-    document.getElementById("wizOpStartConfirm").style.display = "block";
-    
-}
-*/
 
 function getMapTopic() {
     if (! isMatchingName(tx_gapi_turtlebot_name) && 
@@ -1182,6 +1057,8 @@ function chooseClear() {
 }
 
 function chooseAccept() {
+
+    //check for sanity...
     alert("command! " + "\n" + 
         "start: " + map_nav_pose_x + "," + map_nav_pose_y + "\n" +
         "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +

@@ -7,6 +7,11 @@ table
 }
 table, td, tr
 {
+    border:0px solid black;
+}
+table.lined, td.lined, tr.lined
+{
+    border-collapse:separate;
     border:1px solid black;
 }
 img
@@ -46,14 +51,14 @@ button
 <tr><td>Do This:<br></td></tr><!-- Make Test Map -->
 <tr><td><button type="button"  id="opMake" onclick="opMake()" style="width:100%">Make Test Map</button></td></tr>
 <tr><td><button type="button"  id="opSave" onclick="opSave()" style="width:100%" disabled>Save Map</button></td></tr>
-<tr><td>Or Do This:<br></td></tr><!-- Nav Map -->
-<tr><td><button type="button"  id="opLoad" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
+
 <!-- tr><td><button type="button"  id="opChoose" onclick="opChoose()" style="width:100%" disabled>List Maps</button></td></tr -->
 <tr><td>Or Do This:<br></td></tr><!-- Map Manage -->
 <tr><td><button type="button"  id="opStart" onclick="opStart()" style="width:100%">Manage Maps</button></td></tr>
 <tr><td><button type="button"  id="opDelete" onclick="opDelete()" style="width:100%" disabled>Delete Map</button></td></tr>
 <tr><td><button type="button"  id="opRename" onclick="opRename()" style="width:100%" disabled>Rename Map</button></td></tr>
 <tr><td><button type="button"  id="opList" onclick="opList()" style="width:100%" disabled>List Maps</button></td></tr>
+<tr><td><button type="button"  id="opLoad" onclick="opLoad()" style="width:100%" disabled>Load Map</button></td></tr>
 <tr><td>Sometimes Do This:<br></td></tr><!-- View Map, Etc... -->
 <tr><td><button type="button"  id="opView" onclick="opView()" style="width:100%">View Current Map</button></td></tr>
 <tr><td><button type="button"  id="stopService" onclick="opStopService()" style="width:100%">STOP/SWITCH SERVICE</button></td></tr>
@@ -136,6 +141,12 @@ button
 </div>
 <!-- one div for each frame of wizard  SAVE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpSave">
+    <br>
+    Saving maps is precarious right now. If you want to save a map, make the map
+    first with the 'G-MAP' option under 'Make-Map', then once your map is made start
+    up the map manager. It will save a map automatically... you must rename it to
+    your liking. The option below DOES NOT WORK.
+    <br>
     Give your map a name:
     <input type="text" name="rename" id="inputSpaceSave">
     <button type="button" onclick="executeSave()">SAVE</button><br>
@@ -149,11 +160,8 @@ button
 </div>
 <!-- one div for each frame of wizard  START ROBOT / CONFIG-->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpStart">
-    <!-- button type="button" onclick='getMapTopic();'>Show</button>
-    <div id="showMapSpace" style="border-style:solid;border-width:3px; border-color:black;
-        width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
-    <div style="font-size:12pt;">Click 'SHOW' button to see...</div><br>
-    </div -->
+    
+    
 <button type="button" onclick='executeMapStart();'>FORCE MAP MANAGER</button><br><br>
     
 <button type="button" onclick="opCancel()">Done</button><br>
@@ -171,19 +179,33 @@ button
 
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
-
+<br>
 <!-- start of complicated nav div -->
     <div id="wizOpNavSettings" style="display:none">
-    <table><tr>
-        <td><!-- all start location stuff -->
+    <table class="lined"><tr class="lined">
+        <td class="lined"><!-- start location stuff -->
             <button type="button" onclick="chooseStart()">START COORDS</button>
         </td>
-        <td><!-- all stop location stuff -->
+        <td class="lined"><!-- stop location stuff -->
             <button type="button" onclick="chooseStop()">STOP COORDS</button>
         </td>
-    </tr></table>
+    </tr>
+    <tr class="lined">
+        <td class="lined"><!-- start location stuff -->
+            click here for angle
+            <img src="//awesometelenp.appspot.com/static/bitmap/button_center.png">
+        </td>
+        <td class="lined"><!-- stop location stuff -->
+            click here for angle
+            <img src="//awesometelenp.appspot.com/static/bitmap/button_center.png">
+        </td>
+    </tr>
+    <tr class="lined"><td class="lined" colspan="2">
     <button type="button" onclick="chooseClear()">NO COORDS</button>
     <button type="button" onclick="chooseAccept()">SEND TO BOT</button>
+    </td></tr>
+    </table>
+    
     </div>
     
 <!-- end of complicated nav div -->
