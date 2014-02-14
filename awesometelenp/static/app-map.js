@@ -1069,7 +1069,7 @@ function anglePng(angle) {
     var offset = 0;
     if (num.length > 3) offset = 1;
     var nums = num[ num.length - 3] + num[ num.length - 2 ] + num[num.length - 1] ;
-    console.log(nums + " -- number for angle.png");
+    //console.log(nums + " -- number for angle.png");
     return "//awesometelenp.appspot.com/static/bitmap/angle" + nums + ".png"
 }
 
