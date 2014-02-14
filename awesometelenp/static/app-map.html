@@ -7,7 +7,7 @@ table
 }
 table, td, tr
 {
-    border:0px solid black;
+    border:1px solid black;
 }
 img
 {
@@ -24,13 +24,13 @@ button
     position: absolute;
     top: 0px;
     right:0px;
-    width:60px;
+    width:80px;
     visibility: visible;
-    color:#006699;
+    color:black;
     background-color:#ffffff;
     border: 1px solid #66ccff;
     z-index: 10;
-    padding:7px;
+    padding:4px;
 }
 
 </style>
@@ -48,7 +48,7 @@ button
 <tr><td><button type="button"  id="opSave" onclick="opSave()" style="width:100%" disabled>Save Map</button></td></tr>
 <tr><td>Or Do This:<br></td></tr><!-- Nav Map -->
 <tr><td><button type="button"  id="opLoad" onclick="opLoad()" style="width:100%">Load Map</button></td></tr>
-<tr><td><button type="button"  id="opChoose" onclick="opChoose()" style="width:100%" disabled>List Maps</button></td></tr>
+<!-- tr><td><button type="button"  id="opChoose" onclick="opChoose()" style="width:100%" disabled>List Maps</button></td></tr -->
 <tr><td>Or Do This:<br></td></tr><!-- Map Manage -->
 <tr><td><button type="button"  id="opStart" onclick="opStart()" style="width:100%">Manage Maps</button></td></tr>
 <tr><td><button type="button"  id="opDelete" onclick="opDelete()" style="width:100%" disabled>Delete Map</button></td></tr>
@@ -75,17 +75,7 @@ button
 
 <button type="button" onclick="opCancel()">Return</button>
 
-    <!--
-    <br><br>
-    <button type="button" onclick="executeListApps()">APPS</button>
-    List of Apps:<br>
-    <div id="listSpaceApps" style="border-style:solid;border-width:3px; border-color:black;
-        width:300px; height:175px; overflow:auto">
-    Click 'APPS' button to see...<br>
     
-    
-    </div>
-    -->
 <br>
 
 </div>
@@ -99,7 +89,7 @@ button
     </select><button type="button" onclick="executeLoad()">LOAD</button><br>
     </form>
 <br>
-<button type="button" onclick="">RUN NAV</button><br><br>
+<button type="button" onclick="executeRunNav()">RUN NAV</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpLoadConfirm" style="display:none">Your map loaded.</p>
 
@@ -181,6 +171,22 @@ button
 
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
+
+<!-- start of complicated nav div -->
+    <div id="wizOpNavSettings" style="display:none">
+    <table><tr>
+        <td><!-- all start location stuff -->
+            <button type="button" onclick="chooseStart()">START COORDS</button>
+        </td>
+        <td><!-- all stop location stuff -->
+            <button type="button" onclick="chooseStop()">STOP COORDS</button>
+        </td>
+    </tr></table>
+    <button type="button" onclick="chooseClear()">NO COORDS</button>
+    <button type="button" onclick="chooseAccept()">SEND TO BOT</button>
+    </div>
+    
+<!-- end of complicated nav div -->
 </div>
 <!-- end of wizard -->
 </div>

@@ -3,10 +3,11 @@ var test_map = "";
 var app_name = "";
 var map_image ;
 var map_overlay ;
+var coord_x = 0;
+var coord_y = 0;
 var map_manager_started = false;
 
 var tx_gapi_map_event = "telenp_map";
-//var tx_gapi_map_raw = "telenp_map_raw";
 var tx_gapi_app_list = "telenp_app_list";
 var map_service_list ;
 var map_service_load ;
@@ -48,6 +49,21 @@ var app_command_app_stop = "app_appstop";
 var app_command_map_manager = "app_mapmanage";
 var app_command_map_manager_force = "app_mapmanage_force";
 var app_command_map_nav = "app_mapnav";
+// enum for planning map movement
+var ENUM_BOT_START = "turtlebot_start";
+var ENUM_BOT_END = "turtlebot_end";
+var ENUM_BOT_NONE = "turtlebot_no_op";
+var nav_map_setup = ENUM_BOT_NONE;
+// pose and goal
+var map_nav_pose_x = 0;
+var map_nav_pose_y = 0;
+var map_nav_pose_z = 0;
+var map_nav_pose_a = 0;
+var map_nav_goal_x = 0;
+var map_nav_goal_y = 0;
+var map_nav_goal_z = 0;
+var map_nav_goal_a = 0;
+
 
 function opChooseOp() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -577,6 +593,7 @@ function sendMapInForm(data) {
             mapspace.html('<img id="mapimg" src="' + ret.picurl + '">');
             
             mapspace.ready(showToolTip);
+            mapspace.click(takePosition);
             //document.getElementById('showMapSpaceView').innerHTML = '<img id="mapimg" src="' + ret.picurl + '">' ;
             ;//console.log(ret);
         }
@@ -947,7 +964,7 @@ function receiveRawMapBroadcast() {
 }
 */
 
-
+/*
 function receiveAppListBroadcast() {
     if (! isMatchingName(tx_gapi_controller_name) && 
         ! isMatchingName(tx_gapi_turtlebot_name) ) return;
@@ -965,6 +982,7 @@ function receiveAppListBroadcast() {
         gapi.hangout.data.clearValue(tx_gapi_app_list);
 	}
 }
+*/
 
 function executeLoad() {
     var map_id = document.getElementById("selectSpaceLoad").value;
@@ -1008,6 +1026,12 @@ function executeMapStart() {
 
 function executeList() {
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
+}
+
+function executeRunNav() {
+    document.getElementById('wizOpNavSettings').style.display = "block";
+    opView();
+    opViewDisabled();
 }
 
 function stopService() {
@@ -1086,13 +1110,18 @@ function showToolTip() {
             height = $( this ).height(); 
         $( this ).
             mousemove(function ( e ) {
+                var scroll_x = $('#showMapSpaceView')[0].scrollLeft;
+                var scroll_y = $('#showMapSpaceView')[0].scrollTop;
                 var x = e.pageX - left,
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
-                $( tooltip ).html( 'x = ' + x + ',<br/> y = ' + y ).css({
+                $( tooltip ).html( 'x = ' + x + ',<br/> y = ' + y + '<br/> scroll = '
+                        + scroll_x + ' -- ' + scroll_y ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
+                coord_x = x + scroll_x;
+                coord_y = y + scroll_y;
             }).
             mouseleave(function () {
                 $( tooltip ).hide();
@@ -1100,3 +1129,62 @@ function showToolTip() {
     
     });
 };
+
+function takePosition() {
+    //first check if you are either controller or turtlebot...
+    if (! isMatchingName(tx_gapi_turtlebot_name) && 
+        ! isMatchingName(tx_gapi_controller_name) ) return;
+        
+    switch (nav_map_setup) {
+        case ENUM_BOT_START :
+            map_nav_pose_x = coord_x;
+            map_nav_pose_y = coord_y;
+        break;
+        
+        case ENUM_BOT_END :
+            map_nav_goal_x = coord_x;
+            map_nav_goal_y = coord_y;
+        break;
+        
+        case ENUM_BOT_NONE :
+        
+        break;
+    }
+}
+
+function takeAngle() {
+    //first check if you are either controller or turtlebot...
+    if (! isMatchingName(tx_gapi_turtlebot_name) && 
+        ! isMatchingName(tx_gapi_controller_name) ) return;
+        
+    switch (nav_map_setup) {
+        case ENUM_BOT_START :
+        break;
+        
+        case ENUM_BOT_END :
+        break;
+        
+        case ENUM_BOT_NONE :
+        break;
+    }
+}
+
+function chooseStart() {
+    nav_map_setup = ENUM_BOT_START;
+}
+
+function chooseStop() {
+    nav_map_setup = ENUM_BOT_STOP;
+}
+
+function chooseClear() {
+    nav_map_setup = ENUM_BOT_NONE;
+}
+
+function chooseAccept() {
+    alert("command! " + "\n" + 
+        "start: " + map_nav_pose_x + "," + map_nav_pose_y + "\n" +
+        "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
+        "sent!!"
+    );
+}
