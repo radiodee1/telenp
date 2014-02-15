@@ -29,7 +29,7 @@ button
     position: absolute;
     top: 0px;
     right:0px;
-    width:80px;
+    width:100px;
     visibility: visible;
     color:black;
     background-color:#ffffff;
@@ -208,13 +208,17 @@ img.dot, img.enddot
         </td>
     </tr>
     <tr class="lined">
-        <td class="lined"><!-- start location stuff -->
-            click here for angle
+        <td class="lined" valign="top"><!-- start location stuff -->
+            click here for angle at start position <br>
             <img id="angleStart" onclick='makeangleStart()' src="//awesometelenp.appspot.com/static/bitmap/angle000.png">
+            <br>
+            <div id="xyStart"></div>
         </td>
-        <td class="lined"><!-- stop location stuff -->
-            click here for angle
+        <td class="lined" valign="top"><!-- stop location stuff -->
+            click here for angle desired at end position <br>
             <img id="angleStop" onclick='makeangleStop()' src="//awesometelenp.appspot.com/static/bitmap/angle000.png">
+            <br>
+            <div id="xyStop"></div>
         </td>
     </tr>
     <tr class="lined"><td class="lined" colspan="2">

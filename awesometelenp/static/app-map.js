@@ -50,8 +50,8 @@ var app_command_map_manager = "app_mapmanage";
 var app_command_map_manager_force = "app_mapmanage_force";
 var app_command_map_nav = "app_mapnav";
 // enum for planning map movement
-var ENUM_BOT_START = "turtlebot_start";
-var ENUM_BOT_END = "turtlebot_end";
+var ENUM_BOT_START = "turtlebot_place_start";
+var ENUM_BOT_END = "turtlebot_place_end";
 var ENUM_BOT_NONE = "turtlebot_no_op";
 var nav_map_setup = ENUM_BOT_NONE;
 // pose and goal
@@ -998,8 +998,9 @@ function showToolTip() {
                 var x = e.pageX - left,
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
-                $( tooltip ).html( 'x = ' + x + ',<br/> y = ' + y + '<br/> scroll = '
-                        + (scroll_x + x) + ' -- ' +( scroll_y + y) ).css({
+                $( tooltip ).html( 'position xy = '
+                        + (scroll_x + x) + ' -- ' +( scroll_y + y) + '<br/>' + 
+                        "mode: " + nav_map_setup ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
@@ -1017,7 +1018,7 @@ function takePosition() {
     //first check if you are either controller or turtlebot...
     if (! isMatchingName(tx_gapi_turtlebot_name) && 
         ! isMatchingName(tx_gapi_controller_name) ) return;
-        
+    console.log(nav_map_setup);
     switch (nav_map_setup) {
         case ENUM_BOT_START :
             map_nav_pose_x = coord_x;
@@ -1059,7 +1060,7 @@ function chooseStart() {
 }
 
 function chooseStop() {
-    nav_map_setup = ENUM_BOT_STOP;
+    nav_map_setup = ENUM_BOT_END;
 }
 
 function chooseClear() {
@@ -1079,33 +1080,38 @@ function anglePng(angle) {
 function makeangleStart() {
     angle_count_start += 30;
     angle_count_start = angle_count_start % 360;
+    map_nav_pose_a = angle_count_start;
     document.getElementById('angleStart').src = anglePng(angle_count_start);
 }
 
 function makeangleStop() {
     angle_count_stop += 30;
     angle_count_stop = angle_count_stop % 360;
+    map_nav_goal_a = angle_count_stop;
     document.getElementById('angleStop').src = anglePng(angle_count_stop);
 }
 
 function chooseAccept() {
 
     //check for sanity...
-    alert("command! " + "\n" + 
+    alert("NAV command! " + "\n" + 
         "start: " + map_nav_pose_x + "," + map_nav_pose_y + "\n" +
+        "start angle: " + map_nav_pose_a + "\n" +
         "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
+        "stop angle: " + map_nav_goal_a + "\n" +
         "sent!!"
     );
 }
 
 function placeStartDot() {
     
-    $('dot').remove();
+    $('.dot').remove();
     $('#startDot').remove();
     var dot = $( '<img id="startDot" ' +
             ' src="//awesometelenp.appspot.com/static/bitmap/pix_blue.png" ' +
             ' class="dot">' ).
         appendTo( '#showMapSpaceDiv' )[0];
+
         
     var pos = $('#showMapSpaceView').position();
     $( dot ).css({
@@ -1116,17 +1122,19 @@ function placeStartDot() {
         top: map_nav_pose_y - pos.top - ($(dot).height() )
     }).show();
     
+    $('#xyStart').html('xy: ' + map_nav_pose_x + ',' + map_nav_pose_y);
 }
 
 function placeEndDot() {
     
-    $('enddot').remove();
+    $('.enddot').remove();
     $('#endDot').remove();
     var enddot = $( '<img id="endDot" ' +
             ' src="//awesometelenp.appspot.com/static/bitmap/pix_red.png" ' +
             ' class="enddot">' ).
         appendTo( '#showMapSpaceDiv' )[0];
-    
+
+        
     var pos = $('#showMapSpaceView').position();
     $( enddot ).css({
         padding: 0 ,
@@ -1135,4 +1143,6 @@ function placeEndDot() {
         left: map_nav_goal_x - ($(enddot).width() ) ,
         top: map_nav_goal_y - pos.top - ($(enddot).height() )
     }).show();
+    
+    $('#xyStop').html('xy: ' + map_nav_goal_x + ',' + map_nav_goal_y);
 }
