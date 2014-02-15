@@ -2013,7 +2013,7 @@ function makeangleStop() {
 function chooseAccept() {
 
     //check for sanity...
-    alert("NAV command! " + "\n" + 
+    alert("NAV command! " + "\n\n" + 
         "start: " + map_nav_pose_x + "," + map_nav_pose_y + "\n" +
         "start angle: " + map_nav_pose_a + "\n" +
         "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
