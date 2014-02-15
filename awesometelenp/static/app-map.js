@@ -589,8 +589,9 @@ function sendMapInForm(data) {
         data: {
             'map': data},
         success: function( ret ) {
-            //console.log('ajax here ' + ret.picurl);
-            var mapspace = $('#showMapSpaceView');
+            //
+            //var mapspace = $('#showMapSpaceView');
+            var mapspace = $('#showMapSpaceDiv');
             mapspace.html('<img id="mapimg" src="' + ret.picurl + '">');
             
             mapspace.ready(showToolTip);
@@ -998,7 +999,7 @@ function showToolTip() {
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
                 $( tooltip ).html( 'x = ' + x + ',<br/> y = ' + y + '<br/> scroll = '
-                        + scroll_x + ' -- ' + scroll_y ).css({
+                        + (scroll_x + x) + ' -- ' +( scroll_y + y) ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
@@ -1021,11 +1022,13 @@ function takePosition() {
         case ENUM_BOT_START :
             map_nav_pose_x = coord_x;
             map_nav_pose_y = coord_y;
+            placeStartDot();
         break;
         
         case ENUM_BOT_END :
             map_nav_goal_x = coord_x;
             map_nav_goal_y = coord_y;
+            placeEndDot();
         break;
         
         case ENUM_BOT_NONE :
@@ -1093,4 +1096,43 @@ function chooseAccept() {
         "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
         "sent!!"
     );
+}
+
+function placeStartDot() {
+    
+    $('dot').remove();
+    $('#startDot').remove();
+    var dot = $( '<img id="startDot" ' +
+            ' src="//awesometelenp.appspot.com/static/bitmap/pix_blue.png" ' +
+            ' class="dot">' ).
+        appendTo( '#showMapSpaceDiv' )[0];
+        
+    var pos = $('#showMapSpaceView').position();
+    $( dot ).css({
+        padding: 0 ,
+        margin: 0,
+        border: 0, 
+        left: map_nav_pose_x - ($(dot).width() ) ,
+        top: map_nav_pose_y - pos.top - ($(dot).height() )
+    }).show();
+    
+}
+
+function placeEndDot() {
+    
+    $('enddot').remove();
+    $('#endDot').remove();
+    var enddot = $( '<img id="endDot" ' +
+            ' src="//awesometelenp.appspot.com/static/bitmap/pix_red.png" ' +
+            ' class="enddot">' ).
+        appendTo( '#showMapSpaceDiv' )[0];
+    
+    var pos = $('#showMapSpaceView').position();
+    $( enddot ).css({
+        padding: 0 ,
+        margin: 0,
+        border: 0, 
+        left: map_nav_goal_x - ($(enddot).width() ) ,
+        top: map_nav_goal_y - pos.top - ($(enddot).height() )
+    }).show();
 }

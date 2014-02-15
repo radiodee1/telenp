@@ -1508,8 +1508,9 @@ function sendMapInForm(data) {
         data: {
             'map': data},
         success: function( ret ) {
-            //console.log('ajax here ' + ret.picurl);
-            var mapspace = $('#showMapSpaceView');
+            //
+            //var mapspace = $('#showMapSpaceView');
+            var mapspace = $('#showMapSpaceDiv');
             mapspace.html('<img id="mapimg" src="' + ret.picurl + '">');
             
             mapspace.ready(showToolTip);
@@ -1917,7 +1918,7 @@ function showToolTip() {
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
                 $( tooltip ).html( 'x = ' + x + ',<br/> y = ' + y + '<br/> scroll = '
-                        + scroll_x + ' -- ' + scroll_y ).css({
+                        + (scroll_x + x) + ' -- ' +( scroll_y + y) ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
@@ -1940,11 +1941,13 @@ function takePosition() {
         case ENUM_BOT_START :
             map_nav_pose_x = coord_x;
             map_nav_pose_y = coord_y;
+            placeStartDot();
         break;
         
         case ENUM_BOT_END :
             map_nav_goal_x = coord_x;
             map_nav_goal_y = coord_y;
+            placeEndDot();
         break;
         
         case ENUM_BOT_NONE :
@@ -1988,7 +1991,7 @@ function anglePng(angle) {
     var offset = 0;
     if (num.length > 3) offset = 1;
     var nums = num[ num.length - 3] + num[ num.length - 2 ] + num[num.length - 1] ;
-    console.log(nums + " -- number for angle.png");
+    //console.log(nums + " -- number for angle.png");
     return "//awesometelenp.appspot.com/static/bitmap/angle" + nums + ".png"
 }
 
@@ -2012,6 +2015,45 @@ function chooseAccept() {
         "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
         "sent!!"
     );
+}
+
+function placeStartDot() {
+    
+    $('dot').remove();
+    $('#startDot').remove();
+    var dot = $( '<img id="startDot" ' +
+            ' src="//awesometelenp.appspot.com/static/bitmap/pix_blue.png" ' +
+            ' class="dot">' ).
+        appendTo( '#showMapSpaceDiv' )[0];
+        
+    var pos = $('#showMapSpaceView').position();
+    $( dot ).css({
+        padding: 0 ,
+        margin: 0,
+        border: 0, 
+        left: map_nav_pose_x - ($(dot).width() ) ,
+        top: map_nav_pose_y - pos.top - ($(dot).height() )
+    }).show();
+    
+}
+
+function placeEndDot() {
+    
+    $('enddot').remove();
+    $('#endDot').remove();
+    var enddot = $( '<img id="endDot" ' +
+            ' src="//awesometelenp.appspot.com/static/bitmap/pix_red.png" ' +
+            ' class="enddot">' ).
+        appendTo( '#showMapSpaceDiv' )[0];
+    
+    var pos = $('#showMapSpaceView').position();
+    $( enddot ).css({
+        padding: 0 ,
+        margin: 0,
+        border: 0, 
+        left: map_nav_goal_x - ($(enddot).width() ) ,
+        top: map_nav_goal_y - pos.top - ($(enddot).height() )
+    }).show();
 }
 </script>
 
@@ -2143,7 +2185,25 @@ button
     z-index: 10;
     padding:4px;
 }
-
+img.dot, img.enddot
+{
+    position: absolute;
+    top: 0px;
+    left:0px;
+    visibility: visible;
+    z-index: 8;
+    padding:0px;
+}
+#showMapSpaceDiv
+{
+    position: relative;
+    
+}
+#showMapSpaceView
+{
+    position: relative;
+    
+}
 </style>
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
@@ -2279,9 +2339,8 @@ button
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpView">
     <button type="button" onclick='getMapTopicView();'>Refresh Current Map</button>
     <div id="showMapSpaceView" style="border-style:solid;border-width:3px; border-color:black;
-        width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;">
-    <div style="font-size:12pt;">Click 'REFRESH' button to see...</div><br>
-    </div>
+        width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;"><div 
+        style="font-size:12pt;" id="showMapSpaceDiv">Click 'REFRESH' button to see...</div></div>
 
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
