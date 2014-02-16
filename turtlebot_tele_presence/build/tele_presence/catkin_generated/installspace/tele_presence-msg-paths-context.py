@@ -5,4 +5,4 @@ INSTALLSPACE = 'TRUE' == 'TRUE'
 
 PROJECT_NAME = 'tele_presence'
 PKG_MSG_INCLUDE_DIRS = 'msg'
-ARG_DEPENDENCIES = ''
+ARG_DEPENDENCIES = 'geometry_msgs;std_msgs;nav_msgs'

@@ -18,6 +18,7 @@ var map_service_rename ;
 var map_service_save ;
 var map_service_start ;
 var map_service_stop ;
+var map_service_info ;
 // listen to map topic.
 var map_listener ;
 // app stuff
@@ -63,9 +64,17 @@ var map_nav_goal_x = 0;
 var map_nav_goal_y = 0;
 var map_nav_goal_z = 0;
 var map_nav_goal_a = 0;
+// center of map
+var map_nav_origin_x = 0; //these vars should be loaded when the map refreshes.
+var map_nav_origin_y = 0;
+var map_nav_origin_z = 0;
+var map_nav_origin_ax = 0;
+var map_nav_origin_ay = 0;
+var map_nav_origin_az = 0;
+var map_nav_resolution = 1;
 
-var angle_count_start = 0;
-var angle_count_stop = 0;
+var angle_count_start = 0; //note: angles currently increase in clockwise direction
+var angle_count_stop = 0;  //note: angles currently increase in cloclwise direction
 
 
 function opChooseOp() {
@@ -705,6 +714,11 @@ function setMapServices( rootname ) {
    		 
   	});
   	
+  	map_service_info = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/map_info',
+   		 messageType : 'tele_presence/MapInfo'
+  	});
 }
 
 function putListInSelectLocal(list, space) {
@@ -958,8 +972,6 @@ function executeRunNav() {
     
 }
 
-
-
 function opStopService() {
     sendMapCommandsShort(app_command_app_stop, 0, "", "", app_command_app_stop);
 }
@@ -976,6 +988,8 @@ function getMapTopicView() {
     if (! isMatchingName(tx_gapi_turtlebot_name) && 
         ! isMatchingName(tx_gapi_controller_name) ) return;
     sendMapCommandsShort(map_command_pic, 0, "", "", map_command_pic);
+    // get map meta data here??
+    
     return;
 
 }
@@ -998,14 +1012,17 @@ function showToolTip() {
                 var x = e.pageX - left,
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
+                coord_x = (x + scroll_x) - map_nav_origin_x; // note: first quadrant is negative in the y
+                coord_y = (y + scroll_y) - map_nav_origin_y; // note: second quadrant is negative in the x
+                    
                 $( tooltip ).html( 'position xy = '
-                        + (scroll_x + x) + ' -- ' +( scroll_y + y) + '<br/>' + 
+                        + ( coord_x ) + ' -- ' +( coord_y ) + '<br/>' + 
                         "mode: " + nav_map_setup ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
-                coord_x = x + scroll_x;
-                coord_y = y + scroll_y;
+                //coord_x = x + scroll_x;
+                //coord_y = y + scroll_y;
             }).
             mouseleave(function () {
                 $( tooltip ).hide();

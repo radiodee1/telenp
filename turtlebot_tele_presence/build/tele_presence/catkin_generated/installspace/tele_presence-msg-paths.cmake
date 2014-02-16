@@ -2,4 +2,4 @@
 
 # message include dirs in installspace
 _prepend_path("${tele_presence_DIR}/.." "msg" tele_presence_MSG_INCLUDE_DIRS UNIQUE)
-set(tele_presence_MSG_DEPENDENCIES )
+set(tele_presence_MSG_DEPENDENCIES geometry_msgs;std_msgs;nav_msgs)

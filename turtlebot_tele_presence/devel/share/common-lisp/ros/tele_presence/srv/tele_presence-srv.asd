@@ -10,6 +10,8 @@
     (:file "_package_BasicLaunch" :depends-on ("_package"))
     (:file "BasicStop" :depends-on ("_package_BasicStop"))
     (:file "_package_BasicStop" :depends-on ("_package"))
+    (:file "MapInfo" :depends-on ("_package_MapInfo"))
+    (:file "_package_MapInfo" :depends-on ("_package"))
     (:file "PictureMap" :depends-on ("_package_PictureMap"))
     (:file "_package_PictureMap" :depends-on ("_package"))
   ))

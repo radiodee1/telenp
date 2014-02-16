@@ -8,7 +8,7 @@ import base64
 import Image
 #import png
 
-from tele_presence.srv import CreateMap, PictureMap, BasicLaunch, BasicStop
+from tele_presence.srv import CreateMap, PictureMap, BasicLaunch, BasicStop, MapInfo
 from nav_msgs.msg import *
 from nav_msgs.srv import *
 from std_msgs.msg import *
@@ -30,6 +30,7 @@ def map_stuff():
     rospy.Service('picture_map', PictureMap, picture_map)
     rospy.Service('basic_launch', BasicLaunch, basic_launch)
     rospy.Service('basic_stop', BasicStop , basic_stop )
+    rospy.Service('map_info', MapInfo , map_info )
     #picture_map(req)
     while not rospy.is_shutdown():
         #if (my_map.info.width is not 0) :
@@ -78,10 +79,10 @@ def create_map(req ):
     test_map.info.origin.position.x = width / 2
     test_map.info.origin.position.y = height / 2
     test_map.info.origin.position.z = 1.0
-    test_map.info.origin.orientation.x = 1.0 
-    test_map.info.origin.orientation.y = 1.0 
-    test_map.info.origin.orientation.z = 1.0 
-    test_map.info.origin.orientation.w = 1.0 
+    test_map.info.origin.orientation.x = 0 
+    test_map.info.origin.orientation.y = 0 
+    test_map.info.origin.orientation.z = 0 
+    test_map.info.origin.orientation.w = 0 
     test_map.data = []
     for i in range(0, (width*height)):
         test_map.data.append( i % 8)
@@ -113,6 +114,10 @@ def basic_stop(req) :
     if len(req.command) > 0 :
         process.kill();
     return []
+
+def map_info(req) :
+    #
+    return[];
 
 if __name__ == '__main__':
     try:

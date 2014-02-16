@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  nav_msgs
   message_generation
   #map_store
   #tele_presence
@@ -62,6 +63,7 @@ add_service_files(
    PictureMap.srv
    BasicLaunch.srv
    BasicStop.srv
+   MapInfo.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -73,10 +75,12 @@ add_service_files(
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-  #DEPENDENCIES
+  DEPENDENCIES
   #tele_presence
 #  MapListEntryList  
-#   geometry_msgs#   std_msgs
+   geometry_msgs
+   std_msgs
+   nav_msgs
 )
 
 ###################################

@@ -1,3 +1,6 @@
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/actionlib_msgs_generate_messages_py.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles/clean_test_results.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles/doxygen.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/geometry_msgs_generate_messages_cpp.dir
@@ -5,6 +8,9 @@
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/geometry_msgs_generate_messages_py.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/gtest/CMakeFiles/gtest.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/gtest/CMakeFiles/gtest_main.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/nav_msgs_generate_messages_cpp.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/nav_msgs_generate_messages_lisp.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/nav_msgs_generate_messages_py.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/roscpp_generate_messages_cpp.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/roscpp_generate_messages_lisp.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/roscpp_generate_messages_py.dir

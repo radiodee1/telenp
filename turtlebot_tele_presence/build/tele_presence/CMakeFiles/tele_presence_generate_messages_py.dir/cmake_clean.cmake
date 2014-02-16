@@ -3,6 +3,7 @@ FILE(REMOVE_RECURSE
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntryList.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_BasicStop.py"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_MapInfo.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_BasicLaunch.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_PictureMap.py"
