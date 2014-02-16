@@ -43,7 +43,7 @@ def map_stuff():
 def picture_map( req ) :
     try:
         os.remove(mypath + '.pgm')
-        os.remove(mypath + '.jpeg')
+        os.remove(mypath + '.png')
         os.remove(mypath + '.yaml')
     except:
         print 'error while removing'
@@ -52,15 +52,16 @@ def picture_map( req ) :
     except:
         print 'error at rosrun'
     im = Image.open(mypath + '.pgm')
-    im.convert('RGBA')
-    im.save(mypath + '.jpeg')
+    #im.convert('RGBA')
+    #im.save(mypath + '.jpeg')
+    im.save(mypath + '.png')
     #
     try:
-        data_uri = str(base64.b64encode(open(mypath + ".jpeg", "rb").read())) .encode( "utf8").replace("\n", "")
+        data_uri = str(base64.b64encode(open(mypath + ".png", "rb").read())) .encode( "utf8").replace("\n", "")
     except:
         print 'error at base64.encodestring'
     try:
-        img_tag = 'data:image/jpeg;base64,{0}'.format(data_uri)
+        img_tag = 'data:image/png;base64,{0}'.format(data_uri)
     except:
         print 'error at img_tag'
     return img_tag

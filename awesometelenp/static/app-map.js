@@ -784,7 +784,7 @@ function sendMapBroadcast(type, list, num) {
         for (x = 0; x < newlength; x ++) {
             var map_name = list[x].name;
             if (list.length != newlength && x == newlength - 1) {
-                map_name = '[more in list...]';
+                map_name = '[' +( list.length - newlength )+ ' more in list...]';
             }
             var element = { 'name' : map_name, //list[x].name ,
                             'session_id' : list[x].session_id ,
@@ -1012,17 +1012,16 @@ function showToolTip() {
                 var x = e.pageX - left,
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
-                coord_x = (x + scroll_x) - map_nav_origin_x; // note: first quadrant is negative in the y
-                coord_y = (y + scroll_y) - map_nav_origin_y; // note: second quadrant is negative in the x
+                coord_x = (x + scroll_x) ;//- map_nav_origin_x; // note: first quadrant is negative in the y
+                coord_y = (y + scroll_y) ;//- map_nav_origin_y; // note: second quadrant is negative in the x
                     
                 $( tooltip ).html( 'position xy = '
                         + ( coord_x ) + ' -- ' +( coord_y ) + '<br/>' + 
-                        "mode: " + nav_map_setup ).css({
+                        "mode: " + nav_map_setup + " <br/>special: " + $(tooltip).height() ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
-                //coord_x = x + scroll_x;
-                //coord_y = y + scroll_y;
+                
             }).
             mouseleave(function () {
                 $( tooltip ).hide();
