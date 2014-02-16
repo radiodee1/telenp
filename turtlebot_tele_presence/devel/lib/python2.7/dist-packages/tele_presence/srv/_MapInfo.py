@@ -95,11 +95,14 @@ import nav_msgs.msg
 import genpy
 
 class MapInfoResponse(genpy.Message):
-  _md5sum = "93f442f1ef5b47ae94c60376f3e41b25"
+  _md5sum = "9fc9c13f6ea92a0dd9bdce4803a20c86"
   _type = "tele_presence/MapInfoResponse"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """
 nav_msgs/MapMetaData info
+
+
+bool loaded
 
 
 
@@ -155,8 +158,8 @@ float64 z
 float64 w
 
 """
-  __slots__ = ['info']
-  _slot_types = ['nav_msgs/MapMetaData']
+  __slots__ = ['info','loaded']
+  _slot_types = ['nav_msgs/MapMetaData','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -166,7 +169,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       info
+       info,loaded
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -177,8 +180,11 @@ float64 w
       #message fields cannot be None, assign default values for those that are
       if self.info is None:
         self.info = nav_msgs.msg.MapMetaData()
+      if self.loaded is None:
+        self.loaded = False
     else:
       self.info = nav_msgs.msg.MapMetaData()
+      self.loaded = False
 
   def _get_types(self):
     """
@@ -193,7 +199,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_struct_2If2I7d.pack(_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w))
+      buff.write(_struct_2If2I7dB.pack(_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w, _x.loaded))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -208,8 +214,9 @@ float64 w
       end = 0
       _x = self
       start = end
-      end += 76
-      (_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w,) = _struct_2If2I7d.unpack(str[start:end])
+      end += 77
+      (_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w, _x.loaded,) = _struct_2If2I7dB.unpack(str[start:end])
+      self.loaded = bool(self.loaded)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -223,7 +230,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_struct_2If2I7d.pack(_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w))
+      buff.write(_struct_2If2I7dB.pack(_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w, _x.loaded))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -239,16 +246,17 @@ float64 w
       end = 0
       _x = self
       start = end
-      end += 76
-      (_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w,) = _struct_2If2I7d.unpack(str[start:end])
+      end += 77
+      (_x.info.map_load_time.secs, _x.info.map_load_time.nsecs, _x.info.resolution, _x.info.width, _x.info.height, _x.info.origin.position.x, _x.info.origin.position.y, _x.info.origin.position.z, _x.info.origin.orientation.x, _x.info.origin.orientation.y, _x.info.origin.orientation.z, _x.info.origin.orientation.w, _x.loaded,) = _struct_2If2I7dB.unpack(str[start:end])
+      self.loaded = bool(self.loaded)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_2If2I7d = struct.Struct("<2If2I7d")
+_struct_2If2I7dB = struct.Struct("<2If2I7dB")
 class MapInfo(object):
   _type          = 'tele_presence/MapInfo'
-  _md5sum = '93f442f1ef5b47ae94c60376f3e41b25'
+  _md5sum = '9fc9c13f6ea92a0dd9bdce4803a20c86'
   _request_class  = MapInfoRequest
   _response_class = MapInfoResponse

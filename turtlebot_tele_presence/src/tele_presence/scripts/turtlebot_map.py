@@ -17,6 +17,8 @@ from std_msgs.msg import *
 
 map_pub = None
 my_map = OccupancyGrid()
+read_map = OccupancyGrid()
+read_map_called = False
 mypath = "rosmap"
 process = None # some process
 
@@ -24,6 +26,7 @@ def map_stuff():
     global my_map, map_pub
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
+    rospy.Subscriber("/map", OccupancyGrid, callback_map)
     req = None
     #create_map(req)
     rospy.Service('new_map', CreateMap, create_map)
@@ -41,6 +44,7 @@ def picture_map( req ) :
     try:
         os.remove(mypath + '.pgm')
         os.remove(mypath + '.jpeg')
+        os.remove(mypath + '.yaml')
     except:
         print 'error while removing'
     try:
@@ -116,8 +120,16 @@ def basic_stop(req) :
     return []
 
 def map_info(req) :
-    #
-    return[];
+    global read_map
+    info = req.info
+    loaded = read_map_called
+    return[ info, loaded ];
+
+def callback_map(data) :
+    global read_map
+    read_map = data
+    read_map_called = True
+    return;
 
 if __name__ == '__main__':
     try:

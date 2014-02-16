@@ -58,16 +58,21 @@ struct MapInfoResponse_
   typedef MapInfoResponse_<ContainerAllocator> Type;
 
   MapInfoResponse_()
-    : info()  {
+    : info()
+    , loaded(false)  {
     }
   MapInfoResponse_(const ContainerAllocator& _alloc)
-    : info(_alloc)  {
+    : info(_alloc)
+    , loaded(false)  {
     }
 
 
 
    typedef  ::nav_msgs::MapMetaData_<ContainerAllocator>  _info_type;
   _info_type info;
+
+   typedef uint8_t _loaded_type;
+  _loaded_type loaded;
 
 
 
@@ -147,12 +152,12 @@ struct MD5Sum< ::tele_presence::MapInfoResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "93f442f1ef5b47ae94c60376f3e41b25";
+    return "9fc9c13f6ea92a0dd9bdce4803a20c86";
   }
 
   static const char* value(const ::tele_presence::MapInfoResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x93f442f1ef5b47aeULL;
-  static const uint64_t static_value2 = 0x94c60376f3e41b25ULL;
+  static const uint64_t static_value1 = 0x9fc9c13f6ea92a0dULL;
+  static const uint64_t static_value2 = 0xd9bdce4803a20c86ULL;
 };
 
 template<class ContainerAllocator>
@@ -173,6 +178,9 @@ struct Definition< ::tele_presence::MapInfoResponse_<ContainerAllocator> >
   {
     return "\n\
 nav_msgs/MapMetaData info\n\
+\n\
+\n\
+bool loaded\n\
 \n\
 \n\
 \n\
@@ -245,6 +253,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.info);
+      stream.next(m.loaded);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER;
@@ -266,6 +275,8 @@ struct Printer< ::tele_presence::MapInfoResponse_<ContainerAllocator> >
     s << indent << "info: ";
     s << std::endl;
     Printer< ::nav_msgs::MapMetaData_<ContainerAllocator> >::stream(s, indent + "  ", v.info);
+    s << indent << "loaded: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.loaded);
   }
 };
 

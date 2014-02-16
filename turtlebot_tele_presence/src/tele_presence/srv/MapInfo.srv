@@ -3,6 +3,9 @@
 # info from /map topic that deals with origin, etc.
 nav_msgs/MapMetaData info
 
+# true if map loaded.
+bool loaded
+
 ##
 # info.resolution
 # info.width
