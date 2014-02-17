@@ -1007,17 +1007,18 @@ function showToolTip() {
             height = $( this ).height(); 
         $( this ).
             mousemove(function ( e ) {
+                var top_y = $('#showMapSpaceView').position().top;
                 var scroll_x = $('#showMapSpaceView')[0].scrollLeft;
                 var scroll_y = $('#showMapSpaceView')[0].scrollTop;
                 var x = e.pageX - left,
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
-                coord_x = (x + scroll_x) ;//- map_nav_origin_x; // 
-                coord_y = (y + scroll_y) ;//- map_nav_origin_y; // 
+                coord_x = (x + scroll_x) ;// 
+                coord_y = (y + scroll_y) - top_y ; // 
                     
                 $( tooltip ).html( 'position xy = '
                         + ( coord_x ) + ' -- ' +( coord_y ) + '<br/>' + 
-                        "mode: " + nav_map_setup ).css({
+                        top_y + " mode: " + nav_map_setup ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
@@ -1059,7 +1060,7 @@ function coordinatesFromX( some_x) {
 }
 
 function coordinatesFromY( some_y) {
-    return (( $('#mapimg').height() -  some_y) * map_nav_resolution) - map_nav_origin_y ;
+    return (( $('#mapimg').height() - some_y) * map_nav_resolution) - map_nav_origin_y ;
 }
 
 function takeAngle() {
@@ -1137,13 +1138,13 @@ function placeStartDot() {
         appendTo( '#showMapSpaceDiv' )[0];
 
         
-    var pos = $('#showMapSpaceView').position();
+    //var pos = $('#showMapSpaceView').position();
     $( dot ).css({
         padding: 0 ,
         margin: 0,
         border: 0, 
         left: coord_x - ($(dot).width() ) ,
-        top: coord_y - pos.top - ($(dot).height() )
+        top: coord_y - ($(dot).height() )
     }).show();
     
     $('#xyStart').html('xy: ' + map_nav_pose_x + ',' + map_nav_pose_y);
@@ -1159,13 +1160,13 @@ function placeEndDot() {
         appendTo( '#showMapSpaceDiv' )[0];
 
         
-    var pos = $('#showMapSpaceView').position();
+    //var pos = $('#showMapSpaceView').position();
     $( enddot ).css({
         padding: 0 ,
         margin: 0,
         border: 0, 
         left: coord_x - ($(enddot).width() ) ,
-        top: coord_y - pos.top - ($(enddot).height() )
+        top: coord_y  - ($(enddot).height() )
     }).show();
     
     $('#xyStop').html('xy: ' + map_nav_goal_x + ',' + map_nav_goal_y);
