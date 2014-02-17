@@ -1105,14 +1105,14 @@ function anglePng(angle) {
 function makeangleStart() {
     angle_count_start += 30;
     angle_count_start = angle_count_start % 360;
-    map_nav_pose_a = angle_count_start;
+    map_nav_pose_a = angle_count_start * (Math.PI /180);
     document.getElementById('angleStart').src = anglePng(angle_count_start);
 }
 
 function makeangleStop() {
     angle_count_stop += 30;
     angle_count_stop = angle_count_stop % 360;
-    map_nav_goal_a = angle_count_stop;
+    map_nav_goal_a = angle_count_stop * (Math.PI/180);
     document.getElementById('angleStop').src = anglePng(angle_count_stop);
 }
 
