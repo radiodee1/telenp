@@ -1012,12 +1012,12 @@ function showToolTip() {
                 var x = e.pageX - left,
                     y = e.pageY - top;
                     //console.log(x + " -- " + y);
-                coord_x = (x + scroll_x) ;//- map_nav_origin_x; // note: first quadrant is negative in the y
-                coord_y = (y + scroll_y) ;//- map_nav_origin_y; // note: second quadrant is negative in the x
+                coord_x = (x + scroll_x) ;//- map_nav_origin_x; // 
+                coord_y = (y + scroll_y) ;//- map_nav_origin_y; // 
                     
                 $( tooltip ).html( 'position xy = '
                         + ( coord_x ) + ' -- ' +( coord_y ) + '<br/>' + 
-                        "mode: " + nav_map_setup + " <br/>special: " + $(tooltip).height() ).css({
+                        "mode: " + nav_map_setup ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();
@@ -1037,14 +1037,14 @@ function takePosition() {
     console.log(nav_map_setup);
     switch (nav_map_setup) {
         case ENUM_BOT_START :
-            map_nav_pose_x = coord_x;
-            map_nav_pose_y = coord_y;
+            map_nav_pose_x = coordinatesFromX( coord_x);
+            map_nav_pose_y = coordinatesFromY( coord_y);
             placeStartDot();
         break;
         
         case ENUM_BOT_END :
-            map_nav_goal_x = coord_x;
-            map_nav_goal_y = coord_y;
+            map_nav_goal_x = coordinatesFromX( coord_x);
+            map_nav_goal_y = coordinatesFromY( coord_y);
             placeEndDot();
         break;
         
@@ -1052,6 +1052,14 @@ function takePosition() {
         
         break;
     }
+}
+
+function coordinatesFromX( some_x) {
+    return (some_x * map_nav_resolution) - map_nav_origin_x ;
+}
+
+function coordinatesFromY( some_y) {
+    return (( $('#mapimg').height() -  some_y) * map_nav_resolution) - map_nav_origin_y ;
 }
 
 function takeAngle() {
@@ -1089,7 +1097,7 @@ function anglePng(angle) {
     var offset = 0;
     if (num.length > 3) offset = 1;
     var nums = num[ num.length - 3] + num[ num.length - 2 ] + num[num.length - 1] ;
-    //console.log(nums + " -- number for angle.png");
+    
     return "//awesometelenp.appspot.com/static/bitmap/angle" + nums + ".png"
 }
 
@@ -1134,8 +1142,8 @@ function placeStartDot() {
         padding: 0 ,
         margin: 0,
         border: 0, 
-        left: map_nav_pose_x - ($(dot).width() ) ,
-        top: map_nav_pose_y - pos.top - ($(dot).height() )
+        left: coord_x - ($(dot).width() ) ,
+        top: coord_y - pos.top - ($(dot).height() )
     }).show();
     
     $('#xyStart').html('xy: ' + map_nav_pose_x + ',' + map_nav_pose_y);
@@ -1156,8 +1164,8 @@ function placeEndDot() {
         padding: 0 ,
         margin: 0,
         border: 0, 
-        left: map_nav_goal_x - ($(enddot).width() ) ,
-        top: map_nav_goal_y - pos.top - ($(enddot).height() )
+        left: coord_x - ($(enddot).width() ) ,
+        top: coord_y - pos.top - ($(enddot).height() )
     }).show();
     
     $('#xyStop').html('xy: ' + map_nav_goal_x + ',' + map_nav_goal_y);
