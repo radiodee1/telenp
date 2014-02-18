@@ -918,6 +918,7 @@ function init() {
 gadgets.util.registerOnLoadHandler(init);
 
 // app-map.js
+var forbiddenCharacters = /[^a-zA-Z!0-9_\- ]/;
 var test_map = "";
 var app_name = "";
 var map_image ;
@@ -1349,9 +1350,15 @@ function parseCommands(commands) {
 	        
 	        case map_command_save :
 	        
-	            
-	            var start = new Array("rosrun",
-                    "map_store","add_map.py", commands.new_name);
+                app_name = "manager";
+	            var start = new Array(
+	                "roslaunch",
+                    "map_store",
+                    "add_map.launch", 
+                    "map_file:=" + commands.new_name,
+                    "map_resolution:=" + map_nav_resolution,
+                    "map_name:=" + commands.new_name);
+
                 
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
@@ -1661,7 +1668,7 @@ function putListInBoxLocal(list, space) {
         string = string + list[x].name;
         if (list[x].name == "") string = string + "[unnamed]";
         string = string + "<br>";
-        ;//console.log("list -" + list[x].name + "- " + list[x].map_id);
+        //console.log("list -" + list[x].name + "- " + list[x].map_id);
     }
 
     document.getElementById(space).innerHTML = string;
@@ -1787,7 +1794,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_list_load :
 	            putListInSelectLocal(data.map_list, "selectSpaceLoad");
-	            
+	            $('.listLength').html("Num of Items: " + data.num);
 	        break;
 	        
 	        case map_command_list_start:
@@ -1854,6 +1861,9 @@ function receiveMapBroadcast() {
 	}
 }
 
+function fixText(text) {
+    return text.replace(forbiddenCharacters, '');
+}
 
 function executeLoad() {
     var map_id = document.getElementById("selectSpaceLoad").value;
@@ -1867,13 +1877,13 @@ function executeDelete() {
 
 function executeRename() {
     var map_id = document.getElementById("selectSpaceRename").value;
-    var new_name = document.getElementById("inputSpaceRename").value;
+    var new_name = fixText(document.getElementById("inputSpaceRename").value);
     //check for bad 'new_name' string (no quotes, etc.)
     sendMapCommandsShort(map_command_rename, map_id, "",new_name, map_command_rename);
 }
 
 function executeSave() {
-    var new_name = document.getElementById("inputSpaceSave").value;
+    var new_name = fixText(document.getElementById("inputSpaceSave").value);
     //check for bad 'new_name' string (no quotes, etc.)
     sendMapCommandsShort(map_command_save, 0, new_name, "", map_command_save);
     ;//console.log("save name " + new_name);
@@ -1928,7 +1938,7 @@ function getMapTopicView() {
 }
 
 function setOrigin(data) {
-    console.log(data);
+    //console.log(data);
     var origin = JSON.parse(data);
     map_nav_resolution = origin.resolution;
     map_nav_origin_x = origin.origin.position.x;
@@ -2305,13 +2315,13 @@ img.dot, img.enddot
         width:300px; height:175px; overflow:auto">
     Click 'LIST' button to see... Must be using load-map functions.<br>
     
-    </div>
+    </div><br>
     <div class="listLength"></div>
 <br>
 
 <button type="button" onclick="opCancel()">Return</button>
 
-    <div class="listLength"></div>
+    
 <br>
 
 </div>
@@ -2375,8 +2385,8 @@ img.dot, img.enddot
     <br>
     Saving maps is precarious right now. If you want to save a map, make the map
     first with the 'G-MAP' option under 'Make-Map', then once your map is made start
-    up the map manager. It will save a map automatically... you must rename it to
-    your liking. The option below PROBABLY DOES NOT WORK.
+    up the map manager. It will save a map... you must rename it to
+    your liking. The naming option below PROBABLY DOES NOT WORK.
     <hr>
     <br>
     Give your map a name:

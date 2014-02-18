@@ -1,4 +1,5 @@
 // app-map.js
+var forbiddenCharacters = /[^a-zA-Z!0-9_\- ]/;
 var test_map = "";
 var app_name = "";
 var map_image ;
@@ -430,9 +431,15 @@ function parseCommands(commands) {
 	        
 	        case map_command_save :
 	        
-	            
-	            var start = new Array("rosrun",
-                    "map_store","add_map.py", commands.new_name);
+                app_name = "manager";
+	            var start = new Array(
+	                "roslaunch",
+                    "map_store",
+                    "add_map.launch", 
+                    "map_file:=" + commands.new_name,
+                    "map_resolution:=" + map_nav_resolution,
+                    "map_name:=" + commands.new_name);
+
                 
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
@@ -742,7 +749,7 @@ function putListInBoxLocal(list, space) {
         string = string + list[x].name;
         if (list[x].name == "") string = string + "[unnamed]";
         string = string + "<br>";
-        ;//console.log("list -" + list[x].name + "- " + list[x].map_id);
+        //console.log("list -" + list[x].name + "- " + list[x].map_id);
     }
 
     document.getElementById(space).innerHTML = string;
@@ -868,7 +875,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_list_load :
 	            putListInSelectLocal(data.map_list, "selectSpaceLoad");
-	            
+	            $('.listLength').html("Num of Items: " + data.num);
 	        break;
 	        
 	        case map_command_list_start:
@@ -935,6 +942,9 @@ function receiveMapBroadcast() {
 	}
 }
 
+function fixText(text) {
+    return text.replace(forbiddenCharacters, '');
+}
 
 function executeLoad() {
     var map_id = document.getElementById("selectSpaceLoad").value;
@@ -948,13 +958,13 @@ function executeDelete() {
 
 function executeRename() {
     var map_id = document.getElementById("selectSpaceRename").value;
-    var new_name = document.getElementById("inputSpaceRename").value;
+    var new_name = fixText(document.getElementById("inputSpaceRename").value);
     //check for bad 'new_name' string (no quotes, etc.)
     sendMapCommandsShort(map_command_rename, map_id, "",new_name, map_command_rename);
 }
 
 function executeSave() {
-    var new_name = document.getElementById("inputSpaceSave").value;
+    var new_name = fixText(document.getElementById("inputSpaceSave").value);
     //check for bad 'new_name' string (no quotes, etc.)
     sendMapCommandsShort(map_command_save, 0, new_name, "", map_command_save);
     ;//console.log("save name " + new_name);
@@ -1009,14 +1019,14 @@ function getMapTopicView() {
 }
 
 function setOrigin(data) {
-    console.log(data);
+    //console.log(data);
     var origin = JSON.parse(data);
     map_nav_resolution = origin.resolution;
     map_nav_origin_x = origin.origin.position.x;
     map_nav_origin_y = origin.origin.position.y;
-    alert("map info set at: \n\n" +
-        "resolution: " + map_nav_resolution + "\n" +
-        "origin xy: " + map_nav_origin_x + "," + map_nav_origin_y);
+    //alert("map info set at: \n\n" +
+    //    "resolution: " + map_nav_resolution + "\n" +
+    //    "origin xy: " + map_nav_origin_x + "," + map_nav_origin_y);
 }
 
 /* start code for placing robot on map... */
