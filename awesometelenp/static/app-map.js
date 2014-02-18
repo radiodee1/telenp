@@ -36,6 +36,7 @@ var map_command_rename = "rename";
 var map_command_save = "save";
 var map_command_list = "list";
 var map_command_pic = "pic";
+var map_command_meta = "mapmeta";
 // more commands for lists that are needed in above ops.
 var map_command_list_load = "embedded_list_for_load";
 var map_command_list_delete = "embedded_list_for_delete";
@@ -333,6 +334,8 @@ function opCancel() {
     document.getElementById("wizOpStart").style.display = "none";
     document.getElementById("wizChooseOp").style.display = "block";
     document.getElementById("wizOpView").style.display = "none";
+    
+    document.getElementById("wizOpList").style.display = "none";
 }
 
 function stopService() {
@@ -429,7 +432,7 @@ function parseCommands(commands) {
 	        
 	            
 	            var start = new Array("rosrun",
-                    "tele_presence","turtlebot_add_map.py", commands.new_name);
+                    "map_store","add_map.py", commands.new_name);
                 
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
@@ -458,41 +461,12 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({});
 	            map_service_pic.callService( request, function (result) {
 	                //do all picture things here.
-	                /*
-	                if (typeof map_image !== 'undefined' && !map_image.isDisposed()) map_image.dispose();
-	                if (typeof map_overlay !== 'undefined' && !map_overlay.isDisposed()) map_overlay.dispose();
-	                console.log("before createImageResource " + result.data );
-	                
-	                map_image = gapi.hangout.av.effects.createImageResource(
-	                    result.data );
-	                    
-	                // Use an onLoad handler
-                    map_image.onLoad.add( function(event) {
-                        if ( !event.isLoaded ) {
-                            //alert("Could not load your overlay.");
-                            console.log("overlay NOT loaded");
-                            map_image.dispose();
-                        } else {
-                            console.log("overlay loaded");
-                            //alert("Overlay loaded.");
-                        }
-                    });
-
-	                console.log("before createOverlay");
-	                document.getElementById('showMapSpaceView').innerHTML = '<img src="' + result.data + '">' ;
-	                map_overlay = map_image.createOverlay( {'scale':
-                        {'magnitude': 0.125,
-                        'reference': gapi.hangout.av.effects.ScaleReference.WIDTH}});
-	                map_overlay.setPosition(0,0.25);
-	                //map_overlay.setScale(0.5);
-	                //map_overlay = map_image.showOverlay({'position': {'x': 0, 'y': 0}});
-	                map_overlay.setVisible(true);
-	                */
+	                /* remove some pic stuff here */
 	                sendMapInForm(result.data);
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	        break;
-
+            /*
             case app_command_list :
                 
                 var list = new Array();
@@ -513,6 +487,7 @@ function parseCommands(commands) {
                     ;//console.log("map listener fail");
                 }
             break;
+            */
             
             case app_command_make_map :
                 app_name = "gmap";
@@ -583,6 +558,16 @@ function parseCommands(commands) {
                 
                 
             break;
+            
+            case map_command_meta:
+                var request = new ROSLIB.ServiceRequest({});
+	            map_service_info.callService( request, function (result) {
+	                if (result.loaded) {
+	                    var list = new Array(JSON.stringify(result.info));
+	                }
+	                sendMapBroadcast(commands.wizard, list, 0);
+	            } );
+            break;
 	    }
 	}
     gapi.hangout.data.clearValue(tx_gapi_map_event);
@@ -608,7 +593,8 @@ function sendMapInForm(data) {
             
         }
     });
-               
+    //must get map meta data
+    sendMapCommandsShort(map_command_meta, 0, '','', map_command_meta);
 }
 
 function sendMapCommandsShort( command, id, name1, name2, wizard) {
@@ -751,6 +737,7 @@ function putListInBoxLocal(list, space) {
     document.getElementById(space).innerHTML = string;
 }
 
+/*
 function fillAppSpace(list, space) {
     var string = "";
     var x;
@@ -765,12 +752,21 @@ function fillAppSpace(list, space) {
 
     document.getElementById(space).innerHTML = string;
 }
+*/
 
 function sendMapBroadcast(type, list, num) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
     var x;
     var map_list = "";
-    if (list == null || typeof list === "undefined") {
+    if(type === map_command_meta ) {
+        map_list = JSON.stringify ({ 
+                            'name' : list[0] ,
+                            'session_id' : '' ,
+                            'date' : '' , 
+                            'map_id' : ''
+        });
+    }
+    else if (list == null || typeof list === "undefined") {
         map_list = JSON.stringify ({ 
                             'name' : '' ,
                             'session_id' : '' ,
@@ -846,6 +842,7 @@ function receiveMapBroadcast() {
 	    switch(data.type) {
 	        case map_command_list :
 	            putListInBoxLocal(data.map_list, "listSpace");
+	            $('.listLength').html("Num of Items: " + data.num);
 	        break;
 	        
 	        case map_command_load :
@@ -860,6 +857,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_list_load :
 	            putListInSelectLocal(data.map_list, "selectSpaceLoad");
+	            
 	        break;
 	        
 	        case map_command_list_start:
@@ -868,6 +866,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_list_delete :
 	            putListInSelectLocal(data.map_list, "selectSpaceDelete");
+	            $('.listLength').html("Num of Items: " + data.num);
 	        break;
 	        
 	        case map_command_list_rename :
@@ -908,6 +907,10 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_pic :
 	            sendMapInForm();
+	        break;
+	        
+	        case map_command_meta :
+	            setOrigin(data.map_list[0].name);
 	        break;
 	    }
 	}
@@ -991,7 +994,10 @@ function getMapTopicView() {
     // get map meta data here??
     
     return;
+}
 
+function setOrigin(data) {
+    console.log(data);
 }
 
 /* start code for placing robot on map... */
@@ -1018,7 +1024,7 @@ function showToolTip() {
                     
                 $( tooltip ).html( 'position xy = '
                         + ( coord_x ) + ' -- ' +( coord_y ) + '<br/>' + 
-                        top_y + " mode: " + nav_map_setup ).css({
+                        "mode: " + nav_map_setup ).css({
                     left: e.clientX + 10,
                     top: e.clientY + 10
                 }).show();

@@ -98,7 +98,7 @@ img.dot, img.enddot
 
 <button type="button" onclick="opCancel()">Return</button>
 
-    
+    <div class="listLength"></div>
 <br>
 
 </div>
@@ -141,7 +141,7 @@ img.dot, img.enddot
     </form>
 <button type="button" onclick="opCancel()">Done</button>
     <p id="wizOpDelConfirm" style="display:none">Your map was deleted. Refresh or click 'Close' to see new
-    list</p>
+    list: <div class="listLength"></div></p>
 </div>
 <!-- one div for each frame of wizard  RENAME -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpRename">
@@ -163,7 +163,8 @@ img.dot, img.enddot
     Saving maps is precarious right now. If you want to save a map, make the map
     first with the 'G-MAP' option under 'Make-Map', then once your map is made start
     up the map manager. It will save a map automatically... you must rename it to
-    your liking. The option below DOES NOT WORK.
+    your liking. The option below PROBABLY DOES NOT WORK.
+    <hr>
     <br>
     Give your map a name:
     <input type="text" name="rename" id="inputSpaceSave">
@@ -190,12 +191,11 @@ img.dot, img.enddot
 <!-- one div for each frame of wizard  VIEW MAP -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpView">
     <button type="button" onclick='getMapTopicView();'>Refresh Current Map</button>
-    <div id="showMapSpaceView" style="border-style:solid;border-width:3px; border-color:black;
+    <div id="showMapSpaceView" style="border-style:solid;border-width:1px; border-color:black;
         width:300px; height:175px; overflow:auto; font-size:3px; padding:0px 0px 0px 0px;"><div 
         style="font-size:12pt;" id="showMapSpaceDiv"></div></div>
 
-<button type="button" onclick="opCancel()">Done</button>
-<p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
+
 <br>
 <!-- start of complicated nav div -->
     <div id="wizOpNavSettings" style="display:none">
@@ -230,6 +230,9 @@ img.dot, img.enddot
     </div>
     
 <!-- end of complicated nav div -->
+<br>
+<button type="button" onclick="opCancel()">Done</button>
+<p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
 </div>
 <!-- end of wizard -->
 </div>

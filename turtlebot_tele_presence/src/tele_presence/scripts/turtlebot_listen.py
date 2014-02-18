@@ -147,7 +147,7 @@ def callback_kinect(data) :
 
 
 def read_depth(width, height, data) :
-    return (read_depth_tuple(width, height, data) )[zz]
+    return (read_depth_tuple(width, height, data) )[xx]
 
 
 def read_depth_tuple(width, height, data) :
