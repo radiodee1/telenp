@@ -1390,7 +1390,7 @@ function parseCommands(commands) {
 	                        var list = new Array(JSON.stringify(result.info));
 	                        sendMapBroadcast(map_command_meta, list, 0);
 	                    }
-	                    
+	                    map_listener.unsubscribe();
 	                } );
 	                
 	            } );
@@ -1524,8 +1524,7 @@ function sendMapInForm(data) {
             
         }
     });
-    //must get map meta data
-    //sendMapCommandsShort(map_command_meta, 0, '','', map_command_meta);
+    
 }
 
 function sendMapCommandsShort( command, id, name1, name2, wizard) {
@@ -2052,6 +2051,7 @@ function makeangleStart() {
     angle_count_start = angle_count_start % 360;
     map_nav_pose_a = angle_count_start * (Math.PI /180);
     document.getElementById('angleStart').src = anglePng(angle_count_start);
+    $('#angleStartDisplay').html(map_nav_pose_a.toFixed(2));
 }
 
 function makeangleStop() {
@@ -2059,6 +2059,7 @@ function makeangleStop() {
     angle_count_stop = angle_count_stop % 360;
     map_nav_goal_a = angle_count_stop * (Math.PI/180);
     document.getElementById('angleStop').src = anglePng(angle_count_stop);
+    $('#angleStopDisplay').html(map_nav_goal_a.toFixed(2));
 }
 
 function chooseAccept() {
@@ -2305,6 +2306,7 @@ img.dot, img.enddot
     Click 'LIST' button to see... Must be using load-map functions.<br>
     
     </div>
+    <div class="listLength"></div>
 <br>
 
 <button type="button" onclick="opCancel()">Return</button>
@@ -2326,7 +2328,7 @@ img.dot, img.enddot
 <button type="button" onclick="executeRunNav()">RUN NAV</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpLoadConfirm" style="display:none">Your map loaded.</p>
-
+    <div class="listLength"></div>
 </div>
 
 <!-- one div for each frame of wizard  NEW -->
@@ -2423,13 +2425,15 @@ img.dot, img.enddot
             click here for angle at start position <br>
             <img id="angleStart" onclick='makeangleStart()' src="//awesometelenp.appspot.com/static/bitmap/angle000.png">
             <br>
-            <div id="xyStart"></div>
+            <div id="xyStart"></div><br>
+            Angle: <div id="angleStartDisplay">0</div>
         </td>
         <td class="lined" valign="top"><!-- stop location stuff -->
             click here for angle desired at end position <br>
             <img id="angleStop" onclick='makeangleStop()' src="//awesometelenp.appspot.com/static/bitmap/angle000.png">
             <br>
-            <div id="xyStop"></div>
+            <div id="xyStop"></div><br>
+            Angle: <div id="angleStopDisplay">0</div>
         </td>
     </tr>
     <tr class="lined"><td class="lined" colspan="2">

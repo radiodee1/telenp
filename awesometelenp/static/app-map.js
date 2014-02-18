@@ -471,7 +471,7 @@ function parseCommands(commands) {
 	                        var list = new Array(JSON.stringify(result.info));
 	                        sendMapBroadcast(map_command_meta, list, 0);
 	                    }
-	                    
+	                    map_listener.unsubscribe();
 	                } );
 	                
 	            } );
@@ -605,8 +605,7 @@ function sendMapInForm(data) {
             
         }
     });
-    //must get map meta data
-    //sendMapCommandsShort(map_command_meta, 0, '','', map_command_meta);
+    
 }
 
 function sendMapCommandsShort( command, id, name1, name2, wizard) {
@@ -1133,6 +1132,7 @@ function makeangleStart() {
     angle_count_start = angle_count_start % 360;
     map_nav_pose_a = angle_count_start * (Math.PI /180);
     document.getElementById('angleStart').src = anglePng(angle_count_start);
+    $('#angleStartDisplay').html(map_nav_pose_a.toFixed(2));
 }
 
 function makeangleStop() {
@@ -1140,6 +1140,7 @@ function makeangleStop() {
     angle_count_stop = angle_count_stop % 360;
     map_nav_goal_a = angle_count_stop * (Math.PI/180);
     document.getElementById('angleStop').src = anglePng(angle_count_stop);
+    $('#angleStopDisplay').html(map_nav_goal_a.toFixed(2));
 }
 
 function chooseAccept() {

@@ -94,6 +94,7 @@ img.dot, img.enddot
     Click 'LIST' button to see... Must be using load-map functions.<br>
     
     </div>
+    <div class="listLength"></div>
 <br>
 
 <button type="button" onclick="opCancel()">Return</button>
@@ -115,7 +116,7 @@ img.dot, img.enddot
 <button type="button" onclick="executeRunNav()">RUN NAV</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpLoadConfirm" style="display:none">Your map loaded.</p>
-
+    <div class="listLength"></div>
 </div>
 
 <!-- one div for each frame of wizard  NEW -->
@@ -212,13 +213,15 @@ img.dot, img.enddot
             click here for angle at start position <br>
             <img id="angleStart" onclick='makeangleStart()' src="//awesometelenp.appspot.com/static/bitmap/angle000.png">
             <br>
-            <div id="xyStart"></div>
+            <div id="xyStart"></div><br>
+            Angle: <div id="angleStartDisplay">0</div>
         </td>
         <td class="lined" valign="top"><!-- stop location stuff -->
             click here for angle desired at end position <br>
             <img id="angleStop" onclick='makeangleStop()' src="//awesometelenp.appspot.com/static/bitmap/angle000.png">
             <br>
-            <div id="xyStop"></div>
+            <div id="xyStop"></div><br>
+            Angle: <div id="angleStopDisplay">0</div>
         </td>
     </tr>
     <tr class="lined"><td class="lined" colspan="2">
