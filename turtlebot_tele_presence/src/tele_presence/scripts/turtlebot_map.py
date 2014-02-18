@@ -122,7 +122,7 @@ def basic_stop(req) :
 
 def map_info(req) :
     global read_map
-    info = req.info
+    info = read_map.info
     loaded = read_map_called
     return[ info, loaded ];
 

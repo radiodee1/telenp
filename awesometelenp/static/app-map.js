@@ -464,6 +464,16 @@ function parseCommands(commands) {
 	                /* remove some pic stuff here */
 	                sendMapInForm(result.data);
 	                sendMapBroadcast(commands.wizard, null, 0);
+	                
+	                //var request = new ROSLIB.ServiceRequest({});
+	                map_listener.subscribe( function (result) {
+	                    if (true) {
+	                        var list = new Array(JSON.stringify(result.info));
+	                        sendMapBroadcast(map_command_meta, list, 0);
+	                    }
+	                    
+	                } );
+	                
 	            } );
 	        break;
             /*
@@ -560,6 +570,7 @@ function parseCommands(commands) {
             break;
             
             case map_command_meta:
+                /*
                 var request = new ROSLIB.ServiceRequest({});
 	            map_service_info.callService( request, function (result) {
 	                if (result.loaded) {
@@ -567,6 +578,7 @@ function parseCommands(commands) {
 	                }
 	                sendMapBroadcast(commands.wizard, list, 0);
 	            } );
+	            */
             break;
 	    }
 	}
@@ -594,7 +606,7 @@ function sendMapInForm(data) {
         }
     });
     //must get map meta data
-    sendMapCommandsShort(map_command_meta, 0, '','', map_command_meta);
+    //sendMapCommandsShort(map_command_meta, 0, '','', map_command_meta);
 }
 
 function sendMapCommandsShort( command, id, name1, name2, wizard) {
@@ -910,6 +922,7 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case map_command_meta :
+	            //console.log(data.map_list[0].name);
 	            setOrigin(data.map_list[0].name);
 	        break;
 	    }
@@ -998,6 +1011,13 @@ function getMapTopicView() {
 
 function setOrigin(data) {
     console.log(data);
+    var origin = JSON.parse(data);
+    map_nav_resolution = origin.resolution;
+    map_nav_origin_x = origin.origin.position.x;
+    map_nav_origin_y = origin.origin.position.y;
+    alert("map info set at: \n\n" +
+        "resolution: " + map_nav_resolution + "\n" +
+        "origin xy: " + map_nav_origin_x + "," + map_nav_origin_y);
 }
 
 /* start code for placing robot on map... */
@@ -1153,7 +1173,8 @@ function placeStartDot() {
         top: coord_y - ($(dot).height() )
     }).show();
     
-    $('#xyStart').html('xy: ' + map_nav_pose_x + ',' + map_nav_pose_y);
+    $('#xyStart').html('xy: ' + map_nav_pose_x.toFixed(2) + ',' + 
+        map_nav_pose_y.toFixed(2));
 }
 
 function placeEndDot() {
@@ -1175,5 +1196,6 @@ function placeEndDot() {
         top: coord_y  - ($(enddot).height() )
     }).show();
     
-    $('#xyStop').html('xy: ' + map_nav_goal_x + ',' + map_nav_goal_y);
+    $('#xyStop').html('xy: ' + map_nav_goal_x.toFixed(2) 
+        + ',' + map_nav_goal_y.toFixed(2));
 }
