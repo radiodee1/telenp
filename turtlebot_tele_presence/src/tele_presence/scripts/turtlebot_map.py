@@ -36,9 +36,10 @@ def map_stuff():
     #rospy.Service('map_info', MapInfo , map_info )
     #picture_map(req)
     while not rospy.is_shutdown():
+        #
         #if (my_map.info.width is not 0) :
-            #
-        rospy.spin()
+        #
+        rospy.sleep(1.0)
 
 def picture_map( req ) :
     try:
@@ -52,10 +53,13 @@ def picture_map( req ) :
         subprocess.call(['rosrun', 'map_server', 'map_saver', '-f', mypath])
     except:
         print 'error at rosrun'
-    im = Image.open(mypath + '.pgm')
-    im.convert('RGBA')
-    im.save(mypath + '.jpeg')
-    im.save(mypath + '.png')
+    try:
+        im = Image.open(mypath + '.pgm')
+        im.convert('RGBA')
+        im.save(mypath + '.jpeg')
+        im.save(mypath + '.png')
+    except:
+        print 'error at save/convert'
     #
     try:
         data_uri = str(base64.b64encode(open(mypath + ".jpeg", "rb").read())) .encode( "utf8").replace("\n", "")

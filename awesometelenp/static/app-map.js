@@ -7,6 +7,7 @@ var map_overlay ;
 var coord_x = 0;
 var coord_y = 0;
 var map_manager_started = false;
+var map_nav_started = false;
 
 var tx_gapi_map_event = "telenp_map";
 var tx_gapi_app_list = "telenp_app_list";
@@ -52,6 +53,7 @@ var app_command_app_stop = "app_appstop";
 var app_command_map_manager = "app_mapmanage";
 var app_command_map_manager_force = "app_mapmanage_force";
 var app_command_map_nav = "app_mapnav";
+var app_command_map_nav_force = "app_mapnav_force";
 // enum for planning map movement
 var ENUM_BOT_START = "turtlebot_place_start";
 var ENUM_BOT_END = "turtlebot_place_end";
@@ -542,15 +544,19 @@ function parseCommands(commands) {
             
             case app_command_map_nav :
             
-                app_name = "navigate";
+                
                 var start = new Array("roslaunch",
                     "turtlebot_navigation","amcl_demo.launch");
-                
+                if (map_nav_started && commands.wizard != app_command_map_nav_force) {
+                    start = new Array();
+                    //app_name = "";
+                }
+                app_name = "navigate";
                 var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
 	            map_service_start.callService( request, function (result) {
 	                console.log("comand launch -- navigation: -- " );
 	                sendMapBroadcast(commands.wizard, null, 0);
-
+                    map_nav_started = true;
 	            } );
 	            
                 
@@ -995,6 +1001,11 @@ function executeRunNav() {
     opView();
     opViewDisabled();
     
+}
+
+function executeRunNavForce() {
+    app_name = "";
+    sendMapCommandsShort(app_command_map_nav_force, 0, "", "", app_command_map_nav);
 }
 
 function opStopService() {
