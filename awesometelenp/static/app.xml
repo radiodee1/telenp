@@ -1913,7 +1913,8 @@ function executeRunNav() {
     document.getElementById('wizOpNavSettings').style.display = "block";
     opView();
     opViewDisabled();
-    
+    //app_command_map_nav
+    sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
 }
 
 function opStopService() {
@@ -1943,9 +1944,9 @@ function setOrigin(data) {
     map_nav_resolution = origin.resolution;
     map_nav_origin_x = origin.origin.position.x;
     map_nav_origin_y = origin.origin.position.y;
-    alert("map info set at: \n\n" +
-        "resolution: " + map_nav_resolution + "\n" +
-        "origin xy: " + map_nav_origin_x + "," + map_nav_origin_y);
+    //alert("map info set at: \n\n" +
+    //    "resolution: " + map_nav_resolution + "\n" +
+    //    "origin xy: " + map_nav_origin_x + "," + map_nav_origin_y);
 }
 
 /* start code for placing robot on map... */
