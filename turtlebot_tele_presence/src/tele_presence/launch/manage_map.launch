@@ -1,6 +1,6 @@
 <launch>
  
- <arg name="map_resolution" value="1.0" />
+ <arg name="map_resolution"  />
   <arg name="map_file" value="saved"/>
   <arg name="map_name" value="auto-save"/>
 
@@ -13,7 +13,7 @@
   <node pkg="map_store" type="map_manager" name="map_manager" output="screen">
      <!-- unused topics -->
      <remap from="dynamic_map" to="map_store_dynamic_map"/>
-     <!-- remap from="map" to="map_store_map"/ -->
+     <remap from="map" to="map_store_map"/>
   </node>
 
   <!-- node name="map_server" pkg="map_server" type="map_server" args="'$(arg map_file)' '$(arg map_resolution)'" -->
