@@ -26,14 +26,14 @@ def map_stuff():
     global my_map, map_pub
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
-    rospy.Subscriber("/map", OccupancyGrid, callback_map)
+    #rospy.Subscriber("/map", OccupancyGrid, callback_map)
     req = None
     #create_map(req)
     rospy.Service('new_map', CreateMap, create_map)
     rospy.Service('picture_map', PictureMap, picture_map)
     rospy.Service('basic_launch', BasicLaunch, basic_launch)
     rospy.Service('basic_stop', BasicStop , basic_stop )
-    rospy.Service('map_info', MapInfo , map_info )
+    #rospy.Service('map_info', MapInfo , map_info )
     #picture_map(req)
     while not rospy.is_shutdown():
         #if (my_map.info.width is not 0) :
@@ -45,6 +45,7 @@ def picture_map( req ) :
         os.remove(mypath + '.pgm')
         os.remove(mypath + '.png')
         os.remove(mypath + '.yaml')
+        os.remove(mypath + ".jpeg")
     except:
         print 'error while removing'
     try:
@@ -52,16 +53,16 @@ def picture_map( req ) :
     except:
         print 'error at rosrun'
     im = Image.open(mypath + '.pgm')
-    #im.convert('RGBA')
-    #im.save(mypath + '.jpeg')
+    im.convert('RGBA')
+    im.save(mypath + '.jpeg')
     im.save(mypath + '.png')
     #
     try:
-        data_uri = str(base64.b64encode(open(mypath + ".png", "rb").read())) .encode( "utf8").replace("\n", "")
+        data_uri = str(base64.b64encode(open(mypath + ".jpeg", "rb").read())) .encode( "utf8").replace("\n", "")
     except:
         print 'error at base64.encodestring'
     try:
-        img_tag = 'data:image/png;base64,{0}'.format(data_uri)
+        img_tag = 'data:image/jpeg;base64,{0}'.format(data_uri)
     except:
         print 'error at img_tag'
     return img_tag
@@ -120,19 +121,6 @@ def basic_stop(req) :
         process.kill();
     return []
 
-# NOT USED
-def map_info(req) : 
-    global read_map
-    info = read_map.info
-    loaded = read_map_called
-    return[ info, loaded ];
-
-# NOT USED
-def callback_map(data) :
-    global read_map
-    read_map = data
-    read_map_called = True
-    return;
 
 if __name__ == '__main__':
     try:

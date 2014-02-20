@@ -177,6 +177,8 @@ function tryTurtlebotClick() {
 		document.getElementById("messageTwist").checked = true;
 		trySetupROS();
 		formJSONError();
+		tryStreamClick();// late addition
+		document.getElementById("setStream").checked = true;// late addition
 	}
 	else if (control_connected_motors && isMatchingName(tx_gapi_turtlebot_name) ) {
 	    gapi.hangout.data.clearValue(tx_gapi_turtlebot_name);

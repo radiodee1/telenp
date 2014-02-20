@@ -24,7 +24,7 @@ class SendHandler(webapp.RequestHandler):
     def post(self):
         global mapurl
         someurl = self.request.get("map")
-        if len (someurl) > 5:
+        if (len (someurl) > 5) :
             mapurl = someurl
         # Set the cross origin resource sharing header to allow AJAX
         self.response.headers.add_header("Access-Control-Allow-Origin", "*")
