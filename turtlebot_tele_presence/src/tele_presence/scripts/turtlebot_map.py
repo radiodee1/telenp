@@ -120,12 +120,14 @@ def basic_stop(req) :
         process.kill();
     return []
 
-def map_info(req) :
+# NOT USED
+def map_info(req) : 
     global read_map
     info = read_map.info
     loaded = read_map_called
     return[ info, loaded ];
 
+# NOT USED
 def callback_map(data) :
     global read_map
     read_map = data
