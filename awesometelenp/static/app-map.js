@@ -994,7 +994,8 @@ function executeRunNav() {
     document.getElementById('wizOpNavSettings').style.display = "block";
     opView();
     opViewDisabled();
-    
+    //app_command_map_nav
+    sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
 }
 
 function opStopService() {
