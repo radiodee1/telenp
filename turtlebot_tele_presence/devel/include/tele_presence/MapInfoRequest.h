@@ -168,6 +168,9 @@ struct Definition< ::tele_presence::MapInfoRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "\n\
+\n\
+\n\
+\n\
 ";
   }
 

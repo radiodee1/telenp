@@ -38,10 +38,10 @@
   "9fc9c13f6ea92a0dd9bdce4803a20c86")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<MapInfo-request>)))
   "Returns full string definition for message of type '<MapInfo-request>"
-  (cl:format cl:nil "~%~%~%"))
+  (cl:format cl:nil "~%~%~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'MapInfo-request)))
   "Returns full string definition for message of type 'MapInfo-request"
-  (cl:format cl:nil "~%~%~%"))
+  (cl:format cl:nil "~%~%~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <MapInfo-request>))
   (cl:+ 0
 ))

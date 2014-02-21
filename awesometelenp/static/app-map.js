@@ -369,11 +369,11 @@ function receiveMapEvent() {
 	    
 	            var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
-                if (map_manager_started || 
+                if (map_manager_started && (// || 
                     commands.command == app_command_make_map ||
                     commands.command == map_command_make ||
                     commands.command == app_command_map_nav ||
-                    commands.command == app_command_app_stop ) start = new Array();
+                    commands.command == app_command_app_stop ) ) start = new Array();
                 
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
@@ -436,7 +436,7 @@ function parseCommands(commands) {
                 app_name = "manager";
 	            var start = new Array(
 	                "roslaunch",
-                    "map_store",
+                    "map_store_np",
                     "add_map.launch", 
                     "map_file:=" + commands.new_name,
                     "map_resolution:=" + map_nav_resolution,
@@ -511,7 +511,7 @@ function parseCommands(commands) {
             case app_command_make_map :
                 app_name = "gmap";
                 var start = new Array("roslaunch",
-                    "turtlebot_navigation","gmapping_demo.launch");
+                    "tele_presence","gmapping_demo.launch");
                 
                 var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
 	            map_service_start.callService( request, function (result) {
@@ -546,7 +546,7 @@ function parseCommands(commands) {
             
                 
                 var start = new Array("roslaunch",
-                    "turtlebot_navigation","amcl_demo.launch");
+                    "tele_presence","amcl_demo.launch");
                 if (map_nav_started && commands.wizard != app_command_map_nav_force) {
                     start = new Array();
                     //app_name = "";
@@ -567,7 +567,7 @@ function parseCommands(commands) {
                     var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array();//'map_manager');//,'map_store', 'map_server');
+                    var start = new Array('map_server');//'map_manager');//,'map_store', 'map_server');
                     
                 }
                 if (app_name == "navigate") {
@@ -662,14 +662,14 @@ function setMapServices( rootname ) {
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
     	'name' :  rootname + '/list_maps',
-   		 messageType : 'map_store/ListMaps'
+   		 messageType : 'map_store_np/ListMaps'
   	});
   	
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
     	'name' :  rootname + '/publish_map',
-   		 messageType : 'map_store/PublishMap'
+   		 messageType : 'map_store_np/PublishMap'
   	});
   	
   	// service for new map
@@ -702,19 +702,19 @@ function setMapServices( rootname ) {
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : rootname + '/delete_map',
-   		 messageType : 'map_store/DeleteMap'
+   		 messageType : 'map_store_np/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : rootname + '/rename_map',
-   		 messageType : 'map_store/RenameMap'
+   		 messageType : 'map_store_np/RenameMap'
   	});
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : '/save_map',
-   		 messageType : 'map_store/SaveMap'
+   		 messageType : 'map_store_np/SaveMap'
   	});
   	
   	map_listener = new ROSLIB.Topic({

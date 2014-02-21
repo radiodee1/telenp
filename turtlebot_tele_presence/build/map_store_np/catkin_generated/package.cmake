@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "map_store_np")
+set(map_store_np_MAINTAINER "Dave Hershberger <hersh@willowgarage.com>")
+set(map_store_np_DEPRECATED "")
+set(map_store_np_VERSION "0.3.1")
+set(map_store_np_BUILD_DEPENDS "nav_msgs" "rosconsole" "roscpp" "rostest" "warehouse_ros")
+set(map_store_np_RUN_DEPENDS "message_runtime" "nav_msgs" "rosconsole" "roscpp" "rospy" "warehouse_ros")
+set(map_store_np_BUILDTOOL_DEPENDS "catkin")

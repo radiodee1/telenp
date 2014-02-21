@@ -1,0 +1,8 @@
+prefix=/home/dave/workspace/telenp/turtlebot_tele_presence/install
+
+Name: map_store_np
+Description: Description of map_store_np
+Version: 0.3.1
+Cflags: -I/home/dave/workspace/telenp/turtlebot_tele_presence/install/include
+Libs: -L/home/dave/workspace/telenp/turtlebot_tele_presence/install/lib 
+Requires: message_runtime
