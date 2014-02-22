@@ -389,7 +389,7 @@ function receiveMapEvent() {
 	    
 	} 
 	else {
-	    console.log("google prob??");
+	    console.log("google prob?? or just no data...");
 	}// 
 } //     
 	    
@@ -489,28 +489,7 @@ function parseCommands(commands) {
 	                
 	            } );
 	        break;
-            /*
-            case app_command_list :
-                
-                var list = new Array();
-                var x;
-                try {
-                    app_topic_list.subscribe( function(message) {
-                        var len = message.available_apps.length;
-                        for (x = 0; x < len; x ++) {
-                            ;//console.log(message.available_apps[x].name);
-                            list.push(message.available_apps[x].name);
-                        }
-                        
-                        //sendAppListBroadcast(commands.wizard, list);
-                        app_topic_list.unsubscribe();
-                    });
-                }
-                catch (e) {
-                    ;//console.log("map listener fail");
-                }
-            break;
-            */
+            
             
             case app_command_make_map :
                 app_name = "gmap";
@@ -577,7 +556,7 @@ function parseCommands(commands) {
                 if (app_name == "navigate") {
                     var start = new Array("amcl");
                 }
-                var start = new Array('slam_gmapping', 'amcl');//always!!
+                //var start = new Array('slam_gmapping', 'amcl');//always!!
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
@@ -1010,7 +989,7 @@ function executeRunNav() {
 }
 
 function executeRunNavForce() {
-    app_name = "";
+    
     sendMapCommandsShort(app_command_map_nav_force, 0, "", "", app_command_map_nav);
 }
 
