@@ -1449,7 +1449,7 @@ function parseCommands(commands) {
                 var start = new Array("roslaunch",
                     "tele_presence","amcl_demo.launch");
                 if (map_nav_started && commands.wizard != app_command_map_nav_force) {
-                    start = new Array();
+                    //start = new Array();
                     //app_name = "";
                 }
                 app_name = "navigate";
@@ -1474,6 +1474,8 @@ function parseCommands(commands) {
                 if (app_name == "navigate") {
                     var start = new Array("amcl");
                 }
+                var start = new Array('slam_gmapping', 'amcl');//always!!
+                
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
 	                console.log("command stop: " + app_name + " " + result.result);
