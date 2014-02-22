@@ -507,6 +507,7 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_manager :
+            case app_command_map_manager_force :
                 app_name = "manager";
                 var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
@@ -526,7 +527,7 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_nav :
-            
+            case app_command_map_nav_force:
                 
                 var start = new Array("roslaunch",
                     "tele_presence","amcl_demo.launch");
@@ -554,7 +555,7 @@ function parseCommands(commands) {
                     
                 }
                 if (app_name == "navigate") {
-                    var start = new Array("amcl");
+                    var start = new Array();//("amcl");
                 }
                 //var start = new Array('slam_gmapping', 'amcl');//always!!
                 
