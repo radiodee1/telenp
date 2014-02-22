@@ -1045,7 +1045,7 @@ function opLoad() {
     document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpLoadConfirm").style.display = "none";
     
-    sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
+    //sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
@@ -1291,7 +1291,7 @@ function receiveMapEvent() {
 	            var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
                 if (map_manager_started || 
-                    commands.command == app_command_make_map ||
+                    //commands.command == app_command_make_map ||
                     commands.command == map_command_make ||
                     commands.command == app_command_map_nav ||
                     commands.command == app_command_app_stop  ) start = new Array();
