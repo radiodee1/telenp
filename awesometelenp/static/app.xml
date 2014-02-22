@@ -1355,6 +1355,7 @@ function parseCommands(commands) {
 	        case map_command_save :
 	        
                 app_name = "manager";
+                /*
 	            var start = new Array(
 	                "roslaunch",
                     "map_store_np",
@@ -1370,14 +1371,14 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                	                
 	            } );
+	            */
 	            
-	            /*
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	            } );
-	            */
+	            
 	        break;
 	        
 	        case map_command_make :
