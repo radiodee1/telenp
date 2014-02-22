@@ -1290,11 +1290,11 @@ function receiveMapEvent() {
 	    
 	            var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
-                if (map_manager_started && (// || 
+                if (map_manager_started || 
                     commands.command == app_command_make_map ||
                     commands.command == map_command_make ||
                     commands.command == app_command_map_nav ||
-                    commands.command == app_command_app_stop ) ) start = new Array();
+                    commands.command == app_command_app_stop  ) start = new Array();
                 
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
