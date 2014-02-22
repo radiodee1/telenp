@@ -362,7 +362,7 @@ function receiveMapEvent() {
 	    
 	}
 	catch (e){
-	    ;//console.log("error google hangouts api -- map" );
+	    console.log("error google hangouts api -- map" );
 	}
 	if (typeof rx_map_commands !== "undefined") {
 	    var commands = JSON.parse(rx_map_commands);
@@ -387,7 +387,10 @@ function receiveMapEvent() {
                     map_manager_started = true;
 	                parseCommands(commands);
 	    
-	} // 
+	} 
+	else {
+	    console.log("google prob??");
+	}// 
 } //     
 	    
 function parseCommands(commands) {
@@ -434,10 +437,10 @@ function parseCommands(commands) {
 	        case map_command_save :
 	        
                 app_name = "manager";
-                /*
+                
 	            var start = new Array(
 	                "roslaunch",
-                    "map_store_np",
+                    "map_store",
                     "add_map.launch", 
                     "map_file:=" + commands.new_name,
                     "map_resolution:=" + map_nav_resolution,
@@ -450,14 +453,14 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                	                
 	            } );
-	            */
 	            
+	            /*
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	            } );
-	            
+	            */
 	        break;
 	        
 	        case map_command_make :
@@ -665,14 +668,14 @@ function setMapServices( rootname ) {
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
     	'name' :  rootname + '/list_maps',
-   		 messageType : 'map_store_np/ListMaps'
+   		 messageType : 'map_store/ListMaps'
   	});
   	
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
     	'name' :  rootname + '/publish_map',
-   		 messageType : 'map_store_np/PublishMap'
+   		 messageType : 'map_store/PublishMap'
   	});
   	
   	// service for new map
@@ -705,19 +708,19 @@ function setMapServices( rootname ) {
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : rootname + '/delete_map',
-   		 messageType : 'map_store_np/DeleteMap'
+   		 messageType : 'map_store/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : rootname + '/rename_map',
-   		 messageType : 'map_store_np/RenameMap'
+   		 messageType : 'map_store/RenameMap'
   	});
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : '/save_map',
-   		 messageType : 'map_store_np/SaveMap'
+   		 messageType : 'map_store/SaveMap'
   	});
   	
   	map_listener = new ROSLIB.Topic({
