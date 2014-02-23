@@ -1504,7 +1504,7 @@ function parseCommands(commands) {
             break;
             
             case map_command_nav_execute :
-                sendInitialPose(commands.x1, commands.y1, commands.angle1);
+                sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
                 
                 sendMapBroadcast(commands.wizard, null, 0);
             break;
@@ -1924,7 +1924,7 @@ function getMapTopicView() {
 function setOrigin(data) {
     //console.log(data);
     var origin = JSON.parse(data);
-    map_nav_resolution = origin.resolution;
+    map_nav_resolution = origin.resolution ; // dreaded magic number
     map_nav_origin_x = origin.origin.position.x;
     map_nav_origin_y = origin.origin.position.y;
     alert("map info set at: \n\n" +
@@ -1994,11 +1994,13 @@ function takePosition() {
 }
 
 function coordinatesFromX( some_x) {
-    return (some_x * map_nav_resolution) - map_nav_origin_x ;
+    //return (some_x * map_nav_resolution) - map_nav_origin_x ;
+    return (some_x  - map_nav_origin_x) * map_nav_resolution;
 }
 
 function coordinatesFromY( some_y) {
-    return (( $('#mapimg').height() - some_y) * map_nav_resolution) - map_nav_origin_y ;
+    //return (( $('#mapimg').height() - some_y) * map_nav_resolution) - map_nav_origin_y ;
+    return (( $('#mapimg').height() - some_y) - map_nav_origin_y ) * map_nav_resolution;
 }
 
 function takeAngle() {
