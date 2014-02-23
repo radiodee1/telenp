@@ -585,7 +585,7 @@ function parseCommands(commands) {
             case map_command_nav_execute :
                 sendInitialPose(commands.x1, commands.y1, commands.angle1);
                 
-                sendMapBroadcast(commands.wizard, 0, 0);
+                sendMapBroadcast(commands.wizard, null, 0);
             break;
 	    }
 	}
@@ -904,6 +904,10 @@ function receiveMapBroadcast() {
 	            //console.log(data.map_list[0].name);
 	            setOrigin(data.map_list[0].name);
 	        break;
+	        
+	        case map_command_nav_execute :
+	        
+	        break;
 	    }
 	}
 	try {
@@ -1003,8 +1007,8 @@ function setOrigin(data) {
     map_nav_origin_x = origin.origin.position.x;
     map_nav_origin_y = origin.origin.position.y;
     alert("map info set at: \n\n" +
-        "resolution: " + map_nav_resolution + "\n" +
-        "origin xy: " + map_nav_origin_x + "," + map_nav_origin_y);
+        "resolution: " + map_nav_resolution.toFixed(2) + "\n" +
+        "origin xy: " + map_nav_origin_x.toFixed(2) + "," + map_nav_origin_y.toFixed(2) );
 }
 
 /* start code for placing robot on map... */
@@ -1135,10 +1139,10 @@ function chooseAccept() {
 
     //check for sanity...
     var reply = confirm("NAV command! " + "\n\n" + 
-        "start: " + map_nav_pose_x + "," + map_nav_pose_y + "\n" +
-        "start angle: " + map_nav_pose_a + "\n" +
-        "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
-        "stop angle: " + map_nav_goal_a + "\n" +
+        "start: " + map_nav_pose_x.toFixed(2) + "," + map_nav_pose_y.toFixed(2) + "\n" +
+        "start angle: " + map_nav_pose_a.toFixed(2) + "\n" +
+        "stop: " + map_nav_goal_x.toFixed(2) + "," + map_nav_goal_y.toFixed(2) +"\n" +
+        "stop angle: " + map_nav_goal_a.toFixed(2) + "\n" +
         "send??!!"
     );
     if (reply == true) {
@@ -1194,7 +1198,7 @@ function placeEndDot() {
         + ',' + map_nav_goal_y.toFixed(2));
 }
 
-function sendInitialpose(x, y, z, a) {
+function sendInitialPose(x, y, z, a) {
     if (typeof x === 'undefined') x = map_nav_pose_x;
     if (typeof y === 'undefined') y = map_nav_pose_y;
     if (typeof z === 'undefined') z = map_nav_pose_z;
@@ -1202,33 +1206,36 @@ function sendInitialpose(x, y, z, a) {
     var initialpose = new ROSLIB.Message({
         header: {
             seq: 0,
-            stamp.sec: 0,
-            stamp.nsec: 0,
-            frame_id: ""
+            stamp: 0,
+            //stamp.nsec: 0,
+            frame_id: "base_link"
             },
         pose: {
             pose : {
-                point : {
+                position : {
                     x: x,
                     y: y,
                     z: z
                     },
-                quaternion: {
+                orientation: {
                     x: 0,
                     y: 0,
                     z: Math.sin( a / 2 ), // theta/2 ?
-                    w: Math.sin( a / 2 )  // theta/2 ?
+                    w: Math.cos( a / 2 )  // theta/2 ?
                     }
                 },
-            covariance : {[
-                //36 float64
+            covariance : 
+                [
+                //float64[36]
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0
-                ]}
+                ]
+                
+            
             }
     });
     
