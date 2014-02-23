@@ -21,6 +21,7 @@ var map_service_save ;
 var map_service_start ;
 var map_service_stop ;
 var map_service_info ;
+var map_initialpose ;
 // listen to map topic.
 var map_listener ;
 // app stuff
@@ -54,6 +55,7 @@ var app_command_map_manager = "app_mapmanage";
 var app_command_map_manager_force = "app_mapmanage_force";
 var app_command_map_nav = "app_mapnav";
 var app_command_map_nav_force = "app_mapnav_force";
+var map_command_nav_execute = "app_mapnav_execute";
 // enum for planning map movement
 var ENUM_BOT_START = "turtlebot_place_start";
 var ENUM_BOT_END = "turtlebot_place_end";
@@ -579,6 +581,12 @@ function parseCommands(commands) {
 	            } );
 	            */
             break;
+            
+            case map_command_nav_execute :
+                sendInitialPose(commands.x1, commands.y1, commands.angle1);
+                
+                sendMapBroadcast(commands.wizard, 0, 0);
+            break;
 	    }
 	}
     gapi.hangout.data.clearValue(tx_gapi_map_event);
@@ -715,6 +723,13 @@ function setMapServices( rootname ) {
     	'name' : '/map_info',
    		 messageType : 'tele_presence/MapInfo'
   	});
+  	
+  	map_initialpose = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/initialpose',
+   		 messageType : 'geometry_msgs/PoseWithCovarianceStamped'
+   		 
+  	});
 }
 
 function putListInSelectLocal(list, space) {
@@ -747,22 +762,7 @@ function putListInBoxLocal(list, space) {
     document.getElementById(space).innerHTML = string;
 }
 
-/*
-function fillAppSpace(list, space) {
-    var string = "";
-    var x;
-    for(x =0; x < list.list.length; x ++ ) { 
-        var num = x + 1;
-        string = string + num + ". " ;
-        string = string + list.list[x].name;
-        if (list.list[x].name == "") string = string + "[unnamed]";
-        string = string + "<br>";
-        ;//console.log("list apps-" + list.list[x].name );
-    }
 
-    document.getElementById(space).innerHTML = string;
-}
-*/
 
 function sendMapBroadcast(type, list, num) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
@@ -814,26 +814,7 @@ function sendMapBroadcast(type, list, num) {
 	;//console.log("map event " + listText);
 }
 
-/*
-function sendAppListBroadcast(wizard, list) {
-    if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
-    var newlist = '{"wizard":"' + wizard + '","list":[';
-    var x;
-    
-    for (x = 0; x < list.length; x ++) {
-        var element = {'name' : list[x] };
-        newlist = newlist + JSON.stringify(element) ;
-        if (x < list.length - 1) newlist += ",";
-    }
-    newlist += "]}";
-    try {
-		gapi.hangout.data.setValue( tx_gapi_app_list, newlist);
-	}
-	catch (e) {
-		;//console.log("hangout setValue error. -- Error with map pic");
-	}
-}
-*/
+
 
 function receiveMapBroadcast() {
     if (! isMatchingName(tx_gapi_controller_name)  ) return;
@@ -1153,13 +1134,18 @@ function makeangleStop() {
 function chooseAccept() {
 
     //check for sanity...
-    alert("NAV command! " + "\n\n" + 
+    var reply = confirm("NAV command! " + "\n\n" + 
         "start: " + map_nav_pose_x + "," + map_nav_pose_y + "\n" +
         "start angle: " + map_nav_pose_a + "\n" +
         "stop: " + map_nav_goal_x + "," + map_nav_goal_y +"\n" +
         "stop angle: " + map_nav_goal_a + "\n" +
-        "sent!!"
+        "send??!!"
     );
+    if (reply == true) {
+        sendMapCommands(map_command_nav_execute, 0, '', '', map_command_nav_execute,
+            map_nav_pose_x, map_nav_pose_y, map_nav_pose_a,
+            map_nav_goal_x, map_nav_goal_y, map_nav_goal_a );
+    }
 }
 
 function placeStartDot() {
@@ -1206,4 +1192,45 @@ function placeEndDot() {
     
     $('#xyStop').html('xy: ' + map_nav_goal_x.toFixed(2) 
         + ',' + map_nav_goal_y.toFixed(2));
+}
+
+function sendInitialpose(x, y, z, a) {
+    if (typeof x === 'undefined') x = map_nav_pose_x;
+    if (typeof y === 'undefined') y = map_nav_pose_y;
+    if (typeof z === 'undefined') z = map_nav_pose_z;
+    if (typeof a === 'undefined') a = map_nav_pose_a;
+    var initialpose = new ROSLIB.Message({
+        header: {
+            seq: 0,
+            stamp.sec: 0,
+            stamp.nsec: 0,
+            frame_id: ""
+            },
+        pose: {
+            pose : {
+                point : {
+                    x: x,
+                    y: y,
+                    z: z
+                    },
+                quaternion: {
+                    x: 0,
+                    y: 0,
+                    z: Math.sin( a / 2 ), // theta/2 ?
+                    w: Math.sin( a / 2 )  // theta/2 ?
+                    }
+                },
+            covariance : {[
+                //36 float64
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0
+                ]}
+            }
+    });
+    
+    map_initialpose.publish(initialpose);
 }
