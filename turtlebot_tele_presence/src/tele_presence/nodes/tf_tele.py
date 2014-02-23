@@ -14,8 +14,8 @@ def handle_baselink(msg):
     br.sendTransform((msg.info.origin.position.x, msg.info.origin.position.y, 0),
                      tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(),
-                     name_to, #child
-                     name_from) #parent
+                     name_from, #child
+                     name_to) #parent
 
 if __name__ == '__main__':
     rospy.init_node('tf_tele')
