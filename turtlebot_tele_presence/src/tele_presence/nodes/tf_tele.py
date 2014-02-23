@@ -4,7 +4,6 @@ roslib.load_manifest('tele_presence')
 import rospy
 
 import tf
-#import turtlesim.msg
 import nav_msgs.msg 
 
 name_from = 'map'
@@ -20,7 +19,7 @@ def handle_baselink(msg):
 
 if __name__ == '__main__':
     rospy.init_node('tf_tele')
-    rospy.Subscriber('map',
+    rospy.Subscriber(name_to,
                      nav_msgs.msg.OccupancyGrid,
                      handle_baselink)
     rospy.spin()
