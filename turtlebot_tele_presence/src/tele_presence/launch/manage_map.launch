@@ -12,11 +12,11 @@
   <node pkg="map_store" type="map_saver" name="map_saver" />
   <node pkg="map_store" type="map_manager" name="map_manager" output="screen">
      <!-- unused topics -->
-     <!-- remap from="/map" to="/dynamic_map" / -->
+     <remap from="/map" to="/dynamic_map" />
      <!-- remap from="dynamic_map" to="map_store_dynamic_map"/ -->
      <!-- remap from="map" to="map_store_map"/ -->
-     <remap from="/static_map" to="/dynamic_map" />
-     <remap from="/map" to="/map_unused" />
+     <!-- remap from="/static_map" to="/dynamic_map" / -->
+     <!-- remap from="/map" to="/map_unused" / -->
   </node>
 
   <!-- node name="map_server" pkg="map_server" type="map_server" args="'$(arg map_file)' '$(arg map_resolution)'" -->
