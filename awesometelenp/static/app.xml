@@ -2030,6 +2030,8 @@ function chooseStop() {
 
 function chooseClear() {
     nav_map_setup = ENUM_BOT_NONE;
+    //clear vars and screen...
+    
 }
 
 function anglePng(angle) {
@@ -2142,8 +2144,8 @@ function sendInitialPose(x, y, z, a) {
                     },
                 orientation: {
                     x: 0,
-                    y: 0,
-                    z: Math.sin( a / 2 ), // theta/2 ?
+                    y: Math.sin( a / 2 ), // theta/2 ?
+                    z: 0,
                     w: Math.cos( a / 2 )  // theta/2 ?
                     }
                 },
@@ -2313,6 +2315,12 @@ img.dot, img.enddot
     position: relative;
     
 }
+p.reply
+{
+    padding: 15px;
+    border: 10px solid red;
+    
+}
 </style>
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
@@ -2373,7 +2381,7 @@ img.dot, img.enddot
 <button type="button" onclick='executeRunNavForce();'>FORCE NAV MANAGER</button><br><br>
 <button type="button" onclick="executeRunNav()">RUN NAV TOOLS</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
-<p id="wizOpLoadConfirm" style="display:none">Your map loaded.</p>
+<p id="wizOpLoadConfirm" style="display:none" class="reply">Your map loaded.</p>
     <div class="listLength"></div>
 </div>
 
@@ -2388,7 +2396,7 @@ img.dot, img.enddot
     actual gmapping.<br>
     <button type="button" onclick="executeMakeMapAndroid()">NEW G MAP</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
-<p id="wizOpNewConfirm" style="display:none">New map ready.</p>
+<p id="wizOpNewConfirm" style="display:none" class="reply">New map ready.</p>
 </div>
 <!-- one div for each frame of wizard  DELETE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpDel">
@@ -2399,7 +2407,8 @@ img.dot, img.enddot
     </select><button type="button" onclick="executeDelete()">DELETE</button><br>
     </form>
 <button type="button" onclick="opCancel()">Done</button>
-    <p id="wizOpDelConfirm" style="display:none">Your map was deleted. Refresh or click 'Close' to see new
+    <p id="wizOpDelConfirm" style="display:none" class="reply">
+    Your map was deleted. Refresh or click 'Close' to see new
     list: <div class="listLength"></div></p>
 </div>
 <!-- one div for each frame of wizard  RENAME -->
@@ -2413,7 +2422,8 @@ img.dot, img.enddot
     <button type="button" onclick="executeRename()">RENAME</button><br>
     </form>
 <button type="button" onclick="opCancel()">Done</button>
-    <p id="wizOpRenameConfirm" style="display:none">Your map was renamed. Refresh of click 'Done' to see new
+    <p id="wizOpRenameConfirm" style="display:none" class="reply">
+    Your map was renamed. Refresh of click 'Done' to see new
     list</p>
 </div>
 <!-- one div for each frame of wizard  SAVE -->
@@ -2429,7 +2439,7 @@ img.dot, img.enddot
     <input type="text" name="rename" id="inputSpaceSave">
     <button type="button" onclick="executeSave()">SAVE</button><br>
 <button type="button" onclick="opCancel()">Done</button>
-<p id="wizOpSaveConfirm" style="display:none">Your map was saved.</p>
+<p id="wizOpSaveConfirm" style="display:none" class="reply">Your map was saved.</p>
 </div>
 <!-- one div for each frame of wizard  DONE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpDone">
@@ -2443,7 +2453,7 @@ img.dot, img.enddot
 <button type="button" onclick='executeMapStart();'>FORCE MAP MANAGER</button><br><br>
     
 <button type="button" onclick="opCancel()">Done</button><br>
-<p id="wizOpStartConfirm" style="display:none">The map manager is started.</p>
+<p id="wizOpStartConfirm" style="display:none" class="reply">The map manager is started.</p>
     
     
 </div>
@@ -2493,7 +2503,7 @@ img.dot, img.enddot
 <!-- end of complicated nav div -->
 <br>
 <button type="button" onclick="opCancel()">Done</button>
-<p id="wizOpViewConfirm" style="display:none">Your map is shown.</p>
+<p id="wizOpViewConfirm" style="display:none" class="reply">Your map is shown.</p>
 </div>
 <!-- end of wizard -->
 </div>

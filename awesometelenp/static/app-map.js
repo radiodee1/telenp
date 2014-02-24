@@ -1109,6 +1109,8 @@ function chooseStop() {
 
 function chooseClear() {
     nav_map_setup = ENUM_BOT_NONE;
+    //clear vars and screen...
+    
 }
 
 function anglePng(angle) {
@@ -1221,8 +1223,8 @@ function sendInitialPose(x, y, z, a) {
                     },
                 orientation: {
                     x: 0,
-                    y: 0,
-                    z: Math.sin( a / 2 ), // theta/2 ?
+                    y: Math.sin( a / 2 ), // theta/2 ?
+                    z: 0,
                     w: Math.cos( a / 2 )  // theta/2 ?
                     }
                 },

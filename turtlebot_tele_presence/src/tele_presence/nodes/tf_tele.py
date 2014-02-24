@@ -11,7 +11,7 @@ name_to = 'base_link'
 
 def handle_baselink(msg):
     br = tf.TransformBroadcaster()
-    br.sendTransform(( - msg.info.origin.position.x, - msg.info.origin.position.y, 0),
+    br.sendTransform(( - msg.info.origin.position.x , - msg.info.origin.position.y , 0),
                      tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(),
                      name_to, #child
