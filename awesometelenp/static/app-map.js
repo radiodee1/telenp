@@ -955,8 +955,8 @@ function setOrigin(data) {
     //console.log(data);
     var origin = JSON.parse(data);
     map_nav_resolution = origin.resolution ; // 
-    map_nav_origin_x = 0;//origin.origin.position.x; // magic number zero?
-    map_nav_origin_y = 0;//origin.origin.position.y;
+    map_nav_origin_x = origin.origin.position.x; // magic number zero?
+    map_nav_origin_y = origin.origin.position.y;
     alert("map info set at: \n\n" +
         "resolution: " + map_nav_resolution.toFixed(2) + "\n" +
         "origin xy: " + map_nav_origin_x.toFixed(2) + "," + map_nav_origin_y.toFixed(2) );
@@ -1025,12 +1025,12 @@ function takePosition() {
 
 function coordinatesFromX( some_x) {
     //return (some_x * map_nav_resolution) - map_nav_origin_x ;
-    return (some_x  - map_nav_origin_x) * map_nav_resolution;
+    return (some_x  + map_nav_origin_x) * map_nav_resolution;
 }
 
 function coordinatesFromY( some_y) {
     //return (( $('#mapimg').height() - some_y) * map_nav_resolution) - map_nav_origin_y ;
-    return (( $('#mapimg').height() - some_y) - map_nav_origin_y ) * map_nav_resolution;
+    return (( $('#mapimg').height() - some_y) + map_nav_origin_y ) * map_nav_resolution;
 }
 
 function takeAngle() {
