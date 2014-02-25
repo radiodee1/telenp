@@ -924,6 +924,7 @@ var map_service_start ;
 var map_service_stop ;
 var map_service_info ;
 var map_initialpose ;
+var map_goal_pose ;
 // listen to map topic.
 var map_listener ;
 // app stuff
@@ -1423,7 +1424,7 @@ function parseCommands(commands) {
             
             case map_command_nav_execute :
                 sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
-                
+                sendGoalPose(commands.x2, commands.y2, 0, commands.angle2);
                 sendMapBroadcast(commands.wizard, null, 0);
             break;
 	    }
@@ -1571,6 +1572,12 @@ function setMapServices( rootname ) {
    		 messageType : 'geometry_msgs/PoseWithCovarianceStamped'
    		 
   	});
+  	
+  	map_goal_pose = new ROSLIB.Topic({
+  	    'ros': ros,
+  	    'name' : '/move_base_simple/goal',
+  	    messageType : 'geometry_msgs/PoseStamped'
+  	});
 }
 
 function putListInSelectLocal(list, space) {
@@ -1679,7 +1686,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_load :
 	            document.getElementById("wizOpLoadConfirm").style.display = "block";
-	            app_msg = "NAV OPS";
+	            app_msg = "LIBRARY OPS";
 	            //opChooseOp();
 	        break;
 	        
@@ -2080,7 +2087,6 @@ function sendInitialPose(x, y, z, a) {
         header: {
             seq: 0,
             stamp: 0,
-            //stamp.nsec: 0,
             frame_id: "map" //"base_link" // just rviz!!
             },
         pose: {
@@ -2114,25 +2120,35 @@ function sendInitialPose(x, y, z, a) {
     
     map_initialpose.publish(initialpose);
     
-    //set params here
-    var initial_x = new ROSLIB.Param({
-        ros: ros,
-        name: 'initial_pose_x'
+}
+
+function sendGoalPose(x,y,z,a) {
+    if (typeof x === 'undefined') x = map_nav_pose_x;
+    if (typeof y === 'undefined') y = map_nav_pose_y;
+    if (typeof z === 'undefined') z = map_nav_pose_z;
+    if (typeof a === 'undefined') a = map_nav_pose_a;
+    var goalpose = new ROSLIB.Message({
+        header : {
+            seq: 0,
+            stamp: 0,
+            frame_id : "map"
+            },
+        pose : {
+            position: {
+                x: x,
+                y: y,
+                z: z
+                },
+            orientation: {
+                x : 0,
+                y : 0,
+                z : Math.sin( a / 2 ),
+                w : Math.cos( a / 2 ),
+                }
+            }
     });
     
-    var initial_y = new ROSLIB.Param({
-        ros: ros,
-        name: 'initial_pose_y'
-    });
-    
-    var initial_a = new ROSLIB.Param({
-        ros: ros,
-        name: 'initial_pose_a'
-    });
-    
-    //initial_x.set(x);
-    //initial_y.set(y);
-    //initial_a.set(a);
+    map_goal_pose.publish(goalpose);
 }
 </script>
 
