@@ -1024,13 +1024,13 @@ function takePosition() {
 }
 
 function coordinatesFromX( some_x) {
-    //return (some_x * map_nav_resolution) - map_nav_origin_x ;
-    return (some_x  + map_nav_origin_x) * map_nav_resolution;
+    return (some_x * map_nav_resolution) + map_nav_origin_x ;
+    //return (some_x  + map_nav_origin_x) * map_nav_resolution;
 }
 
 function coordinatesFromY( some_y) {
-    //return (( $('#mapimg').height() - some_y) * map_nav_resolution) - map_nav_origin_y ;
-    return (( $('#mapimg').height() - some_y) + map_nav_origin_y ) * map_nav_resolution;
+    return (( $('#mapimg').height() - some_y) * map_nav_resolution) + map_nav_origin_y ;
+    //return (( $('#mapimg').height() - some_y) + map_nav_origin_y ) * map_nav_resolution;
 }
 
 function takeAngle() {
@@ -1191,8 +1191,8 @@ function sendInitialPose(x, y, z, a) {
                     },
                 orientation: {
                     x: 0,
-                    y: Math.sin( a / 2 ), // theta/2 ?
-                    z: 0, //Math.sin( a / 2 ), // 0,
+                    y: 0,//Math.sin( a / 2 ), // theta/2 ?
+                    z: Math.sin( a / 2 ), // 0,
                     w: Math.cos( a / 2 )  // theta/2 ?
                     }
                 },
