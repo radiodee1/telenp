@@ -2,6 +2,7 @@
 var forbiddenCharacters = /[^a-zA-Z!0-9_\- ]/;
 var test_map = "";
 var app_name = "";
+var app_msg = "";
 var map_image ;
 var map_overlay ;
 var coord_x = 0;
@@ -102,19 +103,6 @@ function opChoose() {
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list);
 }
 
-/*
-function opChooseOpDisabled() {
-    document.getElementById("opMake").disabled = 'disabled';
-    document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = '';
-    //document.getElementById("opChoose").disabled = '';
-    document.getElementById("opStart").disabled = 'disabled';
-    document.getElementById("opRename").disabled = 'disabled';
-    document.getElementById("opDelete").disabled = 'disabled';
-    
-}
-*/
-
 function opLoad() {
     document.getElementById("wizOpLoad").style.display = "block";
     document.getElementById("wizOpNew").style.display = "none";
@@ -132,19 +120,6 @@ function opLoad() {
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
-/*
-function opLoadDisabled() {
-
-    document.getElementById("opMake").disabled = 'disabled';
-    document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = '';
-    //document.getElementById("opChoose").disabled = '';
-    document.getElementById("opStart").disabled = 'disabled';
-    document.getElementById("opRename").disabled = 'disabled';
-    document.getElementById("opDelete").disabled = 'disabled';
-    
-}
-*/
 
 function opMake() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -160,19 +135,6 @@ function opMake() {
     document.getElementById("wizOpNewConfirm").style.display = "none";
 
 }
-
-/*
-function opMakeDisabled() {
-    
-    document.getElementById("opMake").disabled = '';
-    document.getElementById("opSave").disabled = '';
-    document.getElementById("opLoad").disabled = 'disabled';
-    //document.getElementById("opChoose").disabled = 'disabled';
-    document.getElementById("opStart").disabled = 'disabled';
-    document.getElementById("opRename").disabled = 'disabled';
-    document.getElementById("opDelete").disabled = 'disabled';
-}
-*/
 
 function opDelete() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -191,19 +153,6 @@ function opDelete() {
 
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_delete);
 }
-
-/*
-function opDeleteDisabled() {
-    document.getElementById("opMake").disabled = 'disabled';
-    document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = 'disabled';
-    //document.getElementById("opChoose").disabled = 'disabled';
-    document.getElementById("opStart").disabled = '';
-    document.getElementById("opRename").disabled = '';
-    document.getElementById("opDelete").disabled = '';
-    document.getElementById("opList").disabled = '';
-}
-*/
 
 function opRename() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -224,19 +173,6 @@ function opRename() {
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_rename);
 }
 
-/*
-function opRanameDisabled() {
-    document.getElementById("opMake").disabled = 'disabled';
-    document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = 'disabled';
-    //document.getElementById("opChoose").disabled = 'disabled';
-    document.getElementById("opStart").disabled = '';
-    document.getElementById("opRename").disabled = '';
-    document.getElementById("opDelete").disabled = '';
-    document.getElementById("opList").disabled = '';
-}
-*/
-
 function opSave() {
     document.getElementById("wizOpLoad").style.display = "none";
     document.getElementById("wizOpNew").style.display = "none";
@@ -256,18 +192,6 @@ function opSave() {
 
 }
 
-/*
-function opSaveDisabled() {
-    document.getElementById("opMake").disabled = '';
-    document.getElementById("opSave").disabled = '';
-    document.getElementById("opLoad").disabled = 'disabled';
-    //document.getElementById("opChoose").disabled = 'disabled';
-    document.getElementById("opStart").disabled = 'disabled';
-    document.getElementById("opRename").disabled = 'disabled';
-    document.getElementById("opDelete").disabled = 'disabled';
-}
-*/
-
 function opStart() {
     document.getElementById("wizOpLoad").style.display = "none";
     document.getElementById("wizOpNew").style.display = "none";
@@ -285,20 +209,6 @@ function opStart() {
     sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
 }
 
-/*
-function opStartDisabled() {
-
-    document.getElementById("opMake").disabled = 'disabled';
-    document.getElementById("opSave").disabled = '';
-    document.getElementById("opLoad").disabled = '';
-    //document.getElementById("opChoose").disabled = 'disabled';
-    document.getElementById("opStart").disabled = '';
-    document.getElementById("opRename").disabled = '';
-    document.getElementById("opDelete").disabled = '';
-    document.getElementById("opList").disabled = '';
-}
-*/
-
 function opView() {
     document.getElementById("wizOpLoad").style.display = "none";
     document.getElementById("wizOpNew").style.display = "none";
@@ -314,18 +224,6 @@ function opView() {
     
 
 }
-
-/*
-function opViewDisabled() {
-    document.getElementById("opMake").disabled = '';
-    document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = '';
-    //document.getElementById("opChoose").disabled = 'disabled';
-    document.getElementById("opStart").disabled = '';
-    document.getElementById("opRename").disabled = 'disabled';
-    document.getElementById("opDelete").disabled = 'disabled';
-}
-*/
 
 function opList() {
     document.getElementById("wizOpLoad").style.display = "none";
@@ -357,20 +255,6 @@ function opCancel() {
     
     document.getElementById("wizOpList").style.display = "none";
 }
-
-/*
-function stopService() {
-    document.getElementById("opMake").disabled = '';
-    document.getElementById("opSave").disabled = 'disabled';
-    document.getElementById("opLoad").disabled = 'disabled';
-    //document.getElementById("opChoose").disabled = '';//'disabled';
-    document.getElementById("opStart").disabled = '';
-    document.getElementById("opRename").disabled = 'disabled';
-    document.getElementById("opDelete").disabled = 'disabled';
-    document.getElementById("opList").disabled = 'disabled';    
-
-}
-*/
 
 function disableNONE() {
     document.getElementById("opMake").disabled = '';
@@ -424,7 +308,7 @@ function receiveMapEvent() {
 	    
 	            var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
-                if (map_manager_started || 
+                if (true || map_manager_started || 
                     //commands.command == app_command_make_map ||
                     commands.command == map_command_make ||
                     commands.command == app_command_map_nav ||
@@ -587,7 +471,7 @@ function parseCommands(commands) {
                 var start = new Array("roslaunch",
                     "tele_presence","amcl_demo.launch");
                 if (map_nav_started && commands.wizard != app_command_map_nav_force) {
-                    //start = new Array();
+                    start = new Array();
                     //app_name = "";
                 }
                 app_name = "navigate";
@@ -606,11 +490,11 @@ function parseCommands(commands) {
                     var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array('map_server');//'map_manager');//,'map_store', 'map_server');
+                    var start = new Array();//'map_manager');//,'map_store', 'map_server');
                     
                 }
                 if (app_name == "navigate") {
-                    var start = new Array();//("amcl");
+                    var start = new Array("amcl");
                 }
                 //var start = new Array('slam_gmapping', 'amcl');//always!!
                 
@@ -620,6 +504,7 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
+                app_name = "";
                 
             break;
             
@@ -642,6 +527,8 @@ function parseCommands(commands) {
             break;
 	    }
 	}
+	
+	
     gapi.hangout.data.clearValue(tx_gapi_map_event);
     
 }
@@ -891,6 +778,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_load :
 	            document.getElementById("wizOpLoadConfirm").style.display = "block";
+	            app_msg = "NAV OPS";
 	            //opChooseOp();
 	        break;
 	        
@@ -923,33 +811,35 @@ function receiveMapBroadcast() {
             
             case map_command_save :
 	            document.getElementById("wizOpSaveConfirm").style.display = "block";
+	            app_msg = "MAPPING OPS";
 	        break;
 	        
 	        case map_command_make :
 	            document.getElementById("wizOpNewConfirm").style.display = "block";
+	            app_msg = "TESTING OPS";
 	        break;
 	        
 	        case app_command_make_map :
 	            document.getElementById("wizOpNewConfirm").style.display = "block";
-	            //opMakeDisabled();
+	            app_msg = "MAPPING OPS";
 	            disableAMCL();
 	        break;
 	        
 	        case app_command_map_manager :
 	        case app_command_map_manager_force :
 	            document.getElementById("wizOpStartConfirm").style.display = "block";
-	            //opStartDisabled();
+	            
 	            disableNONE();
 	        break;
 	        
 	        case app_command_app_stop :
 	            document.getElementById("wizOpList").style.display = "none";
-	            //stopService();
+	            app_msg = "";
 	            disableNONE();
 	        break;
 	        
 	        case app_command_map_nav:
-	            //opLoadDisabled();
+	            app_msg = "NAVIGATE A MAP";
 	            disableGMAP();
 	        break;
 	        
@@ -958,12 +848,12 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case map_command_meta :
-	            //console.log(data.map_list[0].name);
+	            
 	            setOrigin(data.map_list[0].name);
 	        break;
 	        
 	        case map_command_nav_execute :
-	        
+	            app_msg = "NAVIGATE A MAP";
 	        break;
 	    }
 	}
@@ -974,6 +864,10 @@ function receiveMapBroadcast() {
 	catch (e){
 	    ;//console.log("error google hangouts api -- " );
 	}
+	
+	//print a status msg on screen:
+	$('#topstatus').html("[" + app_msg + "]");
+	
 }
 
 function fixText(text) {
@@ -1286,7 +1180,7 @@ function sendInitialPose(x, y, z, a) {
             seq: 0,
             stamp: 0,
             //stamp.nsec: 0,
-            frame_id: "base_link"
+            frame_id: "map" //"base_link"
             },
         pose: {
             pose : {
