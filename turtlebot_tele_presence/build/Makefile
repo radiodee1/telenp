@@ -238,45 +238,6 @@ _catkin_empty_exported_target/fast:
 .PHONY : _catkin_empty_exported_target/fast
 
 #=============================================================================
-# Target rules for targets named _run_tests_map_store_np
-
-# Build rule for target.
-_run_tests_map_store_np: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_map_store_np
-.PHONY : _run_tests_map_store_np
-
-# fast build rule for target.
-_run_tests_map_store_np/fast:
-	$(MAKE) -f map_store_np/CMakeFiles/_run_tests_map_store_np.dir/build.make map_store_np/CMakeFiles/_run_tests_map_store_np.dir/build
-.PHONY : _run_tests_map_store_np/fast
-
-#=============================================================================
-# Target rules for targets named _run_tests_map_store_np_rostest
-
-# Build rule for target.
-_run_tests_map_store_np_rostest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_map_store_np_rostest
-.PHONY : _run_tests_map_store_np_rostest
-
-# fast build rule for target.
-_run_tests_map_store_np_rostest/fast:
-	$(MAKE) -f map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/build.make map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/build
-.PHONY : _run_tests_map_store_np_rostest/fast
-
-#=============================================================================
-# Target rules for targets named _run_tests_map_store_np_rostest_test_map_store.test
-
-# Build rule for target.
-_run_tests_map_store_np_rostest_test_map_store.test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_map_store_np_rostest_test_map_store.test
-.PHONY : _run_tests_map_store_np_rostest_test_map_store.test
-
-# fast build rule for target.
-_run_tests_map_store_np_rostest_test_map_store.test/fast:
-	$(MAKE) -f map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/build.make map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/build
-.PHONY : _run_tests_map_store_np_rostest_test_map_store.test/fast
-
-#=============================================================================
 # Target rules for targets named actionlib_msgs_generate_messages_cpp
 
 # Build rule for target.
@@ -589,45 +550,6 @@ rosgraph_msgs_generate_messages_py/fast:
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named run_tests_map_store_np
-
-# Build rule for target.
-run_tests_map_store_np: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 run_tests_map_store_np
-.PHONY : run_tests_map_store_np
-
-# fast build rule for target.
-run_tests_map_store_np/fast:
-	$(MAKE) -f map_store_np/CMakeFiles/run_tests_map_store_np.dir/build.make map_store_np/CMakeFiles/run_tests_map_store_np.dir/build
-.PHONY : run_tests_map_store_np/fast
-
-#=============================================================================
-# Target rules for targets named run_tests_map_store_np_rostest
-
-# Build rule for target.
-run_tests_map_store_np_rostest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 run_tests_map_store_np_rostest
-.PHONY : run_tests_map_store_np_rostest
-
-# fast build rule for target.
-run_tests_map_store_np_rostest/fast:
-	$(MAKE) -f map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/build.make map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/build
-.PHONY : run_tests_map_store_np_rostest/fast
-
-#=============================================================================
-# Target rules for targets named run_tests_map_store_np_rostest_test_map_store.test
-
-# Build rule for target.
-run_tests_map_store_np_rostest_test_map_store.test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 run_tests_map_store_np_rostest_test_map_store.test
-.PHONY : run_tests_map_store_np_rostest_test_map_store.test
-
-# fast build rule for target.
-run_tests_map_store_np_rostest_test_map_store.test/fast:
-	$(MAKE) -f map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/build.make map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/build
-.PHONY : run_tests_map_store_np_rostest_test_map_store.test/fast
-
-#=============================================================================
 # Target rules for targets named std_msgs_generate_messages_cpp
 
 # Build rule for target.
@@ -777,9 +699,6 @@ help:
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... _catkin_empty_exported_target"
-	@echo "... _run_tests_map_store_np"
-	@echo "... _run_tests_map_store_np_rostest"
-	@echo "... _run_tests_map_store_np_rostest_test_map_store.test"
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
@@ -804,9 +723,6 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... run_tests_map_store_np"
-	@echo "... run_tests_map_store_np_rostest"
-	@echo "... run_tests_map_store_np_rostest_test_map_store.test"
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"

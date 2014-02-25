@@ -31,14 +31,14 @@ catkin_package( CATKIN_DEPENDS message_runtime )
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_executable(map_saver src/map_saver.cpp)
-add_dependencies(map_saver map_store_gencpp)
+add_dependencies(map_saver map_store_np_gencpp)
 target_link_libraries(map_saver uuid ${catkin_LIBRARIES})
 
 add_executable(map_manager src/map_manager.cpp)
-add_dependencies(map_manager map_store_gencpp)
+add_dependencies(map_manager map_store_np_gencpp)
 target_link_libraries(map_manager uuid ${catkin_LIBRARIES})
 
-add_rostest(test/map_store.test)
+#add_rostest(test/map_store.test)
 
 install(TARGETS map_saver
 	        map_manager

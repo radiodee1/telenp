@@ -161,48 +161,6 @@ _catkin_empty_exported_target/fast:
 .PHONY : _catkin_empty_exported_target/fast
 
 # Convenience name for target.
-map_store_np/CMakeFiles/_run_tests_map_store_np.dir/rule:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/_run_tests_map_store_np.dir/rule
-.PHONY : map_store_np/CMakeFiles/_run_tests_map_store_np.dir/rule
-
-# Convenience name for target.
-_run_tests_map_store_np: map_store_np/CMakeFiles/_run_tests_map_store_np.dir/rule
-.PHONY : _run_tests_map_store_np
-
-# fast build rule for target.
-_run_tests_map_store_np/fast:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f map_store_np/CMakeFiles/_run_tests_map_store_np.dir/build.make map_store_np/CMakeFiles/_run_tests_map_store_np.dir/build
-.PHONY : _run_tests_map_store_np/fast
-
-# Convenience name for target.
-map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/rule:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/rule
-.PHONY : map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/rule
-
-# Convenience name for target.
-_run_tests_map_store_np_rostest: map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/rule
-.PHONY : _run_tests_map_store_np_rostest
-
-# fast build rule for target.
-_run_tests_map_store_np_rostest/fast:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/build.make map_store_np/CMakeFiles/_run_tests_map_store_np_rostest.dir/build
-.PHONY : _run_tests_map_store_np_rostest/fast
-
-# Convenience name for target.
-map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/rule:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/rule
-.PHONY : map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/rule
-
-# Convenience name for target.
-_run_tests_map_store_np_rostest_test_map_store.test: map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/rule
-.PHONY : _run_tests_map_store_np_rostest_test_map_store.test
-
-# fast build rule for target.
-_run_tests_map_store_np_rostest_test_map_store.test/fast:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/build.make map_store_np/CMakeFiles/_run_tests_map_store_np_rostest_test_map_store.test.dir/build
-.PHONY : _run_tests_map_store_np_rostest_test_map_store.test/fast
-
-# Convenience name for target.
 map_store_np/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule:
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
 .PHONY : map_store_np/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
@@ -539,48 +497,6 @@ rosgraph_msgs_generate_messages_py/fast:
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-map_store_np/CMakeFiles/run_tests_map_store_np.dir/rule:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/run_tests_map_store_np.dir/rule
-.PHONY : map_store_np/CMakeFiles/run_tests_map_store_np.dir/rule
-
-# Convenience name for target.
-run_tests_map_store_np: map_store_np/CMakeFiles/run_tests_map_store_np.dir/rule
-.PHONY : run_tests_map_store_np
-
-# fast build rule for target.
-run_tests_map_store_np/fast:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f map_store_np/CMakeFiles/run_tests_map_store_np.dir/build.make map_store_np/CMakeFiles/run_tests_map_store_np.dir/build
-.PHONY : run_tests_map_store_np/fast
-
-# Convenience name for target.
-map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/rule:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/rule
-.PHONY : map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/rule
-
-# Convenience name for target.
-run_tests_map_store_np_rostest: map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/rule
-.PHONY : run_tests_map_store_np_rostest
-
-# fast build rule for target.
-run_tests_map_store_np_rostest/fast:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/build.make map_store_np/CMakeFiles/run_tests_map_store_np_rostest.dir/build
-.PHONY : run_tests_map_store_np_rostest/fast
-
-# Convenience name for target.
-map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/rule:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/rule
-.PHONY : map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/rule
-
-# Convenience name for target.
-run_tests_map_store_np_rostest_test_map_store.test: map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/rule
-.PHONY : run_tests_map_store_np_rostest_test_map_store.test
-
-# fast build rule for target.
-run_tests_map_store_np_rostest_test_map_store.test/fast:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/build.make map_store_np/CMakeFiles/run_tests_map_store_np_rostest_test_map_store.test.dir/build
-.PHONY : run_tests_map_store_np_rostest_test_map_store.test/fast
-
-# Convenience name for target.
 map_store_np/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 map_store_np/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 .PHONY : map_store_np/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
@@ -677,9 +593,6 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... _catkin_empty_exported_target"
-	@echo "... _run_tests_map_store_np"
-	@echo "... _run_tests_map_store_np_rostest"
-	@echo "... _run_tests_map_store_np_rostest_test_map_store.test"
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
@@ -710,9 +623,6 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... run_tests_map_store_np"
-	@echo "... run_tests_map_store_np_rostest"
-	@echo "... run_tests_map_store_np_rostest_test_map_store.test"
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
