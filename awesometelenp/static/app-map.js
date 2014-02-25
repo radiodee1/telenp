@@ -258,7 +258,7 @@ function opCancel() {
 
 function disableNONE() {
     document.getElementById("opMake").disabled = '';
-    document.getElementById("opSave").disabled = 'disabled';
+    document.getElementById("opSave").disabled = '';
     document.getElementById("opLoad").disabled = '';
     //document.getElementById("opChoose").disabled = '';//'disabled';
     document.getElementById("opStart").disabled = '';
@@ -1216,17 +1216,17 @@ function sendInitialPose(x, y, z, a) {
     //set params here
     var initial_x = new ROSLIB.Param({
         ros: ros,
-        name: '/amcl/initial_pose_x'
+        name: 'initial_pose_x'
     });
     
     var initial_y = new ROSLIB.Param({
         ros: ros,
-        name: '/amcl/initial_pose_y'
+        name: 'initial_pose_y'
     });
     
     var initial_a = new ROSLIB.Param({
         ros: ros,
-        name: '/amcl/initial_pose_a'
+        name: 'initial_pose_a'
     });
     
     initial_x.set(x);
