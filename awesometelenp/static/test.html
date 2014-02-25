@@ -1856,8 +1856,8 @@ function setOrigin(data) {
     //console.log(data);
     var origin = JSON.parse(data);
     map_nav_resolution = origin.resolution ; // dreaded magic number
-    map_nav_origin_x = origin.origin.position.x;
-    map_nav_origin_y = origin.origin.position.y;
+    map_nav_origin_x = 0;//origin.origin.position.x;
+    map_nav_origin_y = 0;//origin.origin.position.y;
     alert("map info set at: \n\n" +
         "resolution: " + map_nav_resolution.toFixed(2) + "\n" +
         "origin xy: " + map_nav_origin_x.toFixed(2) + "," + map_nav_origin_y.toFixed(2) );
@@ -2081,7 +2081,7 @@ function sendInitialPose(x, y, z, a) {
             seq: 0,
             stamp: 0,
             //stamp.nsec: 0,
-            frame_id: "map" //"base_link"
+            frame_id: "map" //"base_link" // just rviz!!
             },
         pose: {
             pose : {
@@ -2093,7 +2093,7 @@ function sendInitialPose(x, y, z, a) {
                 orientation: {
                     x: 0,
                     y: Math.sin( a / 2 ), // theta/2 ?
-                    z: 0,
+                    z: 0, //Math.sin( a / 2 ), // 0,
                     w: Math.cos( a / 2 )  // theta/2 ?
                     }
                 },
