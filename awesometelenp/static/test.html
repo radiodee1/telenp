@@ -2113,6 +2113,26 @@ function sendInitialPose(x, y, z, a) {
     });
     
     map_initialpose.publish(initialpose);
+    
+    //set params here
+    var initial_x = new ROSLIB.Param({
+        ros: ros,
+        name: '/amcl/initial_pose_x'
+    });
+    
+    var initial_y = new ROSLIB.Param({
+        ros: ros,
+        name: '/amcl/initial_pose_y'
+    });
+    
+    var initial_a = new ROSLIB.Param({
+        ros: ros,
+        name: '/amcl/initial_pose_a'
+    });
+    
+    initial_x.set(x);
+    initial_y.set(y);
+    initial_a.set(a);
 }
 </script>
 
