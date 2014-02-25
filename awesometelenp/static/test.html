@@ -1855,8 +1855,8 @@ function getMapTopicView() {
 function setOrigin(data) {
     //console.log(data);
     var origin = JSON.parse(data);
-    map_nav_resolution = origin.resolution ; // dreaded magic number
-    map_nav_origin_x = 0;//origin.origin.position.x;
+    map_nav_resolution = origin.resolution ; // 
+    map_nav_origin_x = 0;//origin.origin.position.x; // magic number zero?
     map_nav_origin_y = 0;//origin.origin.position.y;
     alert("map info set at: \n\n" +
         "resolution: " + map_nav_resolution.toFixed(2) + "\n" +
@@ -2130,9 +2130,9 @@ function sendInitialPose(x, y, z, a) {
         name: 'initial_pose_a'
     });
     
-    initial_x.set(x);
-    initial_y.set(y);
-    initial_a.set(a);
+    //initial_x.set(x);
+    //initial_y.set(y);
+    //initial_a.set(a);
 }
 </script>
 
