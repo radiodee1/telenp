@@ -7,7 +7,7 @@ import rospy
 import unittest
 from nav_msgs.msg import *
 from nav_msgs.srv import *
-from map_store.srv import *
+from map_store_np.srv import *
  
 ## Tests map store my reading a map from the map topic,
 ## reading a map from the dynamic_map service, renaming
