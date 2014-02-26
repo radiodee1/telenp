@@ -1414,6 +1414,19 @@ function parseCommands(commands) {
                     var start = new Array("amcl", "map_manager");
                 }
                 
+                start.push('/camera/driver');
+                start.push('/bumper2pointcloud');
+                start.push('/camera/camera_nodelet_manager');
+                start.push('/camera/depth_registered_rectify_depth');
+                start.push('/camera/disparity_depth');
+                start.push('/camera/disparity_registered_hw');
+                start.push('/camera/disparity_registered_sw');
+                start.push('/camera/rectify_ir');
+                start.push('/camera/register_depth_rgb');
+                start.push('/depthimage_to_laserscan');
+                //start.push('camera');
+                //start.push('camera');
+                //start.push('camera');
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
