@@ -1451,8 +1451,8 @@ function parseCommands(commands) {
             break;
             
             case map_command_nav_execute :
-                if (commands.x1 != commands.x2 &&
-                    commands.y1 != commands.y2 && 
+                if (commands.x1 != commands.x2 ||
+                    commands.y1 != commands.y2 || 
                     commands.angle1 != commands.angle2) {
                     
                     sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
