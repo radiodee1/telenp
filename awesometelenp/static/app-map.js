@@ -117,7 +117,7 @@ function opLoad() {
     document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpLoadConfirm").style.display = "none";
     
-    //sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
+    document.getElementById("wizOpLoadNavConfirm").style.display = "none";
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
@@ -307,6 +307,7 @@ function receiveMapEvent() {
 	if (typeof rx_map_commands !== "undefined") {
 	    var commands = JSON.parse(rx_map_commands);
 	    
+	            /*
 	            var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
                 if (true || map_manager_started || 
@@ -322,6 +323,7 @@ function receiveMapEvent() {
 	                
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
+	            */
 	    
                     //move these to inside fn above??
                     map_manager_started = true;
@@ -433,22 +435,32 @@ function parseCommands(commands) {
             
             case app_command_make_map :
                 app_name = "gmap";
-                var start = new Array("roslaunch",
-                    "tele_presence","gmapping_demo.launch");
                 
-                var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
-	            map_service_start.callService( request, function (result) {
-	                console.log("command launch -- navigation: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	                	                
-	            } );
+                //stop nodes!!
+                var start = new Array('amcl','map_manager');
+                var request = new ROSLIB.ServiceRequest({'command': start});
+	            map_service_stop.callService( request, function (result) {
+	                console.log("command stop: amcl,map_manager " + result.result);
 
+	            //} ); //note: see inner block!!
+                
+                    var start = new Array("roslaunch",
+                        "tele_presence","gmapping_demo.launch");
+                
+                    var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
+	                map_service_start.callService( request, function (result) {
+	                    console.log("command launch -- navigation: " + result.result);
+	                    sendMapBroadcast(commands.wizard, null, 0);
+	                	                
+	                } );
+	                
+                } ); //note: inner block!!
                 
             break;
             
             case app_command_map_manager :
             case app_command_map_manager_force :
-                app_name = "manager";
+                //app_name = "manager";
                 var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
                 
@@ -487,17 +499,20 @@ function parseCommands(commands) {
             break;
             
             case app_command_app_stop :
+            
+                var start = new Array();
+                
                 if (app_name == "gmap") {
                     var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array();//'map_manager');//,'map_store', 'map_server');
+                    var start = new Array();//'map_manager');
                     
                 }
                 if (app_name == "navigate") {
                     var start = new Array("amcl", "map_manager");
                 }
-                //var start = new Array('slam_gmapping', 'amcl');//always!!
+                
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
@@ -795,6 +810,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_load :
 	            document.getElementById("wizOpLoadConfirm").style.display = "block";
+	            document.getElementById("wizOpLoadNavConfirm").style.display = "none";
 	            app_msg = "LIBRARY OPS";
 	            //opChooseOp();
 	        break;
@@ -856,6 +872,7 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case app_command_map_nav:
+	            document.getElementById("wizOpLoadNavConfirm").style.display = "block";
 	            app_msg = "NAVIGATE A MAP";
 	            disableGMAP();
 	        break;

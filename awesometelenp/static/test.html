@@ -1018,7 +1018,7 @@ function opLoad() {
     document.getElementById("wizOpList").style.display = "none";
     document.getElementById("wizOpLoadConfirm").style.display = "none";
     
-    //sendMapCommandsShort(app_command_map_nav, 0, "", "", app_command_map_nav);
+    document.getElementById("wizOpLoadNavConfirm").style.display = "none";
     
     sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
 }
@@ -1208,6 +1208,7 @@ function receiveMapEvent() {
 	if (typeof rx_map_commands !== "undefined") {
 	    var commands = JSON.parse(rx_map_commands);
 	    
+	            /*
 	            var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
                 if (true || map_manager_started || 
@@ -1223,6 +1224,7 @@ function receiveMapEvent() {
 	                
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
+	            */
 	    
                     //move these to inside fn above??
                     map_manager_started = true;
@@ -1334,22 +1336,32 @@ function parseCommands(commands) {
             
             case app_command_make_map :
                 app_name = "gmap";
-                var start = new Array("roslaunch",
-                    "tele_presence","gmapping_demo.launch");
                 
-                var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
-	            map_service_start.callService( request, function (result) {
-	                console.log("command launch -- navigation: " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	                	                
-	            } );
+                //stop nodes!!
+                var start = new Array('amcl','map_manager');
+                var request = new ROSLIB.ServiceRequest({'command': start});
+	            map_service_stop.callService( request, function (result) {
+	                console.log("command stop: amcl,map_manager " + result.result);
 
+	            //} ); //note: see inner block!!
+                
+                    var start = new Array("roslaunch",
+                        "tele_presence","gmapping_demo.launch");
+                
+                    var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
+	                map_service_start.callService( request, function (result) {
+	                    console.log("command launch -- navigation: " + result.result);
+	                    sendMapBroadcast(commands.wizard, null, 0);
+	                	                
+	                } );
+	                
+                } ); //note: inner block!!
                 
             break;
             
             case app_command_map_manager :
             case app_command_map_manager_force :
-                app_name = "manager";
+                //app_name = "manager";
                 var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
                 
@@ -1388,17 +1400,20 @@ function parseCommands(commands) {
             break;
             
             case app_command_app_stop :
+            
+                var start = new Array();
+                
                 if (app_name == "gmap") {
                     var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array();//'map_manager');//,'map_store', 'map_server');
+                    var start = new Array();//'map_manager');
                     
                 }
                 if (app_name == "navigate") {
                     var start = new Array("amcl", "map_manager");
                 }
-                //var start = new Array('slam_gmapping', 'amcl');//always!!
+                
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
@@ -1696,6 +1711,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_load :
 	            document.getElementById("wizOpLoadConfirm").style.display = "block";
+	            document.getElementById("wizOpLoadNavConfirm").style.display = "none";
 	            app_msg = "LIBRARY OPS";
 	            //opChooseOp();
 	        break;
@@ -1757,6 +1773,7 @@ function receiveMapBroadcast() {
 	        break;
 	        
 	        case app_command_map_nav:
+	            document.getElementById("wizOpLoadNavConfirm").style.display = "block";
 	            app_msg = "NAVIGATE A MAP";
 	            disableGMAP();
 	        break;
@@ -2349,7 +2366,7 @@ p.reply
     List of Maps:<br>
     <div id="listSpace" style="border-style:solid;border-width:3px; border-color:black;
         width:300px; height:175px; overflow:auto">
-    Click 'LIST' button to see... Must be using load-map functions.<br>
+    Click 'LIST' button to see... <br>
     
     </div><br>
     <div class="listLength"></div>
@@ -2364,6 +2381,9 @@ p.reply
 
 <!-- one div for each frame of wizard  LOAD -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpLoad">
+    Loading a file does not automatically start the map navigating software. When you
+    are ready to tell the robot to navigate, click the 'FORCE-NAV-MANAGER' button on
+    this screen. Then click 'RUN-NAV-TOOLS' to set start and stop coordinates.<br>
     Load this file:
     <form action="">
     <select id="selectSpaceLoad">
@@ -2375,14 +2395,14 @@ p.reply
 <button type="button" onclick="executeRunNav()">RUN NAV TOOLS</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpLoadConfirm" style="display:none" class="reply">Your map loaded.</p>
+<p id="wizOpLoadNavConfirm" style="display:none" class="reply">Nav functions have been started.</p>
     <div class="listLength"></div>
 </div>
 
 <!-- one div for each frame of wizard  NEW -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpNew">
-    Make a test map here. If the size of the test map is too large, it will
-    not display in the window found in the 'START ROBOT' dialog box. You will 
-    need to tell it your starting and ending positions in some other manor.<br>
+    Make a test map here. This map will allow you to test saving and loading 
+    functions.<br>
     <button type="button" onclick="executeNew()">NEW TEST MAP</button><br>
     <br>
     Start map app that will make and save one map. Map should be usable for
@@ -2424,8 +2444,9 @@ p.reply
     <br>
     Saving maps is precarious right now. If you want to save a map, make the map
     first with the 'G-MAP' option under 'Make-Map', then once your map is made start
-    up the map manager. It will save a map... you must rename it to
-    your liking. The naming option below PROBABLY DOES NOT WORK.
+    up the map manager. It will save a map... you may need to rename it to
+    your liking. The naming option below MAY NOT WORK. Sometimes, the map saver will
+    save extra maps identical to the first.
     <hr>
     <br>
     Give your map a name:
