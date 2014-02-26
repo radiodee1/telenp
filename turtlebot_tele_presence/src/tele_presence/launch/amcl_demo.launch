@@ -23,6 +23,7 @@
   </include>
 
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+  <include file="$(find tele_presence)/launch/manage_map.launch"/>
 
 </launch>
 

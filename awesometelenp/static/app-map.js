@@ -495,7 +495,7 @@ function parseCommands(commands) {
                     
                 }
                 if (app_name == "navigate") {
-                    var start = new Array("amcl");
+                    var start = new Array("amcl", "map_manager");
                 }
                 //var start = new Array('slam_gmapping', 'amcl');//always!!
                 
