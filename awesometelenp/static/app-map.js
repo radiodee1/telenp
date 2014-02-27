@@ -58,6 +58,9 @@ var app_command_map_manager_force = "app_mapmanage_force";
 var app_command_map_nav = "app_mapnav";
 var app_command_map_nav_force = "app_mapnav_force";
 var map_command_nav_execute = "app_mapnav_execute";
+var map_command_nav_start = "app_mapnav_start";
+var map_command_nav_goal = "app_mapnav_goal";
+var map_command_library_force = "map_library_force";
 // enum for planning map movement
 var ENUM_BOT_START = "turtlebot_place_start";
 var ENUM_BOT_END = "turtlebot_place_end";
@@ -506,7 +509,7 @@ function parseCommands(commands) {
                     var start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array();//'map_manager');
+                    var start = new Array('map_manager');
                     
                 }
                 if (app_name == "navigate") {
@@ -514,7 +517,7 @@ function parseCommands(commands) {
                 }
                 
                 start.push('/camera/driver');
-                start.push('/bumper2pointcloud');
+                //start.push('/bumper2pointcloud');
                 start.push('/camera/camera_nodelet_manager');
                 start.push('/camera/depth_registered_rectify_depth');
                 start.push('/camera/disparity_depth');
@@ -523,9 +526,10 @@ function parseCommands(commands) {
                 start.push('/camera/rectify_ir');
                 start.push('/camera/register_depth_rgb');
                 start.push('/depthimage_to_laserscan');
-                //start.push('camera');
-                //start.push('camera');
-                //start.push('camera');
+                start.push('/camera/points_xyzrgb_hw_registered');
+                start.push('/camera/points_xyzrgb_sw_registered');
+                start.push('/kobuki_safety_controller');
+                //
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
@@ -562,6 +566,15 @@ function parseCommands(commands) {
                 }
                 
 
+                sendMapBroadcast(commands.wizard, null, 0);
+            break;
+            case map_command_nav_start :
+                sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
+                sendMapBroadcast(commands.wizard, null, 0);
+            break;
+            
+            case map_command_nav_goal :
+                sendGoalPose(commands.x2, commands.y2, 0, commands.angle2);
                 sendMapBroadcast(commands.wizard, null, 0);
             break;
 	    }
@@ -902,6 +915,18 @@ function receiveMapBroadcast() {
 	        case map_command_nav_execute :
 	            app_msg = "NAVIGATE A MAP";
 	        break;
+	        
+	        case map_command_nav_start :
+	        
+	        break;
+	        
+	        case map_command_nav_goal :
+	        
+	        break;
+	        
+	        case map_command_library_force :
+	            sendMapCommandsShort(map_command_list, 0, "", "", map_command_list_load);
+	        break;
 	    }
 	}
 	try {
@@ -972,9 +997,26 @@ function executeRunNav() {
     disableGMAP();
 }
 
+function executeLibraryForce() {
+    sendMapCommandsShort(app_command_map_manager, 0, "", "", map_command_library_force);
+    
+}
+
 function executeRunNavForce() {
     
     sendMapCommandsShort(app_command_map_nav_force, 0, "", "", app_command_map_nav);
+}
+
+function executeNavStart() {
+    sendMapCommands(map_command_nav_start, 0, '', '', map_command_nav_start,
+            map_nav_pose_x, map_nav_pose_y, map_nav_pose_a,
+            0, 0, 0 );
+}
+
+function executeNavGoal() {
+    sendMapCommands(map_command_nav_goal, 0, '', '', map_command_nav_goal,
+            0, 0, 0,
+            map_nav_goal_x, map_nav_goal_y, map_nav_goal_a );
 }
 
 function opStopService() {
@@ -1126,6 +1168,8 @@ function chooseClear() {
         + ',' + map_nav_goal_y.toFixed(2));
     $('#angleStartDisplay').html(map_nav_pose_a.toFixed(2));
     $('#angleStopDisplay').html(map_nav_goal_a.toFixed(2));
+    angle_count_start = 0;
+    angle_count_stop = 0;
 }
 
 function anglePng(angle) {

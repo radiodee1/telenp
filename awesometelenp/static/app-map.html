@@ -113,7 +113,9 @@ p.reply
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpLoad">
     Loading a file does not automatically start the map navigating software. When you
     are ready to tell the robot to navigate, click the 'FORCE-NAV-MANAGER' button on
-    this screen. Then click 'RUN-NAV-TOOLS' to set start and stop coordinates.<br>
+    this screen. Then click 'RUN-NAV-TOOLS' to set start and stop coordinates.<br><br>
+    IF the load option pull-down does not contain any maps, click the Force-Library 
+    button.
     <hr>
     Load this file:
     <form action="">
@@ -122,6 +124,7 @@ p.reply
     </select><button type="button" onclick="executeLoad()">LOAD</button><br>
     </form>
 <br>
+<button type="button" onclick='executeLibraryForce();'>FORCE LIBRARY</button><br><br>
 <button type="button" onclick='executeRunNavForce();'>FORCE NAV MANAGER</button><br><br>
 <button type="button" onclick="executeRunNav()">RUN NAV TOOLS</button><br><br>
 <button type="button" onclick="opCancel()">Done</button>
@@ -239,7 +242,11 @@ p.reply
     </tr>
     <tr class="lined"><td class="lined" colspan="2">
     <button type="button" onclick="chooseClear()">NO COORDS</button>
-    <button type="button" onclick="chooseAccept()">SEND TO BOT</button>
+    <button type="button" onclick="chooseAccept()">SEND ALL!</button>
+    </td></tr>
+    <tr class="lined"><td class="lined" colspan="2">
+    <button type="button" onclick="executeNavStart()">SEND START</button>
+    <button type="button" onclick="executeNavGoal()">SEND GOAL</button>
     </td></tr>
     </table>
     
