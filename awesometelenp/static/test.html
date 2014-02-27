@@ -1434,11 +1434,11 @@ function parseCommands(commands) {
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
-	                console.log("command stop: " + app_name + " " + result.result);
+	                console.log("command stop: " + app_name + " !-- " );
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
-                app_name = "";
+                //app_name = "";
                 
             break;
             
@@ -1466,9 +1466,9 @@ function parseCommands(commands) {
                     
                 }
                 
-
                 sendMapBroadcast(commands.wizard, null, 0);
             break;
+            
             case map_command_nav_start :
                 sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
                 sendMapBroadcast(commands.wizard, null, 0);
@@ -1884,7 +1884,7 @@ function executeMakeMapAndroid() {
 }
 
 function executeMapStart() {
-    sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager_force);
+    sendMapCommandsShort(app_command_map_manager_force, 0, "", "", app_command_map_manager_force);
 }
 
 function executeList() {
@@ -1909,12 +1909,26 @@ function executeRunNavForce() {
 }
 
 function executeNavStart() {
+    var reply = confirm("NAV command! " + "\n\n" + 
+        "start: " + map_nav_pose_x.toFixed(2) + "," + map_nav_pose_y.toFixed(2) + "\n" +
+        "start angle: " + map_nav_pose_a.toFixed(2) + "\n" +
+        
+        "send??!!"
+    );
+    if (!reply) return;
     sendMapCommands(map_command_nav_start, 0, '', '', map_command_nav_start,
             map_nav_pose_x, map_nav_pose_y, map_nav_pose_a,
             0, 0, 0 );
 }
 
 function executeNavGoal() {
+    var reply = confirm("NAV command! " + "\n\n" + 
+        
+        "stop: " + map_nav_goal_x.toFixed(2) + "," + map_nav_goal_y.toFixed(2) +"\n" +
+        "stop angle: " + map_nav_goal_a.toFixed(2) + "\n" +
+        "send??!!"
+    );
+    if (!reply) return;
     sendMapCommands(map_command_nav_goal, 0, '', '', map_command_nav_goal,
             0, 0, 0,
             map_nav_goal_x, map_nav_goal_y, map_nav_goal_a );
