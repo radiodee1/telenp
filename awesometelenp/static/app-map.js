@@ -3,6 +3,7 @@ var forbiddenCharacters = /[^a-zA-Z!0-9_\- ]/;
 var test_map = "";
 var app_name = "";
 var app_msg = "";
+var app_stopping = false;
 var map_image ;
 var map_overlay ;
 var coord_x = 0;
@@ -310,15 +311,13 @@ function receiveMapEvent() {
 	if (typeof rx_map_commands !== "undefined") {
 	    var commands = JSON.parse(rx_map_commands);
 	    
-	            /*
-	            var start = new Array("roslaunch",
-                    "tele_presence","manage_map.launch");
-                if (true || map_manager_started || 
-                    //commands.command == app_command_make_map ||
-                    commands.command == map_command_make ||
-                    commands.command == app_command_map_nav ||
-                    commands.command == app_command_app_stop  ) start = new Array();
+	            var start = new Array();
+	            if (app_command_map_nav_force || app_command_make_map) {
+	                start = new Array("roslaunch",
+                        "turtlebot_bringup","minimal.launch");
+                }
                 
+                app_stopping = false;
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
 	                //console.log("command launch -- map manager : " + result.result);
@@ -326,7 +325,7 @@ function receiveMapEvent() {
 	                
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
-	            */
+	            
 	    
                     //move these to inside fn above??
                     map_manager_started = true;
@@ -529,6 +528,7 @@ function parseCommands(commands) {
                 start.push('/camera/points_xyzrgb_sw_registered');
                 start.push('/kobuki_safety_controller');
                 //
+                
                 start.push('/bumper2pointcloud');
                 start.push('/cmd_vel_mux');
                 start.push('/diagnostic_aggregator');
@@ -537,12 +537,13 @@ function parseCommands(commands) {
                 start.push('/robot_state_publisher');
                 //start.push('');
                 
+                
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
 	                console.log("command stop: " + app_name + " !-- " );
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
-                
+                app_stopping = true;
                 //app_name = "";
                 
             break;
