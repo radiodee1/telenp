@@ -1,6 +1,6 @@
 <launch>
   
-
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
   <!-- Map server -->
   <!-- arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/ -->
   <!-- node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" / -->
@@ -26,7 +26,7 @@
     
     <arg name="scan_topic" value="/scan" />
   </include>
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+
   
 </launch>
 
