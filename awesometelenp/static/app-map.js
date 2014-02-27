@@ -998,7 +998,7 @@ function executeRunNav() {
 }
 
 function executeLibraryForce() {
-    sendMapCommandsShort(app_command_map_manager, 0, "", "", map_command_library_force);
+    sendMapCommandsShort(app_command_map_manager_force, 0, "", "", map_command_library_force);
     
 }
 

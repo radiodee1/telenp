@@ -121,9 +121,10 @@ def basic_stop(req) :
     print process
     for i in req.command:
         subprocess.call(["rosnode","kill", i])
-    if len(req.command) > 0 :
-        process.kill();
     return []
+    #if len(req.command) > 0 :
+        #process.kill();
+    #return []
 
 
 if __name__ == '__main__':

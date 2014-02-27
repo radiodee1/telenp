@@ -15,7 +15,7 @@
     <arg name="use_map_topic" value="true"/>
   </include>
 
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+
   <!-- include file="$(find tele_presence)/launch/manage_map.launch"/ -->
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
@@ -26,5 +26,7 @@
     
     <arg name="scan_topic" value="/scan" />
   </include>
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+  
 </launch>
 
