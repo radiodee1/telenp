@@ -1,6 +1,7 @@
 <launch>
   
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+  <include file="$(find tele_presence)/launch/include/bumper2pc.launch.xml"/>
   <!-- Map server -->
   <!-- arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/ -->
   <!-- node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" / -->

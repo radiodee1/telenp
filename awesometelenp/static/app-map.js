@@ -517,7 +517,6 @@ function parseCommands(commands) {
                 }
                 
                 start.push('/camera/driver');
-                //start.push('/bumper2pointcloud');
                 start.push('/camera/camera_nodelet_manager');
                 start.push('/camera/depth_registered_rectify_depth');
                 start.push('/camera/disparity_depth');
@@ -530,6 +529,13 @@ function parseCommands(commands) {
                 start.push('/camera/points_xyzrgb_sw_registered');
                 start.push('/kobuki_safety_controller');
                 //
+                start.push('/bumper2pointcloud');
+                start.push('/cmd_vel_mux');
+                start.push('/diagnostic_aggregator');
+                start.push('/mobile_base');
+                start.push('/mobile_base_nodelet_manager');
+                start.push('/robot_state_publisher');
+                //start.push('');
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
@@ -938,7 +944,7 @@ function receiveMapBroadcast() {
 	}
 	
 	//print a status msg on screen:
-	$('#topstatus').html("[" + app_msg + "]");
+	if (app_msg != "") $('#topstatus').html("[" + app_msg + "]");
 	
 }
 
