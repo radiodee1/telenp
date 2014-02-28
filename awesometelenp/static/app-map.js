@@ -324,14 +324,14 @@ function receiveMapEvent() {
 	            map_service_start.callService( request, function (result) {
 	                console.log("command launch -- COMMANDS : " );
                     logArray(start);
-	                parseCommands(commands);
+	                //parseCommands(commands);
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	            
 	    
                     //move these to inside fn above??
                     map_manager_started = true;
-	                //parseCommands(commands);
+	                parseCommands(commands);
 	    
 	} 
 	else {
