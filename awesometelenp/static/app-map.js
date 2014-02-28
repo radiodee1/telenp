@@ -485,13 +485,6 @@ function parseCommands(commands) {
             case app_command_map_nav :
             case app_command_map_nav_force:
                 
-                var start = new Array("/slam_gmapping","/mobile_base_nodelet_manager");
-                var request = new ROSLIB.ServiceRequest({'command': start});
-	            map_service_stop.callService( request, function (result) {
-	                console.log("command stop before nav: " );
-	                logArray(start);
-	                //sendMapBroadcast(commands.wizard, null, 0);
-	            //} );
                 
                     var start = new Array("roslaunch",
                         "tele_presence","amcl_demo.launch");
@@ -508,7 +501,7 @@ function parseCommands(commands) {
                         map_nav_started = true;
 	                } );
 	            
-                });
+                
             break;
             
             case app_command_app_stop :
@@ -537,9 +530,9 @@ function parseCommands(commands) {
                 start.push('/depthimage_to_laserscan');
                 start.push('/camera/points_xyzrgb_hw_registered');
                 start.push('/camera/points_xyzrgb_sw_registered');
-                start.push('/kobuki_safety_controller');
+                //start.push('/kobuki_safety_controller');
                 //
-                
+                /*
                 start.push('/bumper2pointcloud');
                 start.push('/cmd_vel_mux');
                 start.push('/diagnostic_aggregator');
@@ -548,6 +541,7 @@ function parseCommands(commands) {
                 start.push('/robot_state_publisher');
                 start.push('/move_base');
                 start.push('/navigation_velocity_smoother');
+                */
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
