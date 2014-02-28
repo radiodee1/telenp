@@ -314,7 +314,7 @@ function receiveMapEvent() {
 	            var start = new Array();
 	            if (app_command_map_nav_force || app_command_make_map) {
 	                start = new Array("roslaunch",
-                        "turtlebot_bringup","minimal.launch");
+                        "tele_presence","move_base.launch");
                 }
                 
                 app_stopping = false;
