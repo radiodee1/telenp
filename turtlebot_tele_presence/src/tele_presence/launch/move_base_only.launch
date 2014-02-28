@@ -1,0 +1,10 @@
+<launch>
+  <include file="$(find turtlebot_bringup)/launch/includes/robot.launch.xml">
+    <arg name="base" value="kobuki" />
+    <arg name="stacks" value="hexagons" />
+    <arg name="3d_sensor" value="kinect" />
+  </include>
+  <include file="$(find turtlebot_bringup)/launch/includes/mobile_base.launch.xml">
+    <arg name="base" value="kobuki" />
+  </include>
+</launch>
