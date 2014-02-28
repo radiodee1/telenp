@@ -1362,7 +1362,7 @@ function parseCommands(commands) {
                 app_name = "gmap";
                 
                 //stop nodes!!
-                var start = new Array('amcl','map_manager');
+                var start = new Array('/amcl','/map_manager');
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
 	                console.log("command stop: amcl,map_manager " + result.result);
@@ -1406,21 +1406,30 @@ function parseCommands(commands) {
             case app_command_map_nav :
             case app_command_map_nav_force:
                 
-                var start = new Array("roslaunch",
-                    "tele_presence","amcl_demo.launch");
-                if (map_nav_started && commands.wizard != app_command_map_nav_force) {
-                    //start = new Array();
-                    //app_name = "";
-                }
-                app_name = "navigate";
-                var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
-	            map_service_start.callService( request, function (result) {
-	                console.log("comand launch -- navigation: -- " );
-	                sendMapBroadcast(commands.wizard, null, 0);
-                    map_nav_started = true;
-	            } );
-	            
+                var start = new Array("/slam_gmapping","/mobile_base_nodelet_manager");
+                var request = new ROSLIB.ServiceRequest({'command': start});
+	            map_service_stop.callService( request, function (result) {
+	                console.log("command stop before nav: " );
+	                logArray(start);
+	                //sendMapBroadcast(commands.wizard, null, 0);
+	            //} );
                 
+                    var start = new Array("roslaunch",
+                        "tele_presence","amcl_demo.launch");
+                    if (map_nav_started && commands.wizard != app_command_map_nav_force) {
+                        //start = new Array();
+                        //app_name = "";
+                    }
+                    app_name = "navigate";
+                    var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
+	                map_service_start.callService( request, function (result) {
+	                    console.log("comand launch -- navigation: -- " );
+	                    logArray(start);
+	                    sendMapBroadcast(commands.wizard, null, 0);
+                        map_nav_started = true;
+	                } );
+	            
+                });
             break;
             
             case app_command_app_stop :
@@ -1428,14 +1437,14 @@ function parseCommands(commands) {
                 var start = new Array();
                 
                 if (app_name == "gmap") {
-                    start = new Array("slam_gmapping");
+                    start = new Array("/slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    start = new Array('map_manager');
+                    start = new Array('/map_manager');
                     
                 }
                 if (app_name == "navigate") {
-                    start = new Array("amcl", "map_manager");
+                    start = new Array("/amcl", "/map_manager");
                 }
                 
                 start.push('/camera/driver');
@@ -1456,7 +1465,7 @@ function parseCommands(commands) {
                 start.push('/cmd_vel_mux');
                 start.push('/diagnostic_aggregator');
                 start.push('/mobile_base');
-                start.push('/mobile_base_nodelet_manager');
+                start.push('/mobile_base_nodelet_manager');// respawned??
                 start.push('/robot_state_publisher');
                 start.push('/move_base');
                 start.push('/navigation_velocity_smoother');
