@@ -1234,7 +1234,8 @@ function receiveMapEvent() {
 	    
 	            var start = new Array();
 	            if (app_command_map_nav_force == commands.command || 
-	                    app_command_make_map == commands.command) {
+	                    app_command_make_map == commands.command ||
+	                    app_command_map_nav == commands.command) {
 	                start = new Array("roslaunch",
                         "tele_presence","move_base.launch");
                 }
@@ -1244,14 +1245,14 @@ function receiveMapEvent() {
 	            map_service_start.callService( request, function (result) {
 	                //console.log("command launch -- map manager : " + result.result);
 
-	                
+	                parseCommands(commands);
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	            
 	    
                     //move these to inside fn above??
                     map_manager_started = true;
-	                parseCommands(commands);
+	                //parseCommands(commands);
 	    
 	} 
 	else {
@@ -1408,7 +1409,7 @@ function parseCommands(commands) {
                 var start = new Array("roslaunch",
                     "tele_presence","amcl_demo.launch");
                 if (map_nav_started && commands.wizard != app_command_map_nav_force) {
-                    start = new Array();
+                    //start = new Array();
                     //app_name = "";
                 }
                 app_name = "navigate";
@@ -1457,12 +1458,13 @@ function parseCommands(commands) {
                 start.push('/mobile_base');
                 start.push('/mobile_base_nodelet_manager');
                 start.push('/robot_state_publisher');
-                //start.push('');
-                
+                start.push('/move_base');
+                start.push('/navigation_velocity_smoother');
                 
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
 	                console.log("command stop: " + app_name + " !-- " );
+	                logArray(start);
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 app_stopping = true;
@@ -1511,6 +1513,16 @@ function parseCommands(commands) {
 	
     gapi.hangout.data.clearValue(tx_gapi_map_event);
     
+}
+
+function logArray(start) {
+    var x = 0;
+    var s = "";
+    var l = start.length;
+    for( x = 0; x < l; x ++) {
+        s = s + start[x] + " ";
+    }
+    console.log(" array : " + s);
 }
 
 function sendMapInForm(data) {

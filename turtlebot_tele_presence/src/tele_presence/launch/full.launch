@@ -1,6 +1,6 @@
 <launch>
  
-  <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+  <include file="$(find tele_presence)/launch/move_base.launch"/>
   
   <!-- allow apps to bring up their own sensors, etc. -->
   
