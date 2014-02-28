@@ -1,7 +1,3 @@
-<!-- launch>
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
-</launch -->
-
 <launch>
   <arg name="base"       default="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
   <arg name="battery"    default="$(optenv TURTLEBOT_BATTERY /sys/class/power_supply/BAT0)"/>  <!-- /proc/acpi/battery/BAT0 in 2.6 or earlier kernels-->
