@@ -316,7 +316,7 @@ function receiveMapEvent() {
 	                    app_command_make_map == commands.command ||
 	                    app_command_map_nav == commands.command) {
 	                start = new Array("roslaunch",
-                        "tele_presence","move_base_only.launch");
+                        "tele_presence","robot_base.launch");
                 }
                 
                 app_stopping = false;
