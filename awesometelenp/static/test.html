@@ -1223,8 +1223,8 @@ function receiveMapEvent() {
                 app_stopping = false;
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
-	                //console.log("command launch -- map manager : " + result.result);
-
+	                console.log("command launch -- COMMANDS : " );
+                    logArray(start);
 	                parseCommands(commands);
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	            } );
