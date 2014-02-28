@@ -312,7 +312,8 @@ function receiveMapEvent() {
 	    var commands = JSON.parse(rx_map_commands);
 	    
 	            var start = new Array();
-	            if (app_command_map_nav_force || app_command_make_map) {
+	            if (app_command_map_nav_force == commands.command || 
+	                    app_command_make_map == commands.command) {
 	                start = new Array("roslaunch",
                         "tele_presence","move_base.launch");
                 }
@@ -467,7 +468,7 @@ function parseCommands(commands) {
                     "tele_presence","manage_map.launch");
                 
                 if (map_manager_started && commands.wizard != app_command_map_manager_force) {
-                    start = new Array();
+                    //start = new Array();
                 }
                 
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
@@ -505,14 +506,14 @@ function parseCommands(commands) {
                 var start = new Array();
                 
                 if (app_name == "gmap") {
-                    var start = new Array("slam_gmapping");
+                    start = new Array("slam_gmapping");
                 }
                 if (app_name == "manager") {
-                    var start = new Array('map_manager');
+                    start = new Array('map_manager');
                     
                 }
                 if (app_name == "navigate") {
-                    var start = new Array("amcl", "map_manager");
+                    start = new Array("amcl", "map_manager");
                 }
                 
                 start.push('/camera/driver');
@@ -566,7 +567,6 @@ function parseCommands(commands) {
                     commands.angle1 != commands.angle2) {
                     
                     sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
-                    
                     
                     sendGoalPose(commands.x2, commands.y2, 0, commands.angle2);
                     
