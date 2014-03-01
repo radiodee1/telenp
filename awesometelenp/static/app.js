@@ -3,7 +3,7 @@
 
 */
 
-var gapi_loaded = false;
+var gapi_loaded = true; // change to false for net-free test.
 var mod_base = 512;
 var basename = "telenp";
 var test_config = false;

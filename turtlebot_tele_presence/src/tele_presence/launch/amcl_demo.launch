@@ -24,7 +24,7 @@
     <arg name="depth_registration" value="false" />
     <arg name="depth_processing" value="false" />
     
-    <!-- arg name="scan_processing" value="true"/ --><!-- don't know why-->
+    <arg name="scan_processing" value="true"/><!-- don't know why-->
     
     <arg name="scan_topic" value="/scan" />
   </include>
