@@ -530,9 +530,10 @@ function parseCommands(commands) {
                 start.push('/depthimage_to_laserscan');
                 start.push('/camera/points_xyzrgb_hw_registered');
                 start.push('/camera/points_xyzrgb_sw_registered');
-                //start.push('/kobuki_safety_controller');
-                //
+                
                 /*
+                // DON'T CANCEL THESE: MOVEMENT BASE STUFF
+                start.push('/kobuki_safety_controller');
                 start.push('/bumper2pointcloud');
                 start.push('/cmd_vel_mux');
                 start.push('/diagnostic_aggregator');

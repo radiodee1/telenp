@@ -120,7 +120,9 @@ def basic_stop(req) :
     print req.command
     print process
     for i in req.command:
-        subprocess.call(["rosnode","kill", i])
+        #subprocess.call(["rosnode","kill", i])
+        sub = subprocess.Popen(["rosnode","kill", i], shell=False, \
+            stdin=None, stdout=None, stderr=None, close_fds=True, creationflags=0)
     return []
     #if len(req.command) > 0 :
         #process.kill();
