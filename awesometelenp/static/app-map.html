@@ -116,25 +116,29 @@ p.reply
     this screen. Then click 'RUN-NAV-TOOLS' to set start and stop coordinates.<br><br>
     IF the load option pull-down does not contain any maps, click the Force-Library 
     button.
+    <button type="button" onclick='executeLibraryForce()'>FORCE LIBRARY</button>
+    <button type="button" onclick='opLoad()'>RELOAD LIST</button><br>
     <hr>
     Load this file:
-    <form action="">
+    <!-- form action="" -->
     <select id="selectSpaceLoad">
     <option value="none">None</option>
-    </select><button type="button" onclick="executeLoad()">LOAD</button><br>
-    </form>
+    </select><button type="button" onclick="executeLoad()">LOAD</button>
+    <div class="listLength"></div>
+    <!-- /form -->
 <br>
-<button type="button" onclick='executeLibraryForce();'>FORCE LIBRARY</button><br><br>
-<button type="button" onclick='executeRunNavForce();'>FORCE NAV MANAGER</button><br><br>
-<button type="button" onclick="executeRunNav()">RUN NAV TOOLS</button><br><br>
+
+<button type="button" onclick='executeRunNavForce();'>FORCE NAV MANAGER</button>
+<button type="button" onclick="executeRunNav()">RUN NAV TOOLS</button><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpLoadConfirm" style="display:none" class="reply">Your map loaded.</p>
 <p id="wizOpLoadNavConfirm" style="display:none" class="reply">Nav functions have been started.</p>
-    <div class="listLength"></div>
+    
 </div>
 
 <!-- one div for each frame of wizard  NEW -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpNew">
+    <br>
     Make a test map here. This map will allow you to test saving and loading 
     functions.<br>
     <button type="button" onclick="executeNew()">NEW TEST MAP</button><br>
@@ -147,12 +151,13 @@ p.reply
 </div>
 <!-- one div for each frame of wizard  DELETE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpDel">
+    <br>
     Delete this file:
-    <form action="">
+    <!-- form action="" -->
     <select id="selectSpaceDelete">
     <option value="none">None</option>
     </select><button type="button" onclick="executeDelete()">DELETE</button><br>
-    </form>
+    <!-- /form -->
 <button type="button" onclick="opCancel()">Done</button>
     <p id="wizOpDelConfirm" style="display:none" class="reply">
     Your map was deleted. Refresh or click 'Close' to see new
@@ -161,13 +166,15 @@ p.reply
 <!-- one div for each frame of wizard  RENAME -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpRename">
     Rename this file:
-    <form action="">
+    <br>
+    <!-- form action="" -->
+    <button type="button" onclick='opRename()'>REFRESH</button><br>
     <select id="selectSpaceRename">
     <option value="none">None</option>
     </select>
     <input type="text" name="rename" id="inputSpaceRename">
     <button type="button" onclick="executeRename()">RENAME</button><br>
-    </form>
+    <!-- /form -->
 <button type="button" onclick="opCancel()">Done</button>
     <p id="wizOpRenameConfirm" style="display:none" class="reply">
     Your map was renamed. Refresh of click 'Done' to see new
@@ -197,12 +204,13 @@ p.reply
 <!-- one div for each frame of wizard  START ROBOT / CONFIG-->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpStart">
     
-    
+<br>
 <button type="button" onclick='executeMapStart();'>FORCE MAP MANAGER</button><br><br>
     
 <button type="button" onclick="opCancel()">Done</button><br>
 <p id="wizOpStartConfirm" style="display:none" class="reply">The map manager is started.</p>
     
+<p id="wizOpStartConfirmForce" style="display:none" class="reply">The map manager start is forced.</p>
     
 </div>
 <!-- one div for each frame of wizard  VIEW MAP -->

@@ -209,9 +209,9 @@ function opStart() {
     document.getElementById("wizOpView").style.display = "none";
     document.getElementById("wizOpList").style.display = "none";
     document.getElementById('wizOpStartConfirm').style.display = "none";
-    
+    document.getElementById('wizOpStartConfirmForce').style.display = "none";    
     //app_command_map_manager
-    sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
+    //sendMapCommandsShort(app_command_map_manager, 0, "", "", app_command_map_manager);
 }
 
 function opView() {
@@ -854,7 +854,7 @@ function receiveMapBroadcast() {
 	    switch(data.type) {
 	        case map_command_list :
 	            putListInBoxLocal(data.map_list, "listSpace");
-	            $('.listLength').html("Num of Items: " + data.num);
+	            $('.listLength').html("Items: " + data.num);
 	        break;
 	        
 	        case map_command_load :
@@ -871,7 +871,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_list_load :
 	            putListInSelectLocal(data.map_list, "selectSpaceLoad");
-	            $('.listLength').html("Num of Items: " + data.num);
+	            $('.listLength').html("Items: " + data.num);
 	        break;
 	        
 	        case map_command_list_start:
@@ -880,7 +880,7 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_list_delete :
 	            putListInSelectLocal(data.map_list, "selectSpaceDelete");
-	            $('.listLength').html("Num of Items: " + data.num);
+	            $('.listLength').html("Items: " + data.num);
 	        break;
 	        
 	        case map_command_list_rename :
@@ -907,10 +907,14 @@ function receiveMapBroadcast() {
 	            disableAMCL();
 	        break;
 	        
-	        case app_command_map_manager :
+
 	        case app_command_map_manager_force :
-	            document.getElementById("wizOpStartConfirm").style.display = "block";
+	            document.getElementById("wizOpStartConfirmForce").style.display = "block";
+	            disableNONE();
+	        break;
 	            
+	        case app_command_map_manager :
+	            document.getElementById("wizOpStartConfirm").style.display = "block";
 	            disableNONE();
 	        break;
 	        
