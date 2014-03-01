@@ -1448,7 +1448,7 @@ function parseCommands(commands) {
                 start.push('/camera/disparity_registered_sw');
                 start.push('/camera/rectify_ir');
                 start.push('/camera/register_depth_rgb');
-                start.push('/depthimage_to_laserscan');
+                start.push('/depthimage_to_laserscan'); //??
                 start.push('/camera/points_xyzrgb_hw_registered');
                 start.push('/camera/points_xyzrgb_sw_registered');
                 
