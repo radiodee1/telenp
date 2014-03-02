@@ -801,7 +801,7 @@ function inviteAndInit() {
     var start = "tele_presence_apps/teleop";
     var request = new ROSLIB.ServiceRequest({'name': start});
 	app_service_start.callService( request, function (result) {
-	    // nothing here...
+	    // nothing here... START TELEOP ALWAYS...
 	} );
 }
 
