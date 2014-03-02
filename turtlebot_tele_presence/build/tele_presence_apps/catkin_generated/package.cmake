@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "tele_presence_apps")
+set(tele_presence_apps_MAINTAINER "David Liebman <david.c.liebman@gmail.com>")
+set(tele_presence_apps_DEPRECATED "")
+set(tele_presence_apps_VERSION "0.0.0")
+set(tele_presence_apps_BUILD_DEPENDS "message_generation" "geometry_msgs" "roscpp" "rospy" "std_msgs" "map_store")
+set(tele_presence_apps_RUN_DEPENDS "message_runtime" "geometry_msgs" "roscpp" "rospy" "std_msgs" "map_store")
+set(tele_presence_apps_BUILDTOOL_DEPENDS "catkin")

@@ -679,6 +679,19 @@ tele_presence_genpy/fast:
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_genpy.dir/build.make tele_presence/CMakeFiles/tele_presence_genpy.dir/build
 .PHONY : tele_presence_genpy/fast
 
+#=============================================================================
+# Target rules for targets named tele_presence_apps_generate_messages
+
+# Build rule for target.
+tele_presence_apps_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tele_presence_apps_generate_messages
+.PHONY : tele_presence_apps_generate_messages
+
+# fast build rule for target.
+tele_presence_apps_generate_messages/fast:
+	$(MAKE) -f tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/build.make tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/build
+.PHONY : tele_presence_apps_generate_messages/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -733,6 +746,7 @@ help:
 	@echo "... tele_presence_generate_messages_py"
 	@echo "... tele_presence_genlisp"
 	@echo "... tele_presence_genpy"
+	@echo "... tele_presence_apps_generate_messages"
 .PHONY : help
 
 

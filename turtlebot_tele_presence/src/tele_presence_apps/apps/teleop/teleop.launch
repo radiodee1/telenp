@@ -1,0 +1,19 @@
+<launch>
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+  
+  <!-- allow apps to bring up their own sensors, etc. -->
+  
+  <!-- include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/ --><!--  remove this and launch with appmanager -->
+  
+  <include file="$(find tele_presence)/launch/minimal.launch"/>
+  
+  <!-- include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="false" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+    
+    <arg name="scan_topic" value="/scan" />
+  </include -->
+  
+  <include file="$(find tele_presence)/launch/manage_map.launch"/>
+</launch>

@@ -31,6 +31,7 @@
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/CMakeFiles/std_msgs_generate_messages_cpp.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/CMakeFiles/std_msgs_generate_messages_lisp.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/CMakeFiles/std_msgs_generate_messages_py.dir
+/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/tele_presence_gencpp.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/tele_presence_generate_messages.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir

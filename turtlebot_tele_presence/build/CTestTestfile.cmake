@@ -7,3 +7,4 @@
 SUBDIRS(gtest)
 SUBDIRS(map_store_np)
 SUBDIRS(tele_presence)
+SUBDIRS(tele_presence_apps)

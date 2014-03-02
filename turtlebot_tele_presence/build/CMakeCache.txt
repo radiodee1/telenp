@@ -332,6 +332,12 @@ tele_presence_BINARY_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_prese
 //Value Computed by CMake
 tele_presence_SOURCE_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence
 
+//Value Computed by CMake
+tele_presence_apps_BINARY_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence_apps
+
+//Value Computed by CMake
+tele_presence_apps_SOURCE_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence_apps
+
 //The directory containing a CMake configuration file for warehouse_ros.
 warehouse_ros_DIR:PATH=/opt/ros/hydro/share/warehouse_ros/cmake
 
@@ -442,7 +448,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=4
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=5
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

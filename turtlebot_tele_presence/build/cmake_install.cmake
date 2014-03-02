@@ -87,6 +87,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/dave/workspace/telenp/turtlebot_tele_presence/build/gtest/cmake_install.cmake")
   INCLUDE("/home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/cmake_install.cmake")
   INCLUDE("/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/cmake_install.cmake")
+  INCLUDE("/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence_apps/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

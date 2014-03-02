@@ -1,0 +1,8 @@
+prefix=/home/dave/workspace/telenp/turtlebot_tele_presence/devel
+
+Name: tele_presence_apps
+Description: Description of tele_presence_apps
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib -ltele_presence_apps
+Requires: 
