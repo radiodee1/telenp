@@ -798,7 +798,11 @@ function sendAppServiceTxt() {
 }
 
 function inviteAndInit() {
-
+    var start = "tele_presence_apps/teleop";
+    var request = new ROSLIB.ServiceRequest({'name': start});
+	app_service_start.callService( request, function (result) {
+	    // nothing here...
+	} );
 }
 
 function putListInSelectLocal(list, space) {

@@ -302,6 +302,7 @@ function trySetupROS() {
     
     setKinectListener();
     setMapServices();
+    inviteAndInit();
 }
 
 function trySetupControls() {
@@ -1681,21 +1682,29 @@ function setMapServices( rootname ) {
 }
 
 function sendAppServiceTxt() {
-                console.log("list to follow !!");
-                //var request = new ROSLIB.ServiceRequest({});
-	            app_topic_list.subscribe( function (find) {
-	                var x = 0;
-	                var result = find.available_apps;
-	                for(x = 0; x < result.length; x ++) {
-	                    console.log(result[x].name + " -- ");
-	                }
-	                console.log("runnning to follow !!");
-	                var result = find.running_apps;
-	                for(x = 0; x < result.length; x ++) {
-	                    console.log(result[x].name + " -- ");
-	                }
-	                app_topic_list.unsubscribe();
-	            } );
+    console.log("list to follow !!");
+    //var request = new ROSLIB.ServiceRequest({});
+	app_topic_list.subscribe( function (find) {
+	    var x = 0;
+	    var result = find.available_apps;
+	    for(x = 0; x < result.length; x ++) {
+	        console.log(result[x].name + " -- ");
+	    }
+	    console.log("runnning to follow !!");
+	    var result = find.running_apps;
+	    for(x = 0; x < result.length; x ++) {
+	        console.log(result[x].name + " -- ");
+	    }
+	    app_topic_list.unsubscribe();
+	} );
+}
+
+function inviteAndInit() {
+    var start = "tele_presence_apps/teleop";
+    var request = new ROSLIB.ServiceRequest({'name': start});
+	app_service_start.callService( request, function (result) {
+	    // nothing here...
+	} );
 }
 
 function putListInSelectLocal(list, space) {
