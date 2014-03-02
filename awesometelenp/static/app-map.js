@@ -10,6 +10,7 @@ var coord_x = 0;
 var coord_y = 0;
 var map_manager_started = false;
 var map_nav_started = false;
+var app_manager = true;
 
 var tx_gapi_map_event = "telenp_map";
 var tx_gapi_app_list = "telenp_app_list";
@@ -751,6 +752,53 @@ function setMapServices( rootname ) {
   	    'name' : '/move_base_simple/goal',
   	    messageType : 'geometry_msgs/PoseStamped'
   	});
+  	
+  	// ROCON-APP-MANAGER SERVICES
+  	app_topic_list = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/app_manager/app_list',
+   		 messageType : 'rocon_app_manager_msgs/AppList'
+  	});
+  	
+  	app_service_start = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/app_manager/start_app',
+   		 messageType : 'rocon_app_manager_msgs/StartApp'
+  	});
+  	
+  	app_service_stop = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/app_manager/stop_app',
+   		 messageType : 'rocon_app_manager_msgs/StopApp'
+  	});
+  	
+  	app_service_invite = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : '/app_manager/simple_invite',
+   		 messageType : 'rocon_app_manager_msgs/SimpleInvite'
+  	});
+}
+
+function sendAppServiceTxt() {
+    console.log("list to follow !!");
+    //var request = new ROSLIB.ServiceRequest({});
+	app_topic_list.subscribe( function (find) {
+	    var x = 0;
+	    var result = find.available_apps;
+	    for(x = 0; x < result.length; x ++) {
+	        console.log(result[x].name + " -- ");
+	    }
+	    console.log("runnning to follow !!");
+	    var result = find.running_apps;
+	    for(x = 0; x < result.length; x ++) {
+	        console.log(result[x].name + " -- ");
+	    }
+	    app_topic_list.unsubscribe();
+	} );
+}
+
+function inviteAndInit() {
+
 }
 
 function putListInSelectLocal(list, space) {

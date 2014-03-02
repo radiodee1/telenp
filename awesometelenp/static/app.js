@@ -3,7 +3,7 @@
 
 */
 
-var gapi_loaded = true; // change to false for net-free test.
+var gapi_loaded = false; // change to false for net-free test.
 var mod_base = 512;
 var basename = "telenp";
 var test_config = false;
@@ -284,6 +284,7 @@ function trySetupROS() {
     
     setKinectListener();
     setMapServices();
+    inviteAndInit();
 }
 
 function trySetupControls() {
