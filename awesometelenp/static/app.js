@@ -265,7 +265,8 @@ function trySetupROS() {
 			
 	cmdVel2 = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/mobile_base/commands/velocity',
+    	'name' : '/app_manager/application/mobile_base/commands/velocity',
+    	//'name' : '/mobile_base/commands/velocity',
    		 messageType : 'geometry_msgs/Twist'
   	});
 
