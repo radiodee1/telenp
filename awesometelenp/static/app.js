@@ -177,6 +177,7 @@ function tryTurtlebotClick() {
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
 		trySetupROS();
+		inviteAndInit();
 		formJSONError();
 		tryStreamClick();// late addition
 		document.getElementById("setStream").checked = true;// late addition
@@ -288,7 +289,7 @@ function trySetupROS() {
     
     setKinectListener();
     setMapServices();
-    inviteAndInit();
+    //inviteAndInit();
 }
 
 function trySetupControls() {

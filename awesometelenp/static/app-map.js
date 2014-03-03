@@ -497,6 +497,8 @@ function parseCommands(commands) {
             
             case app_command_map_manager :
             case app_command_map_manager_force :
+            
+                /*
                 //app_name = "manager";
                 var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
@@ -511,7 +513,7 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                map_manager_started = true;
 	            } );
-	            
+	            */
 	            
             break;
             

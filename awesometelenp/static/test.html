@@ -195,6 +195,7 @@ function tryTurtlebotClick() {
 		changeAlertText();
 		document.getElementById("messageTwist").checked = true;
 		trySetupROS();
+		inviteAndInit();
 		formJSONError();
 		tryStreamClick();// late addition
 		document.getElementById("setStream").checked = true;// late addition
@@ -306,7 +307,7 @@ function trySetupROS() {
     
     setKinectListener();
     setMapServices();
-    inviteAndInit();
+    //inviteAndInit();
 }
 
 function trySetupControls() {
@@ -1403,6 +1404,8 @@ function parseCommands(commands) {
             
             case app_command_map_manager :
             case app_command_map_manager_force :
+            
+                /*
                 //app_name = "manager";
                 var start = new Array("roslaunch",
                     "tele_presence","manage_map.launch");
@@ -1417,7 +1420,7 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                map_manager_started = true;
 	            } );
-	            
+	            */
 	            
             break;
             
