@@ -411,7 +411,8 @@ function parseCommands(commands) {
                     "add_map.launch", 
                     "map_file:=" + commands.new_name,
                     "map_resolution:=" + map_nav_resolution,
-                    "map_name:=" + commands.new_name);
+                    "map_name:=" + commands.new_name,
+                    app_manager_prefix + "/map:=/map");
 
                 
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
@@ -421,13 +422,13 @@ function parseCommands(commands) {
 	                	                
 	            } );
 	            
-	            /*
+	            
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	            } );
-	            */
+	            
 	        break;
 	        
 	        case map_command_make :
@@ -467,6 +468,7 @@ function parseCommands(commands) {
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
 	                console.log("try " + start + " " + result.message);
+	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
                 /*
@@ -522,6 +524,8 @@ function parseCommands(commands) {
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
 	                console.log("try " + start + " " + result.message);
+	                sendMapBroadcast(commands.wizard, null, 0);
+                    map_nav_started = true;
 	            } );
                 
                 
@@ -552,6 +556,7 @@ function parseCommands(commands) {
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... START TELEOP ALWAYS...
 	                console.log("try " + start + " " + result.message);
+	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
                 /*

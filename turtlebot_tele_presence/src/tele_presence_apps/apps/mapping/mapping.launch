@@ -15,7 +15,7 @@
     
     <arg name="scan_topic" value="/scan" />
   </include -->
-
+<node pkg="map_store" type="map_saver" name="map_saver" output="screen"/>
 
 
 </launch>
