@@ -11,4 +11,9 @@ subscribers:
   - initialpose
   - move_base_simple/goal
   - move_base/goal
-services: []
+services: 
+  - /save_map
+  - /rename_map
+  - /delete_map
+  - /publish_map
+  - /list_maps

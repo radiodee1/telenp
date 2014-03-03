@@ -40,6 +40,7 @@
 /*
 
 */
+var app_manager_prefix = "/app_manager/application";
 
 var gapi_loaded = false; // change to false for net-free test.
 var mod_base = 512;
@@ -297,20 +298,22 @@ function trySetupROS() {
 	
 	cmdVel = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/talker',
+    	'name' : app_manager_prefix + '/talker',
    		 messageType : 'std_msgs/String'
   	});
 			
 	cmdVel2 = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/app_manager/application/mobile_base/commands/velocity',
+    	'name' : 
+    	    app_manager_prefix + 
+    	    '/mobile_base/commands/velocity',
     	//'name' : '/mobile_base/commands/velocity',
    		 messageType : 'geometry_msgs/Twist'
   	});
 
     cmdVel3 = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/'+ basename +'/command_velocity',
+    	'name' : app_manager_prefix + '/'+ basename +'/command_velocity',
    		 messageType : 'geometry_msgs/TwistStamped'
   	});
 
@@ -1649,14 +1652,14 @@ function setMapServices( rootname ) {
   	
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' :  rootname + '/list_maps',
+    	'name' :  app_manager_prefix + rootname + '/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' :  rootname + '/publish_map',
+    	'name' : app_manager_prefix + rootname + '/publish_map',
    		 messageType : 'map_store/PublishMap'
   	});
   	
@@ -1689,25 +1692,25 @@ function setMapServices( rootname ) {
   	
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : rootname + '/delete_map',
+    	'name' : app_manager_prefix + rootname + '/delete_map',
    		 messageType : 'map_store/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : rootname + '/rename_map',
+    	'name' : app_manager_prefix + rootname + '/rename_map',
    		 messageType : 'map_store/RenameMap'
   	});
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/save_map',
+    	'name' : app_manager_prefix + '/save_map',
    		 messageType : 'map_store/SaveMap'
   	});
   	
   	map_listener = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/map',
+    	'name' : app_manager_prefix + '/map',
    		 messageType : 'nav_msgs/OccupancyGrid'
    		 
   	});
@@ -1720,14 +1723,14 @@ function setMapServices( rootname ) {
   	
   	map_initialpose = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/initialpose',
+    	'name' : app_manager_prefix + '/initialpose',
    		 messageType : 'geometry_msgs/PoseWithCovarianceStamped'
    		 
   	});
   	
   	map_goal_pose = new ROSLIB.Topic({
   	    'ros': ros,
-  	    'name' : '/move_base_simple/goal',
+  	    'name' : app_manager_prefix + '/move_base_simple/goal',
   	    messageType : 'geometry_msgs/PoseStamped'
   	});
   	

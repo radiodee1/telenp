@@ -726,14 +726,14 @@ function setMapServices( rootname ) {
   	
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' :  rootname + '/list_maps',
+    	'name' :  app_manager_prefix + rootname + '/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
   	
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' :  rootname + '/publish_map',
+    	'name' : app_manager_prefix + rootname + '/publish_map',
    		 messageType : 'map_store/PublishMap'
   	});
   	
@@ -766,19 +766,19 @@ function setMapServices( rootname ) {
   	
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : rootname + '/delete_map',
+    	'name' : app_manager_prefix + rootname + '/delete_map',
    		 messageType : 'map_store/DeleteMap'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : rootname + '/rename_map',
+    	'name' : app_manager_prefix + rootname + '/rename_map',
    		 messageType : 'map_store/RenameMap'
   	});
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/save_map',
+    	'name' : app_manager_prefix + '/save_map',
    		 messageType : 'map_store/SaveMap'
   	});
   	
