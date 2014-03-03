@@ -1340,15 +1340,15 @@ function parseCommands(commands) {
                     "map_resolution:=" + map_nav_resolution,
                     "map_name:=" + commands.new_name,
                     app_manager_prefix + "/map:=/map");
-
                 
+                /*
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
 	                console.log("command launch -- save map : " + result.result);
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                	                
 	            } );
-	            
+	            */
 	            
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
