@@ -4,10 +4,18 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
+        - /Status1
+        - /Grid1
+        - /RobotModel1
         - /TF1/Frames1
         - /TF1/Tree1
+        - /LaserScan1
+        - /Map1
+        - /Global Map1
         - /Global Map1/Costmap1
         - /Global Map1/Planner1
+        - /Local Map1
         - /Local Map1/Costmap1
         - /Local Map1/Planner1
       Splitter Ratio: 0.5
@@ -29,7 +37,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Visualization Manager:
   Class: ""
   Displays:
@@ -223,7 +231,7 @@ Visualization Manager:
           Show Trail: false
           Value: true
       Name: RobotModel
-      Robot Description: robot_description
+      Robot Description: /app_manager/application/robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -296,7 +304,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.08
       Style: Spheres
-      Topic: /mobile_base/sensors/bumper_pointcloud
+      Topic: /app_manager/application/mobile_base/sensors/bumper_pointcloud
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -306,7 +314,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /map
+      Topic: /app_manager/application/map
       Value: true
     - Class: rviz/Group
       Displays:
@@ -316,7 +324,7 @@ Visualization Manager:
           Draw Behind: true
           Enabled: true
           Name: Costmap
-          Topic: /move_base/global_costmap/costmap
+          Topic: /app_manager/application/move_base/global_costmap/costmap
           Value: true
         - Alpha: 1
           Buffer Length: 1
@@ -324,7 +332,7 @@ Visualization Manager:
           Color: 255; 0; 0
           Enabled: true
           Name: Planner
-          Topic: /move_base/TrajectoryPlannerROS/global_plan
+          Topic: /app_manager/application/move_base/TrajectoryPlannerROS/global_plan
           Value: true
       Enabled: true
       Name: Global Map
@@ -336,7 +344,7 @@ Visualization Manager:
           Draw Behind: false
           Enabled: true
           Name: Costmap
-          Topic: /move_base/local_costmap/costmap
+          Topic: /app_manager/application/move_base/local_costmap/costmap
           Value: true
         - Alpha: 1
           Buffer Length: 1
@@ -367,9 +375,9 @@ Visualization Manager:
       Hide Inactive Objects: true
     - Class: rviz/Select
     - Class: rviz/SetInitialPose
-      Topic: /initialpose
+      Topic: /app_manager/application/initialpose
     - Class: rviz/SetGoal
-      Topic: /move_base_simple/goal
+      Topic: /app_manager/application/move_base_simple/goal
     - Class: rviz/Measure
   Value: true
   Views:

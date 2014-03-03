@@ -5,10 +5,13 @@ publishers:
   - tf_changes
   - /tf_changes
   - map
+  - mobile_base/sensors/bumper_pointcloud
+  - move_base/global_costmap/costmap
 # Non essentials, but useful for viewing with turtlebot_rviz_launchers/view_navigation.launch in the public master
   - /mobile_base/sensors/bumper_pointcloud
   - move_base/global_costmap/costmap
   - move_base/local_costmap/costmap
+  - move_base/TrajectoryPlannerROS/global_plan
 subscribers: 
   - mobile_base/commands/velocity
 services: []

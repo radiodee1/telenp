@@ -1,0 +1,13 @@
+<!--
+  Used for visualising the turtlebot while building a map or navigating with the ros navistack.
+ -->
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tele_presence)/rviz/tele.rviz"/>
+  
+  <!-- remap from="app_manager/application/scan" to="scan" />
+  <remap from="app_manager/application/tf" to="tf" />
+  <remap from="app_manager/application/tf_changes" to="tf_changes" />
+  <remap from="app_manager/application/map" to="map" / -->
+  
+  
+</launch>
