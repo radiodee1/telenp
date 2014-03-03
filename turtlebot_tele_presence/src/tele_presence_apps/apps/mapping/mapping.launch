@@ -16,6 +16,19 @@
     <arg name="scan_topic" value="/scan" />
   </include -->
   <include file="$(find tele_presence)/launch/minimal.launch"/>
-  <include file="$(find tele_presence)/launch/manage_map.launch"/>
+  <!-- include file="$(find tele_presence)/launch/manage_map.launch"/ -->
+  
+  
+  <param name="warehouse_host" value="localhost"/>
+  <param name="warehouse_port" value="27018"/> <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
+  <node pkg="warehouse_ros" type="mongo_wrapper_ros.py" name="mongo">
+    <param name="db_path" value="warehouse_data"/>
+    <param name="overwrite" value="false"/>
+  </node>
+
+  <node pkg="map_store" type="map_saver" name="map_saver" output="screen"/>
+
+
+
 
 </launch>
