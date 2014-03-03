@@ -784,7 +784,7 @@ function setMapServices( rootname ) {
   	
   	map_listener = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/map',
+    	'name' : app_manager_prefix + '/map',
    		 messageType : 'nav_msgs/OccupancyGrid'
    		 
   	});
@@ -797,14 +797,14 @@ function setMapServices( rootname ) {
   	
   	map_initialpose = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/initialpose',
+    	'name' : app_manager_prefix + '/initialpose',
    		 messageType : 'geometry_msgs/PoseWithCovarianceStamped'
    		 
   	});
   	
   	map_goal_pose = new ROSLIB.Topic({
   	    'ros': ros,
-  	    'name' : '/move_base_simple/goal',
+  	    'name' : app_manager_prefix + '/move_base_simple/goal',
   	    messageType : 'geometry_msgs/PoseStamped'
   	});
   	

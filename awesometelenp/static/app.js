@@ -2,6 +2,7 @@
 /*
 
 */
+var app_manager_prefix = "/app_manager/application";
 
 var gapi_loaded = false; // change to false for net-free test.
 var mod_base = 512;
@@ -259,20 +260,22 @@ function trySetupROS() {
 	
 	cmdVel = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/talker',
+    	'name' : app_manager_prefix + '/talker',
    		 messageType : 'std_msgs/String'
   	});
 			
 	cmdVel2 = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/app_manager/application/mobile_base/commands/velocity',
+    	'name' : 
+    	    app_manager_prefix + 
+    	    '/mobile_base/commands/velocity',
     	//'name' : '/mobile_base/commands/velocity',
    		 messageType : 'geometry_msgs/Twist'
   	});
 
     cmdVel3 = new ROSLIB.Topic({
     	'ros' : ros,
-    	'name' : '/'+ basename +'/command_velocity',
+    	'name' : app_manager_prefix + '/'+ basename +'/command_velocity',
    		 messageType : 'geometry_msgs/TwistStamped'
   	});
 
