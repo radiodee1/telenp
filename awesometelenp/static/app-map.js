@@ -423,13 +423,13 @@ function parseCommands(commands) {
 	                	                
 	            } );
 	            
-	            /*
+	            
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	            } );
-	            */
+	            
 	            
 	        break;
 	        
