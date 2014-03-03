@@ -59,10 +59,15 @@ var app_command_map_manager = "app_mapmanage";
 var app_command_map_manager_force = "app_mapmanage_force";
 var app_command_map_nav = "app_mapnav";
 var app_command_map_nav_force = "app_mapnav_force";
+var app_command_no_op = "app_no_op";
 var map_command_nav_execute = "app_mapnav_execute";
 var map_command_nav_start = "app_mapnav_start";
 var map_command_nav_goal = "app_mapnav_goal";
 var map_command_library_force = "map_library_force";
+// constants for app names
+var app_manager_teleop = "tele_presence_apps/teleop";
+var app_manager_mapping = "tele_presence_apps/mapping";
+var app_manager_navigate = "tele_presence_apps/navigate";
 // enum for planning map movement
 var ENUM_BOT_START = "turtlebot_place_start";
 var ENUM_BOT_END = "turtlebot_place_end";
@@ -313,13 +318,28 @@ function receiveMapEvent() {
 	    var commands = JSON.parse(rx_map_commands);
 	    
 	            var start = new Array();
-	            if (app_command_map_nav_force == commands.command || 
-	                    app_command_make_map == commands.command ||
-	                    app_command_map_nav == commands.command) {
-	                start = new Array("roslaunch",
-                        "tele_presence","robot_base.launch");
+	            if (app_command_map_nav_force != commands.command && 
+	                    app_command_make_map != commands.command &&
+	                    app_command_map_nav != commands.command &&
+	                    app_command_app_stop != commands.command ) {
+	                //start = new Array("roslaunch",
+                    //    "tele_presence","robot_base.launch");
+                    parseCommands(commands);
                 }
-                
+                else {
+                    //app_topic_list.subscribe( function (find) {
+	                //    app_topic_list.unsubscribe();
+	                //    console.log(" available apps: " + find.available_apps.length);
+	                //    var cancel = find.available_apps[0];
+	                        
+                        var request = new ROSLIB.ServiceRequest({});
+	                    app_service_stop.callService( request, function (result) {
+	                        parseCommands(commands);
+	                    } );
+	                    
+	                //} );
+                }
+                /*
                 app_stopping = false;
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
@@ -333,7 +353,7 @@ function receiveMapEvent() {
                     //move these to inside fn above??
                     map_manager_started = true;
 	                parseCommands(commands);
-	    
+	            */
 	} 
 	else {
 	    console.log("google prob?? or just no data...");
@@ -441,6 +461,14 @@ function parseCommands(commands) {
             case app_command_make_map :
                 app_name = "gmap";
                 
+                var start = app_manager_mapping;
+                
+                var request = new ROSLIB.ServiceRequest({'name': start});
+	            app_service_start.callService( request, function (result) {
+	                // nothing here... 
+	            } );
+                
+                /*
                 //stop nodes!!
                 var start = new Array('/amcl','/map_manager');
                 var request = new ROSLIB.ServiceRequest({'command': start});
@@ -460,6 +488,7 @@ function parseCommands(commands) {
 	                } );
 	                
                 } ); //note: inner block!!
+                */
                 
             break;
             
@@ -507,6 +536,14 @@ function parseCommands(commands) {
             
             case app_command_app_stop :
             
+                var start = app_manager_teleop;
+                //"tele_presence_apps/teleop";
+                var request = new ROSLIB.ServiceRequest({'name': start});
+	            app_service_start.callService( request, function (result) {
+	                // nothing here... START TELEOP ALWAYS...
+	            } );
+                
+                /*
                 var start = new Array();
                 
                 if (app_name == "gmap") {
@@ -531,6 +568,7 @@ function parseCommands(commands) {
                 start.push('/depthimage_to_laserscan'); //??
                 start.push('/camera/points_xyzrgb_hw_registered');
                 start.push('/camera/points_xyzrgb_sw_registered');
+                */
                 
                 /*
                 // DON'T CANCEL THESE: MOVEMENT BASE STUFF
@@ -545,6 +583,7 @@ function parseCommands(commands) {
                 start.push('/navigation_velocity_smoother');
                 */
                 
+                /*
                 var request = new ROSLIB.ServiceRequest({'command': start});
 	            map_service_stop.callService( request, function (result) {
 	                console.log("command stop: " + app_name + " !-- " );
@@ -553,6 +592,7 @@ function parseCommands(commands) {
 	            } );
                 app_stopping = true;
                 //app_name = "";
+                */
                 
             break;
             
@@ -566,6 +606,10 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, list, 0);
 	            } );
 	            */
+            break;
+            
+            case app_command_no_op :
+                //NO OPERATION HERE
             break;
             
             case map_command_nav_execute :
@@ -798,7 +842,8 @@ function sendAppServiceTxt() {
 }
 
 function inviteAndInit() {
-    var start = "tele_presence_apps/teleop";
+    var start = app_manager_teleop;
+    //"tele_presence_apps/teleop";
     var request = new ROSLIB.ServiceRequest({'name': start});
 	app_service_start.callService( request, function (result) {
 	    // nothing here... START TELEOP ALWAYS...

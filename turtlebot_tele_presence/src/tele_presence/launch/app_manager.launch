@@ -1,9 +1,9 @@
 <launch>
   <arg name="rapp_lists" default="tele_presence_apps/tele_presence_apps.rapps"/> 
-  <include file="$(find tele_presence)/launch/app_manager_rocon.launch">
+  <include file="$(find tele_presence)/launch/includes/app_manager_rocon.launch">
     <arg name="rapp_lists" value="$(arg rapp_lists)" />
   </include>
 
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
-  
+  <include file="$(find tele_presence)/launch/minimal.launch"/>
 </launch>
