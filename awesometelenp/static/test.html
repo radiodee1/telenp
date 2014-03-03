@@ -1318,23 +1318,25 @@ function parseCommands(commands) {
                     "add_map.launch", 
                     "map_file:=" + commands.new_name,
                     "map_resolution:=" + map_nav_resolution,
-                    "map_name:=" + commands.new_name,
-                    app_manager_prefix + "/map:=/map");
+                    "map_name:=" + commands.new_name //,
+                    //app_manager_prefix + "/map:=/map"
+                    );
                 
-                /*
+                
                 var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
 	            map_service_start.callService( request, function (result) {
 	                console.log("command launch -- save map : " + result.result);
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                	                
 	            } );
-	            */
 	            
+	            /*
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	            } );
+	            */
 	            
 	        break;
 	        
@@ -1654,27 +1656,27 @@ function setMapServices( rootname ) {
   	// service for new map
   	map_service_new = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/new_map',
+    	'name' :app_manager_prefix +  '/new_map',
    		 messageType : 'tele_presence/CreateMap'
   	});
   	
   	map_service_pic = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/picture_map',
+    	'name' :app_manager_prefix +  '/picture_map',
    		 messageType : 'tele_presence/PictureMap'
   	});
   	
   	//launch
   	map_service_start = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/basic_launch',
+    	'name' : app_manager_prefix + '/basic_launch',
    		 messageType : 'tele_presence/BasicLaunch'
   	});
   	
   	//stop
   	map_service_stop = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/basic_stop',
+    	'name' : app_manager_prefix + '/basic_stop',
    		 messageType : 'tele_presence/BasicStop'
   	});
   	
@@ -1705,7 +1707,7 @@ function setMapServices( rootname ) {
   	
   	map_service_info = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : '/map_info',
+    	'name' : app_manager_prefix + '/map_info',
    		 messageType : 'tele_presence/MapInfo'
   	});
   	

@@ -15,7 +15,7 @@
     
     <arg name="scan_topic" value="/scan" />
   </include -->
-
-<include file="$(find tele_presence)/launch/manage_map.launch"/>
+  <include file="$(find tele_presence)/launch/minimal.launch"/>
+  <include file="$(find tele_presence)/launch/manage_map.launch"/>
 
 </launch>

@@ -29,7 +29,7 @@
     <arg name="use_map_topic" value="false"/>
   </include>
 
-
+  <include file="$(find tele_presence)/launch/minimal.launch"/>
   <include file="$(find tele_presence)/launch/manage_map.launch"/>
 
   
