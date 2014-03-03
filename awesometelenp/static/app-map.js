@@ -466,6 +466,7 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
+	                console.log("try " + start);
 	            } );
                 
                 /*
@@ -515,7 +516,16 @@ function parseCommands(commands) {
             case app_command_map_nav :
             case app_command_map_nav_force:
                 
+                var start = app_manager_navigate;
                 
+                var request = new ROSLIB.ServiceRequest({'name': start});
+	            app_service_start.callService( request, function (result) {
+	                // nothing here... 
+	                console.log("try " + start);
+	            } );
+                
+                
+                    /*
                     var start = new Array("roslaunch",
                         "tele_presence","amcl_demo.launch");
                     if (map_nav_started && commands.wizard != app_command_map_nav_force) {
@@ -530,7 +540,7 @@ function parseCommands(commands) {
 	                    sendMapBroadcast(commands.wizard, null, 0);
                         map_nav_started = true;
 	                } );
-	            
+	                */
                 
             break;
             
@@ -541,6 +551,7 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... START TELEOP ALWAYS...
+	                console.log("try " + start);
 	            } );
                 
                 /*
