@@ -466,7 +466,7 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
-	                console.log("try " + start);
+	                console.log("try " + start + " " + result.message);
 	            } );
                 
                 /*
@@ -521,7 +521,7 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
-	                console.log("try " + start);
+	                console.log("try " + start + " " + result.message);
 	            } );
                 
                 
@@ -551,7 +551,7 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... START TELEOP ALWAYS...
-	                console.log("try " + start);
+	                console.log("try " + start + " " + result.message);
 	            } );
                 
                 /*

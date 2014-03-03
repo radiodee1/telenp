@@ -1,3 +1,14 @@
-publishers: []
-subscribers: []
+publishers: 
+  - scan
+  - /tf
+  - tf_changes
+  - /tf_changes
+  - map
+  - amcl_pose
+  - move_base/TrajectoryPlannerROS/global_plan
+subscribers: 
+  - mobile_base/commands/velocity
+  - initialpose
+  - move_base_simple/goal
+  - move_base/goal
 services: []

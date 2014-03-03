@@ -13,7 +13,7 @@
   <!-- include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/ -->
   <!-- include file="$(find turtlebot_bringup)/launch/minimal.launch"/ -->
   
-  <include file="$(find tele_presence)/launch/includes/bumper2pc.launch.xml"/>
+  <!-- include file="$(find tele_presence)/launch/includes/bumper2pc.launch.xml"/ -->
   
   <!-- Map server -->
   <!-- arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/ -->
