@@ -1334,7 +1334,7 @@ function parseCommands(commands) {
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
-	                console.log("---map_name---" + commands.new_name);
+	                console.log("---map_name---  " + commands.new_name);
 	            } );
 	            
 	            
@@ -2558,7 +2558,7 @@ p.reply
 </style>
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
-<div id="topstatus"></div><div id="appmanager"><button type="button" onclick="sendAppServiceTxt()">button</button></div>
+<div id="topstatus"></div><div id="appmanager"></div>
 
 <!-- one div for each frame of wizard  CHOOSE-->
 <div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">

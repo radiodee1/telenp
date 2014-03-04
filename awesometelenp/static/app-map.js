@@ -428,7 +428,7 @@ function parseCommands(commands) {
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
-	                console.log("---map_name---" + commands.new_name);
+	                console.log("---map_name---  " + commands.new_name);
 	            } );
 	            
 	            
