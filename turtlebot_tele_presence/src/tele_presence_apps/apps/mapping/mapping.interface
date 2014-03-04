@@ -14,9 +14,9 @@ publishers:
 subscribers: 
   - mobile_base/commands/velocity
 services: 
-  - /save_map
-  - /list_map
-  - /rename_map
-  - /delete_map
+  - save_map
+  - list_maps
+  - rename_map
+  - delete_map
 
 
