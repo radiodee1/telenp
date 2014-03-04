@@ -2578,7 +2578,7 @@ p.reply
 </style>
 
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="setupMap">
-<div id="topstatus"></div><div id="appmanager"></div>
+<div id="topstatus"></div>
 
 <!-- one div for each frame of wizard  CHOOSE-->
 <div style="clear: both; background-color:#aaaaaa; display: block;" id="wizChooseOp">
