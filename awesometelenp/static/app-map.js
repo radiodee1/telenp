@@ -407,7 +407,7 @@ function parseCommands(commands) {
                 
 	            var start = new Array(
 	                "roslaunch",
-                    "map_store",
+                    "map_store_np",
                     "add_map.launch", 
                     "map_file:=" + commands.new_name,
                     "map_resolution:=" + map_nav_resolution,
