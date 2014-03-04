@@ -1333,11 +1333,11 @@ function parseCommands(commands) {
                 
 	            var start = new Array(
 	                "roslaunch",
-                    "map_store_np",
+                    "map_store",
                     "add_map.launch", 
-                    "map_file:=" + commands.new_name,
-                    "map_resolution:=" + map_nav_resolution,
-                    "map_name:=" + commands.new_name //,
+                    "_map_file:=" + commands.new_name,
+                    "_map_resolution:=" + map_nav_resolution, // BAD NUM
+                    "_map_name:=" + commands.new_name //,
                     //app_manager_prefix + "/map:=/map"
                     );
                 
