@@ -428,6 +428,7 @@ function parseCommands(commands) {
 	            map_service_save.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
+	                console.log("---map_name---" + commands.new_name);
 	            } );
 	            
 	            
@@ -735,7 +736,7 @@ function setMapServices( rootname ) {
   	
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : app_manager_prefix + 
+    	'name' :// app_manager_prefix + 
     	rootname + '/list_maps',
    		 messageType : 'map_store/ListMaps'
   	});
@@ -789,7 +790,7 @@ function setMapServices( rootname ) {
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : 
-    	app_manager_prefix + 
+    	//app_manager_prefix + 
     	'/save_map',
    		 messageType : 'map_store/SaveMap'
   	});
