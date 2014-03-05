@@ -28,6 +28,7 @@ var map_initialpose ;
 var map_goal_pose ;
 // listen to map topic.
 var map_listener ;
+var map_meta_data ;
 // app stuff
 var app_topic_list;
 var app_service_status;
@@ -405,28 +406,37 @@ function parseCommands(commands) {
 	        
                 app_name = "manager";
                 
-	            var start = new Array(
-	                "roslaunch",
-                    "map_store",
-                    "add_map.launch", 
-                    "map_file:=" + commands.new_name,
-                    "map_resolution:=" + map_nav_resolution, // BAD NUM
-                    "map_name:=" + commands.new_name //,
-                    //app_manager_prefix + "/map:=/map"
-                    );
+                map_meta_data.subscribe( function (result) {
+	                map_meta_data.unsubscribe();
+	                var resolution = result.resolution;
+	                map_nav_resolution = resolution;
+	                    
+	                console.log("resolution should be: " + map_nav_resolution);
+	                //FIND RESOLUTION, THEN SAVE MAP!!
+                
+	                var start = new Array(
+	                    "roslaunch",
+                        "map_store",
+                        "add_map.launch", 
+                        "map_file:=" + commands.new_name,
+                        "map_resolution:=" + map_nav_resolution, // BAD NUM
+                        "map_name:=" + commands.new_name //,
+                        //app_manager_prefix + "/map:=/map"
+                        );
                 
                 
-                var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
-	            map_service_start.callService( request, function (result) {
-	                console.log("command launch -- save map : " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
+                    var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
+	                map_service_start.callService( request, function (result) {
+	                    console.log("command launch -- save map : " + result.result);
+	                    sendMapBroadcast(commands.wizard, null, 0);
 	                	                
-	            } );
-	            
+	                } );
+	                map_meta_data.unsubscribe();
+	            });//map saved with proper resolution
 	            
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
-	                sendMapBroadcast(commands.wizard, null, 0);
+	                //sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	                console.log("---map_name---  " + commands.new_name);
 	            } );
@@ -798,6 +808,13 @@ function setMapServices( rootname ) {
     	'ros' : ros,
     	'name' : app_manager_prefix + '/map',
    		 messageType : 'nav_msgs/OccupancyGrid'
+   		 
+  	});
+  	
+  	map_meta_data = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : app_manager_prefix + '/map_metadata',
+   		 messageType : 'nav_msgs/MapMetaData'
    		 
   	});
   	

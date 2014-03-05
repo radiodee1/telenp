@@ -6,6 +6,7 @@ publishers:
   - /tf_changes
   - map
   - dynamic_map
+  - map_metadata
   - mobile_base/sensors/bumper_pointcloud
   - /move_base/global_costmap/costmap
   - /mobile_base/sensors/bumper_pointcloud
