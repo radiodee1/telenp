@@ -268,7 +268,7 @@ function trySetupROS() {
     	'ros' : ros,
     	'name' : 
     	    app_manager_prefix + 
-    	    '/mobile_base/commands/velocity',
+    	    '/cmd_vel_mux/input/teleop',
     	//'name' : '/mobile_base/commands/velocity',
    		 messageType : 'geometry_msgs/Twist'
   	});
