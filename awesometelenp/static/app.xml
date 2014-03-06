@@ -2220,12 +2220,12 @@ function takePosition() {
 
 function coordinatesFromX( some_x) {
     return (some_x * map_nav_resolution) + map_nav_origin_x ;
-    //return (some_x  + map_nav_origin_x) * map_nav_resolution;
+    //return (some_x  + map_nav_origin_x); // * map_nav_resolution;
 }
 
 function coordinatesFromY( some_y) {
     return (( $('#mapimg').height() - some_y) * map_nav_resolution) + map_nav_origin_y ;
-    //return (( $('#mapimg').height() - some_y) + map_nav_origin_y ) * map_nav_resolution;
+    //return (( $('#mapimg').height() - some_y) + map_nav_origin_y ); //* map_nav_resolution;
 }
 
 function takeAngle() {
@@ -2311,7 +2311,9 @@ function chooseAccept() {
         "start: " + map_nav_pose_x.toFixed(2) + "," + map_nav_pose_y.toFixed(2) + "\n" +
         "start angle: " + map_nav_pose_a.toFixed(2) + "\n" +
         "stop: " + map_nav_goal_x.toFixed(2) + "," + map_nav_goal_y.toFixed(2) +"\n" +
-        "stop angle: " + map_nav_goal_a.toFixed(2) + "\n" +
+        "stop angle: " + map_nav_goal_a.toFixed(2) + "\n\n" +
+        "originXY: " + map_nav_origin_x.toFixed(2) + "," + map_nav_origin_y.toFixed(2) + "\n" +
+        "resolution: "+ map_nav_resolution.toFixed(2) + "\n" +
         "send??!!"
     );
     if (reply == true) {
