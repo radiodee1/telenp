@@ -1,4 +1,8 @@
 (cl:in-package tele_presence-srv)
-(cl:export '(DATA-VAL
+(cl:export '(WIDTH-VAL
+          WIDTH
+          HEIGHT-VAL
+          HEIGHT
+          DATA-VAL
           DATA
 ))

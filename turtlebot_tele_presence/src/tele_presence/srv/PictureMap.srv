@@ -1,4 +1,7 @@
-# no parameters, one reply
+# two parameters, one reply
+
+uint32 width
+uint32 height
 ---
 string data
 

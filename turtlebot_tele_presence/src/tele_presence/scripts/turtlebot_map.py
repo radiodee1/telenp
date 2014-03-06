@@ -42,6 +42,8 @@ def map_stuff():
         rospy.sleep(1.0)
 
 def picture_map( req ) :
+    width = req.width
+    height = req.height
     try:
         os.remove(mypath + '.pgm')
         os.remove(mypath + '.png')
@@ -56,6 +58,7 @@ def picture_map( req ) :
     try:
         im = Image.open(mypath + '.pgm')
         im.convert('RGBA')
+        im.resize((width,height), Image.ANTIALIAS)
         im.save(mypath + '.jpeg')
         im.save(mypath + '.png')
     except:
