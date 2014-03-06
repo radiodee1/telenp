@@ -455,9 +455,9 @@ function changeButtonSrc(url) {
 
 function formJSONClick(operation) {
 	tx_operation = operation; 
-	//tx_number ++;
-	//tx_number = tx_number % mod_base;
-	tx_number = 0; // disable old sequence checking
+	tx_number ++;
+	tx_number = tx_number % mod_base;
+	//tx_number = 0; // disable old sequence checking
 	;//console.log(operation);
 	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
 	;//console.log( makeText );
@@ -633,17 +633,18 @@ function recieveEvent () {
 
 		// change sequence numbers...
 		
-		if (rx_obj.direction == "stop" || rx_obj.number == 0 ) {
+		if (rx_obj.direction == "stop" || rx_obj.number == 0 || true) {
 		    stream_num = 0;
 		    control_stopped = false;
 		    control_stopped_rx = false;
+		    rx_obj.number = 0;
 		}
         ;//console.log("stream = " + stream_num);
 		;//console.log( rx_obj.direction + " -- " + rx_obj.number);
 		
 		// handle stream setting here...
-		if (!control_stream && control_retransmit && 
-		        rx_obj.number != stream_num && rx_obj.number != 0) {
+		if ((!control_stream && control_retransmit && 
+		        rx_obj.number != stream_num && rx_obj.number != 0)) {
 			control_stopped = true;
 			changeButtonSrc(button_center_src_error);
 			formJSONError(); // OK??
