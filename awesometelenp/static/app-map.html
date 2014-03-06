@@ -111,9 +111,8 @@ p.reply
 
 <!-- one div for each frame of wizard  LOAD -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpLoad">
-    Loading a file does not automatically start the map navigating software. When you
-    are ready to tell the robot to navigate, click the 'FORCE-NAV-MANAGER' button on
-    this screen. Then click 'RUN-NAV-TOOLS' to set start and stop coordinates.<br><br>
+    Loading a file automatically starts the map navigating software. 
+    Then click 'RUN-NAV-TOOLS' to set start and stop coordinates.<br><br>
     IF the load option pull-down does not contain any maps, click the Force-Library 
     button.
     <button type="button" onclick='executeLibraryForce()'>FORCE LIBRARY</button>
@@ -127,9 +126,9 @@ p.reply
     <div class="listLength"></div>
     <!-- /form -->
 <br>
+<button type="button" onclick="executeRunNav()">RUN NAV TOOLS</button>
+<button type="button" onclick='executeRunNavForce();'>FORCE NAV MANAGER</button><br>
 
-<button type="button" onclick='executeRunNavForce();'>FORCE NAV MANAGER</button>
-<button type="button" onclick="executeRunNav()">RUN NAV TOOLS</button><br>
 <button type="button" onclick="opCancel()">Done</button>
 <p id="wizOpLoadConfirm" style="display:none" class="reply">Your map loaded.</p>
 <p id="wizOpLoadNavConfirm" style="display:none" class="reply">Nav functions have been started.</p>

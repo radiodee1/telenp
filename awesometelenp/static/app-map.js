@@ -92,8 +92,8 @@ var map_nav_origin_ay = 0;
 var map_nav_origin_az = 0;
 var map_nav_resolution = 1;
 
-var angle_count_start = 0; //note: angles currently increase in clockwise direction
-var angle_count_stop = 0;  //note: angles currently increase in cloclwise direction
+var angle_count_start = 0; //
+var angle_count_stop = 0;  //
 
 
 function opChooseOp() {
@@ -329,11 +329,7 @@ function receiveMapEvent() {
                     parseCommands(commands);
                 }
                 else {
-                    //app_topic_list.subscribe( function (find) {
-	                //    app_topic_list.unsubscribe();
-	                //    console.log(" available apps: " + find.available_apps.length);
-	                //    var cancel = find.available_apps[0];
-	                        
+                        
                         var request = new ROSLIB.ServiceRequest({});
 	                    app_service_stop.callService( request, function (result) {
 	                        parseCommands(commands);
@@ -341,21 +337,7 @@ function receiveMapEvent() {
 	                    
 	                //} );
                 }
-                /*
-                app_stopping = false;
-                var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
-	            map_service_start.callService( request, function (result) {
-	                console.log("command launch -- COMMANDS : " );
-                    logArray(start);
-	                //parseCommands(commands);
-	                //sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-	            
-	    
-                    //move these to inside fn above??
-                    map_manager_started = true;
-	                parseCommands(commands);
-	            */
+                
 	} 
 	else {
 	    console.log("google prob?? or just no data...");
@@ -500,49 +482,14 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
-                /*
-                //stop nodes!!
-                var start = new Array('/amcl','/map_manager');
-                var request = new ROSLIB.ServiceRequest({'command': start});
-	            map_service_stop.callService( request, function (result) {
-	                console.log("command stop: amcl,map_manager " + result.result);
-
-	            //} ); //note: see inner block!!
                 
-                    var start = new Array("roslaunch",
-                        "tele_presence","gmapping_demo.launch");
-                
-                    var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
-	                map_service_start.callService( request, function (result) {
-	                    console.log("command launch -- navigation: " + result.result);
-	                    sendMapBroadcast(commands.wizard, null, 0);
-	                	                
-	                } );
-	                
-                } ); //note: inner block!!
-                */
                 
             break;
             
             case app_command_map_manager :
             case app_command_map_manager_force :
             
-                /*
-                //app_name = "manager";
-                var start = new Array("roslaunch",
-                    "tele_presence","manage_map.launch");
                 
-                if (map_manager_started && commands.wizard != app_command_map_manager_force) {
-                    //start = new Array();
-                }
-                
-                var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
-	            map_service_start.callService( request, function (result) {
-	                console.log("command launch -- map manager : " + result.result);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	                map_manager_started = true;
-	            } );
-	            */
 	            
             break;
             
@@ -560,22 +507,6 @@ function parseCommands(commands) {
 	            } );
                 
                 
-                    /*
-                    var start = new Array("roslaunch",
-                        "tele_presence","amcl_demo.launch");
-                    if (map_nav_started && commands.wizard != app_command_map_nav_force) {
-                        //start = new Array();
-                        //app_name = "";
-                    }
-                    app_name = "navigate";
-                    var request = new ROSLIB.ServiceRequest({'remember':true,'command': start});
-	                map_service_start.callService( request, function (result) {
-	                    console.log("comand launch -- navigation: -- " );
-	                    logArray(start);
-	                    sendMapBroadcast(commands.wizard, null, 0);
-                        map_nav_started = true;
-	                } );
-	                */
                 
             break;
             
@@ -590,68 +521,13 @@ function parseCommands(commands) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
                 
-                /*
-                var start = new Array();
                 
-                if (app_name == "gmap") {
-                    start = new Array("/slam_gmapping");
-                }
-                if (app_name == "manager") {
-                    start = new Array('/map_manager');
-                    
-                }
-                if (app_name == "navigate") {
-                    start = new Array("/amcl", "/map_manager");
-                }
-                
-                start.push('/camera/driver');
-                start.push('/camera/camera_nodelet_manager');
-                start.push('/camera/depth_registered_rectify_depth');
-                start.push('/camera/disparity_depth');
-                start.push('/camera/disparity_registered_hw');
-                start.push('/camera/disparity_registered_sw');
-                start.push('/camera/rectify_ir');
-                start.push('/camera/register_depth_rgb');
-                start.push('/depthimage_to_laserscan'); //??
-                start.push('/camera/points_xyzrgb_hw_registered');
-                start.push('/camera/points_xyzrgb_sw_registered');
-                */
-                
-                /*
-                // DON'T CANCEL THESE: MOVEMENT BASE STUFF
-                start.push('/kobuki_safety_controller');
-                start.push('/bumper2pointcloud');
-                start.push('/cmd_vel_mux');
-                start.push('/diagnostic_aggregator');
-                start.push('/mobile_base');
-                start.push('/mobile_base_nodelet_manager');// respawned??
-                start.push('/robot_state_publisher');
-                start.push('/move_base');
-                start.push('/navigation_velocity_smoother');
-                */
-                
-                /*
-                var request = new ROSLIB.ServiceRequest({'command': start});
-	            map_service_stop.callService( request, function (result) {
-	                console.log("command stop: " + app_name + " !-- " );
-	                logArray(start);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
-                app_stopping = true;
-                //app_name = "";
-                */
                 
             break;
             
             case map_command_meta:
                 /*
-                var request = new ROSLIB.ServiceRequest({});
-	            map_service_info.callService( request, function (result) {
-	                if (result.loaded) {
-	                    var list = new Array(JSON.stringify(result.info));
-	                }
-	                sendMapBroadcast(commands.wizard, list, 0);
-	            } );
+                
 	            */
             break;
             
@@ -1013,7 +889,7 @@ function receiveMapBroadcast() {
 	        case map_command_load :
 	            document.getElementById("wizOpLoadConfirm").style.display = "block";
 	            document.getElementById("wizOpLoadNavConfirm").style.display = "none";
-	            app_msg = "LIBRARY OPS";
+	            app_msg = "NAVIGATE A MAP";
 	            //opChooseOp();
 	        break;
 	        
