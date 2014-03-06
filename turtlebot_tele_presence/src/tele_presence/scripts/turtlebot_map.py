@@ -62,11 +62,11 @@ def picture_map( req ) :
         print 'error at save/convert'
     #
     try:
-        data_uri = str(base64.b64encode(open(mypath + ".jpeg", "rb").read())) .encode( "utf8").replace("\n", "")
+        data_uri = str(base64.b64encode(open(mypath + ".png", "rb").read())) .encode( "utf8").replace("\n", "")
     except:
         print 'error at base64.encodestring'
     try:
-        img_tag = 'data:image/jpeg;base64,{0}'.format(data_uri)
+        img_tag = 'data:image/png;base64,{0}'.format(data_uri)
     except:
         print 'error at img_tag'
     return img_tag
