@@ -322,7 +322,8 @@ function receiveMapEvent() {
 	            if (app_command_map_nav_force != commands.command && 
 	                    app_command_make_map != commands.command &&
 	                    app_command_map_nav != commands.command &&
-	                    app_command_app_stop != commands.command ) {
+	                    app_command_app_stop != commands.command &&
+	                    map_command_load != commands.command) {
 	                //start = new Array("roslaunch",
                     //    "tele_presence","robot_base.launch");
                     parseCommands(commands);
@@ -376,10 +377,25 @@ function parseCommands(commands) {
 	        break;
 	        
 	        case map_command_load : 
-	            var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
-	            map_service_load.callService( request, function (result) {
-	                sendMapBroadcast(commands.wizard, null, 0);
-	            } );
+	            // must start nav automatically with load!
+	            var start = app_manager_navigate;
+                
+                var request = new ROSLIB.ServiceRequest({'name': start});
+	            app_service_start.callService( request, function (result) {
+	                // nothing here... 
+	                console.log("try " + start + " " + result.message);
+	                //sendMapBroadcast(commands.wizard, null, 0);
+                    map_nav_started = true;
+                    
+	                //} ); // inner block...
+	        
+	                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
+	                map_service_load.callService( request, function (result) {
+	                    sendMapBroadcast(commands.wizard, null, 0);
+	                } );
+	            
+	            });// closing block for navigate start...
+	            
 	        break;
 	        
 	        
