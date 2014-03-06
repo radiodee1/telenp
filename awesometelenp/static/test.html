@@ -435,8 +435,9 @@ function changeButtonSrc(url) {
 
 function formJSONClick(operation) {
 	tx_operation = operation; 
-	tx_number ++;
-	tx_number = tx_number % mod_base;
+	//tx_number ++;
+	//tx_number = tx_number % mod_base;
+	tx_number = 0; // disable old sequence checking
 	;//console.log(operation);
 	makeText = JSON.stringify(makeJSONCommand(operation,  tx_number) ) ;
 	;//console.log( makeText );
