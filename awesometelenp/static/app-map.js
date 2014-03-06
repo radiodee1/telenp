@@ -450,23 +450,36 @@ function parseCommands(commands) {
 	        break;
 
             case map_command_pic :
-                var request = new ROSLIB.ServiceRequest({});
-	            map_service_pic.callService( request, function (result) {
-	                //do all picture things here.
-	                /* remove some pic stuff here */
-	                sendMapInForm(result.data);
-	                sendMapBroadcast(commands.wizard, null, 0);
-	                
-	                //var request = new ROSLIB.ServiceRequest({});
-	                map_listener.subscribe( function (result) {
-	                    if (true) {
-	                        var list = new Array(JSON.stringify(result.info));
-	                        sendMapBroadcast(map_command_meta, list, 0);
-	                    }
-	                    map_listener.unsubscribe();
+            
+                var resolution;
+                var width;
+                var height;
+                console.log("read meta data...");
+                map_listener.subscribe( function (result1) {
+	                map_listener.unsubscribe();
+	                resolution = result1.info.resolution;
+	                width = result1.info.width;
+	                height = result1.info.height;
+	                console.log("find meta data... "+ width +"," + height);
+	                map_nav_resolution = resolution;
+	            //});
+            
+                    var request = new ROSLIB.ServiceRequest({
+                        'width' : width,
+                        'height' : height
+                    });
+	                map_service_pic.callService( request, function (result2) {
+	                    //do all picture things here.
+	                    /* remove some pic stuff here */
+	                    sendMapInForm(result2.data);
+	                    var list = new Array(JSON.stringify(result1.info));
+	                    sendMapBroadcast(commands.wizard, list, 0);
+
+	                    //console.log("meta data -- " + list[0]);
+	                    
 	                } );
-	                
-	            } );
+	            
+	            });
 	        break;
             
             
@@ -818,7 +831,7 @@ function sendMapBroadcast(type, list, num) {
     if (! isMatchingName(tx_gapi_turtlebot_name)  ) return;
     var x;
     var map_list = "";
-    if(type === map_command_meta ) {
+    if(type === map_command_meta || type === map_command_pic ) {
         map_list = JSON.stringify ({ 
                             'name' : list[0] ,
                             'session_id' : '' ,
@@ -961,10 +974,11 @@ function receiveMapBroadcast() {
 	        
 	        case map_command_pic :
 	            sendMapInForm();
+	            setOrigin(data.map_list[0].name);
 	        break;
 	        
 	        case map_command_meta :
-	            
+	            sendMapInForm();
 	            setOrigin(data.map_list[0].name);
 	        break;
 	        
