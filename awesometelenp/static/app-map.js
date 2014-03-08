@@ -403,6 +403,7 @@ function parseCommands(commands) {
 	        case map_command_save :
 	        
                 app_name = "manager";
+                var save_count = 0;
                 
                 map_meta_data.subscribe( function (result) {
 	                map_meta_data.unsubscribe();
@@ -413,32 +414,44 @@ function parseCommands(commands) {
 	                //FIND RESOLUTION, THEN SAVE MAP!!
                 
 	                var start = new Array(
+	                    /*
+	                    'rosrun',
+	                    'map_store',
+	                    'add_map.py',
+	                    commands.new_name
+	                    */
+	                    
+	                    
 	                    "roslaunch",
                         "map_store",
                         "add_map.launch", 
+                        "map_name:=" + commands.new_name ,
                         "map_file:=" + commands.new_name,
-                        "map_resolution:=" + map_nav_resolution, // BAD NUM
-                        "map_name:=" + commands.new_name //,
-                        //app_manager_prefix + "/map:=/map"
+                        "map_resolution:=" + map_nav_resolution//, // BAD NUM
+
                         );
-                
-                
-                    var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
-	                map_service_start.callService( request, function (result) {
-	                    console.log("command launch -- save map : " + result.result);
-	                    sendMapBroadcast(commands.wizard, null, 0);
-	                	                
-	                } );
-	                map_meta_data.unsubscribe();
-	            });//map saved with proper resolution
+                        
+                    if (save_count === 0) {
+                        var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
+                    
+	                    map_service_start.callService( request, function (result) {
+	                        console.log("command launch -- save map : " + result.result);
+	                        sendMapBroadcast(commands.wizard, null, 0);
+	                	                    
+	                    } );
+	                }
+	                save_count ++;
+	                //map_meta_data.unsubscribe();
+	            });//map saved with proper resolution (??)
 	            
+	            /*
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	                console.log("---map_name---  " + commands.new_name);
 	            } );
-	            
+	            */
 	            
 	        break;
 	        
@@ -1130,6 +1143,7 @@ function setOrigin(data) {
     map_nav_resolution = origin.resolution ; // 
     map_nav_origin_x = origin.origin.position.x; // magic number zero?
     map_nav_origin_y = origin.origin.position.y;
+    //console.log(map_nav_resolution);
     alert("map info set at: \n\n" +
         "resolution: " + map_nav_resolution.toFixed(2) + "\n" +
         "origin xy: " + map_nav_origin_x.toFixed(2) + "," + map_nav_origin_y.toFixed(2) );
