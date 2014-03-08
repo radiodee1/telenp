@@ -3,13 +3,13 @@
   <include file="$(find tele_presence)/launch/minimal.launch"/>
   
   <!-- *********************** Teleoperation ********************** -->
-  <!-- param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
+  <!-- param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/ -->
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
     <arg name="rgb_processing" value="true" />
     <arg name="depth_registration" value="false" />
     <arg name="depth_processing" value="false" />
-  </include -->
+  </include>
 
   <!-- Make a slower camera feed available. -->
   <!-- node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_color/compressed 5"/ -->
