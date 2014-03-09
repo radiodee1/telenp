@@ -9,7 +9,9 @@ publishers:
 subscribers: 
   - mobile_base/commands/velocity
   - initialpose
+  - /initialpose
   - move_base_simple/goal
+  - /move_base_simple/goal
   - move_base/goal
 services: 
   - save_map

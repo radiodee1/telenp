@@ -1,7 +1,7 @@
 display: Navigate
 description: Tele NP AMCL Navigation Functionality
 platform: linux.ros.*
-launch: tele_presence_apps/amcl_mod.launch
+launch: tele_presence_apps/navigate.launch
 interface: tele_presence_apps/navigate.interface
 icon: tele_presence_apps/navigate.png
 pairing_clients:
