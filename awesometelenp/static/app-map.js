@@ -90,7 +90,7 @@ var map_nav_origin_z = 0;
 var map_nav_origin_ax = 0;
 var map_nav_origin_ay = 0;
 var map_nav_origin_az = 0;
-var map_nav_resolution = 1;
+var map_nav_resolution = 0.05;
 
 var angle_count_start = 0; //
 var angle_count_stop = 0;  //
