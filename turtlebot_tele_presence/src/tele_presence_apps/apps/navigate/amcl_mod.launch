@@ -32,7 +32,15 @@
 
   <include file="$(find tele_presence)/launch/manage_map.launch"/>
 
-  
+  <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui">
+    <param name="polling_frequency" value="5"/>
+    <param name="translational_update_distance" value="-1"/>
+    <param name="angular_update_distance" value="-1"/>
+    <rosparam param="frame_pairs">
+      - {source_frame: base_footprint, target_frame: map}
+      - {source_frame: camera_depth_frame, target_frame: map}
+    </rosparam>
+  </node>
   
 </launch>
 
