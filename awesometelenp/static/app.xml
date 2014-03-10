@@ -1679,8 +1679,8 @@ function setMapServices( rootname ) {
   	
   	map_goal_pose = new ROSLIB.ActionClient({
   	    'ros': ros,
-  	    'serverName' : '/move_base/goal',
-  	    'actionName' : 'move_base_msgs/MoveBase'
+  	    'serverName' : app_manager_prefix + '/move_base/goal',
+  	    'actionName' : 'move_base_msgs/MoveBaseAction'
   	});
   	
   	// ROCON-APP-MANAGER SERVICES
@@ -2346,17 +2346,21 @@ function sendGoalPose(x,y,z,a) {
         {
         
         //inner message data        
-        
+        /*
         header : {
             seq: 0,
             stamp: 0,
             frame_id: "map"
             },
+        
         goal_id : {
             stamp: 0,
             id: ""
             },
+        
         goal : {
+        */
+        //////////
             target_pose : {
         
                 header : {
@@ -2380,7 +2384,9 @@ function sendGoalPose(x,y,z,a) {
                 
         
             } // end of target_pose
-        } // end of goal
+            
+            ////////////
+        //} // end of goal
         
        
         // inner message data ends...
