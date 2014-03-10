@@ -1421,9 +1421,27 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_manager :
-            case app_command_map_manager_force :
+            break;
             
+            case app_command_map_manager_force :
                 
+                var request = new ROSLIB.ServiceRequest({});
+	            map_service_list.callService( request, function (result) {
+	                
+	                sendMapBroadcast(commands.wizard, result.map_list, 0);
+	                var x = 0;
+	                for (x = 0; x < result.map_list.length; x ++) {
+	                    if (result.map_list[x].name == "" || 
+	                            typeof result.map_list[x].name === 'undefined') {
+	                        //delete map...
+	                        var request = new ROSLIB.ServiceRequest({ 
+	                            "map_id": result.map_list[x].map_id });
+	                        map_service_delete.callService( request, function (result) {
+                                console.log("delete map: " + x);
+	                        } );
+	                    }
+	                }
+	            });
 	            
             break;
             
@@ -2673,12 +2691,12 @@ p.reply
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpStart">
     
 <br>
-<button type="button" onclick='executeMapStart();'>FORCE MAP MANAGER</button><br><br>
+<button type="button" onclick='executeMapStart();'>FORCE MAP CLEAN</button><br><br>
     
 <button type="button" onclick="opCancel()">Done</button><br>
 <p id="wizOpStartConfirm" style="display:none" class="reply">The map manager is started.</p>
     
-<p id="wizOpStartConfirmForce" style="display:none" class="reply">The map manager start is forced.</p>
+<p id="wizOpStartConfirmForce" style="display:none" class="reply">The map manager is cleaning.</p>
     
 </div>
 <!-- one div for each frame of wizard  VIEW MAP -->
@@ -2727,6 +2745,7 @@ p.reply
     </table>
     
     </div>
+    
     
 <!-- end of complicated nav div -->
 <br>

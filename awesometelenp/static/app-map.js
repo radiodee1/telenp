@@ -513,9 +513,27 @@ function parseCommands(commands) {
             break;
             
             case app_command_map_manager :
-            case app_command_map_manager_force :
+            break;
             
+            case app_command_map_manager_force :
                 
+                var request = new ROSLIB.ServiceRequest({});
+	            map_service_list.callService( request, function (result) {
+	                
+	                sendMapBroadcast(commands.wizard, result.map_list, 0);
+	                var x = 0;
+	                for (x = 0; x < result.map_list.length; x ++) {
+	                    if (result.map_list[x].name == "" || 
+	                            typeof result.map_list[x].name === 'undefined') {
+	                        //delete map...
+	                        var request = new ROSLIB.ServiceRequest({ 
+	                            "map_id": result.map_list[x].map_id });
+	                        map_service_delete.callService( request, function (result) {
+                                console.log("delete map: " + x);
+	                        } );
+	                    }
+	                }
+	            });
 	            
             break;
             
