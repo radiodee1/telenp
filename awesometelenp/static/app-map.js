@@ -749,10 +749,10 @@ function setMapServices( rootname ) {
    		 
   	});
   	
-  	map_goal_pose = new ROSLIB.Topic({
+  	map_goal_pose = new ROSLIB.ActionClient({
   	    'ros': ros,
-  	    'name' : app_manager_prefix + '/move_base_simple/goal',
-  	    messageType : 'geometry_msgs/PoseStamped'
+  	    'serverName' : '/move_base/goal',
+  	    'actionName' : 'move_base_msgs/MoveBase'
   	});
   	
   	// ROCON-APP-MANAGER SERVICES
@@ -1410,26 +1410,55 @@ function sendGoalPose(x,y,z,a) {
     if (typeof y === 'undefined') y = map_nav_pose_y;
     if (typeof z === 'undefined') z = map_nav_pose_z;
     if (typeof a === 'undefined') a = map_nav_pose_a;
-    var goalpose = new ROSLIB.Message({
+    
+    var goal = new ROSLIB.Goal({
+        actionClient : map_goal_pose,
+        goalMessage: 
+
+        {
+        
+        //inner message data        
+        
         header : {
             seq: 0,
             stamp: 0,
-            frame_id : "map"
+            frame_id: "map"
             },
-        pose : {
-            position: {
-                x: x,
-                y: y,
-                z: z
-                },
-            orientation: {
-                x : 0,
-                y : 0,
-                z : Math.sin( a / 2 ),
-                w : Math.cos( a / 2 ),
-                }
-            }
+        goal_id : {
+            stamp: 0,
+            id: ""
+            },
+        goal : {
+            target_pose : {
+        
+                header : {
+                    seq: 0,
+                    stamp: 0,
+                    frame_id : "map"
+                    },
+                pose : {
+                    position: {
+                        x: x,
+                        y: y,
+                        z: z
+                        },
+                    orientation: {
+                        x : 0,
+                        y : 0,
+                        z : Math.sin( a / 2 ),
+                        w : Math.cos( a / 2 ),
+                        }
+                    }
+                
+        
+            } // end of target_pose
+        } // end of goal
+        
+       
+        // inner message data ends...
+            
+        }
+
     });
-    
-    map_goal_pose.publish(goalpose);
+    goal.send();
 }
