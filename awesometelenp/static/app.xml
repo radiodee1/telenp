@@ -1508,6 +1508,16 @@ function parseCommands(commands) {
             break;
             
             case map_command_nav_execute :
+            
+                map_nav_pose_x = commands.x1;
+                map_nav_pose_y = commands.y1;
+                map_nav_pose_z = 0;
+                map_nav_pose_a = commands.angle1;
+                map_nav_goal_x = commands.x2;
+                map_nav_goal_y = commands.y2;
+                map_nav_goal_z = 0;
+                map_nav_goal_a = commands.angle2;
+            
                 if (commands.x1 != commands.x2 ||
                     commands.y1 != commands.y2 || 
                     commands.angle1 != commands.angle2) {
@@ -1522,11 +1532,31 @@ function parseCommands(commands) {
             break;
             
             case map_command_nav_start :
+            
+                map_nav_pose_x = commands.x1;
+                map_nav_pose_y = commands.y1;
+                map_nav_pose_z = 0;
+                map_nav_pose_a = commands.angle1;
+                //map_nav_goal_x = commands.x2;
+                //map_nav_goal_y = commands.y2;
+                //map_nav_goal_z = 0;
+                //map_nav_goal_a = commands.angle2;
+            
                 sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
                 sendMapBroadcast(commands.wizard, null, 0);
             break;
             
             case map_command_nav_goal :
+            
+                //map_nav_pose_x = commands.x1;
+                //map_nav_pose_y = commands.y1;
+                //map_nav_pose_z = 0;
+                //map_nav_pose_a = commands.angle1;
+                map_nav_goal_x = commands.x2;
+                map_nav_goal_y = commands.y2;
+                map_nav_goal_z = 0;
+                map_nav_goal_a = commands.angle2;
+
                 sendGoalPose(commands.x2, commands.y2, 0, commands.angle2);
                 sendMapBroadcast(commands.wizard, null, 0);
             break;
@@ -2352,10 +2382,10 @@ function sendInitialPose(x, y, z, a) {
 }
 
 function sendGoalPose(x,y,z,a) {
-    if (typeof x === 'undefined') x = map_nav_pose_x;
-    if (typeof y === 'undefined') y = map_nav_pose_y;
-    if (typeof z === 'undefined') z = map_nav_pose_z;
-    if (typeof a === 'undefined') a = map_nav_pose_a;
+    if (typeof x === 'undefined') x = map_nav_goal_x;
+    if (typeof y === 'undefined') y = map_nav_goal_y;
+    if (typeof z === 'undefined') z = map_nav_goal_z;
+    if (typeof a === 'undefined') a = map_nav_goal_a;
     
     var goal = new ROSLIB.Goal({
         actionClient : map_goal_pose,
