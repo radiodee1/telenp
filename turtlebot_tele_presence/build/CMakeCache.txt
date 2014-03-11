@@ -329,6 +329,8 @@ std_msgs_DIR:PATH=/opt/ros/hydro/share/std_msgs/cmake
 //Value Computed by CMake
 tele_presence_BINARY_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence
 
+tele_presence_DIR:PATH=
+
 //Value Computed by CMake
 tele_presence_SOURCE_DIR:STATIC=/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence
 

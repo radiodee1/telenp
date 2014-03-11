@@ -36,6 +36,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tele_presence/msg" TYPE FILE FILES
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapWithMetaData.msg"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
@@ -90,6 +91,7 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/tele_presence" TYPE PROGRAM FILES
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/scripts/turtlebot_db.py"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/scripts/turtlebot_listen.py"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/scripts/turtlebot_talktest.py"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/scripts/turtlebot_map.py"

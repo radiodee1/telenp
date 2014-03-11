@@ -1468,26 +1468,13 @@ function sendGoalPose(x,y,z,a) {
         {
         
         //inner message data        
-        /*
-        header : {
-            seq: 0,
-            stamp: 0,
-            frame_id: "map"
-            },
         
-        goal_id : {
-            stamp: 0,
-            id: ""
-            },
-        
-        goal : {
-        */
         //////////
             target_pose : {
         
                 header : {
                     seq: 0,
-                    stamp: 0,
+                    stamp: {},
                     frame_id : "map"
                     },
                 pose : {

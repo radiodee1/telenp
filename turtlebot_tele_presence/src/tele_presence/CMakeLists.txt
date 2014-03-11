@@ -53,6 +53,7 @@ add_message_files(
   FILES
   MapListEntryList.msg
   MapListElement.msg
+  MapWithMetaData.msg
 #   Message2.msg
 )
 
@@ -76,7 +77,7 @@ add_service_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  #tele_presence
+  tele_presence
 #  MapListEntryList  
    geometry_msgs
    std_msgs
@@ -137,6 +138,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  install(PROGRAMS
+   scripts/turtlebot_db.py
    scripts/turtlebot_listen.py
    scripts/turtlebot_talktest.py
    scripts/turtlebot_map.py
