@@ -1459,6 +1459,8 @@ function sendGoalPose(x,y,z,a) {
     if (typeof z === 'undefined') z = map_nav_goal_z;
     if (typeof a === 'undefined') a = map_nav_goal_a;
     
+    console.log("goal -- x,y: " + x + "," + y + " angle: " + a);
+    
     var goal = new ROSLIB.Goal({
         actionClient : map_goal_pose,
         goalMessage: 
