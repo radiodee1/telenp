@@ -617,9 +617,9 @@ clean: map_store_np/CMakeFiles/map_store_np_gencpp.dir/clean
 # Target rules for target map_store_np/CMakeFiles/map_store_np_generate_messages.dir
 
 # All Build rule for target.
-map_store_np/CMakeFiles/map_store_np_generate_messages.dir/all: map_store_np/CMakeFiles/map_store_np_generate_messages_cpp.dir/all
 map_store_np/CMakeFiles/map_store_np_generate_messages.dir/all: map_store_np/CMakeFiles/map_store_np_generate_messages_lisp.dir/all
 map_store_np/CMakeFiles/map_store_np_generate_messages.dir/all: map_store_np/CMakeFiles/map_store_np_generate_messages_py.dir/all
+map_store_np/CMakeFiles/map_store_np_generate_messages.dir/all: map_store_np/CMakeFiles/map_store_np_generate_messages_cpp.dir/all
 	$(MAKE) -f map_store_np/CMakeFiles/map_store_np_generate_messages.dir/build.make map_store_np/CMakeFiles/map_store_np_generate_messages.dir/depend
 	$(MAKE) -f map_store_np/CMakeFiles/map_store_np_generate_messages.dir/build.make map_store_np/CMakeFiles/map_store_np_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 
@@ -1234,8 +1234,8 @@ clean: tele_presence/CMakeFiles/tele_presence_gencpp.dir/clean
 
 # All Build rule for target.
 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all
-tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 
@@ -1270,9 +1270,9 @@ clean: tele_presence/CMakeFiles/tele_presence_generate_messages.dir/clean
 # Target rules for target tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir
 
 # All Build rule for target.
-tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: map_store_np/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: map_store_np/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: map_store_np/CMakeFiles/nav_msgs_generate_messages_cpp.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: map_store_np/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: map_store_np/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  26 27 28 29 30 31 32
@@ -1303,8 +1303,8 @@ clean: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/clean
 # Target rules for target tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir
 
 # All Build rule for target.
-tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all: map_store_np/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all: map_store_np/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all: map_store_np/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all: map_store_np/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build
@@ -1336,9 +1336,9 @@ clean: tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/clean
 # Target rules for target tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir
 
 # All Build rule for target.
-tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all: map_store_np/CMakeFiles/nav_msgs_generate_messages_py.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all: map_store_np/CMakeFiles/geometry_msgs_generate_messages_py.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all: map_store_np/CMakeFiles/std_msgs_generate_messages_py.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all: map_store_np/CMakeFiles/nav_msgs_generate_messages_py.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  40 41 42 43 44 45 46 47 48
