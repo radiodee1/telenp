@@ -1,1 +1,7 @@
+# old map ID
+string map_id
+
+# new name
+string name
+
 ---

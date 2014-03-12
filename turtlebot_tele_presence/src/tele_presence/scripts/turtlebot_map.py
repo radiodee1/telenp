@@ -26,6 +26,7 @@ def map_stuff():
     global my_map, map_pub
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
+    meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
     #rospy.Subscriber("/map", OccupancyGrid, callback_map)
     req = None
     #create_map(req)
@@ -103,6 +104,7 @@ def create_map(req ):
     #map_pub.publish(test_map);
     my_map = test_map
     map_pub.publish(my_map)
+    meta_pub.publish(my_map.info)
     return []
 
 def basic_launch(req) :
