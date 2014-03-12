@@ -46,6 +46,9 @@ def map_save(req):
 
 def map_load(req):
     #
+    oldmap = OccupancyGrid()
+    oldmap = whole_map.grid
+    map_pub.publish();
     return
 
 def map_rename(req):
