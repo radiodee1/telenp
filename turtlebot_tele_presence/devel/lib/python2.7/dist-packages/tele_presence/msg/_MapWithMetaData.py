@@ -5,15 +5,26 @@ import genpy
 import struct
 
 import geometry_msgs.msg
+import tele_presence.msg
 import nav_msgs.msg
 import genpy
 import std_msgs.msg
 
 class MapWithMetaData(genpy.Message):
-  _md5sum = "c4f0432dbbaf8b2972e01c8ae605ce7f"
+  _md5sum = "72b8bf80de7d69cde5c979ffc2a31b50"
   _type = "tele_presence/MapWithMetaData"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """# One entry in a list of maps.
+
+# Entire MapListEntry object
+tele_presence/MapListEntry info
+
+# Entire map object
+nav_msgs/OccupancyGrid grid
+
+================================================================================
+MSG: tele_presence/MapListEntry
+# One entry in a list of maps.
 
 # Naming a map is optional.
 string name
@@ -28,9 +39,6 @@ int64 date
 
 # Unique ID of this map.
 string map_id
-
-# Entire map object
-nav_msgs/OccupancyGrid grid
 
 ================================================================================
 MSG: nav_msgs/OccupancyGrid
@@ -102,8 +110,8 @@ float64 z
 float64 w
 
 """
-  __slots__ = ['name','session_id','date','map_id','grid']
-  _slot_types = ['string','string','int64','string','nav_msgs/OccupancyGrid']
+  __slots__ = ['info','grid']
+  _slot_types = ['tele_presence/MapListEntry','nav_msgs/OccupancyGrid']
 
   def __init__(self, *args, **kwds):
     """
@@ -113,7 +121,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       name,session_id,date,map_id,grid
+       info,grid
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -122,21 +130,12 @@ float64 w
     if args or kwds:
       super(MapWithMetaData, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.name is None:
-        self.name = ''
-      if self.session_id is None:
-        self.session_id = ''
-      if self.date is None:
-        self.date = 0
-      if self.map_id is None:
-        self.map_id = ''
+      if self.info is None:
+        self.info = tele_presence.msg.MapListEntry()
       if self.grid is None:
         self.grid = nav_msgs.msg.OccupancyGrid()
     else:
-      self.name = ''
-      self.session_id = ''
-      self.date = 0
-      self.map_id = ''
+      self.info = tele_presence.msg.MapListEntry()
       self.grid = nav_msgs.msg.OccupancyGrid()
 
   def _get_types(self):
@@ -151,7 +150,7 @@ float64 w
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.name
+      _x = self.info.name
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -160,7 +159,7 @@ float64 w
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self.session_id
+      _x = self.info.session_id
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -169,8 +168,8 @@ float64 w
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      buff.write(_struct_q.pack(self.date))
-      _x = self.map_id
+      buff.write(_struct_q.pack(self.info.date))
+      _x = self.info.map_id
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -205,6 +204,8 @@ float64 w
     :param str: byte array of serialized message, ``str``
     """
     try:
+      if self.info is None:
+        self.info = tele_presence.msg.MapListEntry()
       if self.grid is None:
         self.grid = nav_msgs.msg.OccupancyGrid()
       end = 0
@@ -214,30 +215,30 @@ float64 w
       start = end
       end += length
       if python3:
-        self.name = str[start:end].decode('utf-8')
+        self.info.name = str[start:end].decode('utf-8')
       else:
-        self.name = str[start:end]
+        self.info.name = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
       if python3:
-        self.session_id = str[start:end].decode('utf-8')
+        self.info.session_id = str[start:end].decode('utf-8')
       else:
-        self.session_id = str[start:end]
+        self.info.session_id = str[start:end]
       start = end
       end += 8
-      (self.date,) = _struct_q.unpack(str[start:end])
+      (self.info.date,) = _struct_q.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
       if python3:
-        self.map_id = str[start:end].decode('utf-8')
+        self.info.map_id = str[start:end].decode('utf-8')
       else:
-        self.map_id = str[start:end]
+        self.info.map_id = str[start:end]
       _x = self
       start = end
       end += 12
@@ -274,7 +275,7 @@ float64 w
     :param numpy: numpy python module
     """
     try:
-      _x = self.name
+      _x = self.info.name
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -283,7 +284,7 @@ float64 w
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self.session_id
+      _x = self.info.session_id
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -292,8 +293,8 @@ float64 w
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      buff.write(_struct_q.pack(self.date))
-      _x = self.map_id
+      buff.write(_struct_q.pack(self.info.date))
+      _x = self.info.map_id
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -329,6 +330,8 @@ float64 w
     :param numpy: numpy python module
     """
     try:
+      if self.info is None:
+        self.info = tele_presence.msg.MapListEntry()
       if self.grid is None:
         self.grid = nav_msgs.msg.OccupancyGrid()
       end = 0
@@ -338,30 +341,30 @@ float64 w
       start = end
       end += length
       if python3:
-        self.name = str[start:end].decode('utf-8')
+        self.info.name = str[start:end].decode('utf-8')
       else:
-        self.name = str[start:end]
+        self.info.name = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
       if python3:
-        self.session_id = str[start:end].decode('utf-8')
+        self.info.session_id = str[start:end].decode('utf-8')
       else:
-        self.session_id = str[start:end]
+        self.info.session_id = str[start:end]
       start = end
       end += 8
-      (self.date,) = _struct_q.unpack(str[start:end])
+      (self.info.date,) = _struct_q.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
       if python3:
-        self.map_id = str[start:end].decode('utf-8')
+        self.info.map_id = str[start:end].decode('utf-8')
       else:
-        self.map_id = str[start:end]
+        self.info.map_id = str[start:end]
       _x = self
       start = end
       end += 12

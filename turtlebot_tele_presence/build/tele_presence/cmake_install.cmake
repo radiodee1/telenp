@@ -37,6 +37,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapWithMetaData.msg"
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntry.msg"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

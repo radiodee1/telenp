@@ -46,9 +46,12 @@ def map_save(req):
 
 def map_load(req):
     #
+    whole_map = MapWithMetaData()
+    whole_map = collection.find_one({ info.map_id : req.map_id })
     oldmap = OccupancyGrid()
     oldmap = whole_map.grid
-    map_pub.publish();
+    map_pub.publish(oldmap);
+    #
     return
 
 def map_rename(req):
@@ -74,10 +77,10 @@ def prep_map(whole_map):
     #
     newmap = MapWithMetaData()
     #
-    newmap.date = datetime.datetime.utcnow()
-    newmap.sesion_id = str(datetime.datetime.utcnow())
-    newmap.map_id = hashlib.md5( datetime.datetime.utcnow() ).hexdigest()
-    print newmap.map_id
+    newmap.info.date = datetime.datetime.utcnow()
+    newmap.info.sesion_id = str(datetime.datetime.utcnow())
+    newmap.info.map_id = hashlib.md5( datetime.datetime.utcnow() ).hexdigest()
+    print newmap.info.map_id
     return newmap
 
 if __name__ == '__main__':

@@ -54,6 +54,7 @@ add_message_files(
   MapListEntryList.msg
   MapListElement.msg
   MapWithMetaData.msg
+  MapListEntry.msg
 #   Message2.msg
 )
 

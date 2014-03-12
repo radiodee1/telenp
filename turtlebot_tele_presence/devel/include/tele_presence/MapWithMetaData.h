@@ -48,6 +48,7 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
+#include <tele_presence/MapListEntry.h>
 #include <nav_msgs/OccupancyGrid.h>
 
 namespace tele_presence
@@ -58,33 +59,18 @@ struct MapWithMetaData_
   typedef MapWithMetaData_<ContainerAllocator> Type;
 
   MapWithMetaData_()
-    : name()
-    , session_id()
-    , date(0)
-    , map_id()
+    : info()
     , grid()  {
     }
   MapWithMetaData_(const ContainerAllocator& _alloc)
-    : name(_alloc)
-    , session_id(_alloc)
-    , date(0)
-    , map_id(_alloc)
+    : info(_alloc)
     , grid(_alloc)  {
     }
 
 
 
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _name_type;
-  _name_type name;
-
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _session_id_type;
-  _session_id_type session_id;
-
-   typedef int64_t _date_type;
-  _date_type date;
-
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _map_id_type;
-  _map_id_type map_id;
+   typedef  ::tele_presence::MapListEntry_<ContainerAllocator>  _info_type;
+  _info_type info;
 
    typedef  ::nav_msgs::OccupancyGrid_<ContainerAllocator>  _grid_type;
   _grid_type grid;
@@ -167,12 +153,12 @@ struct MD5Sum< ::tele_presence::MapWithMetaData_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "c4f0432dbbaf8b2972e01c8ae605ce7f";
+    return "72b8bf80de7d69cde5c979ffc2a31b50";
   }
 
   static const char* value(const ::tele_presence::MapWithMetaData_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xc4f0432dbbaf8b29ULL;
-  static const uint64_t static_value2 = 0x72e01c8ae605ce7fULL;
+  static const uint64_t static_value1 = 0x72b8bf80de7d69cdULL;
+  static const uint64_t static_value2 = 0xe5c979ffc2a31b50ULL;
 };
 
 template<class ContainerAllocator>
@@ -193,6 +179,16 @@ struct Definition< ::tele_presence::MapWithMetaData_<ContainerAllocator> >
   {
     return "# One entry in a list of maps.\n\
 \n\
+# Entire MapListEntry object\n\
+tele_presence/MapListEntry info\n\
+\n\
+# Entire map object\n\
+nav_msgs/OccupancyGrid grid\n\
+\n\
+================================================================================\n\
+MSG: tele_presence/MapListEntry\n\
+# One entry in a list of maps.\n\
+\n\
 # Naming a map is optional.\n\
 string name\n\
 \n\
@@ -206,9 +202,6 @@ int64 date\n\
 \n\
 # Unique ID of this map.\n\
 string map_id\n\
-\n\
-# Entire map object\n\
-nav_msgs/OccupancyGrid grid\n\
 \n\
 ================================================================================\n\
 MSG: nav_msgs/OccupancyGrid\n\
@@ -296,10 +289,7 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.name);
-      stream.next(m.session_id);
-      stream.next(m.date);
-      stream.next(m.map_id);
+      stream.next(m.info);
       stream.next(m.grid);
     }
 
@@ -319,14 +309,9 @@ struct Printer< ::tele_presence::MapWithMetaData_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::tele_presence::MapWithMetaData_<ContainerAllocator>& v)
   {
-    s << indent << "name: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.name);
-    s << indent << "session_id: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.session_id);
-    s << indent << "date: ";
-    Printer<int64_t>::stream(s, indent + "  ", v.date);
-    s << indent << "map_id: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.map_id);
+    s << indent << "info: ";
+    s << std::endl;
+    Printer< ::tele_presence::MapListEntry_<ContainerAllocator> >::stream(s, indent + "  ", v.info);
     s << indent << "grid: ";
     s << std::endl;
     Printer< ::nav_msgs::OccupancyGrid_<ContainerAllocator> >::stream(s, indent + "  ", v.grid);

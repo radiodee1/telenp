@@ -10,6 +10,7 @@ afaca6a86547b6bbabba29581ba4c7cb /home/dave/workspace/telenp/turtlebot_tele_pres
 4e9535b1de9ae55c06f6b44261e29a0b /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/CreateMap.h
 25f0cbbeeb063757e89777939fed1b87 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapInfo.h
 4572b1ea5d28a89db8f83f4ce5bbd3b5 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListElement.h
+ce935804419d14530245e20940c9d560 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListEntry.h
 7264c0ee53a7267e056c57c5856ede83 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapListEntryList.h
 322974eb70ac270b9b1c8c5829b8296a /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapWithMetaData.h
 2d3ba30ac6d2f928ec76d51e3293b7d4 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h
@@ -22,6 +23,7 @@ d23b33f60a7ec44ba6012a91ec6e5683 /home/dave/workspace/telenp/turtlebot_tele_pres
 882b1be21f1aea7ceda31d666bfbce53 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/map_store_np/srv/_SaveMap.py
 2d19a4689811b7568f00570081e00496 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/map_store_np/srv/__init__.py
 2055cdf811cac805e6bcca9b5768b706 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListElement.py
+77fc5d57cf24479940bda7ee6c30ab53 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntry.py
 67b03ebfe776d20bed20004a660df8b7 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntryList.py
 9b74ec4770b7c56074e562c9bd57de65 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapWithMetaData.py
 231318c5b64473e10d6092b690c1e1c0 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/__init__.py
@@ -38,6 +40,7 @@ c9b83eb7be8ccc6cfb460e761cc0052b /home/dave/workspace/telenp/turtlebot_tele_pres
 de8a924394c3700dc52567dcb985ddbf /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/map_store_np/srv/RenameMap.lisp
 c2462c3fe0fe115253dc39ec03a745e3 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/map_store_np/srv/SaveMap.lisp
 42da9ba23979741c91d881917274751f /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListElement.lisp
+b275e5a86a9233e43058331307a640d4 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListEntry.lisp
 41d324e560f772bda6f958af6f889612 /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListEntryList.lisp
 5f0e524ee9c5241c1909ee33c89291ca /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapWithMetaData.lisp
 ef5122c655f250629608b2d1de7f015d /home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/BasicLaunch.lisp

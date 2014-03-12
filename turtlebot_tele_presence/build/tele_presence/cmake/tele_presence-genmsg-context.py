@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapWithMetaData.msg"
+messages_str = "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntryList.msg;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListElement.msg;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapWithMetaData.msg;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntry.msg"
 services_str = "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/PictureMap.srv;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicLaunch.srv;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicStop.srv;/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapInfo.srv"
 pkg_name = "tele_presence"
 dependencies_str = "tele_presence;geometry_msgs;std_msgs;nav_msgs"
