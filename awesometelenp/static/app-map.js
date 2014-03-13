@@ -721,7 +721,7 @@ function setMapServices( rootname ) {
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : app_manager_prefix + rootname + '/publish_map',
+    	'name' : app_manager_prefix + rootname + '/load_map',
    		 messageType : 'tele_presence/MapLoad'
   	});
   	
@@ -766,8 +766,7 @@ function setMapServices( rootname ) {
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : app_manager_prefix + 
-    	'/save_map',
+    	'name' : app_manager_prefix + '/save_map',
    		 messageType : 'tele_presence/MapSave'
   	});
   	

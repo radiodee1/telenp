@@ -1,11 +1,13 @@
 <launch>
-<!-- launch mongod on port 27018. Used for turtlebot_db.py -->
+<!-- launch mongod on port 28018. Used for turtlebot_db.py -->
     
-  <param name="warehouse_port" value="27018"/>
+  <param name="warehouse_port" value="28018"/>
 
   <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="screen">
     <param name="database_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
     <param name="warehouse_port" value="27018"/>
   </node>
+  
+    <node name="turtlebot_db" pkg="tele_presence" type="turtlebot_db.py" respawn="true" output="screen" />
 </launch>

@@ -33,7 +33,7 @@ def db_stuff():
     rospy.init_node('turtlebot_db', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
-    #rospy.Subscriber("/map", OccupancyGrid, callback_map) # THROWS WARNING!!
+
     #
     rospy.Service('save_map', MapSave, map_save)
     rospy.Service('load_map', MapLoad, map_load)
@@ -41,14 +41,16 @@ def db_stuff():
     rospy.Service('delete_map', MapDelete , map_delete )
     rospy.Service('list_map', MapList , map_list )
     #
-    #map_list(MapList())
+    rospy.Subscriber("/map", OccupancyGrid, callback_map) # THROWS WARNING!!
+    
+    map_list(MapList())
     #req = MapSave()
     #req.name = "new-name2"
     #grid = create_map(None)
     #map_save(req)
     
-    #idmap = MapLoad()
-    #idmap.map_id = '3ae29b51f51df61decfb57dd4301af5a'
+    idmap = MapLoad()
+    idmap.map_id = '1b4cb19c5e8f75871da5b40c3128dbaf'
     #map_load(idmap)
     #map_list(MapList())
     #
@@ -70,6 +72,9 @@ def map_load(req):
     #
     whole_map = MapWithMetaData()
     whole_map = collection.find_one({ 'info.map_id' : req.map_id })
+    if whole_map == None :
+        return []
+    
     oldmap = OccupancyGrid()
     h = Header()
     oldmap.header = h
@@ -97,7 +102,7 @@ def map_load(req):
     
     oldmap.data = whole_map['grid']['data']
     
-    # print oldmap
+    print oldmap
     # print whole_map
     
     map_pub.publish(oldmap)
@@ -131,7 +136,7 @@ def map_list(req):
         onemap.name = x['info']['name']
         onemap.map_id = x['info']['map_id']
         maplist.append(onemap)
-    # print maplist
+        # print x
     return [ maplist ]
 
 def callback_map(data):
