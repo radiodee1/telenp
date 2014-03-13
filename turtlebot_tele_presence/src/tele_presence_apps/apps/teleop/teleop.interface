@@ -6,3 +6,8 @@ services:
   - list_map
   - rename_map
   - delete_map
+  - /save_map
+  - /rename_map
+  - /delete_map
+  - /load_map
+  - /list_map

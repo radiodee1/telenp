@@ -2,7 +2,6 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/tele_presence_generate_messages_py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapListEntry.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/msg/_MapWithMetaData.py"
-  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_MapInfo.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_CreateMap.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_MapList.py"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/lib/python2.7/dist-packages/tele_presence/srv/_MapDelete.py"

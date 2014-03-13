@@ -35,13 +35,14 @@ def map_stuff():
     rospy.Service('picture_map', PictureMap, picture_map)
     rospy.Service('basic_launch', BasicLaunch, basic_launch)
     rospy.Service('basic_stop', BasicStop , basic_stop )
-    #rospy.Service('map_info', MapInfo , map_info )
     #picture_map(req)
-    while not rospy.is_shutdown():
+    #create_map(req)
+    rospy.spin()
+    #while not rospy.is_shutdown():
         #
         #if (my_map.info.width is not 0) :
         #
-        rospy.sleep(1.0)
+        #rospy.sleep(1.0)
 
 def picture_map( req ) :
     width = req.width
@@ -88,6 +89,8 @@ def create_map(req ):
     h.frame_id = ''
     test_map = OccupancyGrid()
     test_map.header = h
+    i = MapMetaData()
+    test_map.info = i
     test_map.info.resolution = 0.05 
     test_map.info.width = width
     test_map.info.height = height

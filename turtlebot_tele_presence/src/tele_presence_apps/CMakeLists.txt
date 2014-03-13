@@ -74,14 +74,14 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
+###generate_messages(
+###  DEPENDENCIES
   #tele_presence
 #  MapListEntryList  
 #   geometry_msgs
 #   std_msgs
 #   nav_msgs
-)
+###)
 
 ###################################
 ## catkin specific configuration ##

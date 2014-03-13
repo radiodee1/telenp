@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "tele_presence: 2 messages, 10 services")
+message(STATUS "tele_presence: 2 messages, 9 services")
 
 set(MSG_I_FLAGS "-Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg;-Itele_presence:/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg;-Igeometry_msgs:/opt/ros/hydro/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg;-Inav_msgs:/opt/ros/hydro/share/nav_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/hydro/share/actionlib_msgs/cmake/../msg")
 
@@ -32,12 +32,6 @@ _generate_msg_cpp(tele_presence
 
 ### Generating Services
 _generate_srv_cpp(tele_presence
-  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapInfo.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/hydro/share/nav_msgs/cmake/../msg/MapMetaData.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Quaternion.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/tele_presence
-)
-_generate_srv_cpp(tele_presence
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv"
   "${MSG_I_FLAGS}"
   ""
@@ -46,7 +40,7 @@ _generate_srv_cpp(tele_presence
 _generate_srv_cpp(tele_presence
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapList.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntry.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/tele_presence
 )
 _generate_srv_cpp(tele_presence
@@ -127,12 +121,6 @@ _generate_msg_lisp(tele_presence
 
 ### Generating Services
 _generate_srv_lisp(tele_presence
-  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapInfo.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/hydro/share/nav_msgs/cmake/../msg/MapMetaData.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Quaternion.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/tele_presence
-)
-_generate_srv_lisp(tele_presence
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv"
   "${MSG_I_FLAGS}"
   ""
@@ -141,7 +129,7 @@ _generate_srv_lisp(tele_presence
 _generate_srv_lisp(tele_presence
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapList.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntry.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/tele_presence
 )
 _generate_srv_lisp(tele_presence
@@ -222,12 +210,6 @@ _generate_msg_py(tele_presence
 
 ### Generating Services
 _generate_srv_py(tele_presence
-  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapInfo.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/hydro/share/nav_msgs/cmake/../msg/MapMetaData.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/hydro/share/geometry_msgs/cmake/../msg/Quaternion.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/tele_presence
-)
-_generate_srv_py(tele_presence
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/CreateMap.srv"
   "${MSG_I_FLAGS}"
   ""
@@ -236,7 +218,7 @@ _generate_srv_py(tele_presence
 _generate_srv_py(tele_presence
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapList.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg/MapListEntry.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/tele_presence
 )
 _generate_srv_py(tele_presence

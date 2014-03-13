@@ -182,7 +182,7 @@ foreach(depend ${depends})
   list(APPEND tele_presence_apps_EXPORTED_TARGETS ${${tele_presence_apps_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "tele_presence_apps-msg-extras.cmake")
+set(pkg_cfg_extras "")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${tele_presence_apps_DIR}/${extra})

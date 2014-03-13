@@ -51,8 +51,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  #MapListEntryList.msg
-  #MapListElement.msg
+  
   MapWithMetaData.msg
   MapListEntry.msg
 #   Message2.msg
@@ -65,7 +64,7 @@ add_service_files(
    PictureMap.srv
    BasicLaunch.srv
    BasicStop.srv
-   MapInfo.srv
+   
    
    MapSave.srv
    MapLoad.srv

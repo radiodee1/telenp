@@ -33,10 +33,9 @@ def db_stuff():
     rospy.init_node('turtlebot_db', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
-
     #
     rospy.Service('save_map', MapSave, map_save)
-    rospy.Service('load_map', MapLoad, map_load)
+    rospy.Service('load_map_db', MapLoad, map_load)
     rospy.Service('rename_map', MapRename, map_rename)
     rospy.Service('delete_map', MapDelete , map_delete )
     rospy.Service('list_map', MapList , map_list )
@@ -108,7 +107,7 @@ def map_load(req):
     map_pub.publish(oldmap)
     meta_pub.publish(oldmap.info)
     #
-    return []
+    return ['done']
 
 def map_rename(req):
     #

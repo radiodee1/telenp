@@ -2,7 +2,7 @@
   <!-- ************************* Public Arguments ****************************** -->
   <arg name="robot_name" default="app_manager"/>
   <arg name="robot_type" default="standalone"/>
-  <arg name="rapp_lists" default="rocon_apps/rocon.rapps"/> <!-- semi colon separated list of rapp list resource names --> 
+  <arg name="rapp_lists" default=""/> <!-- semi colon separated list of rapp list resource names --> 
   <arg name="robot_icon" default="rocon_app_manager/cybernetic_pirate.png"/>
   
   <!-- ****************************** App Manager ****************************** -->

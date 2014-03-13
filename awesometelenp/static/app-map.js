@@ -373,6 +373,7 @@ function parseCommands(commands) {
 	        
 	                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
 	                map_service_load.callService( request, function (result) {
+	                    console.log(result.message);
 	                    sendMapBroadcast(commands.wizard, null, 0);
 	                } );
 	            
@@ -460,6 +461,7 @@ function parseCommands(commands) {
                 var request = new ROSLIB.ServiceRequest({"width": 100, "height":250});
 	            map_service_new.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
+	                console.log('new map');
 	            } );
 	        break;
 
@@ -468,7 +470,7 @@ function parseCommands(commands) {
                 var resolution;
                 var width;
                 var height;
-                console.log("read meta data...");
+                console.log("read map data...");
                 map_listener.subscribe( function (result1) {
 	                map_listener.unsubscribe();
 	                resolution = result1.info.resolution;
@@ -721,14 +723,15 @@ function setMapServices( rootname ) {
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : app_manager_prefix + rootname + '/load_map',
+    	'name' : app_manager_prefix + rootname + 
+    	'/load_map_db',
    		 messageType : 'tele_presence/MapLoad'
   	});
   	
   	// service for new map
   	map_service_new = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' :app_manager_prefix +  '/new_map',
+    	'name' : app_manager_prefix +  '/new_map',
    		 messageType : 'tele_presence/CreateMap'
   	});
   	
@@ -784,11 +787,13 @@ function setMapServices( rootname ) {
    		 
   	});
   	
+  	/*
   	map_service_info = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + '/map_info',
    		 messageType : 'tele_presence/MapInfo'
   	});
+  	*/
   	
   	map_initialpose = new ROSLIB.Topic({
     	'ros' : ros,
@@ -797,11 +802,13 @@ function setMapServices( rootname ) {
    		 
   	});
   	
+  	/*
   	map_goal_pose = new ROSLIB.ActionClient({
   	    'ros': ros,
   	    'serverName' : app_manager_prefix + '/move_base/goal',
   	    'actionName' : 'move_base_msgs/MoveBaseAction'
   	});
+  	*/
   	
   	// ROCON-APP-MANAGER SERVICES
   	app_topic_list = new ROSLIB.Topic({

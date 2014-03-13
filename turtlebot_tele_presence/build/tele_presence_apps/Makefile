@@ -146,20 +146,6 @@ depend:
 	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/rule:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f CMakeFiles/Makefile2 tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/rule
-.PHONY : tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/rule
-
-# Convenience name for target.
-tele_presence_apps_generate_messages: tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/rule
-.PHONY : tele_presence_apps_generate_messages
-
-# fast build rule for target.
-tele_presence_apps_generate_messages/fast:
-	cd /home/dave/workspace/telenp/turtlebot_tele_presence/build && $(MAKE) -f tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/build.make tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/build
-.PHONY : tele_presence_apps_generate_messages/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -172,7 +158,6 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... tele_presence_apps_generate_messages"
 	@echo "... test"
 .PHONY : help
 

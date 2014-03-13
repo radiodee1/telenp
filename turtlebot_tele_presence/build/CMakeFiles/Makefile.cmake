@@ -24,12 +24,8 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "tele_presence/cmake/tele_presence-genmsg.cmake"
   "tele_presence_apps/catkin_generated/ordered_paths.cmake"
   "tele_presence_apps/catkin_generated/package.cmake"
-  "tele_presence_apps/catkin_generated/tele_presence_apps-msg-extras.cmake.develspace.in"
-  "tele_presence_apps/catkin_generated/tele_presence_apps-msg-extras.cmake.installspace.in"
-  "tele_presence_apps/cmake/tele_presence_apps-genmsg.cmake"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/map_store_np/cmake/map_store_np-msg-paths.cmake"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/tele_presence/cmake/tele_presence-msg-paths.cmake"
-  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/tele_presence_apps/cmake/tele_presence_apps-msg-paths.cmake"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/CMakeLists.txt"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/map_store_np/CMakeLists.txt"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/map_store_np/package.xml"
@@ -238,5 +234,4 @@ SET(CMAKE_DEPEND_INFO_FILES
   "tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/DependInfo.cmake"
   "tele_presence/CMakeFiles/tele_presence_genlisp.dir/DependInfo.cmake"
   "tele_presence/CMakeFiles/tele_presence_genpy.dir/DependInfo.cmake"
-  "tele_presence_apps/CMakeFiles/tele_presence_apps_generate_messages.dir/DependInfo.cmake"
   )

@@ -22,4 +22,9 @@ services:
   - /delete_map
   - basic_stop
   - basic_launch
+  - save_map
+  - rename_map
+  - delete_map
+  - load_map
+  - list_map
 

@@ -45,7 +45,6 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/PictureMap.srv"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicLaunch.srv"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/BasicStop.srv"
-    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapInfo.srv"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapSave.srv"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapLoad.srv"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapRename.srv"
