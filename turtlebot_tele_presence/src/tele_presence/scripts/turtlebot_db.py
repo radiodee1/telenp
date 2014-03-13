@@ -7,6 +7,7 @@ import hashlib
 
 import rosjson 
 import json #, ast
+import subprocess
 
 from nav_msgs.msg import *
 from nav_msgs.srv import *
@@ -15,7 +16,8 @@ from geometry_msgs.msg import *
 from tele_presence.msg import *
 from tele_presence.srv import *
 
-client = MongoClient('localhost', 27018) #NON STANDARD PORT NUM
+#subprocess.call(['mongod', '--dbpath', '/var/lib/mongodb/'])
+client = MongoClient('localhost', 28018) #NON STANDARD PORT NUM
 db = client.warehouse_concept
 collection = db.test_maps
 
@@ -27,10 +29,11 @@ whole_map = MapWithMetaData()
 def db_stuff():
     global client, db, collection, grid, map_pub, meta_pub
     #
+    
     rospy.init_node('turtlebot_db', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
-    rospy.Subscriber("/map", OccupancyGrid, callback_map) # THROWS WARNING!!
+    #rospy.Subscriber("/map", OccupancyGrid, callback_map) # THROWS WARNING!!
     #
     rospy.Service('save_map', MapSave, map_save)
     rospy.Service('load_map', MapLoad, map_load)
@@ -107,7 +110,7 @@ def map_rename(req):
     global collection
     # x = MapWithMetaData()
     # print x.info.name
-    collection.update({'info.map_id' : req.map_id},{ 'info.name' : req.name})
+    collection.update({'info.map_id' : req.map_id}, {'$set' : { 'info.name' : req.name}})
     # print req.name
     return []
 
