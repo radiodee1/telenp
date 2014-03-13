@@ -8,7 +8,7 @@ import base64
 import Image
 #import png
 
-from tele_presence.srv import CreateMap, PictureMap, BasicLaunch, BasicStop, MapInfo
+from tele_presence.srv import CreateMap, PictureMap, BasicLaunch, BasicStop
 from nav_msgs.msg import *
 from nav_msgs.srv import *
 from std_msgs.msg import *

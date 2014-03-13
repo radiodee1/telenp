@@ -25,6 +25,6 @@ services:
   - save_map
   - rename_map
   - delete_map
-  - load_map
+  - load_map_db
   - list_map
 
