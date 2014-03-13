@@ -66,6 +66,13 @@ add_service_files(
    BasicLaunch.srv
    BasicStop.srv
    MapInfo.srv
+   
+   MapSave.srv
+   MapLoad.srv
+   MapRename.srv
+   MapList.srv
+   MapDelete.srv
+   
 )
 
 ## Generate actions in the 'action' folder

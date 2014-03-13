@@ -16,6 +16,7 @@ from std_msgs.msg import *
 #from roslib import message
 
 map_pub = None
+meta_pub = None
 my_map = OccupancyGrid()
 read_map = OccupancyGrid()
 read_map_called = False
@@ -23,7 +24,7 @@ mypath = "rosmap"
 process = None # some process
 
 def map_stuff():
-    global my_map, map_pub
+    global my_map, map_pub, meta_pub
     rospy.init_node('turtlebot_map', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
@@ -82,7 +83,7 @@ def create_map(req ):
     else :
         width = 10
         height = 25
-    global my_map, map_pub
+    global my_map, map_pub, meta_pub
     h = Header()
     h.frame_id = ''
     test_map = OccupancyGrid()
