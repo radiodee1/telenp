@@ -73,7 +73,7 @@ template<>
 struct MD5Sum< ::tele_presence::MapLoad > {
   static const char* value()
   {
-    return "d41d8cd98f00b204e9800998ecf8427e";
+    return "d742ddbd5e3e8937162044ae4b300275";
   }
 
   static const char* value(const ::tele_presence::MapLoad&) { return value(); }

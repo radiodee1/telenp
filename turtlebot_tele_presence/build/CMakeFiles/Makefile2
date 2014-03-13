@@ -1211,7 +1211,7 @@ tele_presence/CMakeFiles/tele_presence_gencpp.dir/all: tele_presence/CMakeFiles/
 
 # Build rule for subdir invocation for target.
 tele_presence/CMakeFiles/tele_presence_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_gencpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 0
 .PHONY : tele_presence/CMakeFiles/tele_presence_gencpp.dir/rule
@@ -1233,8 +1233,8 @@ clean: tele_presence/CMakeFiles/tele_presence_gencpp.dir/clean
 # Target rules for target tele_presence/CMakeFiles/tele_presence_generate_messages.dir
 
 # All Build rule for target.
-tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build
@@ -1248,7 +1248,7 @@ all: tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all
 
 # Build rule for subdir invocation for target.
 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 44
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 38
 	$(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 0
 .PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages.dir/rule
@@ -1275,13 +1275,13 @@ tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: map_store_
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: map_store_np/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  26 27 28 29 30 31 32 33 34 35 36 37 38 39
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  26 27 28 29 30 31 32 33 34 35 36 37
 	@echo "Built target tele_presence_generate_messages_cpp"
 .PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 0
 .PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/rule
@@ -1308,13 +1308,13 @@ tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all: map_store
 tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all: map_store_np/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  40 41 42 43 44 45 46 47 48 49 50 51 52 53
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  38 39 40 41 42 43 44 45 46 47 48 49
 	@echo "Built target tele_presence_generate_messages_lisp"
 .PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 0
 .PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/rule
@@ -1341,13 +1341,13 @@ tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all: map_store_n
 tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all: map_store_np/CMakeFiles/std_msgs_generate_messages_py.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  50 51 52 53 54 55 56 57 58 59 60 61 62 63
 	@echo "Built target tele_presence_generate_messages_py"
 .PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 0
 .PHONY : tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/rule
@@ -1378,7 +1378,7 @@ tele_presence/CMakeFiles/tele_presence_genlisp.dir/all: tele_presence/CMakeFiles
 
 # Build rule for subdir invocation for target.
 tele_presence/CMakeFiles/tele_presence_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 0
 .PHONY : tele_presence/CMakeFiles/tele_presence_genlisp.dir/rule
@@ -1409,7 +1409,7 @@ tele_presence/CMakeFiles/tele_presence_genpy.dir/all: tele_presence/CMakeFiles/t
 
 # Build rule for subdir invocation for target.
 tele_presence/CMakeFiles/tele_presence_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 tele_presence/CMakeFiles/tele_presence_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 0
 .PHONY : tele_presence/CMakeFiles/tele_presence_genpy.dir/rule

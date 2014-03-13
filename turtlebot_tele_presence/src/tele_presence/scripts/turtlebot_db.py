@@ -6,7 +6,7 @@ import datetime
 import hashlib
 
 import rosjson 
-import json, ast
+import json #, ast
 
 from nav_msgs.msg import *
 from nav_msgs.srv import *
@@ -40,10 +40,13 @@ def db_stuff():
     #
     map_list(MapList())
     req = MapSave()
-    req.name = "dave-n-such"
+    req.name = "new-name2"
     grid = create_map(None)
     map_save(req)
     #map_list(MapList())
+    idmap = MapLoad()
+    idmap.map_id = '3ae29b51f51df61decfb57dd4301af5a'
+    map_load(idmap)
     #
     #
     while not rospy.is_shutdown():
@@ -64,9 +67,25 @@ def map_save(req):
 def map_load(req):
     #
     whole_map = MapWithMetaData()
-    whole_map = collection.find_one({ info.map_id : req.map_id })
+    whole_map = collection.find_one({ 'info.map_id' : req.map_id })
     oldmap = OccupancyGrid()
-    oldmap = whole_map.grid
+    
+    oldmap.header = Header()
+    oldmap.header.stamp.secs = 0
+    oldmap.header.stamp.nsecs = 0
+    oldmap.header.frame_id = 'map'
+    oldmap.header.seq = 0
+    #oldmap.header = whole_map['grid']['header']
+    
+    oldmap.info = MapMetaData()
+    oldmap.info.map_load_time = whole_map['grid']['info']['map_load_time']
+    oldmap.info.resolution = whole_map['grid']['info']['resolution']
+    oldmap.info.width = whole_map['grid']['info']['width']
+    oldmap.info.height = whole_map['grid']['info']['height']
+    oldmap.info.origin = whole_map['grid']['info']['origin']
+    
+    oldmap.data = whole_map['grid']['data']
+    #oldmap = whole_map['grid']
     map_pub.publish(oldmap)
     meta_pub.publish(oldmap.info)
     #
@@ -90,24 +109,20 @@ def map_delete(req):
 
 def map_list(req):
     #
+    maplist = []
     maps = collection.find()
-    num = maps.count()
+    #num = maps.count()
     for x in maps : #range(num):
-        print x
-        print (x)['info']['map_id'] #nothing??
-        #print item
-        #for u in item:
-        #    #print u
-        #    if u == '_id' :
-        #        print u
-    return
+        maplist.append(x['info'])
+    #print maplist
+    return maplist
 
 def callback_map(data):
     global grid, whole_map
     whole_map.grid = data
     #
     grid = data
-    #print grid
+    print '---------------------', grid
     return
 
 def prep_map(whole_map):
@@ -116,15 +131,12 @@ def prep_map(whole_map):
     #
     newmap.info = whole_map.info
     #
-    newmap.info.date = datetime.datetime.utcnow()
+    newmap.info.date = str(datetime.datetime.utcnow())
     newmap.info.session_id = str(datetime.datetime.utcnow())
     newmap.info.map_id = str(hashlib.md5( str(datetime.datetime.utcnow()) ).hexdigest())
-    #whole_map.grid = newmap
-    newmap.grid = whole_map.grid
     #
-    print newmap.info.map_id
-    print newmap.info.session_id
-    print newmap.info.date
+    newmap.grid = whole_map.grid
+    
     return newmap
 
 def create_map(req ):
@@ -155,8 +167,8 @@ def create_map(req ):
     #print test_map
     #map_pub.publish(test_map);
     my_map = test_map
-    map_pub.publish(my_map)
-    meta_pub.publish(my_map.info)
+    #map_pub.publish(my_map)
+    #meta_pub.publish(my_map.info)
     return my_map
 
 if __name__ == '__main__':
