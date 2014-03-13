@@ -11,6 +11,7 @@ import json #, ast
 from nav_msgs.msg import *
 from nav_msgs.srv import *
 from std_msgs.msg import *
+from geometry_msgs.msg import *
 from tele_presence.msg import *
 from tele_presence.srv import *
 
@@ -30,7 +31,7 @@ def db_stuff():
     rospy.init_node('turtlebot_db', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
-    rospy.Subscriber("/map", OccupancyGrid, callback_map)
+    #rospy.Subscriber("/map", OccupancyGrid, callback_map)
     #
     rospy.Service('save_map', MapSave, map_save)
     rospy.Service('load_map', MapLoad, map_load)
@@ -69,43 +70,58 @@ def map_load(req):
     whole_map = MapWithMetaData()
     whole_map = collection.find_one({ 'info.map_id' : req.map_id })
     oldmap = OccupancyGrid()
-    
-    oldmap.header = Header()
-    oldmap.header.stamp.secs = 0
-    oldmap.header.stamp.nsecs = 0
+    h = Header()
+    oldmap.header = h
+    #oldmap.header.stamp.secs = 0.0
+    #oldmap.header.stamp.nsecs = 0.0
+    #oldmap.header.stamp = 0.0
     oldmap.header.frame_id = 'map'
-    oldmap.header.seq = 0
-    #oldmap.header = whole_map['grid']['header']
+    #oldmap.header.seq = 0
+    
     
     oldmap.info = MapMetaData()
     oldmap.info.map_load_time = whole_map['grid']['info']['map_load_time']
     oldmap.info.resolution = whole_map['grid']['info']['resolution']
     oldmap.info.width = whole_map['grid']['info']['width']
     oldmap.info.height = whole_map['grid']['info']['height']
-    oldmap.info.origin = whole_map['grid']['info']['origin']
+    #oldmap.info.origin = whole_map['grid']['info']['origin']
+    
+    oldmap.info.origin.position = Point()
+    oldmap.info.origin.position.x = whole_map['grid']['info']['origin']['position']['x']
+    oldmap.info.origin.position.y = whole_map['grid']['info']['origin']['position']['y']
+    oldmap.info.origin.position.z = whole_map['grid']['info']['origin']['position']['z']
+    
+    oldmap.info.origin.orientation = Quaternion()
+    oldmap.info.origin.orientation.x = whole_map['grid']['info']['origin']['orientation']['x']
+    oldmap.info.origin.orientation.y = whole_map['grid']['info']['origin']['orientation']['y']
+    oldmap.info.origin.orientation.z = whole_map['grid']['info']['origin']['orientation']['z']
+    oldmap.info.origin.orientation.w = whole_map['grid']['info']['origin']['orientation']['w']
     
     oldmap.data = whole_map['grid']['data']
-    #oldmap = whole_map['grid']
+    
+    print oldmap
+    print whole_map
+    
     map_pub.publish(oldmap)
     meta_pub.publish(oldmap.info)
     #
-    return
+    return []
 
 def map_rename(req):
     #
     global collection
     # x = MapWithMetaData()
     print x.info.name
-    collection.update({info.map_id : req.map_id},{ info.name : req.name})
+    collection.update({'info.map_id' : req.map_id},{ 'info.name' : req.name})
     print req.name
-    return
+    return []
 
 def map_delete(req):
     #
     global collection
     # x = MapWithMetaData()
-    collection.remove({info.map_id: req.map_id})
-    return
+    collection.remove({ 'info.map_id' : req.map_id})
+    return []
 
 def map_list(req):
     #
@@ -119,11 +135,11 @@ def map_list(req):
 
 def callback_map(data):
     global grid, whole_map
-    whole_map.grid = data
+    #whole_map.grid = data
     #
     grid = data
     print '---------------------', grid
-    return
+    return 
 
 def prep_map(whole_map):
     #
