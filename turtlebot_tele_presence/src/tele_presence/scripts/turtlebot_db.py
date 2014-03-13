@@ -20,7 +20,6 @@ db = client.warehouse_concept
 collection = db.test_maps
 
 map_pub = None
-my_map = OccupancyGrid()
 grid = OccupancyGrid()
 whole_map = MapWithMetaData()
 
@@ -31,7 +30,7 @@ def db_stuff():
     rospy.init_node('turtlebot_db', anonymous=True)
     map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
     meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
-    #rospy.Subscriber("/map", OccupancyGrid, callback_map)
+    rospy.Subscriber("/map", OccupancyGrid, callback_map) # THROWS WARNING!!
     #
     rospy.Service('save_map', MapSave, map_save)
     rospy.Service('load_map', MapLoad, map_load)
@@ -39,20 +38,19 @@ def db_stuff():
     rospy.Service('delete_map', MapDelete , map_delete )
     rospy.Service('list_map', MapList , map_list )
     #
-    map_list(MapList())
-    req = MapSave()
-    req.name = "new-name2"
-    grid = create_map(None)
-    map_save(req)
     #map_list(MapList())
-    idmap = MapLoad()
-    idmap.map_id = '3ae29b51f51df61decfb57dd4301af5a'
-    map_load(idmap)
+    #req = MapSave()
+    #req.name = "new-name2"
+    #grid = create_map(None)
+    #map_save(req)
+    
+    #idmap = MapLoad()
+    #idmap.map_id = '3ae29b51f51df61decfb57dd4301af5a'
+    #map_load(idmap)
+    #map_list(MapList())
     #
-    #
-    while not rospy.is_shutdown():
-        #
-        rospy.sleep(1.0)
+    rospy.spin()
+    
 
 def map_save(req):
     global collection, grid, whole_map
@@ -72,19 +70,16 @@ def map_load(req):
     oldmap = OccupancyGrid()
     h = Header()
     oldmap.header = h
-    #oldmap.header.stamp.secs = 0.0
-    #oldmap.header.stamp.nsecs = 0.0
-    #oldmap.header.stamp = 0.0
+    
     oldmap.header.frame_id = 'map'
     #oldmap.header.seq = 0
-    
     
     oldmap.info = MapMetaData()
     oldmap.info.map_load_time = whole_map['grid']['info']['map_load_time']
     oldmap.info.resolution = whole_map['grid']['info']['resolution']
     oldmap.info.width = whole_map['grid']['info']['width']
     oldmap.info.height = whole_map['grid']['info']['height']
-    #oldmap.info.origin = whole_map['grid']['info']['origin']
+    #
     
     oldmap.info.origin.position = Point()
     oldmap.info.origin.position.x = whole_map['grid']['info']['origin']['position']['x']
@@ -99,8 +94,8 @@ def map_load(req):
     
     oldmap.data = whole_map['grid']['data']
     
-    print oldmap
-    print whole_map
+    # print oldmap
+    # print whole_map
     
     map_pub.publish(oldmap)
     meta_pub.publish(oldmap.info)
@@ -111,9 +106,9 @@ def map_rename(req):
     #
     global collection
     # x = MapWithMetaData()
-    print x.info.name
+    # print x.info.name
     collection.update({'info.map_id' : req.map_id},{ 'info.name' : req.name})
-    print req.name
+    # print req.name
     return []
 
 def map_delete(req):
@@ -130,7 +125,7 @@ def map_list(req):
     #num = maps.count()
     for x in maps : #range(num):
         maplist.append(x['info'])
-    #print maplist
+    # print maplist
     return maplist
 
 def callback_map(data):
@@ -162,7 +157,7 @@ def create_map(req ):
     else :
         width = 10
         height = 25
-    global my_map, map_pub
+    global map_pub
     h = Header()
     h.frame_id = 'map'
     test_map = OccupancyGrid()
