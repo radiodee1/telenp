@@ -171,6 +171,7 @@ struct Definition< ::tele_presence::MapLoadRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "\n\
+\n\
 string map_id\n\
 ";
   }

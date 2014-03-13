@@ -61,7 +61,7 @@ def map_save(req):
     #
     newjson = rosjson.value_to_json(newmap)
     collection.insert(json.loads(newjson))
-    return
+    return []
 
 def map_load(req):
     #
@@ -124,16 +124,19 @@ def map_list(req):
     maps = collection.find()
     #num = maps.count()
     for x in maps : #range(num):
-        maplist.append(x['info'])
+        onemap = MapListEntry()
+        onemap.name = x['info']['name']
+        onemap.map_id = x['info']['map_id']
+        maplist.append(onemap)
     # print maplist
-    return maplist
+    return [ maplist ]
 
 def callback_map(data):
     global grid, whole_map
     #whole_map.grid = data
     #
     grid = data
-    print '---------------------', grid
+    # print '---------------------', grid
     return 
 
 def prep_map(whole_map):

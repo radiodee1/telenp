@@ -61,10 +61,10 @@
   "d742ddbd5e3e8937162044ae4b300275")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<MapLoad-request>)))
   "Returns full string definition for message of type '<MapLoad-request>"
-  (cl:format cl:nil "~%string map_id~%~%~%"))
+  (cl:format cl:nil "~%~%string map_id~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'MapLoad-request)))
   "Returns full string definition for message of type 'MapLoad-request"
-  (cl:format cl:nil "~%string map_id~%~%~%"))
+  (cl:format cl:nil "~%~%string map_id~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <MapLoad-request>))
   (cl:+ 0
      4 (cl:length (cl:slot-value msg 'map_id))

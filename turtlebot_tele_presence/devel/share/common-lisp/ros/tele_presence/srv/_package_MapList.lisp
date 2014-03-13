@@ -1,2 +1,4 @@
 (cl:in-package tele_presence-srv)
-(cl:export '())
+(cl:export '(MAP_LIST-VAL
+          MAP_LIST
+))

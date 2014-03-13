@@ -10,6 +10,7 @@ class MapLoadRequest(genpy.Message):
   _type = "tele_presence/MapLoadRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """
+
 string map_id
 
 """

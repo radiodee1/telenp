@@ -6,6 +6,6 @@
   <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="screen">
     <param name="database_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
-    <param name="warehouse_port" value="28018"/>
+    <param name="warehouse_port" value="27018"/>
   </node>
 </launch>

@@ -412,14 +412,14 @@ function parseCommands(commands) {
 	                    
 	                console.log("resolution should be: " + map_nav_resolution);
 	                //FIND RESOLUTION, THEN SAVE MAP!!
-                
+                    /*
 	                var start = new Array(
-	                    /*
+	                    
 	                    'rosrun',
 	                    'map_store',
 	                    'add_map.py',
 	                    commands.new_name
-	                    */
+	                    
 	                    
 	                    
 	                    "roslaunch",
@@ -442,16 +442,17 @@ function parseCommands(commands) {
 	                }
 	                save_count ++;
 	                //map_meta_data.unsubscribe();
+	                */
 	            });//map saved with proper resolution (??)
 	            
-	            /*
+	            
                 var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
 	            map_service_save.callService( request, function (result) {
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	                console.log("---map_name---  " + commands.new_name);
 	            } );
-	            */
+	            
 	            
 	        break;
 	        
@@ -713,15 +714,15 @@ function setMapServices( rootname ) {
   	map_service_list = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + 
-    	rootname + '/list_maps',
-   		 messageType : 'map_store/ListMaps'
+    	rootname + '/list_map',
+   		 messageType : 'tele_presence/MapList'
   	});
   	
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + rootname + '/publish_map',
-   		 messageType : 'map_store/PublishMap'
+   		 messageType : 'tele_presence/MapLoad'
   	});
   	
   	// service for new map
@@ -754,20 +755,20 @@ function setMapServices( rootname ) {
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + rootname + '/delete_map',
-   		 messageType : 'map_store/DeleteMap'
+   		 messageType : 'tele_presence/MapDelete'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + rootname + '/rename_map',
-   		 messageType : 'map_store/RenameMap'
+   		 messageType : 'tele_presence/MapRename'
   	});
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + 
     	'/save_map',
-   		 messageType : 'map_store/SaveMap'
+   		 messageType : 'tele_presence/MapSave'
   	});
   	
   	map_listener = new ROSLIB.Topic({
