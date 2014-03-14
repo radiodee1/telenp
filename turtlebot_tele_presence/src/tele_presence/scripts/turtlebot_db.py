@@ -42,15 +42,15 @@ def db_stuff():
     #
     rospy.Subscriber("map", OccupancyGrid, callback_map) # THROWS WARNING!!
     
-    map_list(MapList())
+    #map_list(MapList())
     #req = MapSave()
     #req.name = "new-name2"
     #grid = create_map(None)
     #map_save(req)
     
-    idmap = MapLoad()
-    idmap.map_id = '1b4cb19c5e8f75871da5b40c3128dbaf'
-    map_load(idmap)
+    #idmap = MapLoad()
+    #idmap.map_id = '1b4cb19c5e8f75871da5b40c3128dbaf'
+    #map_load(idmap)
     #map_list(MapList())
     #
     rospy.spin()
