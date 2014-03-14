@@ -143,11 +143,11 @@ def map_list(req):
     return [ maplist ]
 
 def callback_map(data):
-    global grid, whole_map
+    global grid #, whole_map
     #whole_map.grid = data
     #print data._connection_header
     grid = data
-    print '---------------------', grid
+    # print '---------------------', grid
     return 
 
 def prep_map(whole_map):
