@@ -69,10 +69,12 @@ def map_save(req):
 
 def map_load(req):
     #
+    global map_pub, meta_pub
+    #
     whole_map = MapWithMetaData()
     whole_map = collection.find_one({ 'info.map_id' : req.map_id })
     if whole_map == None :
-        return []
+        return ['badmap']
     
     oldmap = OccupancyGrid()
     h = Header()
