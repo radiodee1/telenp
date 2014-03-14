@@ -31,8 +31,8 @@ def db_stuff():
     #
     
     rospy.init_node('turtlebot_db', anonymous=True)
-    map_pub = rospy.Publisher('/map', OccupancyGrid, latch=True)
-    meta_pub = rospy.Publisher('/map_metadata', MapMetaData, latch=True)
+    map_pub = rospy.Publisher('map', OccupancyGrid, latch=True)
+    meta_pub = rospy.Publisher('map_metadata', MapMetaData, latch=True)
     #
     rospy.Service('save_map', MapSave, map_save)
     rospy.Service('load_map_db', MapLoad, map_load)
@@ -40,7 +40,7 @@ def db_stuff():
     rospy.Service('delete_map', MapDelete , map_delete )
     rospy.Service('list_map', MapList , map_list )
     #
-    rospy.Subscriber("/map", OccupancyGrid, callback_map) # THROWS WARNING!!
+    rospy.Subscriber("map", OccupancyGrid, callback_map) # THROWS WARNING!!
     
     map_list(MapList())
     #req = MapSave()
@@ -50,7 +50,7 @@ def db_stuff():
     
     idmap = MapLoad()
     idmap.map_id = '1b4cb19c5e8f75871da5b40c3128dbaf'
-    #map_load(idmap)
+    map_load(idmap)
     #map_list(MapList())
     #
     rospy.spin()
@@ -79,12 +79,14 @@ def map_load(req):
     oldmap = OccupancyGrid()
     h = Header()
     oldmap.header = h
+    oldmap.header.stamp.secs = 0
+    oldmap.header.stamp.nsecs = 0
     
     oldmap.header.frame_id = 'map'
     #oldmap.header.seq = 0
     
     oldmap.info = MapMetaData()
-    oldmap.info.map_load_time = whole_map['grid']['info']['map_load_time']
+    oldmap.info.map_load_time = rospy.Time() #whole_map['grid']['info']['map_load_time']
     oldmap.info.resolution = whole_map['grid']['info']['resolution']
     oldmap.info.width = whole_map['grid']['info']['width']
     oldmap.info.height = whole_map['grid']['info']['height']
@@ -103,7 +105,7 @@ def map_load(req):
     
     oldmap.data = whole_map['grid']['data']
     
-    print oldmap
+    # print oldmap
     # print whole_map
     
     map_pub.publish(oldmap)
@@ -143,9 +145,9 @@ def map_list(req):
 def callback_map(data):
     global grid, whole_map
     #whole_map.grid = data
-    #
+    #print data._connection_header
     grid = data
-    # print '---------------------', grid
+    print '---------------------', grid
     return 
 
 def prep_map(whole_map):
