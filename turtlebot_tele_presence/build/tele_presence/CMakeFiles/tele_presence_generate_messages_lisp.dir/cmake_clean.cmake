@@ -2,6 +2,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/tele_presence_generate_messages_lisp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapListEntry.lisp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/msg/MapWithMetaData.lisp"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/MapPublish.lisp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/CreateMap.lisp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/MapList.lisp"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/common-lisp/ros/tele_presence/srv/MapDelete.lisp"

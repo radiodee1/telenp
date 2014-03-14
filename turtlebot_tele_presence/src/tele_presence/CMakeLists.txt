@@ -68,6 +68,7 @@ add_service_files(
    
    MapSave.srv
    MapLoad.srv
+   MapPublish.srv
    MapRename.srv
    MapList.srv
    MapDelete.srv

@@ -1,0 +1,5 @@
+# one input, one output
+
+string map_id
+---
+string message

@@ -193,8 +193,6 @@ add_dependencies(map_store_np_genpy map_store_np_generate_messages_py)
 list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS map_store_np_generate_messages_py)
 
 
-debug_message(2 "map_store_np: Iflags=${MSG_I_FLAGS}")
-
 
 if(gencpp_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/map_store_np)
   # install generated code

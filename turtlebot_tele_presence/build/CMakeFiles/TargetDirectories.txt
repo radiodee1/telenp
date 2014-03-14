@@ -1,4 +1,3 @@
-/home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/CMakeFiles/_catkin_empty_exported_target.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir
 /home/dave/workspace/telenp/turtlebot_tele_presence/build/map_store_np/CMakeFiles/actionlib_msgs_generate_messages_py.dir

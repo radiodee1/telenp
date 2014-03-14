@@ -35,7 +35,7 @@ def db_stuff():
     meta_pub = rospy.Publisher('map_metadata', MapMetaData, latch=True)
     #
     rospy.Service('save_map', MapSave, map_save)
-    rospy.Service('load_map_db', MapLoad, map_load)
+    rospy.Service('load_map_db', MapPublish, map_load)
     rospy.Service('rename_map', MapRename, map_rename)
     rospy.Service('delete_map', MapDelete , map_delete )
     rospy.Service('list_map', MapList , map_list )

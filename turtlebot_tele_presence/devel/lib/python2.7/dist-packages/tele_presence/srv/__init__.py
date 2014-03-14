@@ -8,3 +8,4 @@ from ._MapDelete import *
 from ._MapLoad import *
 from ._CreateMap import *
 from ._MapRename import *
+from ._MapPublish import *
