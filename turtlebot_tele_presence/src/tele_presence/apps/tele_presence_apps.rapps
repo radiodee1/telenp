@@ -1,0 +1,4 @@
+apps:
+ - tele_presence/mapping
+ - tele_presence/navigate
+ - tele_presence/teleop

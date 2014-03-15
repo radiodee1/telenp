@@ -1,0 +1,13 @@
+display: Mapping
+description: Tele NP Mapping Functionality
+platform: linux.ros.*
+launch: tele_presence/mapping.launch
+interface: tele_presence/mapping.interface
+icon: tele_presence/mapping.png
+pairing_clients:
+ - type: android
+   manager:
+     api-level: 
+     intent-action: 
+
+

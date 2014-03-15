@@ -1,0 +1,13 @@
+display: Teleop
+description: Tele NP teleop functionality
+platform: linux.ros.*
+launch: tele_presence/teleop.launch
+interface: tele_presence/teleop.interface
+icon: tele_presence/teleop.png
+pairing_clients:
+ - type: android
+   manager:
+     api-level: 
+     intent-action:
+
+

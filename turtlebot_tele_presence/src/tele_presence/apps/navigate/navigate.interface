@@ -1,0 +1,24 @@
+publishers: 
+  - scan
+  - /tf
+  - tf_changes
+  - /tf_changes
+  - map
+  - amcl_pose
+  - move_base/TrajectoryPlannerROS/global_plan
+subscribers: 
+  - mobile_base/commands/velocity
+  - initialpose
+  - /initialpose
+  - move_base_simple/goal
+  - /move_base_simple/goal
+  - move_base/goal
+  - /move_base/goal
+  - /move_base/goal/goal
+services: 
+  - save_map
+  - rename_map
+  - delete_map
+  - load_map_db
+  - list_map
+
