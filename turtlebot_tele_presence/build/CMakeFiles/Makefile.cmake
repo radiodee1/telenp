@@ -17,14 +17,10 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "tele_presence/catkin_generated/tele_presence-msg-extras.cmake.develspace.in"
   "tele_presence/catkin_generated/tele_presence-msg-extras.cmake.installspace.in"
   "tele_presence/cmake/tele_presence-genmsg.cmake"
-  "tele_presence_apps/catkin_generated/ordered_paths.cmake"
-  "tele_presence_apps/catkin_generated/package.cmake"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/share/tele_presence/cmake/tele_presence-msg-paths.cmake"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/CMakeLists.txt"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/CMakeLists.txt"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/package.xml"
-  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence_apps/CMakeLists.txt"
-  "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence_apps/package.xml"
   "/opt/ros/hydro/share/actionlib_msgs/cmake/actionlib_msgs-extras.cmake"
   "/opt/ros/hydro/share/actionlib_msgs/cmake/actionlib_msgs-msg-extras.cmake"
   "/opt/ros/hydro/share/actionlib_msgs/cmake/actionlib_msgs-msg-paths.cmake"
@@ -175,7 +171,6 @@ SET(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "gtest/CMakeFiles/CMakeDirectoryInformation.cmake"
   "tele_presence/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "tele_presence_apps/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:

@@ -66,9 +66,9 @@ var map_command_nav_start = "app_mapnav_start";
 var map_command_nav_goal = "app_mapnav_goal";
 var map_command_library_force = "map_library_force";
 // constants for app names
-var app_manager_teleop = "tele_presence_apps/teleop";
-var app_manager_mapping = "tele_presence_apps/mapping";
-var app_manager_navigate = "tele_presence_apps/navigate";
+var app_manager_teleop = "tele_presence/teleop";
+var app_manager_mapping = "tele_presence/mapping";
+var app_manager_navigate = "tele_presence/navigate";
 // enum for planning map movement
 var ENUM_BOT_START = "turtlebot_place_start";
 var ENUM_BOT_END = "turtlebot_place_end";

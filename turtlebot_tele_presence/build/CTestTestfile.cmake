@@ -6,4 +6,3 @@
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
 SUBDIRS(tele_presence)
-SUBDIRS(tele_presence_apps)

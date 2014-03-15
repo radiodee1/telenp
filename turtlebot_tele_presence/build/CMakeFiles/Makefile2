@@ -884,8 +884,8 @@ clean: tele_presence/CMakeFiles/tele_presence_gencpp.dir/clean
 
 # All Build rule for target.
 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all
-tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_py.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages.dir/all: tele_presence/CMakeFiles/tele_presence_generate_messages_lisp.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles 
@@ -921,8 +921,8 @@ clean: tele_presence/CMakeFiles/tele_presence_generate_messages.dir/clean
 
 # All Build rule for target.
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: tele_presence/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
-tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: tele_presence/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: tele_presence/CMakeFiles/nav_msgs_generate_messages_cpp.dir/all
+tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/all: tele_presence/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/depend
 	$(MAKE) -f tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build.make tele_presence/CMakeFiles/tele_presence_generate_messages_cpp.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/dave/workspace/telenp/turtlebot_tele_presence/build/CMakeFiles  4 5 6 7 8 9 10 11 12 13 14 15
@@ -1076,21 +1076,6 @@ tele_presence/CMakeFiles/tele_presence_genpy.dir/clean:
 # clean rule for target.
 clean: tele_presence/CMakeFiles/tele_presence_genpy.dir/clean
 .PHONY : clean
-
-#=============================================================================
-# Directory level rules for directory tele_presence_apps
-
-# Convenience name for "all" pass in the directory.
-tele_presence_apps/all:
-.PHONY : tele_presence_apps/all
-
-# Convenience name for "clean" pass in the directory.
-tele_presence_apps/clean:
-.PHONY : tele_presence_apps/clean
-
-# Convenience name for "preinstall" pass in the directory.
-tele_presence_apps/preinstall:
-.PHONY : tele_presence_apps/preinstall
 
 #=============================================================================
 # Special targets to cleanup operation of make.

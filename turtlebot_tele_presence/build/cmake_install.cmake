@@ -86,7 +86,6 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/dave/workspace/telenp/turtlebot_tele_presence/build/gtest/cmake_install.cmake")
   INCLUDE("/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence/cmake_install.cmake")
-  INCLUDE("/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence_apps/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

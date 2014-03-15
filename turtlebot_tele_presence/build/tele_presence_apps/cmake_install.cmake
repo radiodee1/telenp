@@ -32,18 +32,3 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   SET(CMAKE_INSTALL_SO_NO_EXE "1")
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
-IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence_apps/catkin_generated/installspace/tele_presence_apps.pc")
-ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-
-IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tele_presence_apps/cmake" TYPE FILE FILES
-    "/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence_apps/catkin_generated/installspace/tele_presence_appsConfig.cmake"
-    "/home/dave/workspace/telenp/turtlebot_tele_presence/build/tele_presence_apps/catkin_generated/installspace/tele_presence_appsConfig-version.cmake"
-    )
-ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-
-IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tele_presence_apps" TYPE FILE FILES "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence_apps/package.xml")
-ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-

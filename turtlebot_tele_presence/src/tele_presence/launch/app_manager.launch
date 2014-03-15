@@ -1,5 +1,5 @@
 <launch>
-  <arg name="rapp_lists" default="tele_presence_apps/tele_presence_apps.rapps"/> 
+  <arg name="rapp_lists" default="tele_presence/tele_presence_apps.rapps"/> 
   <include file="$(find tele_presence)/launch/includes/app_manager_rocon.launch.xml">
     <arg name="rapp_lists" value="$(arg rapp_lists)" />
   </include>
