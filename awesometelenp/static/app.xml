@@ -28,12 +28,11 @@
      relative path.
      Tip: You can load it from a local web server such as
      http://localhost/app.js for faster single user development -->
-
-<script type="text/javascript" src="//awesometelenp.appspot.com/static/eventemitter2.min.js"></script>
-<script type="text/javascript" src="//awesometelenp.appspot.com/static/roslib.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="//awesometelenp.appspot.com/static/eventemitter2.min.js"></script>
 <!-- script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/0.4.11/eventemitter2.js"></script -->
-<!-- script type="text/javascript" src="https://github.com/RobotWebTools/roslibjs/blob/devel/build/roslib.js"></script -->
+<!-- script type="text/javascript" src="http://github.com/RobotWebTools/roslibjs/blob/devel/build/roslib.js"></script -->
+<script type="text/javascript" src="//awesometelenp.appspot.com/static/roslib.min.js"></script>
 <script type="text/javascript"><!-- /script -->
 
 
