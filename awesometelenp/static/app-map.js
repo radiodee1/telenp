@@ -717,7 +717,7 @@ function setMapServices( rootname ) {
     	'ros' : ros,
     	'name' : app_manager_prefix + 
     	rootname + '/list_map',
-   		 messageType : 'tele_presence/MapList'
+   		 serviceType : 'tele_presence/MapList'
   	});
   	
   	
@@ -732,45 +732,45 @@ function setMapServices( rootname ) {
   	map_service_new = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix +  '/new_map',
-   		 messageType : 'tele_presence/CreateMap'
+   		 serviceType : 'tele_presence/CreateMap'
   	});
   	
   	map_service_pic = new ROSLIB.Service({
     	'ros' : ros,
     	'name' :app_manager_prefix +  '/picture_map',
-   		 messageType : 'tele_presence/PictureMap'
+   		 serviceType : 'tele_presence/PictureMap'
   	});
   	
   	//launch
   	map_service_start = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + '/basic_launch',
-   		 messageType : 'tele_presence/BasicLaunch'
+   		 serviceType : 'tele_presence/BasicLaunch'
   	});
   	
   	//stop
   	map_service_stop = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + '/basic_stop',
-   		 messageType : 'tele_presence/BasicStop'
+   		 serviceType : 'tele_presence/BasicStop'
   	});
   	
   	map_service_delete = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + rootname + '/delete_map',
-   		 messageType : 'tele_presence/MapDelete'
+   		 serviceType : 'tele_presence/MapDelete'
   	});
   	
   	map_service_rename = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + rootname + '/rename_map',
-   		 messageType : 'tele_presence/MapRename'
+   		 serviceType : 'tele_presence/MapRename'
   	});
   	
   	map_service_save = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + '/save_map',
-   		 messageType : 'tele_presence/MapSave'
+   		 serviceType : 'tele_presence/MapSave'
   	});
   	
   	map_listener = new ROSLIB.Topic({
@@ -820,19 +820,19 @@ function setMapServices( rootname ) {
   	app_service_start = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : '/app_manager/start_app',
-   		 messageType : 'rocon_app_manager_msgs/StartApp'
+   		 serviceType : 'rocon_app_manager_msgs/StartApp'
   	});
   	
   	app_service_stop = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : '/app_manager/stop_app',
-   		 messageType : 'rocon_app_manager_msgs/StopApp'
+   		 serviceType : 'rocon_app_manager_msgs/StopApp'
   	});
   	
   	app_service_invite = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : '/app_manager/simple_invite',
-   		 messageType : 'rocon_app_manager_msgs/SimpleInvite'
+   		 serviceType : 'rocon_app_manager_msgs/SimpleInvite'
   	});
 }
 
