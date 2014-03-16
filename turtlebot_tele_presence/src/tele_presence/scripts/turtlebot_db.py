@@ -35,7 +35,7 @@ def db_stuff():
     meta_pub = rospy.Publisher('map_metadata', MapMetaData, latch=True)
     #
     rospy.Service('save_map', MapSave, map_save)
-    rospy.Service('load_map_db', MapPublish, map_load)
+    rospy.Service('load_map_db', MapPublish, map_loading)
     rospy.Service('rename_map', MapRename, map_rename)
     rospy.Service('delete_map', MapDelete , map_delete )
     rospy.Service('list_map', MapList , map_list )
@@ -67,6 +67,8 @@ def map_save(req):
     collection.insert(json.loads(newjson))
     return []
 
+def map_loading(req):
+    return
 
 def map_load(req):
     #

@@ -57,16 +57,13 @@ struct MapPublishResponse_
   typedef MapPublishResponse_<ContainerAllocator> Type;
 
   MapPublishResponse_()
-    : message()  {
+    {
     }
   MapPublishResponse_(const ContainerAllocator& _alloc)
-    : message(_alloc)  {
+    {
     }
 
 
-
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _message_type;
-  _message_type message;
 
 
 
@@ -102,7 +99,7 @@ namespace message_traits
 
 
 
-// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
+// BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
 // {'std_msgs': ['/opt/ros/hydro/share/std_msgs/cmake/../msg'], 'tele_presence': ['/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg', '/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/msg'], 'actionlib_msgs': ['/opt/ros/hydro/share/actionlib_msgs/cmake/../msg'], 'nav_msgs': ['/opt/ros/hydro/share/nav_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/hydro/share/geometry_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
@@ -112,12 +109,12 @@ namespace message_traits
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::tele_presence::MapPublishResponse_<ContainerAllocator> >
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::tele_presence::MapPublishResponse_<ContainerAllocator> const>
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
@@ -146,12 +143,12 @@ struct MD5Sum< ::tele_presence::MapPublishResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "5f003d6bcc824cbd51361d66d8e4f76c";
+    return "d41d8cd98f00b204e9800998ecf8427e";
   }
 
   static const char* value(const ::tele_presence::MapPublishResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x5f003d6bcc824cbdULL;
-  static const uint64_t static_value2 = 0x51361d66d8e4f76cULL;
+  static const uint64_t static_value1 = 0xd41d8cd98f00b204ULL;
+  static const uint64_t static_value2 = 0xe9800998ecf8427eULL;
 };
 
 template<class ContainerAllocator>
@@ -170,7 +167,7 @@ struct Definition< ::tele_presence::MapPublishResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "string message\n\
+    return "\n\
 \n\
 ";
   }
@@ -188,10 +185,8 @@ namespace serialization
 
   template<class ContainerAllocator> struct Serializer< ::tele_presence::MapPublishResponse_<ContainerAllocator> >
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
-    {
-      stream.next(m.message);
-    }
+    template<typename Stream, typename T> inline static void allInOne(Stream&, T)
+    {}
 
     ROS_DECLARE_ALLINONE_SERIALIZER;
   }; // struct MapPublishResponse_
@@ -207,11 +202,8 @@ namespace message_operations
 template<class ContainerAllocator>
 struct Printer< ::tele_presence::MapPublishResponse_<ContainerAllocator> >
 {
-  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::tele_presence::MapPublishResponse_<ContainerAllocator>& v)
-  {
-    s << indent << "message: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.message);
-  }
+  template<typename Stream> static void stream(Stream&, const std::string&, const ::tele_presence::MapPublishResponse_<ContainerAllocator>&)
+  {}
 };
 
 } // namespace message_operations

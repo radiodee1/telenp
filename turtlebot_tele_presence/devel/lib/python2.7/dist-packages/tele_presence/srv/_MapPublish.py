@@ -127,15 +127,15 @@ import struct
 
 
 class MapPublishResponse(genpy.Message):
-  _md5sum = "5f003d6bcc824cbd51361d66d8e4f76c"
+  _md5sum = "d41d8cd98f00b204e9800998ecf8427e"
   _type = "tele_presence/MapPublishResponse"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """string message
+  _full_text = """
 
 
 """
-  __slots__ = ['message']
-  _slot_types = ['string']
+  __slots__ = []
+  _slot_types = []
 
   def __init__(self, *args, **kwds):
     """
@@ -145,7 +145,7 @@ class MapPublishResponse(genpy.Message):
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       message
+       
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -153,11 +153,6 @@ class MapPublishResponse(genpy.Message):
     """
     if args or kwds:
       super(MapPublishResponse, self).__init__(*args, **kwds)
-      #message fields cannot be None, assign default values for those that are
-      if self.message is None:
-        self.message = ''
-    else:
-      self.message = ''
 
   def _get_types(self):
     """
@@ -171,12 +166,7 @@ class MapPublishResponse(genpy.Message):
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.message
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
-        length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
+      pass
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -187,15 +177,6 @@ class MapPublishResponse(genpy.Message):
     """
     try:
       end = 0
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.message = str[start:end].decode('utf-8')
-      else:
-        self.message = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -208,12 +189,7 @@ class MapPublishResponse(genpy.Message):
     :param numpy: numpy python module
     """
     try:
-      _x = self.message
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
-        length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
+      pass
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -225,15 +201,6 @@ class MapPublishResponse(genpy.Message):
     """
     try:
       end = 0
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.message = str[start:end].decode('utf-8')
-      else:
-        self.message = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -241,6 +208,6 @@ class MapPublishResponse(genpy.Message):
 _struct_I = genpy.struct_I
 class MapPublish(object):
   _type          = 'tele_presence/MapPublish'
-  _md5sum = '482395c9172a4022049c2dfb4042dbb1'
+  _md5sum = 'd742ddbd5e3e8937162044ae4b300275'
   _request_class  = MapPublishRequest
   _response_class = MapPublishResponse
