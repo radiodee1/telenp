@@ -253,7 +253,7 @@ function tryRadioClick() {
 }
 
 function trySetupROS() {
-
+    /*
     ros = new ROSLIB.Ros({
     	url : 'ws://localhost:9090'
   	});
@@ -285,10 +285,47 @@ function trySetupROS() {
    		 messageType : 'std_msgs/UInt8'
    		 
   	});
+    */
     
+    setServices();
     setKinectListener();
     setMapServices();
     inviteAndInit();
+}
+
+function setServices() {
+    
+    ros = new ROSLIB.Ros({
+    	url : 'ws://localhost:9090'
+  	});
+	
+	cmdVel = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : app_manager_prefix + '/talker',
+   		 messageType : 'std_msgs/String'
+  	});
+			
+	cmdVel2 = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : 
+    	    app_manager_prefix + 
+    	    '/cmd_vel_mux/input/teleop',
+    	//'name' : '/mobile_base/commands/velocity',
+   		 messageType : 'geometry_msgs/Twist'
+  	});
+
+    cmdVel3 = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : app_manager_prefix + '/'+ basename +'/command_velocity',
+   		 messageType : 'geometry_msgs/TwistStamped'
+  	});
+
+    kinect_listener = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : '/'+ basename +'/kinect_feedback',
+   		 messageType : 'std_msgs/UInt8'
+   		 
+  	});
 }
 
 function trySetupControls() {

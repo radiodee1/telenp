@@ -370,7 +370,10 @@ function parseCommands(commands) {
                     map_nav_started = true;
                     
 	                //} ); // inner block...
-	        
+	                setServices();
+	                setMapServices();
+	                
+	                
 	                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
 	                map_service_load.callService( request, function (result) {
 	                    console.log(result.message);

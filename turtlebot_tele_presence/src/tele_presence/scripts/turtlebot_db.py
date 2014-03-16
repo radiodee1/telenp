@@ -67,6 +67,7 @@ def map_save(req):
     collection.insert(json.loads(newjson))
     return []
 
+
 def map_load(req):
     #
     global map_pub, meta_pub

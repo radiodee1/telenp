@@ -5,5 +5,5 @@
   </include>
 
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
-  <!-- include file="$(find tele_presence)/launch/minimal.launch"/ -->
+  
 </launch>
