@@ -370,8 +370,9 @@ function parseCommands(commands) {
                     map_nav_started = true;
                     
 	                //} ); // inner block...
-	                setServices();
-	                setMapServices();
+	                
+	                //setServices();
+	                //setMapServices();
 	                
 	                
 	                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
@@ -726,7 +727,7 @@ function setMapServices( rootname ) {
   	
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
-    	'name' : app_manager_prefix + rootname + 
+    	'name' : //app_manager_prefix + rootname + 
     	'/load_map_db',
    		 serviceType : 'tele_presence/MapPublish'
   	});
