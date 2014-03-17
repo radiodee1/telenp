@@ -2,4 +2,4 @@
 
 string map_id
 ---
-
+string message
