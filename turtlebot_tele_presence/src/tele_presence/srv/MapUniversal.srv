@@ -1,0 +1,15 @@
+# one input to determine operation
+
+# 0 list
+# 1 save
+# 2 rename
+# 3 delete
+# 4 publish
+
+uint16 op
+string name
+string map_id
+## MapListEntry map_entry
+---
+## string message
+MapListEntry[] map_list

@@ -48,6 +48,7 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
+#include <tele_presence/MapListEntry.h>
 
 namespace tele_presence
 {
@@ -57,16 +58,21 @@ struct MapLoadRequest_
   typedef MapLoadRequest_<ContainerAllocator> Type;
 
   MapLoadRequest_()
-    : map_id()  {
+    : map_id()
+    , map_entry()  {
     }
   MapLoadRequest_(const ContainerAllocator& _alloc)
-    : map_id(_alloc)  {
+    : map_id(_alloc)
+    , map_entry(_alloc)  {
     }
 
 
 
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _map_id_type;
   _map_id_type map_id;
+
+   typedef  ::tele_presence::MapListEntry_<ContainerAllocator>  _map_entry_type;
+  _map_entry_type map_entry;
 
 
 
@@ -146,12 +152,12 @@ struct MD5Sum< ::tele_presence::MapLoadRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d742ddbd5e3e8937162044ae4b300275";
+    return "296ab04eb9e4b347efaf229a32a7ef10";
   }
 
   static const char* value(const ::tele_presence::MapLoadRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd742ddbd5e3e8937ULL;
-  static const uint64_t static_value2 = 0x162044ae4b300275ULL;
+  static const uint64_t static_value1 = 0x296ab04eb9e4b347ULL;
+  static const uint64_t static_value2 = 0xefaf229a32a7ef10ULL;
 };
 
 template<class ContainerAllocator>
@@ -171,7 +177,25 @@ struct Definition< ::tele_presence::MapLoadRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "\n\
+string map_id\n\
+MapListEntry map_entry\n\
 \n\
+================================================================================\n\
+MSG: tele_presence/MapListEntry\n\
+# One entry in a list of maps.\n\
+\n\
+# Naming a map is optional.\n\
+string name\n\
+\n\
+# Maps made by the make-a-map app are given a session ID, which is the\n\
+# time when the map-making session was started, expressed as seconds\n\
+# since the epoch and converted to a string.\n\
+string session_id\n\
+\n\
+# Creation time of this map, in seconds since the epoch.\n\
+int64 date\n\
+\n\
+# Unique ID of this map.\n\
 string map_id\n\
 ";
   }
@@ -192,6 +216,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.map_id);
+      stream.next(m.map_entry);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER;
@@ -212,6 +237,9 @@ struct Printer< ::tele_presence::MapLoadRequest_<ContainerAllocator> >
   {
     s << indent << "map_id: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.map_id);
+    s << indent << "map_entry: ";
+    s << std::endl;
+    Printer< ::tele_presence::MapListEntry_<ContainerAllocator> >::stream(s, indent + "  ", v.map_entry);
   }
 };
 

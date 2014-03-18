@@ -11,7 +11,12 @@
     :reader map_id
     :initarg :map_id
     :type cl:string
-    :initform ""))
+    :initform "")
+   (map_entry
+    :reader map_entry
+    :initarg :map_entry
+    :type tele_presence-msg:MapListEntry
+    :initform (cl:make-instance 'tele_presence-msg:MapListEntry)))
 )
 
 (cl:defclass MapPublish-request (<MapPublish-request>)
@@ -26,6 +31,11 @@
 (cl:defmethod map_id-val ((m <MapPublish-request>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader tele_presence-srv:map_id-val is deprecated.  Use tele_presence-srv:map_id instead.")
   (map_id m))
+
+(cl:ensure-generic-function 'map_entry-val :lambda-list '(m))
+(cl:defmethod map_entry-val ((m <MapPublish-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader tele_presence-srv:map_entry-val is deprecated.  Use tele_presence-srv:map_entry instead.")
+  (map_entry m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <MapPublish-request>) ostream)
   "Serializes a message object of type '<MapPublish-request>"
   (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'map_id))))
@@ -34,6 +44,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_str_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
   (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'map_id))
+  (roslisp-msg-protocol:serialize (cl:slot-value msg 'map_entry) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <MapPublish-request>) istream)
   "Deserializes a message object of type '<MapPublish-request>"
@@ -45,6 +56,7 @@
       (cl:setf (cl:slot-value msg 'map_id) (cl:make-string __ros_str_len))
       (cl:dotimes (__ros_str_idx __ros_str_len msg)
         (cl:setf (cl:char (cl:slot-value msg 'map_id) __ros_str_idx) (cl:code-char (cl:read-byte istream)))))
+  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'map_entry) istream)
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<MapPublish-request>)))
@@ -55,24 +67,26 @@
   "tele_presence/MapPublishRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<MapPublish-request>)))
   "Returns md5sum for a message object of type '<MapPublish-request>"
-  "482395c9172a4022049c2dfb4042dbb1")
+  "5e2740fe7ba2f74d120fcf5c061ae638")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'MapPublish-request)))
   "Returns md5sum for a message object of type 'MapPublish-request"
-  "482395c9172a4022049c2dfb4042dbb1")
+  "5e2740fe7ba2f74d120fcf5c061ae638")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<MapPublish-request>)))
   "Returns full string definition for message of type '<MapPublish-request>"
-  (cl:format cl:nil "~%~%string map_id~%~%~%"))
+  (cl:format cl:nil "~%string map_id~%MapListEntry map_entry~%~%================================================================================~%MSG: tele_presence/MapListEntry~%# One entry in a list of maps.~%~%# Naming a map is optional.~%string name~%~%# Maps made by the make-a-map app are given a session ID, which is the~%# time when the map-making session was started, expressed as seconds~%# since the epoch and converted to a string.~%string session_id~%~%# Creation time of this map, in seconds since the epoch.~%int64 date~%~%# Unique ID of this map.~%string map_id~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'MapPublish-request)))
   "Returns full string definition for message of type 'MapPublish-request"
-  (cl:format cl:nil "~%~%string map_id~%~%~%"))
+  (cl:format cl:nil "~%string map_id~%MapListEntry map_entry~%~%================================================================================~%MSG: tele_presence/MapListEntry~%# One entry in a list of maps.~%~%# Naming a map is optional.~%string name~%~%# Maps made by the make-a-map app are given a session ID, which is the~%# time when the map-making session was started, expressed as seconds~%# since the epoch and converted to a string.~%string session_id~%~%# Creation time of this map, in seconds since the epoch.~%int64 date~%~%# Unique ID of this map.~%string map_id~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <MapPublish-request>))
   (cl:+ 0
      4 (cl:length (cl:slot-value msg 'map_id))
+     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'map_entry))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <MapPublish-request>))
   "Converts a ROS message object to a list"
   (cl:list 'MapPublish-request
     (cl:cons ':map_id (map_id msg))
+    (cl:cons ':map_entry (map_entry msg))
 ))
 ;//! \htmlinclude MapPublish-response.msg.html
 
@@ -125,10 +139,10 @@
   "tele_presence/MapPublishResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<MapPublish-response>)))
   "Returns md5sum for a message object of type '<MapPublish-response>"
-  "482395c9172a4022049c2dfb4042dbb1")
+  "5e2740fe7ba2f74d120fcf5c061ae638")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'MapPublish-response)))
   "Returns md5sum for a message object of type 'MapPublish-response"
-  "482395c9172a4022049c2dfb4042dbb1")
+  "5e2740fe7ba2f74d120fcf5c061ae638")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<MapPublish-response>)))
   "Returns full string definition for message of type '<MapPublish-response>"
   (cl:format cl:nil "string message~%~%~%~%"))

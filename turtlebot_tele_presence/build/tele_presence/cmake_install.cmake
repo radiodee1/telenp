@@ -51,6 +51,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapRename.srv"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapList.srv"
     "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapDelete.srv"
+    "/home/dave/workspace/telenp/turtlebot_tele_presence/src/tele_presence/srv/MapUniversal.srv"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

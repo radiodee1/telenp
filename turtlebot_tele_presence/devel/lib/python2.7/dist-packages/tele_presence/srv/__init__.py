@@ -9,3 +9,4 @@ from ._MapLoad import *
 from ._CreateMap import *
 from ._MapRename import *
 from ._MapPublish import *
+from ._MapUniversal import *

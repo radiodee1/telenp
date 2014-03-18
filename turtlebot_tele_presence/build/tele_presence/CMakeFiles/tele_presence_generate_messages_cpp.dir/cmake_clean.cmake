@@ -7,6 +7,7 @@ FILE(REMOVE_RECURSE
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapList.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapDelete.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/PictureMap.h"
+  "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapUniversal.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapSave.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/MapLoad.h"
   "/home/dave/workspace/telenp/turtlebot_tele_presence/devel/include/tele_presence/BasicStop.h"

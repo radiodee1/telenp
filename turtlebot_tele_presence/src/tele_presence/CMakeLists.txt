@@ -72,7 +72,7 @@ add_service_files(
    MapRename.srv
    MapList.srv
    MapDelete.srv
-   
+   MapUniversal.srv
 )
 
 ## Generate actions in the 'action' folder

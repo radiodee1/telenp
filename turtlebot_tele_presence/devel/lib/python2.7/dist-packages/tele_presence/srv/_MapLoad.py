@@ -4,18 +4,37 @@ python3 = True if sys.hexversion > 0x03000000 else False
 import genpy
 import struct
 
+import tele_presence.msg
 
 class MapLoadRequest(genpy.Message):
-  _md5sum = "d742ddbd5e3e8937162044ae4b300275"
+  _md5sum = "296ab04eb9e4b347efaf229a32a7ef10"
   _type = "tele_presence/MapLoadRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """
+string map_id
+MapListEntry map_entry
 
+================================================================================
+MSG: tele_presence/MapListEntry
+# One entry in a list of maps.
+
+# Naming a map is optional.
+string name
+
+# Maps made by the make-a-map app are given a session ID, which is the
+# time when the map-making session was started, expressed as seconds
+# since the epoch and converted to a string.
+string session_id
+
+# Creation time of this map, in seconds since the epoch.
+int64 date
+
+# Unique ID of this map.
 string map_id
 
 """
-  __slots__ = ['map_id']
-  _slot_types = ['string']
+  __slots__ = ['map_id','map_entry']
+  _slot_types = ['string','tele_presence/MapListEntry']
 
   def __init__(self, *args, **kwds):
     """
@@ -25,7 +44,7 @@ string map_id
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       map_id
+       map_id,map_entry
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -36,8 +55,11 @@ string map_id
       #message fields cannot be None, assign default values for those that are
       if self.map_id is None:
         self.map_id = ''
+      if self.map_entry is None:
+        self.map_entry = tele_presence.msg.MapListEntry()
     else:
       self.map_id = ''
+      self.map_entry = tele_presence.msg.MapListEntry()
 
   def _get_types(self):
     """
@@ -56,10 +78,26 @@ string map_id
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
         length = len(_x)
-      if python3:
-        buff.write(struct.pack('<I%sB'%length, length, *_x))
-      else:
-        buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.map_entry.name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.map_entry.session_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(_struct_q.pack(self.map_entry.date))
+      _x = self.map_entry.map_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -69,6 +107,8 @@ string map_id
     :param str: byte array of serialized message, ``str``
     """
     try:
+      if self.map_entry is None:
+        self.map_entry = tele_presence.msg.MapListEntry()
       end = 0
       start = end
       end += 4
@@ -79,6 +119,36 @@ string map_id
         self.map_id = str[start:end].decode('utf-8')
       else:
         self.map_id = str[start:end]
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.map_entry.name = str[start:end].decode('utf-8')
+      else:
+        self.map_entry.name = str[start:end]
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.map_entry.session_id = str[start:end].decode('utf-8')
+      else:
+        self.map_entry.session_id = str[start:end]
+      start = end
+      end += 8
+      (self.map_entry.date,) = _struct_q.unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.map_entry.map_id = str[start:end].decode('utf-8')
+      else:
+        self.map_entry.map_id = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -96,10 +166,26 @@ string map_id
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
         length = len(_x)
-      if python3:
-        buff.write(struct.pack('<I%sB'%length, length, *_x))
-      else:
-        buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.map_entry.name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.map_entry.session_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(_struct_q.pack(self.map_entry.date))
+      _x = self.map_entry.map_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -110,6 +196,8 @@ string map_id
     :param numpy: numpy python module
     """
     try:
+      if self.map_entry is None:
+        self.map_entry = tele_presence.msg.MapListEntry()
       end = 0
       start = end
       end += 4
@@ -120,11 +208,42 @@ string map_id
         self.map_id = str[start:end].decode('utf-8')
       else:
         self.map_id = str[start:end]
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.map_entry.name = str[start:end].decode('utf-8')
+      else:
+        self.map_entry.name = str[start:end]
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.map_entry.session_id = str[start:end].decode('utf-8')
+      else:
+        self.map_entry.session_id = str[start:end]
+      start = end
+      end += 8
+      (self.map_entry.date,) = _struct_q.unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.map_entry.map_id = str[start:end].decode('utf-8')
+      else:
+        self.map_entry.map_id = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
+_struct_q = struct.Struct("<q")
 """autogenerated by genpy from tele_presence/MapLoadResponse.msg. Do not edit."""
 import sys
 python3 = True if sys.hexversion > 0x03000000 else False
@@ -182,10 +301,7 @@ class MapLoadResponse(genpy.Message):
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
         length = len(_x)
-      if python3:
-        buff.write(struct.pack('<I%sB'%length, length, *_x))
-      else:
-        buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -222,10 +338,7 @@ class MapLoadResponse(genpy.Message):
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
         length = len(_x)
-      if python3:
-        buff.write(struct.pack('<I%sB'%length, length, *_x))
-      else:
-        buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -253,6 +366,6 @@ class MapLoadResponse(genpy.Message):
 _struct_I = genpy.struct_I
 class MapLoad(object):
   _type          = 'tele_presence/MapLoad'
-  _md5sum = '482395c9172a4022049c2dfb4042dbb1'
+  _md5sum = '5e2740fe7ba2f74d120fcf5c061ae638'
   _request_class  = MapLoadRequest
   _response_class = MapLoadResponse

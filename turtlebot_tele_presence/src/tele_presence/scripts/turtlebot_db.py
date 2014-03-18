@@ -35,7 +35,7 @@ def db_stuff():
     meta_pub = rospy.Publisher('map_metadata', MapMetaData, latch=True)
     #
     rospy.Service('save_map', MapSave, map_save)
-    #rospy.Service('load_map_db', MapPublish, map_loading)
+    rospy.Service('map_all', MapUniversal, map_all)
     rospy.Service('load_map', MapLoad, map_load)
     rospy.Service('rename_map', MapRename, map_rename)
     rospy.Service('delete_map', MapDelete , map_delete )
@@ -55,6 +55,22 @@ def db_stuff():
     #map_list(MapList())
     #
     rospy.spin()
+    
+
+def map_all(req):
+    global map_pub, meta_pub
+    if req.op == 0 : # list
+        return map_list(req)
+    #
+    if req.op == 1 : # save
+        return [ map_save(req) ]
+    if req.op == 2 : # rename
+        return [ map_rename(req) ]
+    if req.op == 3 : # delete
+        return [ map_delete(req) ]
+    if req.op == 4 : # publish
+        return [ map_load(req) ]
+    return [[]]
     
 
 def map_save(req):
@@ -78,7 +94,7 @@ def map_load(req):
     whole_map = MapWithMetaData()
     whole_map = collection.find_one({ 'info.map_id' : req.map_id })
     if whole_map == None :
-        return ['badmap']
+        return []# ['badmap']
     
     oldmap = OccupancyGrid()
     h = Header()
@@ -90,7 +106,7 @@ def map_load(req):
     #oldmap.header.seq = 0
     
     oldmap.info = MapMetaData()
-    oldmap.info.map_load_time = rospy.Time() #whole_map['grid']['info']['map_load_time']
+    oldmap.info.map_load_time = rospy.Time() #
     oldmap.info.resolution = whole_map['grid']['info']['resolution']
     oldmap.info.width = whole_map['grid']['info']['width']
     oldmap.info.height = whole_map['grid']['info']['height']
@@ -115,7 +131,7 @@ def map_load(req):
     map_pub.publish(oldmap)
     meta_pub.publish(oldmap.info)
     #
-    return 'map' # ['done']
+    return [] # ['done']
 
 def map_rename(req):
     #

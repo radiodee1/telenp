@@ -1,5 +1,5 @@
 # one input, one output
-
 string map_id
+MapListEntry map_entry
 ---
 string message
