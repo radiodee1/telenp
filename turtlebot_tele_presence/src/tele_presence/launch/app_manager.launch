@@ -5,6 +5,7 @@
   </include>
 
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
-  
-  <!-- node name="turtlebot_db" pkg="tele_presence" type="turtlebot_db.py" respawn="true" output="log" / -->
+
+  <!-- include file="$(find tele_presence)/launch/manage_map.launch"/ -->
+
 </launch>
