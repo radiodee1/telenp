@@ -24,6 +24,7 @@ var map_service_save ;
 var map_service_start ;
 var map_service_stop ;
 var map_service_info ;
+var map_service_all ;
 var map_initialpose ;
 var map_goal_pose ;
 // listen to map topic.
@@ -74,6 +75,12 @@ var ENUM_BOT_START = "turtlebot_place_start";
 var ENUM_BOT_END = "turtlebot_place_end";
 var ENUM_BOT_NONE = "turtlebot_no_op";
 var nav_map_setup = ENUM_BOT_NONE;
+// enum for map service
+var ENUM_LIST = 0;
+var ENUM_SAVE = 1;
+var ENUM_RENAME = 2;
+var ENUM_DELETE = 3;
+var ENUM_PUBLISH = 4;
 // pose and goal
 var map_nav_pose_x = 0;
 var map_nav_pose_y = 0;
@@ -351,9 +358,9 @@ function parseCommands(commands) {
 	        case map_command_list : 
 	            
 	        
-	            var request = new ROSLIB.ServiceRequest({});
-	            map_service_list.callService( request, function (result) {
-	                
+	            var request = new ROSLIB.ServiceRequest({'op': ENUM_LIST});
+	            map_service_all.callService( request, function (result) {
+	            //map_service_list.callService(...
 	                sendMapBroadcast(commands.wizard, result.map_list, 0);
 	            });
 	        break;
@@ -375,9 +382,10 @@ function parseCommands(commands) {
 	                //setMapServices();
 	                
 	                
-	                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
-	                map_service_load.callService( request, function (result) {
-	                    console.log(result.message);
+	                var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_PUBLISH, "map_id": commands.id});
+	                //map_service_load.callService( request, function (result) {
+	                map_service_all.callService( request, function (result) {
+	                    console.log(result);
 	                    sendMapBroadcast(commands.wizard, null, 0);
 	                } );
 	            
@@ -387,8 +395,9 @@ function parseCommands(commands) {
 	        
 	        
 	        case map_command_delete :
-                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id});
-	            map_service_delete.callService( request, function (result) {
+                var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_DELETE ,
+                    "map_id": commands.id});
+	            map_service_all.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	        
@@ -396,9 +405,10 @@ function parseCommands(commands) {
 	        break;
 	        
 	        case map_command_rename :
-                var request = new ROSLIB.ServiceRequest({ "map_id": commands.id, 
-                    "new_name": commands.rename});
-	            map_service_rename.callService( request, function (result) {
+                var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_RENAME , 
+                    "map_id": commands.id, 
+                    "name": commands.rename});
+	            map_service_all.callService( request, function (result) {
 	                sendMapBroadcast(commands.wizard, null, 0);
 	            } );
 	        
@@ -524,8 +534,8 @@ function parseCommands(commands) {
             
             case app_command_map_manager_force :
                 
-                var request = new ROSLIB.ServiceRequest({});
-	            map_service_list.callService( request, function (result) {
+                var request = new ROSLIB.ServiceRequest({'op' : ENUM_LIST });
+	            map_service_all.callService( request, function (result) {
 	                
 	                sendMapBroadcast(commands.wizard, result.map_list, 0);
 	                var x = 0;
@@ -533,9 +543,9 @@ function parseCommands(commands) {
 	                    if (result.map_list[x].name == "" || 
 	                            typeof result.map_list[x].name === 'undefined') {
 	                        //delete map...
-	                        var request = new ROSLIB.ServiceRequest({ 
+	                        var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_DELETE ,
 	                            "map_id": result.map_list[x].map_id });
-	                        map_service_delete.callService( request, function (result) {
+	                        map_service_all.callService( request, function (result) {
                                 console.log("delete map: " + x);
 	                        } );
 	                    }
@@ -564,7 +574,7 @@ function parseCommands(commands) {
             case app_command_app_stop :
             
                 var start = app_manager_teleop;
-                //"tele_presence_apps/teleop";
+                //"tele_presence/teleop";
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... START TELEOP ALWAYS...
@@ -616,10 +626,7 @@ function parseCommands(commands) {
                 map_nav_pose_y = commands.y1;
                 map_nav_pose_z = 0;
                 map_nav_pose_a = commands.angle1;
-                //map_nav_goal_x = commands.x2;
-                //map_nav_goal_y = commands.y2;
-                //map_nav_goal_z = 0;
-                //map_nav_goal_a = commands.angle2;
+                
             
                 sendInitialPose(commands.x1, commands.y1, 0,  commands.angle1);
                 sendMapBroadcast(commands.wizard, null, 0);
@@ -627,10 +634,7 @@ function parseCommands(commands) {
             
             case map_command_nav_goal :
             
-                //map_nav_pose_x = commands.x1;
-                //map_nav_pose_y = commands.y1;
-                //map_nav_pose_z = 0;
-                //map_nav_pose_a = commands.angle1;
+                
                 map_nav_goal_x = commands.x2;
                 map_nav_goal_y = commands.y2;
                 map_nav_goal_z = 0;
@@ -776,6 +780,12 @@ function setMapServices( rootname ) {
     	'ros' : ros,
     	'name' : app_manager_prefix + '/save_map',
    		 serviceType : 'tele_presence/MapSave'
+  	});
+  	
+  	map_service_all = new ROSLIB.Service({
+    	'ros' : ros,
+    	'name' : app_manager_prefix + '/map_all',
+   		 serviceType : 'tele_presence/MapUniversal'
   	});
   	
   	map_listener = new ROSLIB.Topic({

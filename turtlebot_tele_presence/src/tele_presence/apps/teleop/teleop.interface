@@ -11,3 +11,4 @@ services:
   - /delete_map
   - load_map_db
   - /list_map
+  - map_all

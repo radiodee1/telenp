@@ -22,6 +22,7 @@ db = client.warehouse_concept
 collection = db.test_maps
 
 map_pub = None
+meta_pub = None
 grid = OccupancyGrid()
 whole_map = MapWithMetaData()
 
