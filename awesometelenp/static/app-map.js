@@ -728,8 +728,9 @@ function setMapServices( rootname ) {
   	map_service_load = new ROSLIB.Service({
     	'ros' : ros,
     	'name' : app_manager_prefix + rootname + 
-    	'/load_map_db',
-   		 serviceType : 'tele_presence/MapPublish'
+    	//'/load_map_db',
+    	'/load_map',
+   		 serviceType : 'tele_presence/MapLoad'
   	});
   	
   	// service for new map
