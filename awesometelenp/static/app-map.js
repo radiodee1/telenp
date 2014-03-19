@@ -373,21 +373,23 @@ function parseCommands(commands) {
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
 	                console.log("try " + start + " " + result.message);
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                
                     map_nav_started = true;
                     
 	                //} ); // inner block...
 	                
-	                //setServices();
-	                //setMapServices();
+	                /////////////////
+	                setTimeout( function() { ///////REMOVE ME??
 	                
+	                    var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_PUBLISH, "map_id": commands.id});
+	                    //map_service_load.callService( request, function (result) {
+	                    map_service_all.callService( request, function (result) {
+	                        console.log(result);
+	                        sendMapBroadcast(commands.wizard, null, 0);
+	                    } );
 	                
-	                var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_PUBLISH, "map_id": commands.id});
-	                //map_service_load.callService( request, function (result) {
-	                map_service_all.callService( request, function (result) {
-	                    console.log(result);
-	                    sendMapBroadcast(commands.wizard, null, 0);
-	                } );
+	                },10000);///////REMOVE ME??
+	                
 	            
 	            });// closing block for navigate start...
 	            
