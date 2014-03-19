@@ -35,14 +35,13 @@ def map_stuff():
     rospy.Service('picture_map', PictureMap, picture_map)
     rospy.Service('basic_launch', BasicLaunch, basic_launch)
     rospy.Service('basic_stop', BasicStop , basic_stop )
+    #
+    #rospy.Subscriber("map", OccupancyGrid, callback_map) 
     #picture_map(req)
     #create_map(req)
+    #
     rospy.spin()
-    #while not rospy.is_shutdown():
-        #
-        #if (my_map.info.width is not 0) :
-        #
-        #rospy.sleep(1.0)
+    
 
 def picture_map( req ) :
     width = req.width
@@ -110,6 +109,10 @@ def create_map(req ):
     map_pub.publish(my_map)
     meta_pub.publish(my_map.info)
     return []
+
+def callback_map(req):
+    print req
+    return
 
 def basic_launch(req) :
     #subprocess.call(req.command)

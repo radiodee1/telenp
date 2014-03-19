@@ -42,11 +42,13 @@ def db_stuff():
     rospy.Service('delete_map', MapDelete , map_delete )
     rospy.Service('list_map', MapList , map_list )
     #
-    rospy.Subscriber("map", OccupancyGrid, callback_map) # THROWS WARNING!!
+    rospy.Subscriber("map", OccupancyGrid, callback_map) 
     
     #map_list(MapList())
+    #r = rospy.Rate(.2)
+    #r.sleep()
     #req = MapSave()
-    #req.name = "new-name2"
+    #req.name = "new-name3"
     #grid = create_map(None)
     #map_save(req)
     
@@ -160,14 +162,12 @@ def map_list(req):
         onemap.name = x['info']['name']
         onemap.map_id = x['info']['map_id']
         maplist.append(onemap)
-        # print x
+        #print x
     return [ maplist ]
 
 def callback_map(data):
-    global grid #, whole_map
-    #whole_map.grid = data
-    #print data._connection_header
-    print '---------------------', data
+    global grid 
+    #print '---------------------', data
     grid = data
     return 
 

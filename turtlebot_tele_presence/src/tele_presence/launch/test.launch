@@ -9,5 +9,6 @@
     <param name="warehouse_port" value="27018"/>
   </node>
   
+    <node name="turtlebot_map" pkg="tele_presence" type="turtlebot_map.py" respawn="true" output="screen" />
     <node name="turtlebot_db" pkg="tele_presence" type="turtlebot_db.py" respawn="true" output="screen" />
 </launch>
