@@ -179,11 +179,11 @@ function tryTurtlebotClick() {
 		trySetupROS();
 		formJSONError();
 		tryStreamClick();// late addition
-		document.getElementById("setStream").checked = true;// late addition
+		//document.getElementById("setStream").checked = true;// late addition
 	}
 	else if (control_connected_motors && isMatchingName(tx_gapi_turtlebot_name) ) {
 	    gapi.hangout.data.clearValue(tx_gapi_turtlebot_name);
-		document.getElementById("setStream").checked = false;
+		//document.getElementById("setStream").checked = false;
 		control_connected_motors = false;
 		control_connected_rx = false;
 		if (control_retransmit) formJSONError();
@@ -206,10 +206,11 @@ function tryControllerClick() {
 }
 
 function tryStreamClick() {
+    //THIS OPTION NO LONGER EXISTS IN HTML!!
 	if (control_retransmit) {
 		changeHintText(choose_stream);
 		
-		if (! document.getElementById("setStream").checked) {
+		if ( true) {//! document.getElementById("setStream").checked) {
 			control_stream = false;
 			//tx_number = -1;
 		}
@@ -219,9 +220,9 @@ function tryStreamClick() {
 		formJSONError();
 	}
 	else {
-		document.getElementById("setStream").checked = false;
+		//document.getElementById("setStream").checked = false;
 	}
-	;//console.log("stream " + control_stream);
+	
 }
 
 function tryRadioClick() {
@@ -253,39 +254,7 @@ function tryRadioClick() {
 }
 
 function trySetupROS() {
-    /*
-    ros = new ROSLIB.Ros({
-    	url : 'ws://localhost:9090'
-  	});
-	
-	cmdVel = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : app_manager_prefix + '/talker',
-   		 messageType : 'std_msgs/String'
-  	});
-			
-	cmdVel2 = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : 
-    	    app_manager_prefix + 
-    	    '/cmd_vel_mux/input/teleop',
-    	//'name' : '/mobile_base/commands/velocity',
-   		 messageType : 'geometry_msgs/Twist'
-  	});
-
-    cmdVel3 = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : app_manager_prefix + '/'+ basename +'/command_velocity',
-   		 messageType : 'geometry_msgs/TwistStamped'
-  	});
-
-    kinect_listener = new ROSLIB.Topic({
-    	'ros' : ros,
-    	'name' : '/'+ basename +'/kinect_feedback',
-   		 messageType : 'std_msgs/UInt8'
-   		 
-  	});
-    */
+    
     
     setServices();
     setKinectListener();
@@ -629,7 +598,9 @@ function recieveEvent () {
 	if (typeof rx_data !== 'undefined' && ( rx_data != rx_data_old || rx_obj.direction == "stop")) { 
 	
 		rx_obj = JSON.parse(rx_data) ;	
-
+		
+        gapi.hangout.data.clearValue(tx_gapi_key);
+        
 		// change sequence numbers...
 		
 		if (rx_obj.direction == "stop" || rx_obj.number == 0 || true) {
