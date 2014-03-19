@@ -94,8 +94,8 @@ def create_map(req ):
     test_map.info.resolution = 0.05 
     test_map.info.width = width
     test_map.info.height = height
-    test_map.info.origin.position.x = 0 # width / 2
-    test_map.info.origin.position.y = 0 # height / 2
+    test_map.info.origin.position.x = width / 2
+    test_map.info.origin.position.y = height / 2
     test_map.info.origin.position.z = 1.0
     test_map.info.origin.orientation.x = 0 
     test_map.info.origin.orientation.y = 0 
@@ -103,7 +103,7 @@ def create_map(req ):
     test_map.info.origin.orientation.w = 0 
     test_map.data = []
     for i in range(0, (width*height)):
-        test_map.data.append( 0) # ( i % 8 )
+        test_map.data.append( 8 * ( i % 2 ))
     #print test_map
     #map_pub.publish(test_map);
     my_map = test_map

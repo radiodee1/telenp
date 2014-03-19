@@ -368,21 +368,31 @@ function parseCommands(commands) {
 	        case map_command_load : 
 	            // must start nav automatically with load!
 	            var start = app_manager_navigate;
-                
+
+                if (app_name == app_manager_navigate ) {
+                    // if already navigate, do not relaunch...
+                    var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_PUBLISH, 
+                        "map_id": commands.id});
+                    map_service_all.callService( request, function (result) {
+                        console.log(result);
+                        sendMapBroadcast(commands.wizard, null, 0);
+                    } );
+                    return;
+                }
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
 	                console.log("try " + start + " " + result.message);
 	                
                     map_nav_started = true;
-                    
+                    app_name = app_manager_navigate;
 	                //} ); // inner block...
 	                
 	                /////////////////
 	                setTimeout( function() { ///////REMOVE ME??
 	                
-	                    var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_PUBLISH, "map_id": commands.id});
-	                    //map_service_load.callService( request, function (result) {
+	                    var request = new ROSLIB.ServiceRequest({ 'op' : ENUM_PUBLISH, 
+	                        "map_id": commands.id});
 	                    map_service_all.callService( request, function (result) {
 	                        console.log(result);
 	                        sendMapBroadcast(commands.wizard, null, 0);
@@ -419,9 +429,9 @@ function parseCommands(commands) {
 	        
 	        case map_command_save :
 	        
-                app_name = "manager";
-                var save_count = 0;
                 
+                var save_count = 0;
+                /*
                 map_meta_data.subscribe( function (result) {
 	                map_meta_data.unsubscribe();
 	                var resolution = result.resolution;
@@ -429,42 +439,13 @@ function parseCommands(commands) {
 	                    
 	                console.log("resolution should be: " + map_nav_resolution);
 	                //FIND RESOLUTION, THEN SAVE MAP!!
-                    /*
-	                var start = new Array(
-	                    
-	                    'rosrun',
-	                    'map_store',
-	                    'add_map.py',
-	                    commands.new_name
-	                    
-	                    
-	                    
-	                    "roslaunch",
-                        "map_store",
-                        "add_map.launch", 
-                        "map_name:=" + commands.new_name ,
-                        "map_file:=" + commands.new_name,
-                        "map_resolution:=" + map_nav_resolution//, // BAD NUM
-
-                        );
-                        
-                    if (save_count === 0) {
-                        var request = new ROSLIB.ServiceRequest({'remember':false,'command': start});
                     
-	                    map_service_start.callService( request, function (result) {
-	                        console.log("command launch -- save map : " + result.result);
-	                        sendMapBroadcast(commands.wizard, null, 0);
-	                	                    
-	                    } );
-	                }
-	                save_count ++;
-	                //map_meta_data.unsubscribe();
-	                */
 	            });//map saved with proper resolution (??)
+	            */
 	            
-	            
-                var request = new ROSLIB.ServiceRequest({ "map_name": commands.new_name});
-	            map_service_save.callService( request, function (result) {
+                var request = new ROSLIB.ServiceRequest({ 'op': ENUM_SAVE,
+                    "name": commands.new_name});
+	            map_service_all.callService( request, function (result) {
 	                //sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
 	                console.log("---map_name---  " + commands.new_name);
@@ -516,7 +497,8 @@ function parseCommands(commands) {
             
             
             case app_command_make_map :
-                app_name = "gmap";
+                // GMAPPING
+                app_name = app_manager_mapping;
                 
                 var start = app_manager_mapping;
                 
@@ -560,7 +542,7 @@ function parseCommands(commands) {
             case app_command_map_nav_force:
                 
                 var start = app_manager_navigate;
-                
+                app_name = app_manager_navigate;
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... 
@@ -577,6 +559,7 @@ function parseCommands(commands) {
             
                 var start = app_manager_teleop;
                 //"tele_presence/teleop";
+                app_name = app_manager_teleop;
                 var request = new ROSLIB.ServiceRequest({'name': start});
 	            app_service_start.callService( request, function (result) {
 	                // nothing here... START TELEOP ALWAYS...

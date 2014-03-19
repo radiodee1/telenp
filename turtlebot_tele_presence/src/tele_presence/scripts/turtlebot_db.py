@@ -167,8 +167,8 @@ def callback_map(data):
     global grid #, whole_map
     #whole_map.grid = data
     #print data._connection_header
+    print '---------------------', data
     grid = data
-    # print '---------------------', grid
     return 
 
 def prep_map(whole_map):
