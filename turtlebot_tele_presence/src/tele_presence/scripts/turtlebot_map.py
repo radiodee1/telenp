@@ -46,6 +46,7 @@ def map_stuff():
 def picture_map( req ) :
     width = req.width
     height = req.height
+    img_tag = ""
     try:
         os.remove(mypath + '.pgm')
         os.remove(mypath + '.png')
