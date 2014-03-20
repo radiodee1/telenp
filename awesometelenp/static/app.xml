@@ -1277,6 +1277,7 @@ function receiveMapEvent() {
                         
                         var request = new ROSLIB.ServiceRequest({});
 	                    app_service_stop.callService( request, function (result) {
+	                        app_name = "stop";
 	                        parseCommands(commands);
 	                    } );
 	                    
