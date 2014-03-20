@@ -1261,13 +1261,16 @@ function receiveMapEvent() {
 	    var commands = JSON.parse(rx_map_commands);
 	    
 	            var start = new Array();
-	            if (app_command_map_nav_force != commands.command && 
+	            if ( ( app_command_map_nav_force != commands.command && 
 	                    app_command_make_map != commands.command &&
 	                    app_command_map_nav != commands.command &&
 	                    app_command_app_stop != commands.command &&
-	                    map_command_load != commands.command) {
-	                //start = new Array("roslaunch",
-                    //    "tele_presence","robot_base.launch");
+	                    map_command_load != commands.command ) || 
+	                    
+	                    (app_name == app_manager_navigate && 
+	                    map_command_load == commands.command)
+	                    ) {
+	                
                     parseCommands(commands);
                 }
                 else {
