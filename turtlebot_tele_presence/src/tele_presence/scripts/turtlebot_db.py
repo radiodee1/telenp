@@ -35,12 +35,12 @@ def db_stuff():
     map_pub = rospy.Publisher('map', OccupancyGrid, latch=True)
     meta_pub = rospy.Publisher('map_metadata', MapMetaData, latch=True)
     #
-    rospy.Service('save_map', MapSave, map_save)
+    #rospy.Service('save_map', MapSave, map_save)
     rospy.Service('map_all', MapUniversal, map_all)
-    rospy.Service('load_map', MapLoad, map_load)
-    rospy.Service('rename_map', MapRename, map_rename)
-    rospy.Service('delete_map', MapDelete , map_delete )
-    rospy.Service('list_map', MapList , map_list )
+    #rospy.Service('load_map', MapLoad, map_load)
+    #rospy.Service('rename_map', MapRename, map_rename)
+    #rospy.Service('delete_map', MapDelete , map_delete )
+    #rospy.Service('list_map', MapList , map_list )
     #
     rospy.Subscriber("map", OccupancyGrid, callback_map) 
     
