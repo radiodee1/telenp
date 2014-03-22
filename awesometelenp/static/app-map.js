@@ -1485,7 +1485,7 @@ function sendGoalPose(x,y,z,a) {
         
                 header : {
                     seq: 0,
-                    stamp: {},
+                    stamp: 0,// {},
                     frame_id : "map"
                     },
                 pose : {
