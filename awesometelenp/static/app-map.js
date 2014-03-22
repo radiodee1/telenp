@@ -806,13 +806,13 @@ function setMapServices( rootname ) {
    		 
   	});
   	
-  	/*
+  	
   	map_goal_pose = new ROSLIB.ActionClient({
   	    'ros': ros,
   	    'serverName' : app_manager_prefix + '/move_base/goal',
   	    'actionName' : 'move_base_msgs/MoveBaseAction'
   	});
-  	*/
+  	
   	
   	// ROCON-APP-MANAGER SERVICES
   	app_topic_list = new ROSLIB.Topic({

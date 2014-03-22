@@ -702,8 +702,7 @@ function recieveEvent () {
 	
 	receiveMapEvent();
 	receiveMapBroadcast();
-	//receiveRawMapBroadcast();
-	//receiveAppListBroadcast();
+	
 }
 
 function retransmitEvent(data) {
@@ -883,7 +882,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.10 --------------------------------');
+			console.log('API is ready v1.11 --------------------------------');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
@@ -897,11 +896,7 @@ function init() {
     				// WebSockets are not supported.
 				alert("no web sockets.");
 			}
-            /*
-            ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
-  			*/
+            
             //setKinectListener();
             gapi_loaded = true;
             
@@ -1723,13 +1718,13 @@ function setMapServices( rootname ) {
    		 
   	});
   	
-  	/*
+  	
   	map_goal_pose = new ROSLIB.ActionClient({
   	    'ros': ros,
   	    'serverName' : app_manager_prefix + '/move_base/goal',
   	    'actionName' : 'move_base_msgs/MoveBaseAction'
   	});
-  	*/
+  	
   	
   	// ROCON-APP-MANAGER SERVICES
   	app_topic_list = new ROSLIB.Topic({

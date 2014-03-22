@@ -685,8 +685,7 @@ function recieveEvent () {
 	
 	receiveMapEvent();
 	receiveMapBroadcast();
-	//receiveRawMapBroadcast();
-	//receiveAppListBroadcast();
+	
 }
 
 function retransmitEvent(data) {
@@ -866,7 +865,7 @@ function init() {
 
 	var apiReady = function(eventObj) {
 		if (eventObj.isApiReady) {
-			console.log('API is ready v1.10 --------------------------------');
+			console.log('API is ready v1.11 --------------------------------');
 	
 			gapi.hangout.data.onStateChanged.add(function(eventObj) {
 				recieveEvent();
@@ -880,11 +879,7 @@ function init() {
     				// WebSockets are not supported.
 				alert("no web sockets.");
 			}
-            /*
-            ros = new ROSLIB.Ros({
-    			url : 'ws://localhost:9090'
-  			});
-  			*/
+            
             //setKinectListener();
             gapi_loaded = true;
             
