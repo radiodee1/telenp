@@ -86,11 +86,13 @@ var choose_output_string = "for ROS String ouput...<br><br>" +
 			" arrow buttons are clicked";
 var choose_output_twist = "for ROS Twist output... <br><br>" +
             "TURTLEBOT SETUP: <br>" +
-			"in separate turtlebot terminals...<br><br>" +
+			"(on the turtlebot) " +
+			"after installing tele-np ros packages execute...<br><br>" +
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
-			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
-			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
-			"</i>... then direct the turtlebot from the Google Hangout screen.";
+			"$ roslaunch tele_presence app_manager.launch <br><br>" +
+			//"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
+			"</i>... then restart this Hangout on both computers and direct " +
+			"the turtlebot from the Google Hangout screen.";
 var choose_output_reserved = "this option is RESERVED for future development. <br><br>" +
             "TURTLEBOT SETUP: <br>" +
 			"after installing tele-np ros packages...<br><br>" +
@@ -225,7 +227,7 @@ function tryControllerClick() {
 function tryStreamClick() {
     //THIS OPTION NO LONGER EXISTS IN HTML!!
 	if (control_retransmit) {
-		changeHintText(choose_stream);
+		changeHintText(choose_output_twist);
 		
 		if ( true) {//! document.getElementById("setStream").checked) {
 			control_stream = false;
@@ -2637,7 +2639,7 @@ p.reply
     Loading a file automatically starts the map navigating software. 
     Then click 'RUN-NAV-TOOLS' to set start and stop coordinates.<br><br>
     IF the load option pull-down does not contain any maps, click the Force-Library 
-    button.
+    or Reload-List button.
     <button type="button" onclick='executeLibraryForce()'>FORCE LIBRARY</button>
     <button type="button" onclick='opLoad()'>RELOAD LIST</button><br>
     <hr>
@@ -2705,11 +2707,8 @@ p.reply
 <!-- one div for each frame of wizard  SAVE -->
 <div style="clear: both; background-color:#aaaaaa; display: none;" id="wizOpSave">
     <br>
-    Saving maps is precarious right now. If you want to save a map, make the map
-    first with the 'G-MAP' option under 'Make-Map', then once your map is made start
-    up the map manager. It will save a map... you may need to rename it to
-    your liking. The naming option below MAY NOT WORK. Sometimes, the map saver will
-    save extra maps identical to the first.
+    If you want to save a map, make the map
+    first with the 'G-MAP' option under 'Make-Map'.
     <hr>
     <br>
     Give your map a name:

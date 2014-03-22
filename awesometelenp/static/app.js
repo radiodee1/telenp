@@ -69,11 +69,13 @@ var choose_output_string = "for ROS String ouput...<br><br>" +
 			" arrow buttons are clicked";
 var choose_output_twist = "for ROS Twist output... <br><br>" +
             "TURTLEBOT SETUP: <br>" +
-			"in separate turtlebot terminals...<br><br>" +
+			"(on the turtlebot) " +
+			"after installing tele-np ros packages execute...<br><br>" +
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
-			"$ roslaunch rosbridge_server rosbridge_websocket.launch <br>" +
-			"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
-			"</i>... then direct the turtlebot from the Google Hangout screen.";
+			"$ roslaunch tele_presence app_manager.launch <br><br>" +
+			//"$ roslaunch turtlebot_bringup minimal.launch <br><br>" +
+			"</i>... then restart this Hangout on both computers and direct " +
+			"the turtlebot from the Google Hangout screen.";
 var choose_output_reserved = "this option is RESERVED for future development. <br><br>" +
             "TURTLEBOT SETUP: <br>" +
 			"after installing tele-np ros packages...<br><br>" +
@@ -208,7 +210,7 @@ function tryControllerClick() {
 function tryStreamClick() {
     //THIS OPTION NO LONGER EXISTS IN HTML!!
 	if (control_retransmit) {
-		changeHintText(choose_stream);
+		changeHintText(choose_output_twist);
 		
 		if ( true) {//! document.getElementById("setStream").checked) {
 			control_stream = false;
