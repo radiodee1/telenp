@@ -1718,13 +1718,13 @@ function setMapServices( rootname ) {
    		 
   	});
   	
-  	
+  	/*
   	map_goal_pose = new ROSLIB.ActionClient({
   	    'ros': ros,
   	    'serverName' : app_manager_prefix + '/move_base/goal',
   	    'actionName' : 'move_base_msgs/MoveBaseAction'
   	});
-  	
+  	*/
   	
   	// ROCON-APP-MANAGER SERVICES
   	app_topic_list = new ROSLIB.Topic({
@@ -2384,6 +2384,7 @@ function sendGoalPose(x,y,z,a) {
     
     console.log("goal -- x,y: " + x + "," + y + " angle: " + a);
     
+    /*
     var goal = new ROSLIB.Goal({
         actionClient : map_goal_pose,
         goalMessage: 
@@ -2418,7 +2419,7 @@ function sendGoalPose(x,y,z,a) {
             } // end of target_pose
             
             ////////////
-        //} // end of goal
+        
         
        
         // inner message data ends...
@@ -2426,7 +2427,38 @@ function sendGoalPose(x,y,z,a) {
         }
 
     });
-    goal.send();
+    */
+    //goal.send();
+    
+    var simplegoal = new ROSLIB.Message({
+        
+        header : {
+            seq: 0,
+            stamp: 0,// {},
+            frame_id : "map"
+            },
+        pose : {
+            position: {
+                x: x,
+                y: y,
+                z: z
+                },
+            orientation: {
+                x : 0,
+                y : 0,
+                z : Math.sin( a / 2 ),
+                w : Math.cos( a / 2 ),
+                }
+            }
+    });
+    
+    var goaltopic = new ROSLIB.Topic({
+    	'ros' : ros,
+    	'name' : app_manager_prefix + '/move_base_simple/goal',
+   		 messageType : 'geometry_msgs/PoseStamped'
+    });
+    
+    goaltopic.publish(simplegoal);
 }
 </script>
 
