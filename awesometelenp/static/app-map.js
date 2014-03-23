@@ -1252,15 +1252,17 @@ function takePosition() {
     console.log(nav_map_setup);
     switch (nav_map_setup) {
         case ENUM_BOT_START :
-            map_nav_pose_x = coordinatesFromX( coord_x);
-            map_nav_pose_y = coordinatesFromY( coord_y);
             placeStartDot();
+            map_nav_pose_x = coordinatesFromX( coord_x - 4);
+            map_nav_pose_y = coordinatesFromY( coord_y - 4);
+            //placeStartDot();
         break;
         
         case ENUM_BOT_END :
-            map_nav_goal_x = coordinatesFromX( coord_x);
-            map_nav_goal_y = coordinatesFromY( coord_y);
             placeEndDot();
+            map_nav_goal_x = coordinatesFromX( coord_x - 4);
+            map_nav_goal_y = coordinatesFromY( coord_y - 4);
+            //placeEndDot();
         break;
         
         case ENUM_BOT_NONE :
@@ -1389,9 +1391,11 @@ function placeStartDot() {
         padding: 0 ,
         margin: 0,
         border: 0, 
-        left: coord_x - ($(dot).width() ) ,
-        top: coord_y - ($(dot).height() )
+        left: coord_x - ($(dot).width() ) - 4,
+        top: coord_y - ($(dot).height() ) - 4
     }).show();
+    
+    
     
     $('#xyStart').html('xy: ' + map_nav_pose_x.toFixed(2) + ',' + 
         map_nav_pose_y.toFixed(2));
@@ -1412,9 +1416,10 @@ function placeEndDot() {
         padding: 0 ,
         margin: 0,
         border: 0, 
-        left: coord_x - ($(enddot).width() ) ,
-        top: coord_y  - ($(enddot).height() )
+        left: coord_x - ($(enddot).width() ) - 4,
+        top: coord_y  - ($(enddot).height() ) - 4
     }).show();
+    
     
     $('#xyStop').html('xy: ' + map_nav_goal_x.toFixed(2) 
         + ',' + map_nav_goal_y.toFixed(2));
