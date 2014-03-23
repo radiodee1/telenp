@@ -1,5 +1,5 @@
 <launch>
-  <arg name="use_map_topic"  default="true"/>
+  <arg name="use_map_topic"  default="false"/>
   <arg name="scan_topic"     default="scan"/>
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
@@ -43,6 +43,9 @@
     <param name="initial_pose_x"            value="$(arg initial_pose_x)"/>
     <param name="initial_pose_y"            value="$(arg initial_pose_y)"/>
     <param name="initial_pose_a"            value="$(arg initial_pose_a)"/>
+    
+    <param name="recovery_behaviors" value="[ {name: rotate_recovery, type: rotate_recovery/RotateRecovery}, {name: conservative_reset, type: clear_costmap_recovery/ClearCostmapRecovery},{name: aggressive_reset, type: clear_costmap_recovery/ClearCostmapRecovery}]"/>
+    
     <remap from="scan"                      to="$(arg scan_topic)"/>
   </node>
 </launch>

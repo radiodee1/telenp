@@ -39,16 +39,16 @@
 
 
   <!-- *************************** Navi *************************** -->
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+  <include file="$(find tele_presence)/launch/includes/move_base.launch.xml">
     <arg name="odom_topic" value ="/odom" />
-    <param name="recovery_behaviors" value=" [{name: rotate_recovery, type: rotate_recovery/RotateRecovery}]"/>
+
   </include>
   <include file="$(find turtlebot_navigation)/launch/includes/amcl.launch.xml">
     <arg name="use_map_topic" value ="true"/>
-    <param name="recovery_behaviors" value=" [{name: rotate_recovery, type: rotate_recovery/RotateRecovery}]"/>
+
   </include>
 
-    <param name="recovery_behaviors" value=" [{name: rotate_recovery, type: rotate_recovery/RotateRecovery}]"/>
+
 
   <!-- [ {name: rotate_recovery, type: rotate_recovery/RotateRecovery}, {name: conservative_reset, type: clear_costmap_recovery/ClearCostmapRecovery},{name: aggressive_reset, type: clear_costmap_recovery/ClearCostmapRecovery}] -->
 
