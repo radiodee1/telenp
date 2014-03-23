@@ -1252,17 +1252,17 @@ function takePosition() {
     console.log(nav_map_setup);
     switch (nav_map_setup) {
         case ENUM_BOT_START :
-            placeStartDot();
+            //placeStartDot();
             map_nav_pose_x = coordinatesFromX( coord_x - 4);
             map_nav_pose_y = coordinatesFromY( coord_y - 4);
-            //placeStartDot();
+            placeStartDot();
         break;
         
         case ENUM_BOT_END :
-            placeEndDot();
+            //placeEndDot();
             map_nav_goal_x = coordinatesFromX( coord_x - 4);
             map_nav_goal_y = coordinatesFromY( coord_y - 4);
-            //placeEndDot();
+            placeEndDot();
         break;
         
         case ENUM_BOT_NONE :
@@ -1391,8 +1391,8 @@ function placeStartDot() {
         padding: 0 ,
         margin: 0,
         border: 0, 
-        left: coord_x - ($(dot).width() ) - 4,
-        top: coord_y - ($(dot).height() ) - 4
+        left: coord_x - 4,//($(dot).width() ) ,
+        top: coord_y - 4  //($(dot).height() ) 
     }).show();
     
     
@@ -1416,8 +1416,8 @@ function placeEndDot() {
         padding: 0 ,
         margin: 0,
         border: 0, 
-        left: coord_x - ($(enddot).width() ) - 4,
-        top: coord_y  - ($(enddot).height() ) - 4
+        left: coord_x - 4,// ($(enddot).width() ) ,
+        top: coord_y  - 4 // ($(enddot).height() ) 
     }).show();
     
     
