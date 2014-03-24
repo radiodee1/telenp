@@ -13,7 +13,15 @@ Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/is
     <arg name="scan_topic" value="/scan" />
   </include>
 
-  
+  <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui">
+    <param name="polling_frequency" value="5"/>
+    <param name="translational_update_distance" value="-1"/>
+    <param name="angular_update_distance" value="-1"/>
+    <rosparam param="frame_pairs">
+      - {source_frame: base_footprint, target_frame: map}
+      - {source_frame: camera_depth_frame, target_frame: map}
+    </rosparam>
+  </node>
 
   <!-- Map server -->
   <include file="$(find tele_presence)/launch/manage_map.launch"/>
