@@ -27,5 +27,5 @@ Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/is
   </include>
 
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
-
+  <!-- remap from="/navigation_velocity_smoother/raw_cmd_vel" to="/mobile_base/commands/velocity"/ -->
 </launch>
