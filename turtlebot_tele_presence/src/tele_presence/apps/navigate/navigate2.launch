@@ -10,10 +10,10 @@
     
     <!-- We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
 Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7 -->
-    <arg name="scan_topic" value="/scan" />
+    <arg name="scan_topic" value="/app_manager/application/scan" />
   </include>
 
-  <!-- node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui">
+  <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui">
     <param name="polling_frequency" value="5"/>
     <param name="translational_update_distance" value="-1"/>
     <param name="angular_update_distance" value="-1"/>
@@ -21,7 +21,7 @@ Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/is
       - {source_frame: base_footprint, target_frame: map}
       - {source_frame: camera_depth_frame, target_frame: map}
     </rosparam>
-  </node -->
+  </node>
 
   <!-- Map server -->
   <include file="$(find tele_presence)/launch/manage_map.launch"/>
@@ -34,6 +34,7 @@ Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/is
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
     <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
     <arg name="use_map_topic" value="true"/>
+
   </include>
 
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
