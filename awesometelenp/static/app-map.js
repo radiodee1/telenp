@@ -1253,14 +1253,14 @@ function takePosition() {
     switch (nav_map_setup) {
         case ENUM_BOT_START :
             //placeStartDot();
-            map_nav_pose_x = coordinatesFromX( coord_x - 4);
+            map_nav_pose_x = coordinatesFromX( coord_x);// - 4);
             map_nav_pose_y = coordinatesFromY( coord_y - 4);
             placeStartDot();
         break;
         
         case ENUM_BOT_END :
             //placeEndDot();
-            map_nav_goal_x = coordinatesFromX( coord_x - 4);
+            map_nav_goal_x = coordinatesFromX( coord_x);// - 4);
             map_nav_goal_y = coordinatesFromY( coord_y - 4);
             placeEndDot();
         break;
