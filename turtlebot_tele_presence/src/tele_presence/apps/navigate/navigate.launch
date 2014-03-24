@@ -39,7 +39,7 @@
 
 
   <!-- *************************** Navi *************************** -->
-  <include file="$(find tele_presence)/launch/includes/move_base.launch.xml">
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
     <arg name="odom_topic" value ="/odom" />
 
   </include>
