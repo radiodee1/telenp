@@ -6,6 +6,10 @@ publishers:
   - map
   - amcl_pose
   - move_base/TrajectoryPlannerROS/global_plan
+  - base_footprint
+  - camera_depth_frame
+  - /base_footprint
+  - /camera_depth_frame
 subscribers: 
   - mobile_base/commands/velocity
   - initialpose
@@ -15,6 +19,10 @@ subscribers:
   - move_base/goal
   - /move_base/goal
   - /move_base/goal/goal
+  - base_footprint
+  - camera_depth_frame
+  - /base_footprint
+  - /camera_depth_frame
 services: 
   - save_map
   - rename_map
