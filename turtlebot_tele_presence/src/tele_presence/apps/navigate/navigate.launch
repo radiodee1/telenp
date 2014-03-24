@@ -1,0 +1,44 @@
+<launch>
+
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+  <include file="$(find tele_presence)/launch/minimal.launch"/>
+
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="true" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+    
+    <!-- We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
+Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7 -->
+    <arg name="scan_topic" value="/app_manager/application/scan" />
+  </include>
+
+  <!--node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui">
+    <param name="polling_frequency" value="5"/>
+    <param name="translational_update_distance" value="-1"/>
+    <param name="angular_update_distance" value="-1"/>
+    <rosparam param="frame_pairs">
+      - {source_frame: base_footprint, target_frame: map}
+      - {source_frame: camera_depth_frame, target_frame: map}
+    </rosparam>
+  </node -->
+
+  <!-- Map server -->
+  <include file="$(find tele_presence)/launch/manage_map.launch"/>
+
+  <arg name="initial_pose_x" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_y" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_a" default="0.0"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/amcl.launch.xml">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+    <arg name="use_map_topic" value="true"/>
+
+  </include>
+
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+    <arg name="odom_topic" value ="/odom" />
+  </include>
+  <!-- remap from="/navigation_velocity_smoother/raw_cmd_vel" to="/mobile_base/commands/velocity"/ -->
+</launch>
