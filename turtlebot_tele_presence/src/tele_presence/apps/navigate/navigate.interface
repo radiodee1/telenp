@@ -12,6 +12,10 @@ publishers:
   - /camera_depth_frame
   - /odom
   - odom
+  - mobile_base/odom
+  - /mobile_base/odom
+  - /joint_states
+  - joint_states
 # all
   - /amcl/parameter_descriptions
   - /amcl/parameter_updates
@@ -90,6 +94,10 @@ subscribers:
   - /camera_depth_frame
   - /odom
   - odom
+  - mobile_base/odom
+  - /mobile_base/odom
+  - /joint_states
+  - joint_states
 # all
   - /amcl/parameter_descriptions
   - /amcl/parameter_updates
