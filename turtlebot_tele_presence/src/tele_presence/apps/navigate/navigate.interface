@@ -10,6 +10,8 @@ publishers:
   - camera_depth_frame
   - /base_footprint
   - /camera_depth_frame
+  - /odom
+  - odom
 # all
   - /amcl/parameter_descriptions
   - /amcl/parameter_updates
@@ -64,7 +66,6 @@ publishers:
   - /navigation_velocity_smoother/parameter_descriptions
   - /navigation_velocity_smoother/parameter_updates
   - /navigation_velocity_smoother/raw_cmd_vel
-  - /odom
   - /particlecloud
   - /rosout
   - /rosout_agg
@@ -87,6 +88,8 @@ subscribers:
   - camera_depth_frame
   - /base_footprint
   - /camera_depth_frame
+  - /odom
+  - odom
 # all
   - /amcl/parameter_descriptions
   - /amcl/parameter_updates
@@ -141,7 +144,6 @@ subscribers:
   - /navigation_velocity_smoother/parameter_descriptions
   - /navigation_velocity_smoother/parameter_updates
   - /navigation_velocity_smoother/raw_cmd_vel
-  - /odom
   - /particlecloud
   - /rosout
   - /rosout_agg
