@@ -62,7 +62,7 @@ publishers:
   - /mobile_base_nodelet_manager/bond
   - /move_base/current_goal
   - /move_base/goal
-  - /move_base_simple/goal
+#  - /move_base_simple/goal
   - /navigation_velocity_smoother/parameter_descriptions
   - /navigation_velocity_smoother/parameter_updates
   - /navigation_velocity_smoother/raw_cmd_vel
@@ -140,7 +140,7 @@ subscribers:
   - /mobile_base_nodelet_manager/bond
   - /move_base/current_goal
   - /move_base/goal
-  - /move_base_simple/goal
+#  - /move_base_simple/goal
   - /navigation_velocity_smoother/parameter_descriptions
   - /navigation_velocity_smoother/parameter_updates
   - /navigation_velocity_smoother/raw_cmd_vel
