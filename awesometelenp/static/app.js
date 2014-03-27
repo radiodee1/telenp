@@ -280,8 +280,8 @@ function setServices() {
     	'ros' : ros,
     	'name' : 
     	    app_manager_prefix + 
-    	    '/cmd_vel_mux/input/teleop',
-    	//'name' : '/mobile_base/commands/velocity',
+    	    //'/cmd_vel_mux/input/teleop',
+    	    '/mobile_base/commands/velocity',
    		 messageType : 'geometry_msgs/Twist'
   	});
 
