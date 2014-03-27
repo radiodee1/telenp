@@ -16,8 +16,9 @@
     <rosparam file="$(find turtlebot_navigation)/param/move_base_params.yaml" command="load" />
 
     
-
-    <remap from="cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/>
+    <!-- try different values for this remap!! -->
+    <remap from="cmd_vel" to="/app_manager/application/navigation_velocity_smoother/raw_cmd_vel"/>
+    <!-- remap from="cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/ -->
     <remap from="odom" to="$(arg odom_topic)"/>
   </node>
 </launch>

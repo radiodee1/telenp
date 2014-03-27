@@ -16,6 +16,8 @@ publishers:
   - /mobile_base/odom
   - /joint_states
   - joint_states
+  - navigation_velocity_smoother/raw_cmd_vel
+  - /navigation_velocity_smoother/raw_cmd_vel
 # all
   - /amcl/parameter_descriptions
   - /amcl/parameter_updates
@@ -69,7 +71,7 @@ publishers:
 #  - /move_base_simple/goal
   - /navigation_velocity_smoother/parameter_descriptions
   - /navigation_velocity_smoother/parameter_updates
-  - /navigation_velocity_smoother/raw_cmd_vel
+#  - /navigation_velocity_smoother/raw_cmd_vel
   - /particlecloud
   - /rosout
   - /rosout_agg
