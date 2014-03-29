@@ -17,7 +17,7 @@
 
     
     <!-- try different values for this remap!! -->
-    <remap from="/app_manager/application/cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/>
+    <remap from="cmd_vel" to="/app_manager/application/navigation_velocity_smoother/raw_cmd_vel"/>
     <!-- remap from="cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/ -->
     <remap from="odom" to="$(arg odom_topic)"/>
   </node>
