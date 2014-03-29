@@ -7,7 +7,7 @@
     <remap from="/app_manager/application/navigation_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/navi"/>
 
     <!-- Robot velocity feedbacks; use the default base configuration -->
-    <remap from="navigation_velocity_smoother/odometry" to="/odom"/>
-    <remap from="/app_manager/application/navigation_velocity_smoother/robot_cmd_vel" to="mobile_base/commands/velocity"/>
+    <remap from="navigation_velocity_smoother/odometry" to="/app_manager/application/odom"/><!-- was /odom -->
+    <remap from="/app_manager/application/navigation_velocity_smoother/robot_cmd_vel" to="/app_manager/application/mobile_base/commands/velocity"/>
   </node>
 </launch>
