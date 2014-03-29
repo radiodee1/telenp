@@ -32,9 +32,9 @@ publishers:
   - /amcl_pose
   - /camera/depth_registered/points
   - /cmd_vel_mux/active
-  - /cmd_vel_mux/input/navi
-  - /cmd_vel_mux/input/safety_controller
-  - /cmd_vel_mux/input/teleop
+  - cmd_vel_mux/input/navi
+  - cmd_vel_mux/input/safety_controller
+  - cmd_vel_mux/input/teleop
   - /cmd_vel_mux/parameter_descriptions
   - /cmd_vel_mux/parameter_updates
   - /diagnostics
@@ -122,9 +122,9 @@ subscribers:
   - /amcl_pose
   - /camera/depth_registered/points
   - /cmd_vel_mux/active
-  - /cmd_vel_mux/input/navi
-  - /cmd_vel_mux/input/safety_controller
-  - /cmd_vel_mux/input/teleop
+  - cmd_vel_mux/input/navi
+  - cmd_vel_mux/input/safety_controller
+  - cmd_vel_mux/input/teleop
   - /cmd_vel_mux/parameter_descriptions
   - /cmd_vel_mux/parameter_updates
   - /diagnostics
