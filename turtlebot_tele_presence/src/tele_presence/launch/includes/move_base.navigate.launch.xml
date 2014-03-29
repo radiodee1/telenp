@@ -3,7 +3,7 @@
 -->
 <launch>
   <include file="$(find tele_presence)/launch/includes/velocity_smoother.navigate.launch.xml"/>
-  <include file="$(find turtlebot_navigation)/launch/includes/safety_controller.launch.xml"/>
+  <include file="$(find tele_presence)/launch/includes/safety_controller.navigate.launch.xml"/>
 
   <arg name="odom_topic" default="odom" />
 
