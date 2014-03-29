@@ -2,7 +2,7 @@
     ROS navigation stack with velocity smoother and safety (reactive) controller
 -->
 <launch>
-  <include file="$(find turtlebot_navigation)/launch/includes/velocity_smoother.launch.xml"/>
+  <include file="$(find tele_presence)/launch/includes/velocity_smoother.navigate.launch.xml"/>
   <include file="$(find turtlebot_navigation)/launch/includes/safety_controller.launch.xml"/>
 
   <arg name="odom_topic" default="odom" />
@@ -17,7 +17,7 @@
 
     
     <!-- try different values for this remap!! -->
-    <remap from="cmd_vel" to="/app_manager/application/navigation_velocity_smoother/raw_cmd_vel"/>
+    <remap from="/app_manager/application/cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/>
     <!-- remap from="cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/ -->
     <remap from="odom" to="$(arg odom_topic)"/>
   </node>
