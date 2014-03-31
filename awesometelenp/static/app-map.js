@@ -435,24 +435,14 @@ function parseCommands(commands) {
 	        
                 
                 var save_count = 0;
-                /*
-                map_meta_data.subscribe( function (result) {
-	                map_meta_data.unsubscribe();
-	                var resolution = result.resolution;
-	                map_nav_resolution = resolution;
-	                    
-	                console.log("resolution should be: " + map_nav_resolution);
-	                //FIND RESOLUTION, THEN SAVE MAP!!
-                    
-	            });//map saved with proper resolution (??)
-	            */
+                
 	            
                 var request = new ROSLIB.ServiceRequest({ 'op': ENUM_SAVE,
                     "name": commands.new_name});
 	            map_service_all.callService( request, function (result) {
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
-	                console.log("---map_name---  " + commands.new_name);
+	                //console.log("---map_name---  " + commands.new_name);
 	            } );
 	            
 	            
