@@ -80,7 +80,7 @@ var choose_output_reserved = "this option is RESERVED for future development. <b
             "TURTLEBOT SETUP: <br>" +
 			"after installing tele-np ros packages...<br><br>" +
 			"<i style='color:blue;font-size:10pt;font-family:courier'>" +
-			"$ roslaunch tele_presence full.launch <br><br>" +
+			"$ roslaunch tele_presence app_manager.launch <br><br>" +
 			"</i>... then direct the turtlebot from the Google Hangout screen.";
 var choose_click =      "click the arrows to direct the turtlebot.";
 var choose_stream = "for communication with ROS, <br>" +
