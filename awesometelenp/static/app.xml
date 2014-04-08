@@ -2399,51 +2399,6 @@ function sendGoalPose(x,y,z,a) {
     
     console.log("goal -- x,y: " + x + "," + y + " angle: " + a);
     
-    /*
-    var goal = new ROSLIB.Goal({
-        actionClient : map_goal_pose,
-        goalMessage: 
-
-        {
-        
-        //inner message data        
-        
-        //////////
-            target_pose : {
-        
-                header : {
-                    seq: 0,
-                    stamp: 0,// {},
-                    frame_id : "map"
-                    },
-                pose : {
-                    position: {
-                        x: x,
-                        y: y,
-                        z: z
-                        },
-                    orientation: {
-                        x : 0,
-                        y : 0,
-                        z : Math.sin( a / 2 ),
-                        w : Math.cos( a / 2 ),
-                        }
-                    }
-                
-        
-            } // end of target_pose
-            
-            ////////////
-        
-        
-       
-        // inner message data ends...
-            
-        }
-
-    });
-    */
-    //goal.send();
     
     var simplegoal = new ROSLIB.Message({
         
