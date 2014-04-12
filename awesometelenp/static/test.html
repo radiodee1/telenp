@@ -1925,6 +1925,7 @@ function receiveMapBroadcast() {
 	        case map_command_make :
 	            document.getElementById("wizOpNewConfirm").style.display = "block";
 	            app_msg = "TESTING OPS";
+	            disableAMCL();
 	        break;
 	        
 	        case app_command_make_map :
