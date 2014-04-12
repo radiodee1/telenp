@@ -435,24 +435,14 @@ function parseCommands(commands) {
 	        
                 
                 var save_count = 0;
-                /*
-                map_meta_data.subscribe( function (result) {
-	                map_meta_data.unsubscribe();
-	                var resolution = result.resolution;
-	                map_nav_resolution = resolution;
-	                    
-	                console.log("resolution should be: " + map_nav_resolution);
-	                //FIND RESOLUTION, THEN SAVE MAP!!
-                    
-	            });//map saved with proper resolution (??)
-	            */
+                
 	            
                 var request = new ROSLIB.ServiceRequest({ 'op': ENUM_SAVE,
                     "name": commands.new_name});
 	            map_service_all.callService( request, function (result) {
-	                //sendMapBroadcast(commands.wizard, null, 0);
+	                sendMapBroadcast(commands.wizard, null, 0);
 	                ;//
-	                console.log("---map_name---  " + commands.new_name);
+	                //console.log("---map_name---  " + commands.new_name);
 	            } );
 	            
 	            
@@ -1478,51 +1468,6 @@ function sendGoalPose(x,y,z,a) {
     
     console.log("goal -- x,y: " + x + "," + y + " angle: " + a);
     
-    /*
-    var goal = new ROSLIB.Goal({
-        actionClient : map_goal_pose,
-        goalMessage: 
-
-        {
-        
-        //inner message data        
-        
-        //////////
-            target_pose : {
-        
-                header : {
-                    seq: 0,
-                    stamp: 0,// {},
-                    frame_id : "map"
-                    },
-                pose : {
-                    position: {
-                        x: x,
-                        y: y,
-                        z: z
-                        },
-                    orientation: {
-                        x : 0,
-                        y : 0,
-                        z : Math.sin( a / 2 ),
-                        w : Math.cos( a / 2 ),
-                        }
-                    }
-                
-        
-            } // end of target_pose
-            
-            ////////////
-        
-        
-       
-        // inner message data ends...
-            
-        }
-
-    });
-    */
-    //goal.send();
     
     var simplegoal = new ROSLIB.Message({
         
